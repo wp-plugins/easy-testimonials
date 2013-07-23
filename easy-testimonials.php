@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://illuminatikarate.com/easy-testimonials/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.0
+Version: 1.1
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -60,11 +60,17 @@ function ik_setup_testimonials(){
 	$easy_testimonial_options = new easyTestimonialOptions();
 			
 	//setup post type for testimonials
-	$postType = array('name' => 'Testimonial', 'plural' =>'Testimonials' );
+	$postType = array('name' => 'Testimonial', 'plural' =>'Testimonials', 'slug' => 'testimonial' );
 	$fields = array(); 
 	$fields[] = array('name' => 'client', 'title' => 'Client Name', 'description' => "Name of the Client giving the testimonial.  Appears below the Testimonial.", 'type' => 'text'); 
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
+	
+	//add featured image support
+	add_theme_support( 'post-thumbnails', array( 'testimonial') );
+	
+	//for the testimonial thumb images
+	add_image_size( 'easy_testimonial_thumb', 50, 50, true );
 }
 
 //load testimonials into an array and output a random one
@@ -77,6 +83,8 @@ function outputRandomTestimonial($atts){
 		'author_class' => 'testimonial_author',
 		'short_version' => false,
 	), $atts ) );
+	
+	$show_thumbs = get_option('testimonials_image');
 	
 	//load testimonials into an array
 	$i = 0;
@@ -94,6 +102,10 @@ function outputRandomTestimonial($atts){
 			$testimonials[$i]['content'] = word_trim($testimonials[$i]['content'], 65, TRUE);
 		}
 		
+		if ($show_thumbs) {
+			$testimonials[$i]['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+		}
+		
 		$testimonials[$i]['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonials[$i]['position'] = get_post_meta($postid, '_ikcf_position', true); 	
 		$i++;
@@ -105,7 +117,10 @@ function outputRandomTestimonial($atts){
 	ob_start();
 	
 	if(!$short_version){	
-		?><blockquote class="easy_testimonial">				
+		?><blockquote class="easy_testimonial">		
+			<?php if ($show_thumbs) {
+				echo $testimonials[$rand]['image'];
+			} ?>
 			<p class="<?=$body_class?>">
 				<?=$testimonials[$rand]['content'];?>
 				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?></p>				
@@ -133,6 +148,8 @@ function outputTestimonials($atts){
 		'testimonials_link' => get_option('testimonials_link')
 	), $atts ) );
 	
+	$show_thumbs = get_option('testimonials_image');
+	
 	ob_start();
 	
 	//load testimonials into an array
@@ -146,10 +163,17 @@ function outputTestimonials($atts){
 			$testimonial['content'] = get_the_content($postid); 
 		}
 		
+		if ($show_thumbs) {
+			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+		}
+		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 	
-		?><blockquote class="easy_testimonial">				
+		?><blockquote class="easy_testimonial">			
+			<?php if ($show_thumbs) {
+				echo $testimonial['image'];
+			} ?>	
 			<p>
 				<?=$testimonial['content'];?>
 				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?></p>				

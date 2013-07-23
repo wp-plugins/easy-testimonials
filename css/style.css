@@ -2,6 +2,11 @@
 blockquote.easy_testimonial{
 }
 
+blockquote.easy_testimonial .attachment-easy_testimonial_thumb{
+	float: left;
+	margin: 10px;
+}
+
 blockquote.easy_testimonial p{
 }
 

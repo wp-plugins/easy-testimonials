@@ -55,7 +55,7 @@ class ikTestimonialsCustomPostType
 				'publicly_queryable' => true,
 				'show_ui' => true, 
 				'query_var' => true,
-				'rewrite' => true,
+				'rewrite' => array( 'slug' => $postType['slug'], 'with_front' => (strlen($postType['slug'])>0) ? false : true),
 				'capability_type' => 'post',
 				'hierarchical' => false,
 				'menu_position' => 20,

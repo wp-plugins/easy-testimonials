@@ -41,6 +41,7 @@ class easyTestimonialOptions
 	function register_settings(){
 		//register our settings
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_link' );
+		register_setting( 'easy-testimonials-settings-group', 'testimonials_image' );
 	}
 
 	function settings_page(){
@@ -63,6 +64,14 @@ class easyTestimonialOptions
 					<td><input type="text" name="testimonials_link" id="testimonials_link" value="<?php echo get_option('testimonials_link'); ?>"  style="width: 250px" />
 					<p class="description">This is the URL of the 'Read More' Link.  If not set, no Read More Link is output.  If set, Read More Link will be output next to testimonial that will go to this page.</p>
 					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="testimonials_image">Show Testimonial Image</label></th>
+					<td><input type="checkbox" name="testimonials_image" id="testimonials_image" value="1" <?php if(get_option('testimonials_image')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, the Image will be shown next to the Testimonial.</p>
 				</tr>
 			</table>
 			
