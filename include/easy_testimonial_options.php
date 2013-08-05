@@ -42,6 +42,7 @@ class easyTestimonialOptions
 		//register our settings
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_link' );
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_image' );
+		register_setting( 'easy-testimonials-settings-group', 'meta_data_position' );
 	}
 
 	function settings_page(){
@@ -72,6 +73,14 @@ class easyTestimonialOptions
 					<th scope="row"><label for="testimonials_image">Show Testimonial Image</label></th>
 					<td><input type="checkbox" name="testimonials_image" id="testimonials_image" value="1" <?php if(get_option('testimonials_image')){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, the Image will be shown next to the Testimonial.</p>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="meta_data_position">Show Testimonial Info Above Testimonial</label></th>
+					<td><input type="checkbox" name="meta_data_position" id="meta_data_position" value="1" <?php if(get_option('meta_data_position')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, the Testimonial Custom Fields will be displayed Above the Testimonial.  Defaults to Displaying Below the Testimonial</p>
 				</tr>
 			</table>
 			

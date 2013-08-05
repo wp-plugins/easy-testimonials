@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://illuminatikarate.com/easy-testimonials/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.1
+Version: 1.2
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -121,13 +121,23 @@ function outputRandomTestimonial($atts){
 			<?php if ($show_thumbs) {
 				echo $testimonials[$rand]['image'];
 			} ?>
+			<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
+				<?php if(get_option('meta_data_position')): ?>
+				<p class="<?=$author_class?>">
+					<cite><?=$testimonials[$rand]['client'];?><br/><?=$testimonials[$rand]['position'];?></cite>
+				</p>	
+				<? endif; ?>
+			<?php endif; ?>
 			<p class="<?=$body_class?>">
 				<?=$testimonials[$rand]['content'];?>
-				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?></p>				
+				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
+			</p>				
 			<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
-			<p class="<?=$author_class?>">
-				<cite><?=$testimonials[$rand]['client'];?><br/><?=$testimonials[$rand]['position'];?></cite>
-			</p>		
+				<?php if(!get_option('meta_data_position')): ?>
+				<p class="<?=$author_class?>">
+					<cite><?=$testimonials[$rand]['client'];?><br/><?=$testimonials[$rand]['position'];?></cite>
+				</p>	
+				<? endif; ?>
 			<?php endif; ?>
 		</blockquote><?php
 	} else {
@@ -174,13 +184,23 @@ function outputTestimonials($atts){
 			<?php if ($show_thumbs) {
 				echo $testimonial['image'];
 			} ?>	
-			<p>
-				<?=$testimonial['content'];?>
-				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?></p>				
 			<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+			<?php if(get_option('meta_data_position')): ?>
 			<p>
 				<cite><?=$testimonial['client'];?><br/><?=$testimonial['position'];?></cite>
 			</p>	
+			<?php endif; ?>
+			<?php endif; ?>
+			<p>
+				<?=$testimonial['content'];?>
+				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
+			</p>				
+			<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+			<?php if(!get_option('meta_data_position')): ?>
+			<p>
+				<cite><?=$testimonial['client'];?><br/><?=$testimonial['position'];?></cite>
+			</p>	
+			<?php endif; ?>
 			<?php endif; ?>
 		</blockquote><?php 	
 	endwhile;	
