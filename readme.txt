@@ -12,19 +12,19 @@ Easy Testimonials is a simple-to-use plugin for adding Testimonials to your Word
 
 == Description ==
 
-Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials to the sidebar, as a widget, or to embed them into a Page or Post using the shortcode.  The Easy Testimonials plugin also allows you to insert a list of all Testimonials or output a Random Testimonial. Easy Testimonials allows you to include an image with each testmionial - this is a great feature for adding a photo of the testimonial author.
+Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials to the sidebar, as a widget, or to embed them into a Page or Post using the shortcode.  The Easy Testimonials plugin also allows you to insert a list of all Testimonials or output a Random Testimonial. Easy Testimonials allows you to include an image with each testimonial - this is a great feature for adding a photo of the testimonial author.
 
-= Easy Tesimonials is a great plugin for: =
-* Adding a Random Testimonial To Your Sidebar
-* Adding a Random Testimonial To Your Page
+= Easy Testimonials is a great plugin for: =
+* Adding a Random Testimonial to Your Sidebar
+* Adding a Random Testimonial to Your Page
 * Outputting a List of Testimonials
 * Displaying an Image with a Testimonial
-* Custom Options Allow You To Link Your Testimonials To A Custom Page, Such As A Product Page
+* Custom Options Allow You to Link Your Testimonials to a Custom Page, Such As a Product Page
 * Its easy to use interface allows you to manage, edit, create, and delete Testimonials with no new knowledge
 
-Easy Testimonials includes options to set the URL of the Read More Link, whether or not to display the Testimonial Image, and more!  You can set the URL of the Testimonials read more link for many purposes - such as directing visitors to the product info page that the testimonial is about.  Showing an Image next to a Testimonial is a great tool!
+Easy Testimonials includes options to set the URL of the Read More Link, whether or not to display the Testimonial Image, and more!  You can set the URL of the Testimonials read more links for many purposes - such as directing visitors to the product info page that the testimonial is about.  Showing an Image next to a Testimonial is a great tool!
 
-= Why Do I Need Testimonials On My Website? =
+= Why Do I Need Testimonials on My Website? =
 
 Testimonials are a great thing to add to your website, for many reasons.
 
@@ -38,7 +38,7 @@ The Easy Testimonials plugin is the easiest way to start adding your customer te
 
 This section describes how to install the plugin and get it working.
 
-1. Upload the contents of `/easy_testmonials/` to the `/wp-content/plugins/` directory
+1. Upload the contents of `/easy_testimonials/` to the `/wp-content/plugins/` directory
 2. Activate Easy Testimonials through the 'Plugins' menu in WordPress
 3. Visit this address for information on how to configure the plugin: https://illuminatikarate.com/easy-testimonials/
 
@@ -56,8 +56,8 @@ Adding a New Testimonial is easy!  There are 3 ways to start adding a new testim
 
 You have a few things to pay attention to:
 
-* **Testimonial Body:** this is the content of your Testimonial.  This will be output and displayed about the Tesimonial Information fields.
-* **Client Name:** This field is dipsplayed first, below the Testimonial Body. The field title is just an example use - of course you don't have to put the client name here.
+* **Testimonial Body:** this is the content of your Testimonial.  This will be output and displayed about the Testimonial Information fields.
+* **Client Name:** This field is displayed first, below the Testimonial Body. The field title is just an example use - of course you don't have to put the client name here.
 * **Position / Location / Other:** This field is displayed second, below the Client Name.  The field title is just an example use - you can put whatever you want here.
 * **Featured Image:** This image is shown to the left of the testimonial, as a 50px by 50px thumbnail.
 
@@ -80,12 +80,12 @@ You have a few things to pay attention to:
 
 = Outputting Testimonials =
 * To output a Random Testimonial, place the shortcode [random_testimonial] in the desired area of the Page or Post Content.
-* To ouput a list of All Testimonials, place the shortcode [testimonials] in the desired area of the Page or Post Content.
+* To output a list of All Testimonials, place the shortcode [testimonials] in the desired area of the Page or Post Content.
 * To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.
 
 = Options =
 * To control the destination of the "Read More" link, set the path in the Testimonials Read More Link field.
-* To diplay any Featured Images that you have attached to your Testimonials, check the box next to Show Testimonial Image.
+* To display any Featured Images that you have attached to your Testimonials, check the box next to Show Testimonial Image.
 
 == Frequently Asked Questions ==
 
@@ -95,7 +95,7 @@ OK!  We have a great page with some helpful information here: https://illuminati
 
 = Ack!  This Testimonials Plugin is too easy to use! Will you make it more complicated? =
 
-Never!  Easy is in our name!  If by complicated you mean new and easy to use features, there are definiltey some on the horizon!
+Never!  Easy is in our name!  If by complicated you mean new and easy to use features, there are definitely some on the horizon!
 
 == Screenshots ==
 
