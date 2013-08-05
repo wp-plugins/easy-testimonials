@@ -80,7 +80,7 @@ class easyTestimonialOptions
 				<tr valign="top">
 					<th scope="row"><label for="meta_data_position">Show Testimonial Info Above Testimonial</label></th>
 					<td><input type="checkbox" name="meta_data_position" id="meta_data_position" value="1" <?php if(get_option('meta_data_position')){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, the Testimonial Custom Fields will be displayed Above the Testimonial.  Defaults to Displaying Below the Testimonial</p>
+					<p class="description">If checked, the Testimonial Custom Fields will be displayed Above the Testimonial.  Defaults to Displaying Below the Testimonial.  Note: the Testimonial Image will be displayed to the left of this information.</p>
 				</tr>
 			</table>
 			
