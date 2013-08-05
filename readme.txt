@@ -117,4 +117,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.1: New Feature Available!
+* 1.2: New Feature Available!
