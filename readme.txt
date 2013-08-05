@@ -28,7 +28,7 @@ Easy Testimonials includes options to set the URL of the Read More Link, whether
 
 Testimonials are a great thing to add to your website, for many reasons.
 
-* Testimonials help to potential customers get know that you are a credible business, by reading the testimonials of your other clients.
+* Testimonials help potential customers get to know that you are a credible business.
 * Testimonials give you the opportunity to point out specific features or compelling reasons why a customer should buy from you.
 * Testimonials, when used effectively, are a great tool to increase conversions rates on your website!
 
