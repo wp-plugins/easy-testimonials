@@ -105,6 +105,9 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Changelog ==
 
+= 1.3.2 =
+* Fix: no longer display Read More when looking at full list view.
+
 = 1.3.1 =
 * Fix: tiny CSS error.
 
@@ -126,4 +129,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.3: New Feature Available!
+* 1.3.2: Fixes available!

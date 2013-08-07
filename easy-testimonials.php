@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://illuminatikarate.com/easy-testimonials/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.3.1
+Version: 1.3.2
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -216,7 +216,6 @@ function outputTestimonials($atts){
 			<?php endif; ?>
 			<p>
 				<?=$testimonial['content'];?>
-				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
 			</p>	
 			<?php if(!get_option('meta_data_position')): ?>			
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
