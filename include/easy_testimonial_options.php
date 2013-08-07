@@ -43,6 +43,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_link' );
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_image' );
 		register_setting( 'easy-testimonials-settings-group', 'meta_data_position' );
+		register_setting( 'easy-testimonials-settings-group', 'testimonials_style' );
 	}
 
 	function settings_page(){
@@ -57,7 +58,22 @@ class easyTestimonialOptions
 		<?php endif; ?>	
 		
 		<form method="post" action="options.php">
-			<?php settings_fields( 'easy-testimonials-settings-group' ); ?>
+			<?php settings_fields( 'easy-testimonials-settings-group' ); ?>			
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="testimonials_style">Testimonials Style</a></th>
+					<td>
+						<select name="testimonials_style" id="testimonials_style">	
+							<option value="default_style" <?php if(get_option('testimonials_style') == "default_style"): echo 'selected="SELECTED"'; endif; ?>>Default Style</option>
+							<option value="dark_style" <?php if(get_option('testimonials_style') == "dark_style"): echo 'selected="SELECTED"'; endif; ?>>Dark Style</option>
+							<option value="light_style" <?php if(get_option('testimonials_style') == "light_style"): echo 'selected="SELECTED"'; endif; ?>>Light Style</option>
+							<option value="no_style" <?php if(get_option('testimonials_style') == "no_style"): echo 'selected="SELECTED"'; endif; ?>>No Style</option>
+						</select>
+						<p class="description">Select which style you want to use.  If 'No Style' is selected, only your Theme's CSS, and any Custom CSS you've added, will be used.</p>
+					</td>
+				</tr>
+			</table>
 			
 			<table class="form-table">
 				<tr valign="top">

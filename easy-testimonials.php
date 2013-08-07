@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://illuminatikarate.com/easy-testimonials/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.2.1
+Version: 1.3
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -26,7 +26,29 @@ along with Easy Testimonials .  If not, see <http://www.gnu.org/licenses/>.
 //add Testimonial CSS to header
 function ik_setup_css() {
 	wp_register_style( 'easy_testimonial_style', plugins_url('css/style.css', __FILE__) );
-    wp_enqueue_style( 'easy_testimonial_style' );
+	wp_register_style( 'easy_testimonial_dark_style', plugins_url('css/dark_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_light_style', plugins_url('css/light_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_blue_style', plugins_url('css/blue_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_no_style', plugins_url('css/no_style.css', __FILE__) );
+	
+    switch(get_option('testimonials_style')){
+		case 'dark_style':
+			wp_enqueue_style( 'easy_testimonial_dark_style' );
+			break;
+		case 'light_style':
+			wp_enqueue_style( 'easy_testimonial_light_style' );
+			break;
+		case 'blue_style':
+			wp_enqueue_style( 'easy_testimonial_blue_style' );
+			break;
+		case 'no_style':
+			//wp_enqueue_style( 'easy_testimonial_no_style' );
+			break;
+		case 'default_style':
+		default:
+			wp_enqueue_style( 'easy_testimonial_style' );
+			break;
+	}
 }
 
 if(!function_exists('word_trim')):
