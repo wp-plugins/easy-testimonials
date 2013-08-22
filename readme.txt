@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.6
-Stable tag: 1.3.4
+Stable tag: 1.3.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -104,6 +104,9 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 3. This is the Easy Testimonials Settings Page.
 
 == Changelog ==
+
+= 1.3.4.1 =
+* Minor Fix: address warning message output when no pre-existing featured image support is found.
 
 = 1.3.4 =
 * Fix: address issue where Featured Image support was only applied to Testimonials, after activating this plugin.
