@@ -92,19 +92,6 @@ class ikTestimonialsCustomPostType
 		add_action( 'admin_menu', array( &$this, 'createCustomFields' ) );
 		add_action( 'save_post', array( &$this, 'saveCustomFields' ), 1, 2 );
 	}
-	
-	/**
-	* Remove the default Custom Fields meta box
-	*/
-	function removeDefaultCustomFields( $type, $context, $post ) 
-	{
-		foreach ( array( 'normal', 'advanced', 'side' ) as $context ) 
-		{
-			remove_meta_box( 'postcustom', 'post', $context );
-			remove_meta_box( 'postcustom', 'page', $context );
-			remove_meta_box( 'postcustom', $this->customPostTypeName, $context );//RWG
-		}
-	}
 		
 	/**
 	* Create the new Custom Fields meta box
@@ -215,21 +202,14 @@ class ikTestimonialsCustomPostType
 		}
 	}
 
-	function __construct($postType, $customFields = false, $removeDefaultCustomFields = true)
+	function __construct($postType, $customFields = false, $removeDefaultCustomFields = false)
 	{
 		$this->setupCustomPostType($postType);
 		
 		if ($customFields)
 		{
 			$this->setupCustomFields($customFields);
-		}
-
-		// remove the standard custom fields box if desired
-		if ($removeDefaultCustomFields)
-		{
-			add_action( 'do_meta_boxes', array( &$this, 'removeDefaultCustomFields' ), 10, 3 );
-		}
-				
+		}				
 	}
 }
 ?>

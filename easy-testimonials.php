@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://illuminatikarate.com/easy-testimonials/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.3.3
+Version: 1.3.4
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -88,8 +88,13 @@ function ik_setup_testimonials(){
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
 	
+	
+	//load list of current posts that have featured images
+	$postThumbnailTypes = get_theme_support( 'post-thumbnails' );
+	//add our new post type to the array
+	$postThumbnailTypes[] = 'testimonial';
 	//add featured image support
-	add_theme_support( 'post-thumbnails', array( 'testimonial') );
+	add_theme_support( 'post-thumbnails', $postThumbnailTypes );
 	
 	//for the testimonial thumb images
 	add_image_size( 'easy_testimonial_thumb', 50, 50, true );
