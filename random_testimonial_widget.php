@@ -26,16 +26,19 @@ class randomTestimonialWidget extends WP_Widget
 	}
 
 	function form($instance){
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1 ) );
 		$title = $instance['title'];
+		$count = $instance['count'];
 		?>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
+			<p><label for="<?php echo $this->get_field_id('count'); ?>">Count: <input class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="text" value="<?php echo attribute_escape($count); ?>" /></label></p>
 		<?php
 	}
 
 	function update($new_instance, $old_instance){
 		$instance = $old_instance;
 		$instance['title'] = $new_instance['title'];
+		$instance['count'] = $new_instance['count'];
 		return $instance;
 	}
 
@@ -44,12 +47,13 @@ class randomTestimonialWidget extends WP_Widget
 
 		echo $before_widget;
 		$title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
+		$count = empty($instance['count']) ? 1 : $instance['count'];
 
 		if (!empty($title)){
 			echo $before_title . $title . $after_title;;
 		}
 		
-		echo outputRandomTestimonial(array('testimonials_link' => get_option('testimonials_link')));
+		echo outputRandomTestimonial(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count));
 
 		echo $after_widget;
 	} 

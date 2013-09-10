@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://illuminatikarate.com/easy-testimonials/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.3.4.1
+Version: 1.4
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -22,6 +22,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Easy Testimonials .  If not, see <http://www.gnu.org/licenses/>.
 */
+
+global $easy_t_footer_css_output;
 
 //add Testimonial CSS to header
 function ik_setup_css() {
@@ -48,6 +50,19 @@ function ik_setup_css() {
 		default:
 			wp_enqueue_style( 'easy_testimonial_style' );
 			break;
+	}
+}
+
+//add Custom CSS
+function ik_setup_custom_css() {
+	//use this to track if css has been output
+	global $easy_t_footer_css_output;
+	
+	if($easy_t_footer_css_output){
+		return;
+	} else {
+		echo '<style type="text/css" media="screen">' . get_option('easy_t_custom_css') . "</style>";
+		$easy_t_footer_css_output = true;
 	}
 }
 
@@ -88,16 +103,22 @@ function ik_setup_testimonials(){
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
 	
+	//load list of current posts that have featured images	
+	$supportedTypes = get_theme_support( 'post-thumbnails' );
+
+	//none set, add them just to our type
+    if( $supportedTypes === false ){
+        add_theme_support( 'post-thumbnails', array( 'testimonial' ) );       
+		//for the testimonial thumb images    
+	}
+	//specifics set, add our to the array
+    elseif( is_array( $supportedTypes ) ){
+        $supportedTypes[0][] = 'testimonial';
+        add_theme_support( 'post-thumbnails', $supportedTypes[0] );
+		//for the testimonial thumb images
+    }
+	//if neither of the above hit, the theme in general supports them for everything.  that includes us!
 	
-	//load list of current posts that have featured images
-	$postThumbnailTypes = get_theme_support( 'post-thumbnails' );
-	//add our new post type to the array
-	if(!is_array($postThumbnailTypes)){ $postThumbnailTypes = array(); }
-	$postThumbnailTypes[] = 'testimonial';
-	//add featured image support
-	add_theme_support( 'post-thumbnails', $postThumbnailTypes );
-	
-	//for the testimonial thumb images
 	add_image_size( 'easy_testimonial_thumb', 50, 50, true );
 }
 
@@ -106,6 +127,7 @@ function outputRandomTestimonial($atts){
 	//load shortcode attributes into an array
 	extract( shortcode_atts( array(
 		'testimonials_link' => get_option('testimonials_link'),
+		'count' => 1,
 		'word_limit' => false,
 		'body_class' => 'testimonial_body',
 		'author_class' => 'testimonial_author',
@@ -140,37 +162,41 @@ function outputRandomTestimonial($atts){
 	endwhile;
 	wp_reset_query();
 	
-	$rand = rand(0, $i-1);
+	$randArray = UniqueRandomNumbersWithinRange(0,$i-1,$count);
 	
 	ob_start();
 	
-	if(!$short_version){	
-		?><blockquote class="easy_testimonial">		
-			<?php if ($show_thumbs) {
-				echo $testimonials[$rand]['image'];
-			} ?>
-			
-			<?php if(get_option('meta_data_position')): ?>
-				<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
-				<p class="<?php echo $author_class; ?>">
-					<cite><?php echo $testimonials[$rand]['client'];?><br/><?php echo $testimonials[$rand]['position'];?></cite>
-				</p>	
-				<?php endif; ?>
-			<?php endif; ?>
-			<p class="<?php echo $body_class; ?>">
-				<?php echo $testimonials[$rand]['content'];?>
-				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
-			</p>			
-			<?php if(!get_option('meta_data_position')): ?>	
-				<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
-				<p class="<?php echo $author_class; ?>">
-					<cite><?php echo $testimonials[$rand]['client'];?><br/><?php echo $testimonials[$rand]['position'];?></cite>
-				</p>	
-				<?php endif; ?>
-			<?php endif; ?>
-		</blockquote><?php
-	} else {
-		echo $testimonials[$rand]['content'];
+	foreach($randArray as $key => $rand){
+		if(isset($testimonials[$rand])){
+			if(!$short_version){	
+				?><blockquote class="easy_testimonial">		
+					<?php if ($show_thumbs) {
+						echo $testimonials[$rand]['image'];
+					} ?>
+					
+					<?php if(get_option('meta_data_position')): ?>
+						<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
+						<p class="<?php echo $author_class; ?>">
+							<cite><?php echo $testimonials[$rand]['client'];?><br/><?php echo $testimonials[$rand]['position'];?></cite>
+						</p>	
+						<?php endif; ?>
+					<?php endif; ?>
+					<p class="<?php echo $body_class; ?>">
+						<?php echo $testimonials[$rand]['content'];?>
+						<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
+					</p>			
+					<?php if(!get_option('meta_data_position')): ?>	
+						<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
+						<p class="<?php echo $author_class; ?>">
+							<cite><?php echo $testimonials[$rand]['client'];?><br/><?php echo $testimonials[$rand]['position'];?></cite>
+						</p>	
+						<?php endif; ?>
+					<?php endif; ?>
+				</blockquote><?php
+			} else {
+				echo $testimonials[$rand]['content'];
+			}
+		}
 	}
 	
 	$content = ob_get_contents();
@@ -179,17 +205,32 @@ function outputRandomTestimonial($atts){
 	return $content;
 }
 
+//return an array of random numbers within a given range
+//credit: http://stackoverflow.com/questions/5612656/generating-unique-random-numbers-within-a-range-php
+function UniqueRandomNumbersWithinRange($min, $max, $quantity) {
+    $numbers = range($min, $max);
+    shuffle($numbers);
+    return array_slice($numbers, 0, $quantity);
+}
+
 //output all testimonials
 function outputTestimonials($atts){ 
 	
 	//load shortcode attributes into an array
 	extract( shortcode_atts( array(
-		'testimonials_link' => get_option('testimonials_link')
+		'testimonials_link' => get_option('testimonials_link'),
+		'count' => -1
 	), $atts ) );
 	
 	$show_thumbs = get_option('testimonials_image');
+			
+	if(!is_numeric($count)){
+		$count = -1;
+	}
 	
 	ob_start();
+	
+	$i = 0;
 	
 	//load testimonials into an array
 	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1'));
@@ -209,28 +250,33 @@ function outputTestimonials($atts){
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 	
-		?><blockquote class="easy_testimonial">			
-			<?php if ($show_thumbs) {
-				echo $testimonial['image'];
-			} ?>	
-			<?php if(get_option('meta_data_position')): ?>
-				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-				<p>
-					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
-				</p>	
+		if($i < $count || $count == -1){
+	
+			?><blockquote class="easy_testimonial">			
+				<?php if ($show_thumbs) {
+					echo $testimonial['image'];
+				} ?>	
+				<?php if(get_option('meta_data_position')): ?>
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+					<p>
+						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					</p>	
+					<?php endif; ?>
 				<?php endif; ?>
-			<?php endif; ?>
-			<p>
-				<?php echo $testimonial['content'];?>
-			</p>	
-			<?php if(!get_option('meta_data_position')): ?>			
-				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p>
-					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					<?php echo $testimonial['content'];?>
 				</p>	
+				<?php if(!get_option('meta_data_position')): ?>			
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+					<p>
+						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					</p>	
+					<?php endif; ?>
 				<?php endif; ?>
-			<?php endif; ?>
-		</blockquote><?php 	
+			</blockquote><?php 	
+			
+			$i ++;
+		}
 	endwhile;	
 	wp_reset_query();
 	
@@ -253,6 +299,9 @@ add_shortcode('testimonials', 'outputTestimonials');
 
 //add CSS
 add_action( 'wp_head', 'ik_setup_css' );
+
+//add Custom CSS
+add_action( 'wp_footer', 'ik_setup_custom_css');
 
 //register sidebar widgets
 add_action( 'widgets_init', 'easy_testimonials_register_widgets' );

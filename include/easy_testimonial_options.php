@@ -44,6 +44,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_image' );
 		register_setting( 'easy-testimonials-settings-group', 'meta_data_position' );
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_style' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
 	}
 
 	function settings_page(){
@@ -72,6 +73,14 @@ class easyTestimonialOptions
 						</select>
 						<p class="description">Select which style you want to use.  If 'No Style' is selected, only your Theme's CSS, and any Custom CSS you've added, will be used.</p>
 					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_custom_css">Custom CSS</a></th>
+					<td><textarea name="easy_t_custom_css" id="easy_t_custom_css" style="width: 250px; height: 250px;"><?php echo get_option('easy_t_custom_css'); ?></textarea>
+					<p class="description">Input any Custom CSS you want to use here.  The plugin will work without you placing anything here - this is useful in case you need to edit any styles for it to work with your theme, though.</p></td>
 				</tr>
 			</table>
 			
