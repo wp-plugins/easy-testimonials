@@ -40,7 +40,7 @@ This section describes how to install the plugin and get it working.
 
 1. Upload the contents of `/easy_testimonials/` to the `/wp-content/plugins/` directory
 2. Activate Easy Testimonials through the 'Plugins' menu in WordPress
-3. Visit this address for information on how to configure the plugin: https://illuminatikarate.com/easy-testimonials/
+3. Visit this address for information on how to configure the plugin: http://easy-testimonials.com/
 
 = Adding a New Testimonial =
 
@@ -93,7 +93,7 @@ You have a few things to pay attention to:
 
 = Help!  I need more information! =
 
-OK!  We have a great page with some helpful information here: https://illuminatikarate.com/easy-testimonials/
+OK!  We have a great page with some helpful information here: http://easy-testimonials.com/
 
 = Ack!  This Testimonials Plugin is too easy to use! Will you make it more complicated? =
 
