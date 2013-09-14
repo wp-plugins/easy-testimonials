@@ -45,6 +45,10 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'meta_data_position' );
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_style' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
+		
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_url' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_key' );
 	}
 
 	function settings_page(){
@@ -61,6 +65,10 @@ class easyTestimonialOptions
 		<form method="post" action="options.php">
 			<?php settings_fields( 'easy-testimonials-settings-group' ); ?>			
 			
+			<h3>Basic Options</h3>
+			
+			<p>Use the below options to control various bits of output.</p>
+			
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="testimonials_style">Testimonials Style</a></th>
@@ -69,6 +77,7 @@ class easyTestimonialOptions
 							<option value="default_style" <?php if(get_option('testimonials_style') == "default_style"): echo 'selected="SELECTED"'; endif; ?>>Default Style</option>
 							<option value="dark_style" <?php if(get_option('testimonials_style') == "dark_style"): echo 'selected="SELECTED"'; endif; ?>>Dark Style</option>
 							<option value="light_style" <?php if(get_option('testimonials_style') == "light_style"): echo 'selected="SELECTED"'; endif; ?>>Light Style</option>
+							<option value="clean_style" <?php if(get_option('testimonials_style') == "clean_style"): echo 'selected="SELECTED"'; endif; ?>>Clean Style</option>
 							<option value="no_style" <?php if(get_option('testimonials_style') == "no_style"): echo 'selected="SELECTED"'; endif; ?>>No Style</option>
 						</select>
 						<p class="description">Select which style you want to use.  If 'No Style' is selected, only your Theme's CSS, and any Custom CSS you've added, will be used.</p>
@@ -108,6 +117,8 @@ class easyTestimonialOptions
 					<p class="description">If checked, the Testimonial Custom Fields will be displayed Above the Testimonial.  Defaults to Displaying Below the Testimonial.  Note: the Testimonial Image will be displayed to the left of this information.</p>
 				</tr>
 			</table>
+			
+			<?php //include('registration_options.php'); ?>
 			
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />

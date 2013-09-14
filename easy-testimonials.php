@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Easy Testimonials
-Plugin URI: http://illuminatikarate.com/easy-testimonials/
+Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.4
+Version: 1.4.1
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -25,12 +25,15 @@ along with Easy Testimonials .  If not, see <http://www.gnu.org/licenses/>.
 
 global $easy_t_footer_css_output;
 
+include('include/lib.php');
+
 //add Testimonial CSS to header
 function ik_setup_css() {
 	wp_register_style( 'easy_testimonial_style', plugins_url('css/style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_dark_style', plugins_url('css/dark_style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_light_style', plugins_url('css/light_style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_blue_style', plugins_url('css/blue_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_clean_style', plugins_url('css/clean_style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_no_style', plugins_url('css/no_style.css', __FILE__) );
 	
     switch(get_option('testimonials_style')){
@@ -42,6 +45,9 @@ function ik_setup_css() {
 			break;
 		case 'blue_style':
 			wp_enqueue_style( 'easy_testimonial_blue_style' );
+			break;
+		case 'clean_style':
+			wp_enqueue_style( 'easy_testimonial_clean_style' );
 			break;
 		case 'no_style':
 			//wp_enqueue_style( 'easy_testimonial_no_style' );
@@ -213,6 +219,99 @@ function UniqueRandomNumbersWithinRange($min, $max, $quantity) {
     return array_slice($numbers, 0, $quantity);
 }
 
+//submit testimonial shortcode
+function submitTestimonialForm($atts){	
+	// process form submissions
+	$inserted = false;
+	
+	if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] )) {
+		//only process submissions from logged in users
+		if ( is_user_logged_in() ) {
+			if (isset ($_POST['the-title'])) {
+				$title =  $_POST['the-title'];
+			} else {
+				echo 'Please enter a title';
+			}
+			
+			if (isset ($_POST['the-body'])) {
+				$body = $_POST['the-body'];
+			} else {
+				echo 'Please enter the content';
+			}
+			
+			$tags = $_POST['the-post_tags'];
+			
+			$post = array(
+				'post_title'	=> $title,
+				'post_content'	=> $body,
+				'post_category'	=> array(1),  // custom taxonomies too, needs to be an array
+				'tags_input'	=> $tags,
+				'post_status'	=> 'pending',
+				'post_type'	=> 'testimonial'
+			);
+			
+			wp_insert_post($post);
+			
+			$inserted = true;
+	
+			// do the wp_insert_post action to insert it
+			do_action('wp_insert_post', 'wp_insert_post'); 			
+		} else {
+			echo "You must be logged in to perform this action.";
+		}
+	}	
+	
+	$content = '';
+	
+	if(isValidKey()){	
+		ob_start();
+		
+		if ( is_user_logged_in() ):
+			if($inserted){
+				echo "Success!";
+			} else { ?>
+			<!-- New Post Form -->
+			<div id="postbox">
+				<form id="new_post" name="new_post" method="post" action="/blog/easy-testimonials-test/">
+					<p>
+						<label for="the-title">Title</label><br />
+						<input type="text" id="the-title" value="" tabindex="1" size="20" name="the-title" />
+						<span class="description">This is for your reference, when viewing the Testimonials in the Dashboard.</span>
+					</p>
+					<p>
+						<label for="the-name">Name</label><br />
+						<input type="text" id="the-name" value="" tabindex="1" size="20" name="the-name" />
+						<span class="description">This is the name of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Other.</span>
+					</p>
+					<p>
+						<label for="the-other">Position / Web Address / Other</label><br />
+						<input type="text" id="the-other" value="" tabindex="1" size="20" name="the-other" />
+						<span class="description">This is other identifying information of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Name.</span>
+					</p>
+					<p>
+						<label for="the-body">Body Content</label><br />
+						<textarea id="the-body" tabindex="3" name="the-body" cols="50" rows="6"></textarea>
+						<span class="description">This is the body area of the Testimonial.</span>
+					</p>
+					<p align="right"><input type="submit" value="Submit Draft" tabindex="6" id="submit" name="submit" /></p>
+					<input type="hidden" name="action" value="post" />
+					<?php wp_nonce_field( 'new-post' ); ?>
+				</form>
+			</div>
+			<!--// New Post Form -->
+		<?php } ?>
+		<?php else: ?>
+			<p>You must <a href="<?php echo wp_login_url( get_permalink() ); ?>" title="Login">login</a> to submit testimonials.</p>
+		<?php endif;
+		
+		
+		$content = ob_get_contents();
+		ob_end_clean();	
+	}
+	
+	return $content;
+}
+
 //output all testimonials
 function outputTestimonials($atts){ 
 	
@@ -258,17 +357,17 @@ function outputTestimonials($atts){
 				} ?>	
 				<?php if(get_option('meta_data_position')): ?>
 					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<p>
+					<p class="testimonial_author">
 						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 					</p>	
 					<?php endif; ?>
 				<?php endif; ?>
-				<p>
+				<p class="testimonial_body">
 					<?php echo $testimonial['content'];?>
 				</p>	
 				<?php if(!get_option('meta_data_position')): ?>			
 					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<p>
+					<p class="testimonial_author">
 						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 					</p>	
 					<?php endif; ?>
@@ -296,6 +395,7 @@ function easy_testimonials_register_widgets() {
 //create shortcodes
 add_shortcode('random_testimonial', 'outputRandomTestimonial');
 add_shortcode('testimonials', 'outputTestimonials');
+//add_shortcode('submit_testimonial', 'submitTestimonialForm');
 
 //add CSS
 add_action( 'wp_head', 'ik_setup_css' );

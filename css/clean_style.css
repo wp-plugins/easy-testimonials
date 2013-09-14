@@ -1,0 +1,51 @@
+/* CSS */
+blockquote.easy_testimonial {
+    margin: 10px auto;
+    padding: 10px 10px 10px 80px;
+    position: relative;
+}
+
+blockquote.easy_testimonial p{
+    width: 100% !important;
+}
+
+blockquote.easy_testimonial p a {
+}
+
+blockquote.easy_testimonial p a:hover{
+}
+
+blockquote.easy_testimonial cite{
+}
+
+.widgets blockquote.easy_testimonial {
+    margin: 5px auto;
+    padding-left: 64px;
+}
+
+.attachment-easy_testimonial_thumb{
+  display: block;
+  width: 60px;
+  height: 60px;
+  margin: 1em auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em;
+  border: 5px solid #eee;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);  
+}
+
+.widget blockquote.easy_testimonial .attachment-easy_testimonial_thumb {
+    height: 44px;
+    width: 44px;
+}
+
+body blockquote.easy_testimonial .attachment-easy_testimonial_thumb {
+    left: 0;
+    margin: 0 15px 10px 0;
+    position: absolute;
+    width: 60px;
+}

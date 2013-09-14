@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.6
-Stable tag: 1.4
+Stable tag: 1.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -76,7 +76,7 @@ You have a few things to pay attention to:
 1. Click on "Testimonials" in the Admin Menu.
 2. Hover over the Testimonial you want to Delete and click "Delete".
   
-  **You can also change the Status of a Testimonial, of you want to keep it on file.**
+  **You can also change the Status of a Testimonial, if you want to keep it on file.**
 
 = Outputting Testimonials =
 * To output a Random Testimonial, place the shortcode [random_testimonial] in the desired area of the Page or Post Content. To display more than one random testimonial, use the shortcode [random_testimonial count='3'], where count is the number of testimonials you want displayed.
@@ -107,6 +107,10 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 4. This is the Random Testimonial Widget.
 
 == Changelog ==
+
+= 1.4.1 =
+* New Style Available: Clean Style.  With the clean style, you'll get smooth looking avatars and a clean, clear layout for your testimonial text.  Looks great with the TwentyThirteen theme!
+* Update: Adds Classes to paragraph tags in the testimonial list, for easier CSS targeting.
 
 = 1.4 =
 * Fix: Featured Image should no longer break in your themes.
