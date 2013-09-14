@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.6
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -107,6 +107,9 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 4. This is the Random Testimonial Widget.
 
 == Changelog ==
+
+= 1.4.2 =
+* Fix: address mistargeted CSS in new theme.
 
 = 1.4.1 =
 * New Style Available: Clean Style.  With the clean style, you'll get smooth looking avatars and a clean, clear layout for your testimonial text.  Looks great with the TwentyThirteen theme!

@@ -18,7 +18,7 @@ blockquote.easy_testimonial p a:hover{
 blockquote.easy_testimonial cite{
 }
 
-.widgets blockquote.easy_testimonial {
+.randomTestimonialWidget blockquote.easy_testimonial {
     margin: 5px auto;
     padding-left: 64px;
 }
