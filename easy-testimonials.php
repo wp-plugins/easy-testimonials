@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.4.3
+Version: 1.4.4
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -163,6 +163,8 @@ function outputRandomTestimonial($atts){
 			$testimonials[$i]['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
 		}
 		
+		$testimonials[$i]['title'] = get_the_title($postid);
+		
 		$testimonials[$i]['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonials[$i]['position'] = get_post_meta($postid, '_ikcf_position', true); 	
 		$i++;
@@ -183,7 +185,7 @@ function outputRandomTestimonial($atts){
 					} ?>
 					
 					<?php if ($show_title) {
-						echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
+						echo '<p class="easy_testimonial_title">' . $testimonials[$rand]['title'] . '</p>';
 					} ?>	
 					
 					<?php if(get_option('meta_data_position')): ?>
