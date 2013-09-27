@@ -56,6 +56,7 @@ Adding a New Testimonial is easy!  There are 3 ways to start adding a new testim
 
 You have a few things to pay attention to:
 
+* **Testimonial Title:** this content can be displayed above your Testimonial.
 * **Testimonial Body:** this is the content of your Testimonial.  This will be output and displayed about the Testimonial Information fields.
 * **Client Name:** This field is displayed first, below the Testimonial Body. The field title is just an example use - of course you don't have to put the client name here.
 * **Position / Location / Other:** This field is displayed second, below the Client Name.  The field title is just an example use - you can put whatever you want here.
@@ -107,6 +108,9 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 4. This is the Random Testimonial Widget.
 
 == Changelog ==
+
+= 1.4.5 =
+* Fix: only output testimonial titles in the widget if the option is checked.
 
 = 1.4.4 =
 * Fix: output correct title with random testimonials.

@@ -51,7 +51,7 @@ class randomTestimonialWidget extends WP_Widget
 		echo $before_widget;
 		$title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
 		$count = empty($instance['count']) ? 1 : $instance['count'];
-		$show_title = empty($instance['show_title']) ? 1 : $instance['show_title'];
+		$show_title = empty($instance['show_title']) ? 0 : $instance['show_title'];
 
 		if (!empty($title)){
 			echo $before_title . $title . $after_title;;
