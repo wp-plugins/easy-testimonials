@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.6.1
-Stable tag: 1.4.5
+Stable tag: 1.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -84,6 +84,11 @@ You have a few things to pay attention to:
 * To output a list of All Testimonials, place the shortcode [testimonials] in the desired area of the Page or Post Content.  To display more than one testimonial, use the shortcode [testimonials count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [testimonials show_title="1"].
 * To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.
 
+= Front End Testimonial Submission =
+* NOTE: This feature requires the Pro version of Easy Testimonials: http://easy-testimonials.com/easy-testimonials-pro/
+* Add the shortcode [submit_testimonial] to the area of the page you want your form on.
+* Any submissions will be added to your Testimonials list, on the back end.  Only Testimonials that you choose to publish will be displayed publicly.
+
 = Options =
 * To control the destination of the "Read More" link, set the path in the Testimonials Read More Link field.
 * To display any Featured Images that you have attached to your Testimonials, check the box next to Show Testimonial Image.
@@ -95,6 +100,10 @@ You have a few things to pay attention to:
 = Help!  I need more information! =
 
 OK!  We have a great page with some helpful information here: http://easy-testimonials.com/
+
+= Hey!  How do I allow my visitors to submit testimonials? =
+
+Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit here to purchase the Pro version: http://easy-testimonials.com/easy-testimonials-pro/
 
 = Ack!  This Testimonials Plugin is too easy to use! Will you make it more complicated? =
 
@@ -108,6 +117,9 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 4. This is the Random Testimonial Widget.
 
 == Changelog ==
+
+= 1.5 =
+* New Pro Feature: Submit Testimonials from the front end!
 
 = 1.4.5 =
 * Fix: only output testimonial titles in the widget if the option is checked.

@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.4.5
+Version: 1.5
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -57,6 +57,94 @@ function ik_setup_css() {
 			wp_enqueue_style( 'easy_testimonial_style' );
 			break;
 	}
+}
+
+//submit testimonial shortcode
+function submitTestimonialForm($atts){ 
+        // process form submissions
+        $inserted = false;
+       
+        if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] )) {
+			//only process submissions from logged in users
+			if(isValidKey()){  
+					if (isset ($_POST['the-title'])) {
+							$title =  $_POST['the-title'];
+					} else {
+							echo 'Please enter a title';
+					}
+				   
+					if (isset ($_POST['the-body'])) {
+							$body = $_POST['the-body'];
+					} else {
+							echo 'Please enter the content';
+					}
+				   
+					$tags = $_POST['the-post_tags'];
+				   
+					$post = array(
+							'post_title'    => $title,
+							'post_content'  => $body,
+							'post_category' => array(1),  // custom taxonomies too, needs to be an array
+							'tags_input'    => $tags,
+							'post_status'   => 'pending',
+							'post_type'     => 'testimonial'
+					);
+				   
+					wp_insert_post($post);
+				   
+					$inserted = true;
+   
+					// do the wp_insert_post action to insert it
+					do_action('wp_insert_post', 'wp_insert_post');                 
+			} else {
+					echo "You must a valid key to perform this action.";
+            }
+        }       
+       
+        $content = '';
+       
+        if(isValidKey()){       
+			ob_start();
+		   
+			if($inserted){
+					echo "Thank you for your submission!";
+			} else { ?>
+			<!-- New Post Form -->
+			<div id="postbox">
+					<form id="new_post" name="new_post" method="post" action="/blog/easy-testimonials-test/">
+							<div class="easy_t_field_wrap">
+								<label for="the-title">Title</label><br />
+								<input type="text" id="the-title" value="" tabindex="1" size="20" name="the-title" />
+								<p class="easy_t_description">This is for internal reference, when viewing the Testimonials in the Dashboard.  This may also be displayed.</p>
+							</div>
+							<div class="easy_t_field_wrap">
+								<label for="the-name">Name</label><br />
+								<input type="text" id="the-name" value="" tabindex="1" size="20" name="the-name" />
+								<p class="easy_t_description">This is the name of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Other.</p>
+							</div>
+							<div class="easy_t_field_wrap">
+								<label for="the-other">Position / Web Address / Other</label><br />
+								<input type="text" id="the-other" value="" tabindex="1" size="20" name="the-other" />
+								<p class="easy_t_description">This is other identifying information of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Name.</p>
+							</div>
+							<div class="easy_t_field_wrap">
+								<label for="the-body">Body Content</label><br />
+								<textarea id="the-body" tabindex="3" name="the-body" cols="50" rows="6"></textarea>
+								<p class="easy_t_description">This is the body area of the Testimonial.</p>
+							</div>
+							<div class="easy_t_field_wrap"><input type="submit" value="Submit Testimonial" tabindex="6" id="submit" name="submit" /></div>
+							<input type="hidden" name="action" value="post" />
+							<?php wp_nonce_field( 'new-post' ); ?>
+					</form>
+			</div>
+			<!--// New Post Form -->
+			<?php }
+		   
+			$content = ob_get_contents();
+			ob_end_clean(); 
+        }
+       
+        return $content;
 }
 
 //add Custom CSS
@@ -314,6 +402,8 @@ function easy_testimonials_register_widgets() {
 //create shortcodes
 add_shortcode('random_testimonial', 'outputRandomTestimonial');
 add_shortcode('testimonials', 'outputTestimonials');
+add_shortcode('submit_testimonial', 'submitTestimonialForm');
+
 
 //add CSS
 add_action( 'wp_head', 'ik_setup_css' );
