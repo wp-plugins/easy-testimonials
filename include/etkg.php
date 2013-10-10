@@ -2,8 +2,7 @@
 class ETKG
 {
 	var $secret = 'BANANAPHONE';
-	var $keyPrefix = 'easy_testimonials_';
-	
+	var $keyPrefix = 'easy_testimonials_';	
 
 	function __construct($config = array())	{
 		if (is_array($config))
@@ -19,8 +18,9 @@ class ETKG
 	
 	function computeKey($url, $email)	{
 		$url_parts = parse_url($url);		
-		$url = $url_parts['host'];
-		
+				
+		$url = isset($url_parts['host']) ? $url_parts['host'] : $url_parts['path'];
+						
 		if (strpos($url, 'www.') !== 0) {
 			$url = 'www.' . $url;
 		}	

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.6.1
-Stable tag: 1.5
+Stable tag: 1.5.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -117,6 +117,9 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 4. This is the Random Testimonial Widget.
 
 == Changelog ==
+
+= 1.5.1 =
+* Minor Fix: address bug in registration.
 
 = 1.5 =
 * New Pro Feature: Submit Testimonials from the front end!
