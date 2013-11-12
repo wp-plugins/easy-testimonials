@@ -3,8 +3,8 @@ Contributors: richardgabriel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
-Tested up to: 3.6.1
-Stable tag: 1.5.1
+Tested up to: 3.7.1
+Stable tag: 1.5.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -84,6 +84,12 @@ You have a few things to pay attention to:
 * To output a list of All Testimonials, place the shortcode [testimonials] in the desired area of the Page or Post Content.  To display more than one testimonial, use the shortcode [testimonials count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [testimonials show_title="1"].
 * To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.
 
+= Outputting a Testimonial Slider =
+* Easy Testimonials Supports Cycle2!  To output a sliding widget, use this shortcode: [testimonials_cycle].  T
+* he same propersties as the list of testminials, such as Showing the Title and controlling the Count, also apply.  
+* To change the timer, use the attribute 'timer', which defaults to 2000 (2 seconds.)  For example: [testimonials_cycle timer="4000"]
+* To change the transition to a horizontal scroll, use the attribute 'transition="scrollHorz"'.  For example: [testimonials_cycle transition="scrollHorz"]
+
 = Front End Testimonial Submission =
 * NOTE: This feature requires the Pro version of Easy Testimonials: http://easy-testimonials.com/easy-testimonials-pro/
 * Add the shortcode [submit_testimonial] to the area of the page you want your form on.
@@ -117,6 +123,10 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 4. This is the Random Testimonial Widget.
 
 == Changelog ==
+
+= 1.5.3 =
+* Update: Shortcode examples to help embed single testimonials.
+* Feature: Support for Cycle 2 via Shortcode.
 
 = 1.5.1 =
 * Minor Fix: address bug in registration.

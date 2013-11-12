@@ -9,15 +9,19 @@ function isValidKey(){
 	$keygen = new ETKG();
 	$computedKey = $keygen->computeKey($webaddress, $email);
 
-	// check the posted key against the computed key
 	if ($key == $computedKey) {
-		// valid key!
 		return true;
-	} 
-	else {
-		// invalid key!
-		return false;
+	} else {
+		$plugin = "easy-testimonials-pro/easy-testimonials-pro.php";
+		
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		
+		if(is_plugin_active($plugin)){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
-
 }
 ?>

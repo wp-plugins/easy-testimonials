@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.1
+Version: 1.5.3
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -27,8 +27,17 @@ global $easy_t_footer_css_output;
 
 include('include/lib.php');
 
+//setup JS
+function easy_testimonials_setup_js() {
+	wp_enqueue_script(
+		'cycle2',
+		plugins_url('js/jquery.cycle2.min.js', __FILE__),
+		array( 'jquery' )
+	);
+}
+
 //add Testimonial CSS to header
-function ik_setup_css() {
+function easy_testimonials_setup_css() {
 	wp_register_style( 'easy_testimonial_style', plugins_url('css/style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_dark_style', plugins_url('css/dark_style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_light_style', plugins_url('css/light_style.css', __FILE__) );
@@ -97,7 +106,7 @@ function submitTestimonialForm($atts){
 					// do the wp_insert_post action to insert it
 					do_action('wp_insert_post', 'wp_insert_post');                 
 			} else {
-					echo "You must a valid key to perform this action.";
+					echo "You must have a valid key to perform this action.";
             }
         }       
        
@@ -148,7 +157,7 @@ function submitTestimonialForm($atts){
 }
 
 //add Custom CSS
-function ik_setup_custom_css() {
+function easy_testimonials_setup_custom_css() {
 	//use this to track if css has been output
 	global $easy_t_footer_css_output;
 	
@@ -183,7 +192,7 @@ if(!function_exists('word_trim')):
 endif;
 
 //setup custom post type for testimonials
-function ik_setup_testimonials(){
+function easy_testimonials_setup_testimonials(){
 	//include custom post type code
 	include('include/ik-custom-post-type.php');
 	//include options code
@@ -199,7 +208,7 @@ function ik_setup_testimonials(){
 	
 	//load list of current posts that have featured images	
 	$supportedTypes = get_theme_support( 'post-thumbnails' );
-
+	
 	//none set, add them just to our type
     if( $supportedTypes === false ){
         add_theme_support( 'post-thumbnails', array( 'testimonial' ) );       
@@ -215,6 +224,21 @@ function ik_setup_testimonials(){
 	
 	add_image_size( 'easy_testimonial_thumb', 50, 50, true );
 }
+ 
+//this is the heading of the new column we're adding to the testimonial posts list
+function easy_t_column_head($defaults) {  
+	$defaults = array_slice($defaults, 0, 2, true) +
+    array("single_shortcode" => "Shortcode") +
+    array_slice($defaults, 2, count($defaults)-2, true);
+    return $defaults;  
+}  
+
+//this content is displayed in the testimonial post list
+function easy_t_columns_content($column_name, $post_ID) {  
+    if ($column_name == 'single_shortcode') {  
+		echo "<code>[single_testimonial id={$post_ID}]</code>";
+    }  
+} 
 
 //load testimonials into an array and output a random one
 function outputRandomTestimonial($atts){	
@@ -315,6 +339,75 @@ function UniqueRandomNumbersWithinRange($min, $max, $quantity) {
     return array_slice($numbers, 0, $quantity);
 }
 
+//output specific testimonial
+function outputSingleTestimonial($atts){ 
+	
+	//load shortcode attributes into an array
+	extract( shortcode_atts( array(
+		'testimonials_link' => get_option('testimonials_link'),
+		'show_title' => 0,
+		'id' => ''
+	), $atts ) );
+	
+	$show_thumbs = get_option('testimonials_image');
+	
+	ob_start();
+	
+	$i = 0;
+	
+	//load testimonials into an array
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','p' => $id));
+	while($loop->have_posts()) : $loop->the_post();
+		$postid = get_the_ID();
+		$testimonial['content'] = get_post_meta($postid, '_ikcf_short_content', true); 		
+
+		//if nothing is set for the short content, use the long content
+		if(strlen($testimonial['content']) < 2){
+			$testimonial['content'] = get_the_content($postid); 
+		}
+		
+		if ($show_thumbs) {
+			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+		}
+		
+		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
+		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+	
+		?><blockquote class="easy_testimonial">		
+			<?php if ($show_thumbs) {
+				echo $testimonial['image'];
+			} ?>		
+			<?php if ($show_title) {
+				echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
+			} ?>	
+			<?php if(get_option('meta_data_position')): ?>
+				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+				<p class="testimonial_author">
+					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+				</p>	
+				<?php endif; ?>
+			<?php endif; ?>
+			<p class="testimonial_body">
+				<?php echo $testimonial['content'];?>
+			</p>	
+			<?php if(!get_option('meta_data_position')): ?>			
+				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+				<p class="testimonial_author">
+					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+				</p>	
+				<?php endif; ?>
+			<?php endif; ?>
+		</blockquote><?php 	
+			
+	endwhile;	
+	wp_reset_query();
+	
+	$content = ob_get_contents();
+	ob_end_clean();	
+	
+	return $content;
+}
+
 //output all testimonials
 function outputTestimonials($atts){ 
 	
@@ -392,6 +485,100 @@ function outputTestimonials($atts){
 	return $content;
 }
 
+
+//output all testimonials for use in JS widget
+function outputTestimonialsCycle($atts){ 
+	
+	//load shortcode attributes into an array
+	extract( shortcode_atts( array(
+		'testimonials_link' => get_option('testimonials_link'),
+		'show_title' => 0,
+		'count' => -1,
+		'transition' => 'fade',
+		'timer' => '2000'
+	), $atts ) );
+	
+	$show_thumbs = get_option('testimonials_image');
+			
+	if(!is_numeric($count)){
+		$count = -1;
+	}
+	
+	ob_start();
+	
+	$i = 0;
+	
+	?>
+	<div class="cycle-slideshow" 
+		data-cycle-fx="<?php echo $transition; ?>" 
+		data-cycle-timeout="<?php echo $timer; ?>"
+		data-cycle-slides="> div"
+	>
+	<?php
+	
+	//load testimonials into an array
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1'));
+	while($loop->have_posts()) : $loop->the_post();
+		$postid = get_the_ID();
+		$testimonial['content'] = get_post_meta($postid, '_ikcf_short_content', true); 		
+
+		//if nothing is set for the short content, use the long content
+		if(strlen($testimonial['content']) < 2){
+			$testimonial['content'] = get_the_content($postid); 
+		}
+		
+		if ($show_thumbs) {
+			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+		}
+		
+		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
+		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+	
+		if($i < $count || $count == -1){
+	
+			?><div><blockquote class="easy_testimonial">		
+				<?php if ($show_thumbs) {
+					echo $testimonial['image'];
+				} ?>		
+				<?php if ($show_title) {
+					echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
+				} ?>	
+				<?php if(get_option('meta_data_position')): ?>
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+					<p class="testimonial_author">
+						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					</p>	
+					<?php endif; ?>
+				<?php endif; ?>
+				<p class="testimonial_body">
+					<?php echo $testimonial['content'];?>
+				</p>	
+				<?php if(!get_option('meta_data_position')): ?>			
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+					<p class="testimonial_author">
+						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					</p>	
+					<?php endif; ?>
+				<?php endif; ?>
+			</blockquote></div><?php 	
+			
+			$i ++;
+		}
+		
+		
+	endwhile;	
+	wp_reset_query();
+	
+	?>
+	</div>
+	<?php
+	
+	$content = ob_get_contents();
+	ob_end_clean();	
+	
+	return $content;
+}
+
 //register any widgets here
 function easy_testimonials_register_widgets() {
 	include('random_testimonial_widget.php');
@@ -401,19 +588,26 @@ function easy_testimonials_register_widgets() {
 
 //create shortcodes
 add_shortcode('random_testimonial', 'outputRandomTestimonial');
+add_shortcode('single_testimonial', 'outputSingleTestimonial');
 add_shortcode('testimonials', 'outputTestimonials');
 add_shortcode('submit_testimonial', 'submitTestimonialForm');
+add_shortcode('testimonials_cycle' , 'outputTestimonialsCycle');
 
+//add JS
+add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js' );
 
 //add CSS
-add_action( 'wp_head', 'ik_setup_css' );
+add_action( 'wp_head', 'easy_testimonials_setup_css' );
 
 //add Custom CSS
-add_action( 'wp_footer', 'ik_setup_custom_css');
+add_action( 'wp_footer', 'easy_testimonials_setup_custom_css');
 
 //register sidebar widgets
 add_action( 'widgets_init', 'easy_testimonials_register_widgets' );
 
 //do stuff
-add_action( 'after_setup_theme', 'ik_setup_testimonials' );
+add_action( 'after_setup_theme', 'easy_testimonials_setup_testimonials' );
+
+add_filter('manage_testimonial_posts_columns', 'easy_t_column_head', 10);  
+add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 10, 2); 
 ?>
