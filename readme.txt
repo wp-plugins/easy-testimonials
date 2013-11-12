@@ -86,7 +86,7 @@ You have a few things to pay attention to:
 
 = Outputting a Testimonial Slider =
 * Easy Testimonials Supports Cycle2!  To output a sliding widget, use this shortcode: [testimonials_cycle].
-* The same properties as the list of testominials, such as Showing the Title and controlling the Count, also apply.  
+* The same properties as the list of testimonials, such as Showing the Title and controlling the Count, also apply.  
 * To change the timer, use the attribute 'timer', which defaults to 2000 (2 seconds.)  For example: [testimonials_cycle timer="4000"]
 * To change the transition to a horizontal scroll, use the attribute 'transition="scrollHorz"'.  For example: [testimonials_cycle transition="scrollHorz"]
 
