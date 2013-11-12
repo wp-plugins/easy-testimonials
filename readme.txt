@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.7.1
-Stable tag: 1.5.4
+Stable tag: 1.5.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -125,6 +125,9 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 5. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.5.4.1 =
+* Update: set height of sidebar testimonial cycle container to match height of content inside.
 
 = 1.5.4 =
 * Feature: Adds Testimonial Cycle Widget to Appearance section.
