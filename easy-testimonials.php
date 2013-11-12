@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.3
+Version: 1.5.4
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -25,25 +25,25 @@ along with Easy Testimonials .  If not, see <http://www.gnu.org/licenses/>.
 
 global $easy_t_footer_css_output;
 
-include('include/lib.php');
+include('include/lib/lib.php');
 
 //setup JS
 function easy_testimonials_setup_js() {
 	wp_enqueue_script(
 		'cycle2',
-		plugins_url('js/jquery.cycle2.min.js', __FILE__),
+		plugins_url('include/js/jquery.cycle2.min.js', __FILE__),
 		array( 'jquery' )
 	);
 }
 
 //add Testimonial CSS to header
 function easy_testimonials_setup_css() {
-	wp_register_style( 'easy_testimonial_style', plugins_url('css/style.css', __FILE__) );
-	wp_register_style( 'easy_testimonial_dark_style', plugins_url('css/dark_style.css', __FILE__) );
-	wp_register_style( 'easy_testimonial_light_style', plugins_url('css/light_style.css', __FILE__) );
-	wp_register_style( 'easy_testimonial_blue_style', plugins_url('css/blue_style.css', __FILE__) );
-	wp_register_style( 'easy_testimonial_clean_style', plugins_url('css/clean_style.css', __FILE__) );
-	wp_register_style( 'easy_testimonial_no_style', plugins_url('css/no_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_style', plugins_url('include/css/style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_dark_style', plugins_url('include/css/dark_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_light_style', plugins_url('include/css/light_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_blue_style', plugins_url('include/css/blue_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_clean_style', plugins_url('include/css/clean_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_no_style', plugins_url('include/css/no_style.css', __FILE__) );
 	
     switch(get_option('testimonials_style')){
 		case 'dark_style':
@@ -194,7 +194,7 @@ endif;
 //setup custom post type for testimonials
 function easy_testimonials_setup_testimonials(){
 	//include custom post type code
-	include('include/ik-custom-post-type.php');
+	include('include/lib/ik-custom-post-type.php');
 	//include options code
 	include('include/easy_testimonial_options.php');	
 	$easy_testimonial_options = new easyTestimonialOptions();
@@ -581,9 +581,11 @@ function outputTestimonialsCycle($atts){
 
 //register any widgets here
 function easy_testimonials_register_widgets() {
-	include('random_testimonial_widget.php');
+	include('include/widgets/random_testimonial_widget.php');
+	include('include/widgets/testimonial_cycle_widget.php');
 
 	register_widget( 'randomTestimonialWidget' );
+	register_widget( 'cycledTestimonialWidget' );
 }
 
 //create shortcodes

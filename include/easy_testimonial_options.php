@@ -57,7 +57,31 @@ class easyTestimonialOptions
 	?>
 	<div class="wrap">
 		<h2><?php echo $title; ?></h2>
-	
+		
+		<?php if(!isValidKey()): ?>			
+			<div>			
+				<!-- Begin MailChimp Signup Form -->
+				<link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+				<style type="text/css">
+					#mc_embed_signup{background:#EEE; color:green; clear:left; font:14px Helvetica,Arial,sans-serif; }
+					#mc_embed_signup form{padding: 10px}
+					#mc_embed_signup input.button{color:green;}
+					/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+					   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+				</style>
+				<div id="mc_embed_signup">
+				<form action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+					<label for="mce-EMAIL">Subscribe to our mailing list</label>
+					<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+					<p>New subscribers will receive a discount code good for any version of <a href="http://easy-testimonials.com/purchase-easy-testimonials-pro/?utm_src=signupform">Easy Testimonials Pro</a>!</p>
+					<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+				</form>
+				</div>
+				<!--End mc_embed_signup-->
+			</div>
+			
+		<?php endif; ?>
+		
 		<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') : ?>
 		<div id="message" class="updated fade"><p><?php echo $message; ?></p></div>
 		<?php endif; ?>	
