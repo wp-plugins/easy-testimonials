@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.4.1
+Version: 1.5.5
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -32,7 +32,9 @@ function easy_testimonials_setup_js() {
 	wp_enqueue_script(
 		'cycle2',
 		plugins_url('include/js/jquery.cycle2.min.js', __FILE__),
-		array( 'jquery' )
+		array( 'jquery' ),
+		false,
+		true
 	);
 }
 
@@ -120,7 +122,7 @@ function submitTestimonialForm($atts){
 			} else { ?>
 			<!-- New Post Form -->
 			<div id="postbox">
-					<form id="new_post" name="new_post" method="post" action="/blog/easy-testimonials-test/">
+					<form id="new_post" name="new_post" method="post">
 							<div class="easy_t_field_wrap">
 								<label for="the-title">Title</label><br />
 								<input type="text" id="the-title" value="" tabindex="1" size="20" name="the-title" />
@@ -251,6 +253,7 @@ function outputRandomTestimonial($atts){
 		'author_class' => 'testimonial_author',
 		'show_title' => 0,
 		'short_version' => false,
+		'use_excerpt' => false
 	), $atts ) );
 	
 	$show_thumbs = get_option('testimonials_image');
@@ -259,12 +262,19 @@ function outputRandomTestimonial($atts){
 	$i = 0;
 	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1'));
 	while($loop->have_posts()) : $loop->the_post();
-		$postid = get_the_ID();
-		$testimonials[$i]['content'] = get_post_meta($postid, '_ikcf_short_content', true); 		
+		$postid = get_the_ID();	
 
 		//if nothing is set for the short content, use the long content
 		if(strlen($testimonials[$i]['content']) < 2){
-			$testimonials[$i]['content'] = get_the_content($postid); 
+			$temp_post_content = get_post($postid); 			
+			if($use_excerpt){
+				$testimonials[$i]['content'] = $temp_post_content->post_excerpt;
+				if($testimonials[$i]['content'] == ''){
+					$testimonials[$i]['content'] = wp_trim_excerpt($temp_post_content->post_content);
+				}
+			} else {				
+				$testimonials[$i]['content'] = $temp_post_content->post_content;
+			}
 		}
 		
 		if ($word_limit) {
@@ -346,7 +356,8 @@ function outputSingleTestimonial($atts){
 	extract( shortcode_atts( array(
 		'testimonials_link' => get_option('testimonials_link'),
 		'show_title' => 0,
-		'id' => ''
+		'id' => '',
+		'use_excerpt' => false
 	), $atts ) );
 	
 	$show_thumbs = get_option('testimonials_image');
@@ -359,11 +370,18 @@ function outputSingleTestimonial($atts){
 	$loop = new WP_Query(array( 'post_type' => 'testimonial','p' => $id));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();
-		$testimonial['content'] = get_post_meta($postid, '_ikcf_short_content', true); 		
 
 		//if nothing is set for the short content, use the long content
 		if(strlen($testimonial['content']) < 2){
-			$testimonial['content'] = get_the_content($postid); 
+			$temp_post_content = get_post($postid); 			
+			if($use_excerpt){
+				$testimonial['content'] = $temp_post_content->post_excerpt;
+				if($testimonial['content'] == ''){
+					$testimonial['content'] = wp_trim_excerpt($temp_post_content->post_content);
+				}
+			} else {				
+				$testimonial['content'] = $temp_post_content->post_content;
+			}
 		}
 		
 		if ($show_thumbs) {
@@ -415,7 +433,8 @@ function outputTestimonials($atts){
 	extract( shortcode_atts( array(
 		'testimonials_link' => get_option('testimonials_link'),
 		'show_title' => 0,
-		'count' => -1
+		'count' => -1,
+		'use_excerpt' => false
 	), $atts ) );
 	
 	$show_thumbs = get_option('testimonials_image');
@@ -431,12 +450,12 @@ function outputTestimonials($atts){
 	//load testimonials into an array
 	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1'));
 	while($loop->have_posts()) : $loop->the_post();
-		$postid = get_the_ID();
-		$testimonial['content'] = get_post_meta($postid, '_ikcf_short_content', true); 		
-
-		//if nothing is set for the short content, use the long content
-		if(strlen($testimonial['content']) < 2){
-			$testimonial['content'] = get_the_content($postid); 
+		$postid = get_the_ID();	
+		
+		if($use_excerpt){
+			$testimonial['content'] = get_the_excerpt();
+		} else {				
+			$testimonial['content'] = get_the_content();
 		}
 		
 		if ($show_thumbs) {
@@ -496,7 +515,8 @@ function outputTestimonialsCycle($atts){
 		'count' => -1,
 		'transition' => 'fade',
 		'timer' => '2000',
-		'container' => false
+		'container' => false,
+		'use_excerpt' => false
 	), $atts ) );
 	
 	$show_thumbs = get_option('testimonials_image');
@@ -522,11 +542,12 @@ function outputTestimonialsCycle($atts){
 	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1'));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();
-		$testimonial['content'] = get_post_meta($postid, '_ikcf_short_content', true); 		
 
 		//if nothing is set for the short content, use the long content
-		if(strlen($testimonial['content']) < 2){
-			$testimonial['content'] = get_the_content($postid); 
+		if($use_excerpt){
+			$testimonial['content'] = get_the_excerpt();
+		} else {				
+			$testimonial['content'] = get_the_content();
 		}
 		
 		if ($show_thumbs) {
