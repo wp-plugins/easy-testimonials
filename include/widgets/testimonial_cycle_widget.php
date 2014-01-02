@@ -35,7 +35,14 @@ class cycledTestimonialWidget extends WP_Widget
 		?>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('count'); ?>">Count: <input class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="text" value="<?php echo attribute_escape($count); ?>" /></label></p>
-			<p><label for="<?php echo $this->get_field_id('transition'); ?>">Transition: <input class="widefat" id="<?php echo $this->get_field_id('transition'); ?>" name="<?php echo $this->get_field_name('transition'); ?>" type="text" value="<?php echo attribute_escape($transition); ?>" /><span class="description">Acceptable values are 'fade' and 'scrollHorz'.</span></label></p>
+			<p><label for="<?php echo $this->get_field_id('transition'); ?>">Transition: 
+			<p><select name="<?php echo $this->get_field_name('transition'); ?>" id="<?php echo $this->get_field_id('transition'); ?>">	
+				<option value="scrollHorz" <?php if(attribute_escape($transition) == "scrollHorz"): echo 'selected="SELECTED"'; endif; ?>>Horizontal Scroll</option>
+				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="fade" <?php if(attribute_escape($transition) == "fade"): echo 'selected="SELECTED"'; endif; ?>>Fade<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="fadeout" <?php if(attribute_escape($transition) == "fadeout"): echo 'selected="SELECTED"'; endif; ?>>Fade Out<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="none" <?php if(attribute_escape($transition) == "none"): echo 'selected="SELECTED"'; endif; ?>>None<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+			</select></p>
+			<p><span class="description">Pick your desired transition.</span></label></p>
 			<p><label for="<?php echo $this->get_field_id('timer'); ?>">Timer: <input class="widefat" id="<?php echo $this->get_field_id('timer'); ?>" name="<?php echo $this->get_field_name('timer'); ?>" type="text" value="<?php echo attribute_escape($timer); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('show_title'); ?>">Show Testimonial Title: </label><input class="widefat" id="<?php echo $this->get_field_id('show_title'); ?>" name="<?php echo $this->get_field_name('show_title'); ?>" type="checkbox" value="1" <?php if($show_title){ ?>checked="CHECKED"<?php } ?>/></p>
 		<?php
