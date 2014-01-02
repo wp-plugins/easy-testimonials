@@ -17,7 +17,6 @@ Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials
 = Easy Testimonials is a great plugin for: =
 * Adding a Random Testimonial to Your Sidebar
 * Adding a Random Testimonial to Your Page
-* Adding a Fading or Sliding Testimonial Widget to Your Wesbite
 * Outputting a List of Testimonials
 * Displaying an Image with a Testimonial
 * Custom Options Allow You to Link Your Testimonials to a Custom Page, Such As a Product Page
@@ -113,9 +112,9 @@ OK!  We have a great page with some helpful information here: http://easy-testim
 
 Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit here to purchase the Pro version: http://easy-testimonials.com/easy-testimonials-pro/
 
-= Urk! When I Active Easy Testimonials, I start having trouble with my Cycle2 powered JavaScript thingy on my website! =
+= Urk! When I Active Easy Testimonials, I start having trouble with my Cycle2 powered JavaScript! =
 
-Oh no!  For right now, your best option to is check the box that is labeled "Disable Cycle2 Output".  This will cease including our JavaScript, and should therefore address any compaibility issues.  After doing so, submit a support request to our Developers so they can begin working on your issue!
+Oh no!  Check the box that is labeled "Disable Cycle2 Output".  This will cease including our JavaScript.
 
 = Ack!  This Testimonials Plugin is too easy to use! Will you make it more complicated? =
 
