@@ -1,6 +1,24 @@
 <h3>Pro Registration</h3>			
 <p>Fill out the fields below, if you have purchased the pro version of the plugin, to activate additional features such as Front-End Testimonial Submission.</p>
-	
+<?php if(isValidKey()): ?>	
+<p class="easy_t_registered">Your plugin is succesfully registered and activated!</p>
+<?php else: ?>
+<p class="easy_t_not_registered">Your plugin is not succesfully registered and activated.</p>
+<?php endif; ?>	
+<style type="text/css">
+.easy_t_registered {
+    background-color: #90EE90;
+    font-weight: bold;
+    padding: 20px;
+    width: 860px;
+}
+.easy_t_not_registered {
+	background-color: #FF8C00;
+    font-weight: bold;
+    padding: 20px;
+    width: 860px;
+}
+</style>
 <table class="form-table">
 	<tr valign="top">
 		<th scope="row"><label for="easy_t_registered_name">Email Address</label></th>

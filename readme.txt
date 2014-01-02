@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.5.5
+Stable tag: 1.5.5.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,10 @@ OK!  We have a great page with some helpful information here: http://easy-testim
 
 Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit here to purchase the Pro version: http://easy-testimonials.com/easy-testimonials-pro/
 
+= Urk! When I Active Easy Testimonials, I start having trouble with my Cycle2 powered JavaScript thingy on my website! =
+
+Oh no!  For right now, your best option to is check the box that is labeled "Disable Cycle2 Output".  This will cease including our JavaScript, and should therefore address any compaibility issues.  After doing so, submit a support request to our Developers so they can begin working on your issue!
+
 = Ack!  This Testimonials Plugin is too easy to use! Will you make it more complicated? =
 
 Never!  Easy is in our name!  If by complicated you mean new and easy to use features, there are definitely some on the horizon!
@@ -126,7 +130,11 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Changelog ==
 
-= 1.5.5 -
+= 1.5.5.1 =
+* Compatibilty Option Update: Adds option to disable Cycle2 JavaScript that is included with Easy Testimonials.
+* Minor Fix: Address bug in single testimonial shortcode output.
+
+= 1.5.5 =
 * Feature: Adds ability to display either the Excerpt or the Full Content of the Testimonial.
 * Update: Addresses compatibility issues with the slider on several different Themes by moving Javascript to Footer.
 * Pro Version Fix: Address bug with front-end testimonial submission.
@@ -202,4 +210,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.4: New Features and Featured Image Fix Available!!
+* 1.5.5.1: New Features and Fixes Available!!

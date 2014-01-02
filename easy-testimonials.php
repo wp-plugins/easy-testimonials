@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.5
+Version: 1.5.5.1
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -29,13 +29,17 @@ include('include/lib/lib.php');
 
 //setup JS
 function easy_testimonials_setup_js() {
-	wp_enqueue_script(
-		'cycle2',
-		plugins_url('include/js/jquery.cycle2.min.js', __FILE__),
-		array( 'jquery' ),
-		false,
-		true
-	);
+	$disable_cycle2 = get_option('easy_t_disable_cycle2');
+
+	if(!$disable_cycle2){
+		wp_enqueue_script(
+			'cycle2',
+			plugins_url('include/js/jquery.cycle2.min.js', __FILE__),
+			array( 'jquery' ),
+			false,
+			true
+		);
+	}
 }
 
 //add Testimonial CSS to header
@@ -370,12 +374,21 @@ function outputSingleTestimonial($atts){
 	$loop = new WP_Query(array( 'post_type' => 'testimonial','p' => $id));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();
-
+		
+		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
+		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+		
+		if($use_excerpt){
+			$testimonial['content'] = get_the_excerpt();
+		} else {				
+			$testimonial['content'] = get_the_content();
+		}
+		
 		//if nothing is set for the short content, use the long content
 		if(strlen($testimonial['content']) < 2){
 			$temp_post_content = get_post($postid); 			
-			if($use_excerpt){
 				$testimonial['content'] = $temp_post_content->post_excerpt;
+			if($use_excerpt){
 				if($testimonial['content'] == ''){
 					$testimonial['content'] = wp_trim_excerpt($temp_post_content->post_content);
 				}
@@ -456,6 +469,19 @@ function outputTestimonials($atts){
 			$testimonial['content'] = get_the_excerpt();
 		} else {				
 			$testimonial['content'] = get_the_content();
+		}
+		
+		//if nothing is set for the short content, use the long content
+		if(strlen($testimonial['content']) < 2){
+			$temp_post_content = get_post($postid); 			
+				$testimonial['content'] = $temp_post_content->post_excerpt;
+			if($use_excerpt){
+				if($testimonial['content'] == ''){
+					$testimonial['content'] = wp_trim_excerpt($temp_post_content->post_content);
+				}
+			} else {				
+				$testimonial['content'] = $temp_post_content->post_content;
+			}
 		}
 		
 		if ($show_thumbs) {

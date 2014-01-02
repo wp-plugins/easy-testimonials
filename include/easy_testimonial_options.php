@@ -45,6 +45,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'meta_data_position' );
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_style' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_disable_cycle2' );
 		
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_url' );
@@ -140,6 +141,15 @@ class easyTestimonialOptions
 					<th scope="row"><label for="meta_data_position">Show Testimonial Info Above Testimonial</label></th>
 					<td><input type="checkbox" name="meta_data_position" id="meta_data_position" value="1" <?php if(get_option('meta_data_position')){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, the Testimonial Custom Fields will be displayed Above the Testimonial.  Defaults to Displaying Below the Testimonial.  Note: the Testimonial Image will be displayed to the left of this information.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_disable_cycle2">Disable Cycle2 Output</label></th>
+					<td><input type="checkbox" name="easy_t_disable_cycle2" id="easy_t_disable_cycle2" value="1" <?php if(get_option('easy_t_disable_cycle2')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, we won't include the Cycle2 JavaScript file.  If you suspect you are having JavaScript compatibility issues with our plugin, please try checking this box.</p>
 					</td>
 				</tr>
 			</table>
