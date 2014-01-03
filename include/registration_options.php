@@ -3,7 +3,7 @@
 <?php if(isValidKey()): ?>	
 <p class="easy_t_registered">Your plugin is succesfully registered and activated!</p>
 <?php else: ?>
-<p class="easy_t_not_registered">Your plugin is not succesfully registered and activated.</p>
+<p class="easy_t_not_registered">Your plugin is not succesfully registered and activated. <a href="http://easy-testimonials.com/purchase-easy-testimonials-pro/?utm_src=reg_message_box" target="_blank">Click here</a> to upgrade today!</p>
 <?php endif; ?>	
 <style type="text/css">
 .easy_t_registered {

@@ -46,6 +46,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_style' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_disable_cycle2' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_mystery_man' );
 		
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_url' );
@@ -132,6 +133,15 @@ class easyTestimonialOptions
 					<th scope="row"><label for="testimonials_image">Show Testimonial Image</label></th>
 					<td><input type="checkbox" name="testimonials_image" id="testimonials_image" value="1" <?php if(get_option('testimonials_image')){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, the Image will be shown next to the Testimonial.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_mystery_man">Use Mystery Man</label></th>
+					<td><input type="checkbox" name="easy_t_mystery_man" id="easy_t_mystery_man" value="1" <?php if(get_option('easy_t_mystery_man')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, we and you are displaying Testimonial Images, the Mystery Man avatar will be used for any missing images.</p>
 					</td>
 				</tr>
 			</table>

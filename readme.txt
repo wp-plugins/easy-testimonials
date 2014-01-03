@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.5.5.2
+Stable tag: 1.5.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,9 +112,13 @@ OK!  We have a great page with some helpful information here: http://easy-testim
 
 Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit here to purchase the Pro version: http://easy-testimonials.com/easy-testimonials-pro/
 
-= Urk! When I Active Easy Testimonials, I start having trouble with my Cycle2 powered JavaScript! =
+= Urk! When I Activate Easy Testimonials, I start having trouble with my Cycle2 powered JavaScript! =
 
 Oh no!  Check the box that is labeled "Disable Cycle2 Output".  This will cease including our JavaScript.
+
+= Eek!  I love everything about this plugin... but, I don't know how to use it inside my Template Files!  What do I do?
+
+Don't worry!  WordPress has a great function, do_shortcode(), that will allow you to use our shortcodes inside your theme files.  For example, to output a Random Testimonial in a Theme file, you would do this: <?php echo do_shortcode('[random_testimonial count="1"'); ?>
 
 = Ack!  This Testimonials Plugin is too easy to use! Will you make it more complicated? =
 
@@ -129,6 +133,10 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 5. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.5.6 =
+* Feature: Adds option to output Mystery Man avatar, if no other image is available.
+* Minor Fix: Address CSS issue with sliding testimonials.
 
 = 1.5.5.2 =
 * Pro Feature: Adds Support for more Cycle2 Transitions.
@@ -213,4 +221,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.5.5.2: New Features and Fixes Available!!
+* 1.5.5.3: Fixes Available!!

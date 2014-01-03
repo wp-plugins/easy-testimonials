@@ -26,3 +26,11 @@ blockquote.easy_testimonial cite{
 .widgets blockquote.easy_testimonial{
 	margin: 5px auto;
 }
+
+.cycle-slideshow{
+	overflow: hidden;
+}
+
+.cycle-slide {
+    width: 100%;
+}

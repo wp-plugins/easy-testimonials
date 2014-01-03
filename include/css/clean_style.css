@@ -49,3 +49,11 @@ body blockquote.easy_testimonial .attachment-easy_testimonial_thumb {
     position: absolute;
     width: 60px;
 }
+
+.cycle-slideshow{
+	overflow: hidden;
+}
+
+.cycle-slide {
+    width: 100%;
+}

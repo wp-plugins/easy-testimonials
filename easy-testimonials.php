@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.5.2
+Version: 1.5.6
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -287,6 +287,9 @@ function outputRandomTestimonial($atts){
 		
 		if ($show_thumbs) {
 			$testimonials[$i]['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+			if (strlen($testimonials[$i]['image']) < 2 && get_option('easy_t_mystery_man')){
+				$testimonials[$i]['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
+			}
 		}
 		
 		$testimonials[$i]['title'] = get_the_title($postid);
@@ -399,6 +402,9 @@ function outputSingleTestimonial($atts){
 		
 		if ($show_thumbs) {
 			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
+				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
+			}
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
@@ -486,6 +492,9 @@ function outputTestimonials($atts){
 		
 		if ($show_thumbs) {
 			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
+				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
+			}
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
@@ -581,6 +590,9 @@ function outputTestimonialsCycle($atts){
 		
 		if ($show_thumbs) {
 			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
+				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
+			}
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
