@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.5.6
+Stable tag: 1.5.6.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,7 +88,7 @@ You have a few things to pay attention to:
 * Easy Testimonials Supports Cycle2!  To output a sliding widget, use this shortcode: [testimonials_cycle].
 * The same properties as the list of testimonials, such as Showing the Title and controlling the Count, also apply.  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.
 * To change the timer, use the attribute 'timer', which defaults to 2000 (2 seconds.)  For example: [testimonials_cycle timer="4000"]
-* To change the transition to a fade in, fade out, or no transition, use the attributes 'transition="fade"', or 'transition="fadeout"', or 'transition="none"'.  These features are enabled for Pro users.  For example: [testimonials_cycle transition="fadeout"]
+* To change the transition to a fade in, fade out, or no transition, use the attributes 'transition="fade"', or 'transition="fadeout"', or 'transition="none"'.  These features are enabled for Pro users - 'fade' is included in the Free version!  For example: [testimonials_cycle transition="fadeout"]
 * To output a Testimonial Cycle in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can how many testimonials are shown by placing a number in the Count field - make sure you have at least 2, if you want them to Cycle!  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.  You can control the time between transitions using the Timer field - every 1000 equals 1 second.
 
 = Front End Testimonial Submission =
@@ -133,6 +133,9 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 5. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.5.6.1 =
+* Fix: Fixes issue with "Fade" transition being locked out.
 
 = 1.5.6 =
 * Feature: Adds option to output Mystery Man avatar, if no other image is available.
@@ -221,4 +224,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.5.5.3: Fixes Available!!
+* 1.5.6.1: Fixes Available!!

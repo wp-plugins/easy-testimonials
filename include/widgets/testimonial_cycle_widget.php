@@ -38,7 +38,7 @@ class cycledTestimonialWidget extends WP_Widget
 			<p><label for="<?php echo $this->get_field_id('transition'); ?>">Transition: 
 			<p><select name="<?php echo $this->get_field_name('transition'); ?>" id="<?php echo $this->get_field_id('transition'); ?>">	
 				<option value="scrollHorz" <?php if(attribute_escape($transition) == "scrollHorz"): echo 'selected="SELECTED"'; endif; ?>>Horizontal Scroll</option>
-				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="fade" <?php if(attribute_escape($transition) == "fade"): echo 'selected="SELECTED"'; endif; ?>>Fade<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+				<option value="fade" <?php if(attribute_escape($transition) == "fade"): echo 'selected="SELECTED"'; endif; ?>>Fade</option>
 				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="fadeout" <?php if(attribute_escape($transition) == "fadeout"): echo 'selected="SELECTED"'; endif; ?>>Fade Out<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
 				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="none" <?php if(attribute_escape($transition) == "none"): echo 'selected="SELECTED"'; endif; ?>>None<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
 			</select></p>
