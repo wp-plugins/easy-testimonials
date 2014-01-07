@@ -26,12 +26,13 @@ class cycledTestimonialWidget extends WP_Widget
 	}
 
 	function form($instance){
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000' ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '' ) );
 		$title = $instance['title'];
 		$count = $instance['count'];
 		$show_title = $instance['show_title'];
 		$transition = $instance['transition'];
 		$timer = $instance['timer'];
+		$category = $instance['category'];
 		?>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('count'); ?>">Count: <input class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="text" value="<?php echo attribute_escape($count); ?>" /></label></p>
@@ -45,6 +46,7 @@ class cycledTestimonialWidget extends WP_Widget
 			<p><span class="description">Pick your desired transition.</span></label></p>
 			<p><label for="<?php echo $this->get_field_id('timer'); ?>">Timer: <input class="widefat" id="<?php echo $this->get_field_id('timer'); ?>" name="<?php echo $this->get_field_name('timer'); ?>" type="text" value="<?php echo attribute_escape($timer); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('show_title'); ?>">Show Testimonial Title: </label><input class="widefat" id="<?php echo $this->get_field_id('show_title'); ?>" name="<?php echo $this->get_field_name('show_title'); ?>" type="checkbox" value="1" <?php if($show_title){ ?>checked="CHECKED"<?php } ?>/></p>
+			<p><label for="<?php echo $this->get_field_id('category'); ?>">Category Slug: <input class="widefat" id="<?php echo $this->get_field_id('category'); ?>" name="<?php echo $this->get_field_name('category'); ?>" type="text" value="<?php echo attribute_escape($category); ?>" /></label></p>
 		<?php
 	}
 
@@ -55,6 +57,7 @@ class cycledTestimonialWidget extends WP_Widget
 		$instance['show_title'] = $new_instance['show_title'];
 		$instance['timer'] = $new_instance['timer'];
 		$instance['transition'] = $new_instance['transition'];
+		$instance['category'] = $new_instance['category'];
 		
 		return $instance;
 	}
@@ -68,12 +71,13 @@ class cycledTestimonialWidget extends WP_Widget
 		$show_title = empty($instance['show_title']) ? 0 : $instance['show_title'];
 		$transition = empty($instance['transition']) ? 'fade' : $instance['transition'];
 		$timer = empty($instance['timer']) ? '2000' : $instance['timer'];
+		$category = empty($instance['category']) ? '' : $instance['category'];
 
 		if (!empty($title)){
 			echo $before_title . $title . $after_title;;
 		}
 		
-		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true));
+		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true, 'category' => $category));
 
 		echo $after_widget;
 	} 

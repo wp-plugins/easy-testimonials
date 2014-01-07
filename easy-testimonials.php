@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.6.1
+Version: 1.5.7
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -211,6 +211,7 @@ function easy_testimonials_setup_testimonials(){
 	$fields[] = array('name' => 'client', 'title' => 'Client Name', 'description' => "Name of the Client giving the testimonial.  Appears below the Testimonial.", 'type' => 'text'); 
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
+	register_taxonomy( 'easy-testimonial-category', 'testimonial', array( 'hierarchical' => true, 'label' => __('Testimonial Category'), 'rewrite' => array('slug' => 'testimonial', 'with_front' => false) ) ); 
 	
 	//load list of current posts that have featured images	
 	$supportedTypes = get_theme_support( 'post-thumbnails' );
@@ -247,7 +248,7 @@ function easy_t_columns_content($column_name, $post_ID) {
 } 
 
 //load testimonials into an array and output a random one
-function outputRandomTestimonial($atts){	
+function outputRandomTestimonial($atts){
 	//load shortcode attributes into an array
 	extract( shortcode_atts( array(
 		'testimonials_link' => get_option('testimonials_link'),
@@ -257,17 +258,24 @@ function outputRandomTestimonial($atts){
 		'author_class' => 'testimonial_author',
 		'show_title' => 0,
 		'short_version' => false,
-		'use_excerpt' => false
+		'use_excerpt' => false,
+		'category' => ''
 	), $atts ) );
 	
 	$show_thumbs = get_option('testimonials_image');
 	
 	//load testimonials into an array
 	$i = 0;
-	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1'));
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'easy-testimonial-category' => $category));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();	
 
+		if($use_excerpt){
+			$testimonials[$i]['content'] = get_the_excerpt();
+		} else {				
+			$testimonials[$i]['content'] = get_the_content();
+		}
+		
 		//if nothing is set for the short content, use the long content
 		if(strlen($testimonials[$i]['content']) < 2){
 			$temp_post_content = get_post($postid); 			
@@ -453,7 +461,8 @@ function outputTestimonials($atts){
 		'testimonials_link' => get_option('testimonials_link'),
 		'show_title' => 0,
 		'count' => -1,
-		'use_excerpt' => false
+		'use_excerpt' => false,
+		'category' => ''
 	), $atts ) );
 	
 	$show_thumbs = get_option('testimonials_image');
@@ -467,7 +476,7 @@ function outputTestimonials($atts){
 	$i = 0;
 	
 	//load testimonials into an array
-	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1'));
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'easy-testimonial-category' => $category));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();	
 		
@@ -551,7 +560,8 @@ function outputTestimonialsCycle($atts){
 		'transition' => 'scrollHorz',
 		'timer' => '2000',
 		'container' => false,
-		'use_excerpt' => false
+		'use_excerpt' => false,
+		'category' => ''
 	), $atts ) );
 	
 	$show_thumbs = get_option('testimonials_image');
@@ -575,7 +585,7 @@ function outputTestimonialsCycle($atts){
 	<?php
 	
 	//load testimonials into an array
-	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1'));
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'easy-testimonial-category' => $category));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();
 
