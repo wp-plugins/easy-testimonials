@@ -8,7 +8,7 @@ blockquote.easy_testimonial{
 	margin: 10px auto;
 }
 
-blockquote.easy_testimonial .attachment-easy_testimonial_thumb{
+blockquote.easy_testimonial .wp-post-image{
 	border: 1px solid black;
     border-radius: 5px 5px 5px 5px;
     float: left;

@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://easy-testimonials.com
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.7
+Version: 1.5.8
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -231,6 +231,42 @@ function easy_testimonials_setup_testimonials(){
 	
 	add_image_size( 'easy_testimonial_thumb', 50, 50, true );
 }
+
+//from http://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
+function easy_t_output_image_options(){
+	global $_wp_additional_image_sizes;
+	$sizes = array();
+	foreach( get_intermediate_image_sizes() as $s ){
+		$sizes[ $s ] = array( 0, 0 );
+		if( in_array( $s, array( 'thumbnail', 'medium', 'large' ) ) ){
+			$sizes[ $s ][0] = get_option( $s . '_size_w' );
+			$sizes[ $s ][1] = get_option( $s . '_size_h' );
+		}else{
+			if( isset( $_wp_additional_image_sizes ) && isset( $_wp_additional_image_sizes[ $s ] ) )
+				$sizes[ $s ] = array( $_wp_additional_image_sizes[ $s ]['width'], $_wp_additional_image_sizes[ $s ]['height'], );
+		}
+	}
+
+	$current_size = get_option('easy_t_image_size');
+	
+	foreach( $sizes as $size => $atts ){
+		$disabled = '';
+		$selected = '';
+		$register = '';
+		
+		if(!isValidKey()){
+			$disabled = 'disabled="DISABLED"';
+			$current_size = 'easy_testimonial_thumb';
+			$register = " - Register to Enable!";
+		}
+		if($current_size == $size){
+			$selected = 'selected="SELECTED"';
+			$disabled = '';
+			$register = '';
+		}
+		echo "<option value='".$size."' ".$disabled . " " . $selected.">" . ucwords(str_replace("-", " ", str_replace("_", " ", $size))) . ' ' . implode( 'x', $atts ) . $register . "</option>";
+	}
+}
  
 //this is the heading of the new column we're adding to the testimonial posts list
 function easy_t_column_head($defaults) {  
@@ -294,7 +330,12 @@ function outputRandomTestimonial($atts){
 		}
 		
 		if ($show_thumbs) {
-			$testimonials[$i]['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
+			if(strlen($testimonial_image_size) < 2){
+				$testimonial_image_size = "easy_testimonial_thumb";
+			}
+			
+			$testimonials[$i]['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
 			if (strlen($testimonials[$i]['image']) < 2 && get_option('easy_t_mystery_man')){
 				$testimonials[$i]['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
 			}
@@ -408,8 +449,13 @@ function outputSingleTestimonial($atts){
 			}
 		}
 		
-		if ($show_thumbs) {
-			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+		if ($show_thumbs) {		
+			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
+			if(strlen($testimonial_image_size) < 2){
+				$testimonial_image_size = "easy_testimonial_thumb";
+			}
+			
+			$testimonial['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
 			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
 				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
 			}
@@ -499,8 +545,13 @@ function outputTestimonials($atts){
 			}
 		}
 		
-		if ($show_thumbs) {
-			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+		if ($show_thumbs) {		
+			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
+			if(strlen($testimonial_image_size) < 2){
+				$testimonial_image_size = "easy_testimonial_thumb";
+			}
+		
+			$testimonial['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
 			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
 				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
 			}
@@ -596,8 +647,13 @@ function outputTestimonialsCycle($atts){
 			$testimonial['content'] = get_the_content();
 		}
 		
-		if ($show_thumbs) {
-			$testimonial['image'] = get_the_post_thumbnail($postid, 'easy_testimonial_thumb');
+		if ($show_thumbs) {		
+			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
+			if(strlen($testimonial_image_size) < 2){
+				$testimonial_image_size = "easy_testimonial_thumb";
+			}
+		
+			$testimonial['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
 			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
 				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
 			}

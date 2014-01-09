@@ -1,8 +1,8 @@
 /* CSS */
 blockquote.easy_testimonial {
     margin: 10px auto;
-    padding: 10px 10px 10px 80px;
-    position: relative;
+    min-height: 80px;
+    padding: 10px;
 }
 
 blockquote.easy_testimonial p{
@@ -18,15 +18,13 @@ blockquote.easy_testimonial p a:hover{
 blockquote.easy_testimonial cite{
 }
 
-.randomTestimonialWidget blockquote.easy_testimonial {
-    margin: 5px auto;
-    padding-left: 64px;
-}
-
 .attachment-easy_testimonial_thumb{
-  display: block;
   width: 60px;
   height: 60px;
+}
+
+.wp-post-image{
+  display: block;
   margin: 1em auto;
   background-size: cover;
   background-repeat: no-repeat;
@@ -43,11 +41,9 @@ blockquote.easy_testimonial cite{
     width: 44px;
 }
 
-body blockquote.easy_testimonial .attachment-easy_testimonial_thumb {
-    left: 0;
-    margin: 0 15px 10px 0;
-    position: absolute;
-    width: 60px;
+body blockquote.easy_testimonial .wp-post-image{
+    float: left;
+    margin: 0 10px 10px 0;
 }
 
 .cycle-slideshow{

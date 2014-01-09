@@ -1,10 +1,11 @@
 /* CSS */
-blockquote.easy_testimonial{
+blockquote.easy_testimonial {
+    margin: 10px auto;
+    min-height: 80px;
     padding: 10px;
-	margin: 10px auto;
 }
 
-blockquote.easy_testimonial .attachment-easy_testimonial_thumb{
+blockquote.easy_testimonial .wp-post-image{
     border-radius: 5px 5px 5px 5px;
     float: left;
     margin: 0 10px 10px 0;

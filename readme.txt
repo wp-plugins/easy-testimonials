@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.5.7
+Stable tag: 1.5.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -117,6 +117,10 @@ Great question!  With the Pro version of the plugin, you can do this with our fr
 
 Oh no!  Check the box that is labeled "Disable Cycle2 Output".  This will cease including our JavaScript.
 
+= Yo!  Your plugin is great - I would really like to change the size of the images that are output.  How do I do it? =
+
+Another good question!  With the Pro version of the plugin, you can do this by controlling the Testimonial Image Size drop down menu on the Settings screen.  Depending on your website, using bigger images may require CSS changes to be made.  Visit here to purchase the Pro version: http://easy-testimonials.com/easy-testimonials-pro/
+
 = Eek!  I love everything about this plugin... but, I don't know how to use it inside my Template Files!  What do I do? =
 
 Don't worry!  WordPress has a great function, do_shortcode(), that will allow you to use our shortcodes inside your theme files.  For example, to output a Random Testimonial in a Theme file, you would do this: <?php echo do_shortcode('[random_testimonial count="1"'); ?>
@@ -135,8 +139,11 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Changelog ==
 
+= 1.5.8 =
+* Pro Feature: Adds the ability to control the size of images that are displayed.
+
 = 1.5.7 =
-*Feature: Adds ability to create Categories for Testimonials, and to only display Testimonials by Category.
+* Feature: Adds ability to create Categories for Testimonials, and to only display Testimonials by Category.
 
 = 1.5.6.1 =
 * Fix: Fixes issue with "Fade" transition being locked out.
@@ -228,4 +235,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.5.7: Feature Available!!
+* 1.5.8: Pro Feature Available!!

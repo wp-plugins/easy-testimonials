@@ -47,12 +47,13 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_disable_cycle2' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_mystery_man' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_image_size' );
 		
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_url' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_key' );
 	}
-
+	
 	function settings_page(){
 		$title = "Easy Testimonials Settings";
 		$message = "Easy Testimonials Settings Updated.";
@@ -133,6 +134,18 @@ class easyTestimonialOptions
 					<th scope="row"><label for="testimonials_image">Show Testimonial Image</label></th>
 					<td><input type="checkbox" name="testimonials_image" id="testimonials_image" value="1" <?php if(get_option('testimonials_image')){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, the Image will be shown next to the Testimonial.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_image_size">Testimonial Image Size</a></th>
+					<td>
+						<select name="easy_t_image_size" id="easy_t_image_size">	
+							<?php easy_t_output_image_options(); ?>
+						</select>
+						<p class="description">Select which size image to display with your Testimonials.  Defaults to 50px X 50px.</p>
 					</td>
 				</tr>
 			</table>
