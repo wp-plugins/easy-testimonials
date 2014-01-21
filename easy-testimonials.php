@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Easy Testimonials
-Plugin URI: http://easy-testimonials.com
+Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.8
+Version: 1.5.9
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -283,6 +283,22 @@ function easy_t_columns_content($column_name, $post_ID) {
     }  
 } 
 
+//this is the heading of the new column we're adding to the testimonial category list
+function easy_t_cat_column_head($defaults) {  
+	$defaults = array_slice($defaults, 0, 2, true) +
+    array("single_shortcode" => "Shortcode") +
+    array_slice($defaults, 2, count($defaults)-2, true);
+    return $defaults;  
+}  
+
+//this content is displayed in the testimonial category list
+function easy_t_cat_columns_content($value, $column_name, $tax_id) {  
+
+	$category = get_term_by('id', $tax_id, 'easy-testimonial-category');
+	
+	return "<code>[testimonials category='{$category->slug}']</code>"; 
+} 
+
 //load testimonials into an array and output a random one
 function outputRandomTestimonial($atts){
 	//load shortcode attributes into an array
@@ -295,10 +311,11 @@ function outputRandomTestimonial($atts){
 		'show_title' => 0,
 		'short_version' => false,
 		'use_excerpt' => false,
-		'category' => ''
+		'category' => '',
+		'show_thumbs' => ''
 	), $atts ) );
 	
-	$show_thumbs = get_option('testimonials_image');
+	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
 	
 	//load testimonials into an array
 	$i = 0;
@@ -413,10 +430,11 @@ function outputSingleTestimonial($atts){
 		'testimonials_link' => get_option('testimonials_link'),
 		'show_title' => 0,
 		'id' => '',
-		'use_excerpt' => false
+		'use_excerpt' => false,
+		'show_thumbs' => ''
 	), $atts ) );
 	
-	$show_thumbs = get_option('testimonials_image');
+	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
 	
 	ob_start();
 	
@@ -508,10 +526,11 @@ function outputTestimonials($atts){
 		'show_title' => 0,
 		'count' => -1,
 		'use_excerpt' => false,
-		'category' => ''
+		'category' => '',
+		'show_thumbs' => ''
 	), $atts ) );
 	
-	$show_thumbs = get_option('testimonials_image');
+	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
 			
 	if(!is_numeric($count)){
 		$count = -1;
@@ -740,4 +759,8 @@ add_action( 'after_setup_theme', 'easy_testimonials_setup_testimonials' );
 
 add_filter('manage_testimonial_posts_columns', 'easy_t_column_head', 10);  
 add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 10, 2); 
+
+
+add_filter('manage_edit-easy-testimonial-category_columns', 'easy_t_cat_column_head', 10);  
+add_action('manage_easy-testimonial-category_custom_column', 'easy_t_cat_columns_content', 10, 3); 
 ?>

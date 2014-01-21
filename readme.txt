@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -41,7 +41,7 @@ This section describes how to install the plugin and get it working.
 
 1. Upload the contents of `/easy_testimonials/` to the `/wp-content/plugins/` directory
 2. Activate Easy Testimonials through the 'Plugins' menu in WordPress
-3. Visit this address for information on how to configure the plugin: http://easy-testimonials.com/
+3. Visit this address for information on how to configure the plugin: http://goldplugins.com/documentation/easy-testimonials-documentation/
 
 = Adding a New Testimonial =
 
@@ -81,19 +81,19 @@ You have a few things to pay attention to:
   **You can also change the Status of a Testimonial, if you want to keep it on file.**
 
 = Outputting Testimonials =
-* To output a Random Testimonial, place the shortcode [random_testimonial] in the desired area of the Page or Post Content. To display more than one random testimonial, use the shortcode [random_testimonial count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [random_testimonial show_title="1"].  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".
-* To output a list of All Testimonials, place the shortcode [testimonials] in the desired area of the Page or Post Content.  To display more than one testimonial, use the shortcode [testimonials count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [testimonials show_title="1"].  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".
+* To output a Random Testimonial, place the shortcode [random_testimonial] in the desired area of the Page or Post Content. To display more than one random testimonial, use the shortcode [random_testimonial count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [random_testimonial show_title="1"].  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".  To show or hide the images next to Testimonials, use the attribute "show_thumbs=0" for hiding the images, and "show_thumbs=1" for displaying the images.
+* To output a list of All Testimonials, place the shortcode [testimonials] in the desired area of the Page or Post Content.  To display more than one testimonial, use the shortcode [testimonials count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [testimonials show_title="1"].  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".  To show or hide the images next to Testimonials, use the attribute "show_thumbs=0" for hiding the images, and "show_thumbs=1" for displaying the images.
 * To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.
 
 = Outputting a Testimonial Slider =
 * Easy Testimonials Supports Cycle2!  To output a sliding widget, use this shortcode: [testimonials_cycle].
-* The same properties as the list of testimonials, such as Showing the Title and controlling the Count, also apply.  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".
+* The same properties as the list of testimonials, such as Showing the Title and controlling the Count, also apply.  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".  To show or hide the images next to Testimonials, use the attribute "show_thumbs=0" for hiding the images, and "show_thumbs=1" for displaying the images.
 * To change the timer, use the attribute 'timer', which defaults to 2000 (2 seconds.)  For example: [testimonials_cycle timer="4000"]
 * To change the transition to a fade in, fade out, or no transition, use the attributes 'transition="fade"', or 'transition="fadeout"', or 'transition="none"'.  These features are enabled for Pro users - 'fade' is included in the Free version!  For example: [testimonials_cycle transition="fadeout"]
 * To output a Testimonial Cycle in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can how many testimonials are shown by placing a number in the Count field - make sure you have at least 2, if you want them to Cycle!  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.  You can control the time between transitions using the Timer field - every 1000 equals 1 second.
 
 = Front End Testimonial Submission =
-* NOTE: This feature requires the Pro version of Easy Testimonials: http://easy-testimonials.com/easy-testimonials-pro/
+* NOTE: This feature requires the Pro version of Easy Testimonials: http://goldplugins.com/our-plugins/easy-testimonials-details/
 * Add the shortcode [submit_testimonial] to the area of the page you want your form on.
 * Any submissions will be added to your Testimonials list, on the back end.  Only Testimonials that you choose to publish will be displayed publicly.
 
@@ -107,11 +107,11 @@ You have a few things to pay attention to:
 
 = Help!  I need more information! =
 
-OK!  We have a great page with some helpful information here: http://easy-testimonials.com/
+OK!  We have a great page with some helpful information here: http://goldplugins.com/documentation/easy-testimonials-documentation/
 
 = Hey!  How do I allow my visitors to submit testimonials? =
 
-Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit here to purchase the Pro version: http://easy-testimonials.com/easy-testimonials-pro/
+Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit here to purchase the Pro version: http://goldplugins.com/our-plugins/easy-testimonials-details/
 
 = Urk! When I Activate Easy Testimonials, I start having trouble with my Cycle2 powered JavaScript! =
 
@@ -119,7 +119,7 @@ Oh no!  Check the box that is labeled "Disable Cycle2 Output".  This will cease 
 
 = Yo!  Your plugin is great - I would really like to change the size of the images that are output.  How do I do it? =
 
-Another good question!  With the Pro version of the plugin, you can do this by controlling the Testimonial Image Size drop down menu on the Settings screen.  Depending on your website, using bigger images may require CSS changes to be made.  Visit here to purchase the Pro version: http://easy-testimonials.com/easy-testimonials-pro/
+Another good question!  With the Pro version of the plugin, you can do this by controlling the Testimonial Image Size drop down menu on the Settings screen.  Depending on your website, using bigger images may require CSS changes to be made.  Visit here to purchase the Pro version: http://goldplugins.com/our-plugins/easy-testimonials-details/
 
 = Eek!  I love everything about this plugin... but, I don't know how to use it inside my Template Files!  What do I do? =
 
@@ -138,6 +138,10 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 5. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.5.9 =
+* Feature: Outputs shortcode to list testimonials in a category inside the Category list in the admin area.
+* Feature: Adds ability to control image display via the shortcodes.
 
 = 1.5.8 =
 * Pro Feature: Adds the ability to control the size of images that are displayed.
@@ -235,4 +239,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.5.8: Pro Feature Available!!
+* 1.5.9: Update Available!!
