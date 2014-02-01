@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Illuminati Karate
-Version: 1.5.9
+Version: 1.5.9.1
 Author URI: http://illuminatikarate.com
 
 This file is part of Easy Testimonials.
@@ -392,7 +392,7 @@ function outputRandomTestimonial($atts){
 					<?php endif; ?>
 					<p class="<?php echo $body_class; ?>">
 						<?php echo $testimonials[$rand]['content'];?>
-						<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
+						<?php if(strlen($testimonials_link)>2):?><a class="easy_testimonials_read_more_link" href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
 					</p>			
 					<?php if(!get_option('meta_data_position')): ?>	
 						<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
@@ -498,6 +498,7 @@ function outputSingleTestimonial($atts){
 			<?php endif; ?>
 			<p class="testimonial_body">
 				<?php echo $testimonial['content'];?>
+				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
 			</p>	
 			<?php if(!get_option('meta_data_position')): ?>			
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
@@ -628,13 +629,15 @@ function outputTestimonialsCycle($atts){
 		'show_title' => 0,
 		'count' => -1,
 		'transition' => 'scrollHorz',
+		'show_thumbs' => '',
 		'timer' => '2000',
 		'container' => false,
 		'use_excerpt' => false,
 		'category' => ''
 	), $atts ) );
 	
-	$show_thumbs = get_option('testimonials_image');
+	
+	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
 			
 	if(!is_numeric($count)){
 		$count = -1;
@@ -664,6 +667,19 @@ function outputTestimonialsCycle($atts){
 			$testimonial['content'] = get_the_excerpt();
 		} else {				
 			$testimonial['content'] = get_the_content();
+		}
+		
+		//if nothing is set for the short content, use the long content
+		if(strlen($testimonial['content']) < 2){
+			$temp_post_content = get_post($postid); 			
+				$testimonial['content'] = $temp_post_content->post_excerpt;
+			if($use_excerpt){
+				if($testimonial['content'] == ''){
+					$testimonial['content'] = wp_trim_excerpt($temp_post_content->post_content);
+				}
+			} else {				
+				$testimonial['content'] = $temp_post_content->post_content;
+			}
 		}
 		
 		if ($show_thumbs) {		
@@ -699,6 +715,7 @@ function outputTestimonialsCycle($atts){
 				<?php endif; ?>
 				<p class="testimonial_body">
 					<?php echo $testimonial['content'];?>
+					<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
 				</p>	
 				<?php if(!get_option('meta_data_position')): ?>			
 					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>

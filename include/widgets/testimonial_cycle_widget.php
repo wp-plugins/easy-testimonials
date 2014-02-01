@@ -30,6 +30,7 @@ class cycledTestimonialWidget extends WP_Widget
 		$title = $instance['title'];
 		$count = $instance['count'];
 		$show_title = $instance['show_title'];
+		$use_excerpt = $instance['use_excerpt'];
 		$transition = $instance['transition'];
 		$timer = $instance['timer'];
 		$category = $instance['category'];
@@ -46,6 +47,7 @@ class cycledTestimonialWidget extends WP_Widget
 			<p><span class="description">Pick your desired transition.</span></label></p>
 			<p><label for="<?php echo $this->get_field_id('timer'); ?>">Timer: <input class="widefat" id="<?php echo $this->get_field_id('timer'); ?>" name="<?php echo $this->get_field_name('timer'); ?>" type="text" value="<?php echo attribute_escape($timer); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('show_title'); ?>">Show Testimonial Title: </label><input class="widefat" id="<?php echo $this->get_field_id('show_title'); ?>" name="<?php echo $this->get_field_name('show_title'); ?>" type="checkbox" value="1" <?php if($show_title){ ?>checked="CHECKED"<?php } ?>/></p>
+			<p><label for="<?php echo $this->get_field_id('use_excerpt'); ?>">Use Testimonial Excerpt: </label><input class="widefat" id="<?php echo $this->get_field_id('use_excerpt'); ?>" name="<?php echo $this->get_field_name('use_excerpt'); ?>" type="checkbox" value="1" <?php if($use_excerpt){ ?>checked="CHECKED"<?php } ?>/></p>
 			<p><label for="<?php echo $this->get_field_id('category'); ?>">Category Slug: <input class="widefat" id="<?php echo $this->get_field_id('category'); ?>" name="<?php echo $this->get_field_name('category'); ?>" type="text" value="<?php echo attribute_escape($category); ?>" /></label></p>
 		<?php
 	}
@@ -55,6 +57,7 @@ class cycledTestimonialWidget extends WP_Widget
 		$instance['title'] = $new_instance['title'];
 		$instance['count'] = $new_instance['count'];
 		$instance['show_title'] = $new_instance['show_title'];
+		$instance['use_excerpt'] = $new_instance['use_excerpt'];
 		$instance['timer'] = $new_instance['timer'];
 		$instance['transition'] = $new_instance['transition'];
 		$instance['category'] = $new_instance['category'];
@@ -71,13 +74,14 @@ class cycledTestimonialWidget extends WP_Widget
 		$show_title = empty($instance['show_title']) ? 0 : $instance['show_title'];
 		$transition = empty($instance['transition']) ? 'fade' : $instance['transition'];
 		$timer = empty($instance['timer']) ? '2000' : $instance['timer'];
+		$use_excerpt = empty($instance['use_excerpt']) ? 0 : $instance['use_excerpt'];
 		$category = empty($instance['category']) ? '' : $instance['category'];
 
 		if (!empty($title)){
 			echo $before_title . $title . $after_title;;
 		}
 		
-		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true, 'category' => $category));
+		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true, 'category' => $category, 'use_excerpt' => $use_excerpt));
 
 		echo $after_widget;
 	} 

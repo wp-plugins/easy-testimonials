@@ -3,8 +3,8 @@ Contributors: richardgabriel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
-Tested up to: 3.8
-Stable tag: 1.5.9
+Tested up to: 3.8.1
+Stable tag: 1.5.9.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,6 +139,10 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Changelog ==
 
+= 1.5.9.1 =
+* Update: Adds ability to use the excerpt with Read More functionality via the cycle shortcode.
+* Minor Feature: Adds ability to control output of images in the via the cycle shortcode.
+
 = 1.5.9 =
 * Feature: Outputs shortcode to list testimonials in a category inside the Category list in the admin area.
 * Feature: Adds ability to control image display via the shortcodes.
@@ -239,4 +243,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.5.9: Update Available!!
+* 1.5.9.1: Update Available!!
