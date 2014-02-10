@@ -127,9 +127,9 @@ Another good question!  With the Pro version of the plugin, you can do this by c
 
 Don't worry!  WordPress has a great function, do_shortcode(), that will allow you to use our shortcodes inside your theme files.  For example, to output a Random Testimonial in a Theme file, you would do this: <?php echo do_shortcode('[random_testimonial count="1"'); ?>
 
-= Arg!  When using the Cycle widget, I get weird overlapping text.  What gives? =
+= Arg!  When using the testimonial Cycle widget, I get weird overlapping text.  What gives? =
 
-Ah - you probably need to add some background color to your CSS.  Try something like blockquote.easy_testimonial{background-color: white;}
+You need to update your CSS.  Try something like `blockquote.easy_testimonial{ background-color: white; }`
 
 = Ack!  This Testimonials Plugin is too easy to use! Will you make it more complicated? =
 
