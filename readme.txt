@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.5.9.1
+Stable tag: 1.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -86,11 +86,13 @@ You have a few things to pay attention to:
 * To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.
 
 = Outputting a Testimonial Slider =
+* NOTE: You can view live examples here: http://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-examples/
 * Easy Testimonials Supports Cycle2!  To output a sliding widget, use this shortcode: [testimonials_cycle].
 * The same properties as the list of testimonials, such as Showing the Title and controlling the Count, also apply.  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".  To show or hide the images next to Testimonials, use the attribute "show_thumbs=0" for hiding the images, and "show_thumbs=1" for displaying the images.
 * To change the timer, use the attribute 'timer', which defaults to 2000 (2 seconds.)  For example: [testimonials_cycle timer="4000"]
 * To change the transition to a fade in, fade out, or no transition, use the attributes 'transition="fade"', or 'transition="fadeout"', or 'transition="none"'.  These features are enabled for Pro users - 'fade' is included in the Free version!  For example: [testimonials_cycle transition="fadeout"]
 * To output a Testimonial Cycle in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can how many testimonials are shown by placing a number in the Count field - make sure you have at least 2, if you want them to Cycle!  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.  You can control the time between transitions using the Timer field - every 1000 equals 1 second.
+* Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fadeIn", "fadeOut", "flipHorz", "flipVert", and "tileSlide".
 
 = Front End Testimonial Submission =
 * NOTE: This feature requires the Pro version of Easy Testimonials: http://goldplugins.com/our-plugins/easy-testimonials-details/
@@ -125,6 +127,10 @@ Another good question!  With the Pro version of the plugin, you can do this by c
 
 Don't worry!  WordPress has a great function, do_shortcode(), that will allow you to use our shortcodes inside your theme files.  For example, to output a Random Testimonial in a Theme file, you would do this: <?php echo do_shortcode('[random_testimonial count="1"'); ?>
 
+= Arg!  When using the Cycle widget, I get weird overlapping text.  What gives?
+
+Ah - you probably need to add some background color to your CSS.  Try something like blockquote.easy_testimonial{background-color: white;}
+
 = Ack!  This Testimonials Plugin is too easy to use! Will you make it more complicated? =
 
 Never!  Easy is in our name!  If by complicated you mean new and easy to use features, there are definitely some on the horizon!
@@ -138,6 +144,10 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 5. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.6 =
+* Feature: Adds more javascript transitions to Pro version.
+* Fix: Addresses a PHP notice.
 
 = 1.5.9.1 =
 * Update: Adds ability to use the excerpt with Read More functionality via the cycle shortcode.
@@ -243,4 +253,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.5.9.1: Update Available!!
+* 1.6: Update available!

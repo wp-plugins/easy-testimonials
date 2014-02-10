@@ -185,7 +185,8 @@ class ikTestimonialsCustomPostType
 	* Save the new Custom Fields values
 	*/
 	function saveCustomFields( $post_id, $post ) {
-		if ( !wp_verify_nonce( $_POST[ 'my-custom-fields_wpnonce' ], 'my-custom-fields' ) )
+		//RWG: 1.30.14 - added isset($_POST[ 'my-custom-fields_wpnonce' ]) to prevent undefined index notices on new item creation
+		if ( isset($_POST[ 'my-custom-fields_wpnonce' ]) && !wp_verify_nonce( $_POST[ 'my-custom-fields_wpnonce' ], 'my-custom-fields' ) )
 			return;
 		if ( !current_user_can( 'edit_post', $post_id ) )
 			return;

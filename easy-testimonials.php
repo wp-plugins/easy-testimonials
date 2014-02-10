@@ -3,9 +3,9 @@
 Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
-Author: Illuminati Karate
-Version: 1.5.9.1
-Author URI: http://illuminatikarate.com
+Author: Gold Plugins
+Version: 1.6
+Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
 
@@ -39,6 +39,16 @@ function easy_testimonials_setup_js() {
 			false,
 			true
 		);
+		
+		if(isValidKey()){  
+			wp_enqueue_script(
+				'easy-testimonials',
+				plugins_url('include/js/easy-testimonials.js', __FILE__),
+				array( 'jquery' ),
+				false,
+				true
+			);
+		}
 	}
 }
 
@@ -634,8 +644,7 @@ function outputTestimonialsCycle($atts){
 		'container' => false,
 		'use_excerpt' => false,
 		'category' => ''
-	), $atts ) );
-	
+	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
 			
@@ -647,6 +656,10 @@ function outputTestimonialsCycle($atts){
 	
 	$i = 0;
 	
+	if(!isValidKey() && !in_array($transition, array('fadeIn','scrollHorz'))){
+		$transition = 'scrollHorz';
+	}
+
 	?>
 	
 	<div class="cycle-slideshow" 

@@ -34,14 +34,20 @@ class cycledTestimonialWidget extends WP_Widget
 		$transition = $instance['transition'];
 		$timer = $instance['timer'];
 		$category = $instance['category'];
+				
 		?>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('count'); ?>">Count: <input class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="text" value="<?php echo attribute_escape($count); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('transition'); ?>">Transition: 
 			<p><select name="<?php echo $this->get_field_name('transition'); ?>" id="<?php echo $this->get_field_id('transition'); ?>">	
 				<option value="scrollHorz" <?php if(attribute_escape($transition) == "scrollHorz"): echo 'selected="SELECTED"'; endif; ?>>Horizontal Scroll</option>
-				<option value="fade" <?php if(attribute_escape($transition) == "fade"): echo 'selected="SELECTED"'; endif; ?>>Fade</option>
+				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="scrollVert" <?php if(attribute_escape($transition) == "scrollVert"): echo 'selected="SELECTED"'; endif; ?>>Vertical Scroll<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+				<option value="fade" <?php if(attribute_escape($transition) == "fade"): echo 'selected="SELECTED"'; endif; ?>>Fade In</option>
 				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="fadeout" <?php if(attribute_escape($transition) == "fadeout"): echo 'selected="SELECTED"'; endif; ?>>Fade Out<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="carousel" <?php if(attribute_escape($transition) == "carousel"): echo 'selected="SELECTED"'; endif; ?>>Carousel<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="flipHorz" <?php if(attribute_escape($transition) == "flipHorz"): echo 'selected="SELECTED"'; endif; ?>>Horizontal Flip<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="flipVert" <?php if(attribute_escape($transition) == "flipVert"): echo 'selected="SELECTED"'; endif; ?>>Vertical Flip<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
+				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="tileslide" <?php if(attribute_escape($transition) == "tileslide"): echo 'selected="SELECTED"'; endif; ?>>Tile Slide<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
 				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="none" <?php if(attribute_escape($transition) == "none"): echo 'selected="SELECTED"'; endif; ?>>None<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
 			</select></p>
 			<p><span class="description">Pick your desired transition.</span></label></p>
