@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.6
+Stable tag: 1.6.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,6 +18,7 @@ Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials
 * Adding a Random Testimonial to Your Sidebar
 * Adding a Random Testimonial to Your Page
 * Outputting a List of Testimonials
+* Outputting a Fading or Sliding Testimonial Widget
 * Displaying an Image with a Testimonial
 * Custom Options Allow You to Link Your Testimonials to a Custom Page, Such As a Product Page
 * Testimonial Categories Allow You To Organize Testimonials in Many Ways!
@@ -145,6 +146,10 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Changelog ==
 
+= 1.6.1 =
+* Fix: address deprecated function use in widget.
+* Fix: fix issue using Fade transition with the Widget.
+
 = 1.6 =
 * Feature: Adds more javascript transitions to Pro version.
 * Fix: Addresses a PHP notice.
@@ -253,4 +258,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.6: Update available!
+* 1.6.1: Update available!
