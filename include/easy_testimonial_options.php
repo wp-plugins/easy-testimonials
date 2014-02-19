@@ -303,7 +303,7 @@ class easyTestimonialOptions
 			
 			<h3>Submission Form Options</h3>
 			
-			<p>Use the below options to control the look and feel of the testimonial submission form</p>
+			<p>Use the below options to control the look and feel of the testimonial submission form.</p>
 						
 			<table class="form-table">
 				<tr valign="top">

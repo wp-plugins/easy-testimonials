@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.7
+Version: 1.7.1
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -102,7 +102,9 @@ function easy_t_send_notification_email(){
 }
 	
 //submit testimonial shortcode
-function submitTestimonialForm($atts){ 
+function submitTestimonialForm($atts){     
+		ob_start();
+		
         // process form submissions
         $inserted = false;
        
@@ -114,14 +116,14 @@ function submitTestimonialForm($atts){
 				if (isset ($_POST['the-title']) && strlen($_POST['the-title']) > 0) {
 						$title =  $_POST['the-title'];
 				} else {
-						echo 'Please enter a ' . get_option('easy_t_title_field_label','title') . '.<br/>';
+						echo '<p class="easy_t_error">Please enter a ' . get_option('easy_t_title_field_label','title') . '.</p>';
 						$do_not_insert = true;
 				}
 			   
 				if (isset ($_POST['the-body']) && strlen($_POST['the-body']) > 0) {
 						$body = $_POST['the-body'];
 				} else {
-						echo 'Please enter the ' . get_option('easy_t_body_content_field_label','body content') . '.<br/>';
+						echo '<p class="easy_t_error">Please enter the ' . get_option('easy_t_body_content_field_label','body content') . '.</p>';
 						$do_not_insert = true;
 				}			
 			   
@@ -163,9 +165,7 @@ function submitTestimonialForm($atts){
        
         $content = '';
        
-        if(isValidKey()){       
-			ob_start();
-		   
+        if(isValidKey()){ 		   
 			if($inserted){
 				echo '<p class="easy_t_submission_success_message">' . get_option('easy_t_submit_success_message','Thank You For Your Submission!') . '</p>';
 				easy_t_send_notification_email();
