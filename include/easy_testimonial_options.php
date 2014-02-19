@@ -18,6 +18,8 @@ along with The Easy Testimonials.  If not, see <http://www.gnu.org/licenses/>.
 
 class easyTestimonialOptions
 {
+	var $textdomain = '';
+	
 	function __construct(){
 		//may be running in non WP mode (for example from a notification)
 		if(function_exists('add_action')){
@@ -52,11 +54,40 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_url' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_key' );
+		
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_title_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_title_field_description' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_name_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_name_field_description' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_position_web_other_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_position_web_other_field_description' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_body_content_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_body_content_field_description' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_button_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_success_message' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_notification_address' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_position_web_other_field' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_name_field' );		
+	}
+	
+	//function to produce tabs on admin screen
+	function easy_t_admin_tabs( $current = 'homepage' ) {
+	
+		$tabs = array( 'basic_options' => __('Basic Options', $this->textdomain), 'submission_form_options' => __('Submission Form Options', $this->textdomain));
+		echo '<div id="icon-themes" class="icon32"><br></div>';
+		echo '<h2 class="nav-tab-wrapper">';
+			foreach( $tabs as $tab => $name ){
+				$class = ( $tab == $current ) ? ' nav-tab-active' : '';
+				echo "<a class='nav-tab$class' href='?page=easy-testimonials/include/easy_testimonial_options.php&tab=$tab'>$name</a>";
+			}
+		echo '</h2>';
 	}
 	
 	function settings_page(){
 		$title = "Easy Testimonials Settings";
 		$message = "Easy Testimonials Settings Updated.";
+		
+		global $pagenow;
 	?>
 	<div class="wrap">
 		<h2><?php echo $title; ?></h2>
@@ -155,7 +186,21 @@ class easyTestimonialOptions
 		<div id="message" class="updated fade"><p><?php echo $message; ?></p></div>
 		<?php endif; ?>	
 		
+		<?php if ( isset ( $_GET['tab'] ) ) $this->easy_t_admin_tabs($_GET['tab']); else $this->easy_t_admin_tabs('config_options'); ?>
+		<?php 
+			if ( $pagenow == 'admin.php' && $_GET['page'] == 'easy-testimonials/include/easy_testimonial_options.php' ){
+				if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
+				else $tab = 'basic_options';
+			} 			
+		?>		
+		
 		<form method="post" action="options.php">
+		
+		<?php 
+			switch ( $tab ){
+				case 'basic_options' :	
+		?>
+				
 			<?php settings_fields( 'easy-testimonials-settings-group' ); ?>			
 			
 			<h3>Basic Options</h3>
@@ -182,7 +227,7 @@ class easyTestimonialOptions
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_custom_css">Custom CSS</a></th>
 					<td><textarea name="easy_t_custom_css" id="easy_t_custom_css" style="width: 250px; height: 250px;"><?php echo get_option('easy_t_custom_css'); ?></textarea>
-					<p class="description">Input any Custom CSS you want to use here.  The plugin will work without you placing anything here - this is useful in case you need to edit any styles for it to work with your theme, though.</p></td>
+					<p class="description">Input any Custom CSS you want to use here.  The plugin will work without you placing anything here - this is useful in case you need to edit any styles for it to work with your theme, though.<br/> For a list of available classes, click <a href="http://goldplugins.com/documentation/easy-testimonials-documentation/html-css-information-for-easy-testimonials/" target="_blank">here</a>.</p></td>
 				</tr>
 			</table>
 			
@@ -244,7 +289,141 @@ class easyTestimonialOptions
 			</table>
 			
 			<?php include('registration_options.php'); ?>
+						
+			<?php
+					break;
+					case 'submission_form_options' :	
+			?>
 			
+			<?php if(!isValidKey()): ?>
+				<p><a href="http://goldplugins.com/our-plugins/easy-testimonials/"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
+			<?php endif; ?>
+			
+			<?php settings_fields( 'easy-testimonials-submission_form_options-settings-group' ); ?>		
+			
+			<h3>Submission Form Options</h3>
+			
+			<p>Use the below options to control the look and feel of the testimonial submission form</p>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_title_field_label">"Title" Field Label</label></th>
+					<td><input type="text" name="easy_t_title_field_label" id="easy_t_title_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_title_field_label'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the first field in the form, which defaults to "Title".  Contents of this field will be passed through to the Title field inside WordPress.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_title_field_description">"Title" Field Description</label></th>
+					<td><input type="text" name="easy_t_title_field_description" id="easy_t_title_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_title_field_description'); ?>"  style="width: 250px" />
+					<p class="description">This is the description below the first field in the form.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_name_field_label">"Name" Field Label</label></th>
+					<td><input type="text" name="easy_t_name_field_label" id="easy_t_name_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_name_field_label'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the second field in the form, which defaults to "Name."  Contents of this field will be passed through to the Name field inside WordPress.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_name_field_description">"Name" Field Description</label></th>
+					<td><input type="text" name="easy_t_name_field_description" id="easy_t_name_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_name_field_description'); ?>"  style="width: 250px" />
+					<p class="description">This is the description below the second field in the form.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_hide_name_field">Disable "Name" Field Display</label></th>
+					<td><input type="checkbox" name="easy_t_hide_name_field" id="easy_t_hide_name_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_name_field')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, the second field in the form will not be displayed.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_position_web_other_field_label">"Position / Web Address / Other" Field Label</label></th>
+					<td><input type="text" name="easy_t_position_web_other_field_label" id="easy_t_position_web_other_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_position_web_other_field_label'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the third field in the form, which defaults to "Position / Web Address / Other."  Contents of this field will be passed through to the Position / Web Address / Other field inside WordPress.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_position_web_other_field_description">"Position / Web Address / Other" Field Description</label></th>
+					<td><input type="text" name="easy_t_position_web_other_field_description" id="easy_t_position_web_other_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_position_web_other_field_description'); ?>"  style="width: 250px" />
+					<p class="description">This is the description below the third field in the form.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_hide_position_web_other_field">Disable "Position / Web Address / Other" Field Display</label></th>
+					<td><input type="checkbox" name="easy_t_hide_position_web_other_field" id="easy_t_hide_position_web_other_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_position_web_other_field')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, the third field in the form will not be displayed.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_body_content_field_label">"Body Content" Field Label</label></th>
+					<td><input type="text" name="easy_t_body_content_field_label" id="easy_t_body_content_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_label'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the fourth field in the form, a textarea, which defaults to "Body Content."  Contents of this field will be passed through to the Body field inside WordPress.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_body_content_field_description">Body Content Field Description</label></th>
+					<td><input type="text" name="easy_t_body_content_field_description" id="easy_t_body_content_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_description'); ?>"  style="width: 250px" />
+					<p class="description">This is the description below the fourth field in the form, a textarea.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_submit_button_label">Submit Button Label</label></th>
+					<td><input type="text" name="easy_t_submit_button_label" id="easy_t_submit_button_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_button_label'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the submit button at the bottom of the form.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_submit_success_message">Submission Success Message</label></th>
+					<td><textarea name="easy_t_submit_success_message" id="easy_t_submit_success_message" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?>><?php echo get_option('easy_t_submit_success_message'); ?></textarea>
+					<p class="description">This is the text that appears after a successful submission.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_submit_notification_address">Submission Success Notification E-Mail Address</label></th>
+					<td><input type="text" name="easy_t_submit_notification_address" id="easy_t_submit_notification_address" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_notification_address'); ?>"  style="width: 250px" />
+					<p class="description">If set, we will attempt to send an e-mail notification to this address upon a succesfull submission.  If not set, submission notifications will be sent to the site's Admin E-mail address.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<?php break; ?>
+			<?php } ?>
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 			</p>

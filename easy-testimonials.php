@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.6.1
+Version: 1.7
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -84,6 +84,23 @@ function easy_testimonials_setup_css() {
 	}
 }
 
+function easy_t_send_notification_email(){
+	//get e-mail address from post meta field
+	$email_address = get_option('easy_t_submit_notification_address', get_bloginfo('admin_email'));
+ 
+	$subject = "New Easy Testimonial Submission on " . get_bloginfo('name');
+	$body = "You have received a new submission with Easy Testimonials on your site, " . get_bloginfo('name') . ".  Login and see what they had to say!";
+ 
+	//use this to set the From address of the e-mail
+	$headers = 'From: ' . get_bloginfo('name') . ' <'.get_bloginfo('admin_email').'>' . "\r\n";
+ 
+	if(wp_mail($email_address, $subject, $body, $headers)){
+		//mail sent!
+	} else {
+		//failure!
+	}
+}
+	
 //submit testimonial shortcode
 function submitTestimonialForm($atts){ 
         // process form submissions
@@ -92,37 +109,55 @@ function submitTestimonialForm($atts){
         if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] )) {
 			//only process submissions from logged in users
 			if(isValidKey()){  
-					if (isset ($_POST['the-title'])) {
-							$title =  $_POST['the-title'];
-					} else {
-							echo 'Please enter a title';
+				$do_not_insert = false;
+				
+				if (isset ($_POST['the-title']) && strlen($_POST['the-title']) > 0) {
+						$title =  $_POST['the-title'];
+				} else {
+						echo 'Please enter a ' . get_option('easy_t_title_field_label','title') . '.<br/>';
+						$do_not_insert = true;
+				}
+			   
+				if (isset ($_POST['the-body']) && strlen($_POST['the-body']) > 0) {
+						$body = $_POST['the-body'];
+				} else {
+						echo 'Please enter the ' . get_option('easy_t_body_content_field_label','body content') . '.<br/>';
+						$do_not_insert = true;
+				}			
+			   
+				if(!$do_not_insert){
+					//snag custom fields
+					$the_other = $the_name = '';					
+					if (isset ($_POST['the-other'])) {
+						$the_other = $_POST['the-other'];
 					}
-				   
-					if (isset ($_POST['the-body'])) {
-							$body = $_POST['the-body'];
-					} else {
-							echo 'Please enter the content';
+					if (isset ($_POST['the-name'])) {
+						$the_name = $_POST['the-name'];
 					}
-				   
-					$tags = $_POST['the-post_tags'];
+					
+					$tags = array();
 				   
 					$post = array(
-							'post_title'    => $title,
-							'post_content'  => $body,
-							'post_category' => array(1),  // custom taxonomies too, needs to be an array
-							'tags_input'    => $tags,
-							'post_status'   => 'pending',
-							'post_type'     => 'testimonial'
+						'post_title'    => $title,
+						'post_content'  => $body,
+						'post_category' => array(1),  // custom taxonomies too, needs to be an array
+						'tags_input'    => $tags,
+						'post_status'   => 'pending',
+						'post_type'     => 'testimonial'
 					);
+				
+					$new_id = wp_insert_post($post);
 				   
-					wp_insert_post($post);
+					update_post_meta( $new_id, '_ikcf_client', $the_name );
+					update_post_meta( $new_id, '_ikcf_position', $the_other );
 				   
 					$inserted = true;
-   
+
 					// do the wp_insert_post action to insert it
-					do_action('wp_insert_post', 'wp_insert_post');                 
+					do_action('wp_insert_post', 'wp_insert_post'); 
+				}
 			} else {
-					echo "You must have a valid key to perform this action.";
+				echo "You must have a valid key to perform this action.";
             }
         }       
        
@@ -132,32 +167,37 @@ function submitTestimonialForm($atts){
 			ob_start();
 		   
 			if($inserted){
-					echo "Thank you for your submission!";
+				echo get_option('easy_t_submit_success_message','Thank You For Your Submission!');
+				easy_t_send_notification_email();
 			} else { ?>
 			<!-- New Post Form -->
 			<div id="postbox">
 					<form id="new_post" name="new_post" method="post">
 							<div class="easy_t_field_wrap">
-								<label for="the-title">Title</label><br />
+								<label for="the-title"><?php echo get_option('easy_t_title_field_label','Title'); ?></label><br />
 								<input type="text" id="the-title" value="" tabindex="1" size="20" name="the-title" />
-								<p class="easy_t_description">This is for internal reference, when viewing the Testimonials in the Dashboard.  This may also be displayed.</p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_title_field_description','This is for internal reference, when viewing the Testimonials in the Dashboard.  This may also be displayed.'); ?></p>
 							</div>
+							<?php if(!get_option('easy_t_hide_name_field',false)): ?>
 							<div class="easy_t_field_wrap">
-								<label for="the-name">Name</label><br />
+								<label for="the-name"><?php echo get_option('easy_t_name_field_label','Name'); ?></label><br />
 								<input type="text" id="the-name" value="" tabindex="1" size="20" name="the-name" />
-								<p class="easy_t_description">This is the name of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Other.</p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_name_field_description','This is the name of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Other.'); ?></p>
 							</div>
+							<?php endif; ?>
+							<?php if(!get_option('easy_t_hide_position_web_other_field',false)): ?>
 							<div class="easy_t_field_wrap">
-								<label for="the-other">Position / Web Address / Other</label><br />
+								<label for="the-other"><?php echo get_option('easy_t_position_web_other_field_label','Position / Web Address / Other'); ?></label><br />
 								<input type="text" id="the-other" value="" tabindex="1" size="20" name="the-other" />
-								<p class="easy_t_description">This is other identifying information of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Name.</p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_position_web_other_field_description','This is other identifying information of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Name.'); ?></p>
 							</div>
+							<?php endif; ?>
 							<div class="easy_t_field_wrap">
-								<label for="the-body">Body Content</label><br />
+								<label for="the-body"><?php echo get_option('easy_t_body_content_field_label','Body Content'); ?></label><br />
 								<textarea id="the-body" tabindex="3" name="the-body" cols="50" rows="6"></textarea>
-								<p class="easy_t_description">This is the body area of the Testimonial.</p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_body_content_field_description','This is the body area of the Testimonial.'); ?></p>
 							</div>
-							<div class="easy_t_field_wrap"><input type="submit" value="Submit Testimonial" tabindex="6" id="submit" name="submit" /></div>
+							<div class="easy_t_field_wrap"><input type="submit" value="<?php echo get_option('easy_t_submit_button_label','Submit Testimonial'); ?>" tabindex="6" id="submit" name="submit" /></div>
 							<input type="hidden" name="action" value="post" />
 							<?php wp_nonce_field( 'new-post' ); ?>
 					</form>
@@ -552,7 +592,7 @@ function outputTestimonials($atts){
 	$i = 0;
 	
 	//load testimonials into an array
-	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'easy-testimonial-category' => $category));
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => $count, 'easy-testimonial-category' => $category, 'paged' => get_query_var( 'paged' )));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();	
 		
@@ -590,36 +630,32 @@ function outputTestimonials($atts){
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 	
-		if($i < $count || $count == -1){
-	
-			?><blockquote class="easy_testimonial">		
-				<?php if ($show_thumbs) {
-					echo $testimonial['image'];
-				} ?>		
-				<?php if ($show_title) {
-					echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
-				} ?>	
-				<?php if(get_option('meta_data_position')): ?>
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<p class="testimonial_author">
-						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
-					</p>	
-					<?php endif; ?>
-				<?php endif; ?>
-				<p class="testimonial_body">
-					<?php echo $testimonial['content'];?>
+		?><blockquote class="easy_testimonial">		
+			<?php if ($show_thumbs) {
+				echo $testimonial['image'];
+			} ?>		
+			<?php if ($show_title) {
+				echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
+			} ?>	
+			<?php if(get_option('meta_data_position')): ?>
+				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+				<p class="testimonial_author">
+					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 				</p>	
-				<?php if(!get_option('meta_data_position')): ?>			
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<p class="testimonial_author">
-						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
-					</p>	
-					<?php endif; ?>
 				<?php endif; ?>
-			</blockquote><?php 	
+			<?php endif; ?>
+			<p class="testimonial_body">
+				<?php echo $testimonial['content'];?>
+			</p>	
+			<?php if(!get_option('meta_data_position')): ?>			
+				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+				<p class="testimonial_author">
+					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+				</p>	
+				<?php endif; ?>
+			<?php endif; ?>
+		</blockquote><?php 	
 			
-			$i ++;
-		}
 	endwhile;	
 	wp_reset_query();
 	

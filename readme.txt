@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.6.1
+Stable tag: 1.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -146,6 +146,11 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Changelog ==
 
+= 1.7 =
+* Feature: adds ability to control the labels, description, and display of certain fields on the submission form.
+* Feature: adds the ability to receive notifications at a specified e-mail address on new submissions.
+* Update: restructure queries to load a bit faster.
+
 = 1.6.1 =
 * Fix: address deprecated function use in widget.
 * Fix: fix issue using Fade transition with the Widget.
@@ -258,4 +263,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.6.1: Update available!
+* 1.7: Update available!

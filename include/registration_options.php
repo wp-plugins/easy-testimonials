@@ -1,5 +1,5 @@
 <h3>Pro Registration</h3>			
-<p>Fill out the fields below, if you have purchased the pro version of the plugin, to activate additional features such as Front-End Testimonial Submission.</p>
+<?php if(!isValidKey()): ?><p>Fill out the fields below, if you have purchased the pro version of the plugin, to activate additional features such as Front-End Testimonial Submission.</p><?php endif; ?>
 <?php if(isValidKey()): ?>	
 <p class="easy_t_registered">Your plugin is succesfully registered and activated!</p>
 <?php else: ?>
@@ -19,6 +19,7 @@
     width: 860px;
 }
 </style>
+<?php if(!isValidMSKey()): ?>
 <table class="form-table">
 	<tr valign="top">
 		<th scope="row"><label for="easy_t_registered_name">Email Address</label></th>
@@ -45,3 +46,4 @@
 		</td>
 	</tr>
 </table>
+<?php endif; ?>
