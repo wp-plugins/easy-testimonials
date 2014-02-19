@@ -167,7 +167,7 @@ function submitTestimonialForm($atts){
 			ob_start();
 		   
 			if($inserted){
-				echo get_option('easy_t_submit_success_message','Thank You For Your Submission!');
+				echo '<p class="easy_t_submission_success_message">' . get_option('easy_t_submit_success_message','Thank You For Your Submission!') . '</p>';
 				easy_t_send_notification_email();
 			} else { ?>
 			<!-- New Post Form -->
