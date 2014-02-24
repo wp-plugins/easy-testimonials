@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.7.1
+Version: 1.7.2
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -440,10 +440,10 @@ function outputRandomTestimonial($atts){
 						</p>	
 						<?php endif; ?>
 					<?php endif; ?>
-					<p class="<?php echo $body_class; ?>">
-						<?php echo $testimonials[$rand]['content'];?>
+					<div class="<?php echo $body_class; ?>">
+						<?php echo apply_filters( 'the_content', $testimonials[$rand]['content']); ?>
 						<?php if(strlen($testimonials_link)>2):?><a class="easy_testimonials_read_more_link" href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
-					</p>			
+					</div>			
 					<?php if(!get_option('meta_data_position')): ?>	
 						<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
 						<p class="<?php echo $author_class; ?>">
@@ -474,14 +474,17 @@ function UniqueRandomNumbersWithinRange($min, $max, $quantity) {
 
 //output specific testimonial
 function outputSingleTestimonial($atts){ 
-	
 	//load shortcode attributes into an array
 	extract( shortcode_atts( array(
 		'testimonials_link' => get_option('testimonials_link'),
 		'show_title' => 0,
+		'body_class' => 'testimonial_body',
+		'author_class' => 'testimonial_author',
 		'id' => '',
 		'use_excerpt' => false,
-		'show_thumbs' => ''
+		'show_thumbs' => '',
+		'short_version' => false,
+		'word_limit' => false,
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -541,18 +544,18 @@ function outputSingleTestimonial($atts){
 			} ?>	
 			<?php if(get_option('meta_data_position')): ?>
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-				<p class="testimonial_author">
+				<p class="<?php echo $author_class; ?>">
 					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 				</p>	
 				<?php endif; ?>
 			<?php endif; ?>
-			<p class="testimonial_body">
-				<?php echo $testimonial['content'];?>
+			<div class="<?php echo $body_class; ?>">
+				<?php echo apply_filters( 'the_content', $testimonial['content']); ?>
 				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
-			</p>	
+			</div>	
 			<?php if(!get_option('meta_data_position')): ?>			
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-				<p class="testimonial_author">
+				<p class="<?php echo $author_class; ?>">
 					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 				</p>	
 				<?php endif; ?>
@@ -572,13 +575,17 @@ function outputSingleTestimonial($atts){
 function outputTestimonials($atts){ 
 	
 	//load shortcode attributes into an array
-	extract( shortcode_atts( array(
+	extract( shortcode_atts( array(	
 		'testimonials_link' => get_option('testimonials_link'),
 		'show_title' => 0,
 		'count' => -1,
+		'body_class' => 'testimonial_body',
+		'author_class' => 'testimonial_author',
+		'id' => '',
 		'use_excerpt' => false,
 		'category' => '',
-		'show_thumbs' => ''
+		'show_thumbs' => '',
+		'short_version' => false,
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -639,17 +646,17 @@ function outputTestimonials($atts){
 			} ?>	
 			<?php if(get_option('meta_data_position')): ?>
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-				<p class="testimonial_author">
+				<p class="<?php echo $author_class; ?>">
 					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 				</p>	
 				<?php endif; ?>
 			<?php endif; ?>
-			<p class="testimonial_body">
-				<?php echo $testimonial['content'];?>
-			</p>	
+			<div class="<?php echo $body_class; ?>">
+				<?php echo apply_filters( 'the_content', $testimonial['content']); ?>
+			</div>	
 			<?php if(!get_option('meta_data_position')): ?>			
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-				<p class="testimonial_author">
+				<p class="<?php echo $author_class; ?>">
 					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 				</p>	
 				<?php endif; ?>
@@ -679,7 +686,9 @@ function outputTestimonialsCycle($atts){
 		'timer' => '2000',
 		'container' => false,
 		'use_excerpt' => false,
-		'category' => ''
+		'category' => '',
+		'body_class' => 'testimonial_body',
+		'author_class' => 'testimonial_author',
 	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -757,18 +766,18 @@ function outputTestimonialsCycle($atts){
 				} ?>	
 				<?php if(get_option('meta_data_position')): ?>
 					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<p class="testimonial_author">
+					<p class="<?php echo $author_class; ?>">
 						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 					</p>	
 					<?php endif; ?>
 				<?php endif; ?>
-				<p class="testimonial_body">
-					<?php echo $testimonial['content'];?>
+				<div class="<?php echo $body_class; ?>">
+					<?php echo apply_filters( 'the_content', $testimonial['content']); ?>
 					<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
-				</p>	
+				</div>	
 				<?php if(!get_option('meta_data_position')): ?>			
 					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<p class="testimonial_author">
+					<p class="<?php echo $author_class; ?>">
 						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
 					</p>	
 					<?php endif; ?>
@@ -790,6 +799,13 @@ function outputTestimonialsCycle($atts){
 	ob_end_clean();	
 	
 	return $content;
+}
+
+//only do this once
+function easy_testimonials_rewrite_flush() {
+    easy_testimonials_setup_testimonials();
+	
+    flush_rewrite_rules();
 }
 
 //register any widgets here
@@ -821,7 +837,7 @@ add_action( 'wp_footer', 'easy_testimonials_setup_custom_css');
 add_action( 'widgets_init', 'easy_testimonials_register_widgets' );
 
 //do stuff
-add_action( 'after_setup_theme', 'easy_testimonials_setup_testimonials' );
+add_action( 'init', 'easy_testimonials_setup_testimonials' );
 
 add_filter('manage_testimonial_posts_columns', 'easy_t_column_head', 10);  
 add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 10, 2); 
@@ -829,4 +845,7 @@ add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 1
 
 add_filter('manage_edit-easy-testimonial-category_columns', 'easy_t_cat_column_head', 10);  
 add_action('manage_easy-testimonial-category_custom_column', 'easy_t_cat_columns_content', 10, 3); 
+
+//flush rewrite rules - only do this once!
+register_activation_hook( __FILE__, 'easy_testimonials_rewrite_flush' );
 ?>

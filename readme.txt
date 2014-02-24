@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,10 @@ You have a few things to pay attention to:
 
 OK!  We have a great page with some helpful information here: http://goldplugins.com/documentation/easy-testimonials-documentation/
 
+= I Updated, and my formatting changed! =
+
+Yikes!  Before 1.7.2, we were not respecting the content filter when outputting testimonials.  So, you may have to update the CSS of paragraph tags inside .testimonial_body.  For more information, contact us via our website or support forum.
+
 = Hey!  How do I allow my visitors to submit testimonials? =
 
 Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit here to purchase the Pro version: http://goldplugins.com/our-plugins/easy-testimonials-details/
@@ -145,6 +149,11 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 5. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.7.2 =
+* Fix: address issue with Continue Reading links leading to 404 pages.
+* Update: respect wordpress content formatting in testimonials.
+* Fix: change position of Testimonials menu item, so that it doesn't dissappear in some situations.
 
 = 1.7.1 =
 * Update: adds wrapping class to submission success message.
@@ -267,4 +276,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.7.1: Update available!
+* 1.7.2: Update available!
