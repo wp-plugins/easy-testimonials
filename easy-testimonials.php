@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.7.2
+Version: 1.7.3
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -441,7 +441,11 @@ function outputRandomTestimonial($atts){
 						<?php endif; ?>
 					<?php endif; ?>
 					<div class="<?php echo $body_class; ?>">
-						<?php echo apply_filters( 'the_content', $testimonials[$rand]['content']); ?>
+						<?php if(get_option('easy_t_apply_content_filter',false)): ?>
+							<?php echo apply_filters('the_content',$testimonials[$rand]['content']); ?>
+						<?php else:?>
+							<?php echo wpautop($testimonials[$rand]['content']); ?>
+						<?php endif;?>
 						<?php if(strlen($testimonials_link)>2):?><a class="easy_testimonials_read_more_link" href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
 					</div>			
 					<?php if(!get_option('meta_data_position')): ?>	
@@ -550,7 +554,11 @@ function outputSingleTestimonial($atts){
 				<?php endif; ?>
 			<?php endif; ?>
 			<div class="<?php echo $body_class; ?>">
-				<?php echo apply_filters( 'the_content', $testimonial['content']); ?>
+				<?php if(get_option('easy_t_apply_content_filter',false)): ?>
+					<?php echo apply_filters('the_content',$testimonial['content']); ?>
+				<?php else:?>
+					<?php echo wpautop($testimonial['content']); ?>
+				<?php endif;?>
 				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
 			</div>	
 			<?php if(!get_option('meta_data_position')): ?>			
@@ -652,7 +660,11 @@ function outputTestimonials($atts){
 				<?php endif; ?>
 			<?php endif; ?>
 			<div class="<?php echo $body_class; ?>">
-				<?php echo apply_filters( 'the_content', $testimonial['content']); ?>
+				<?php if(get_option('easy_t_apply_content_filter',false)): ?>
+					<?php echo apply_filters('the_content',$testimonial['content']); ?>
+				<?php else:?>
+					<?php echo wpautop($testimonial['content']); ?>
+				<?php endif;?>
 			</div>	
 			<?php if(!get_option('meta_data_position')): ?>			
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
@@ -772,7 +784,11 @@ function outputTestimonialsCycle($atts){
 					<?php endif; ?>
 				<?php endif; ?>
 				<div class="<?php echo $body_class; ?>">
-					<?php echo apply_filters( 'the_content', $testimonial['content']); ?>
+					<?php if(get_option('easy_t_apply_content_filter',false)): ?>
+						<?php echo apply_filters('the_content',$testimonial['content']); ?>
+					<?php else:?>
+						<?php echo wpautop($testimonial['content']); ?>
+					<?php endif;?>
 					<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
 				</div>	
 				<?php if(!get_option('meta_data_position')): ?>			
@@ -831,7 +847,7 @@ add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js' );
 add_action( 'wp_head', 'easy_testimonials_setup_css' );
 
 //add Custom CSS
-add_action( 'wp_footer', 'easy_testimonials_setup_custom_css');
+add_action( 'wp_head', 'easy_testimonials_setup_custom_css');
 
 //register sidebar widgets
 add_action( 'widgets_init', 'easy_testimonials_register_widgets' );

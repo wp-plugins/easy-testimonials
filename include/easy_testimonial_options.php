@@ -48,6 +48,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_style' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_disable_cycle2' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_apply_content_filter' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_mystery_man' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_image_size' );
 		
@@ -186,7 +187,7 @@ class easyTestimonialOptions
 		<div id="message" class="updated fade"><p><?php echo $message; ?></p></div>
 		<?php endif; ?>	
 		
-		<?php if ( isset ( $_GET['tab'] ) ) $this->easy_t_admin_tabs($_GET['tab']); else $this->easy_t_admin_tabs('config_options'); ?>
+		<?php if ( isset ( $_GET['tab'] ) ) $this->easy_t_admin_tabs($_GET['tab']); else $this->easy_t_admin_tabs('basic_options'); ?>
 		<?php 
 			if ( $pagenow == 'admin.php' && $_GET['page'] == 'easy-testimonials/include/easy_testimonial_options.php' ){
 				if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
@@ -284,6 +285,15 @@ class easyTestimonialOptions
 					<th scope="row"><label for="easy_t_disable_cycle2">Disable Cycle2 Output</label></th>
 					<td><input type="checkbox" name="easy_t_disable_cycle2" id="easy_t_disable_cycle2" value="1" <?php if(get_option('easy_t_disable_cycle2')){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, we won't include the Cycle2 JavaScript file.  If you suspect you are having JavaScript compatibility issues with our plugin, please try checking this box.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_apply_content_filter">Apply The Content Filter</label></th>
+					<td><input type="checkbox" name="easy_t_apply_content_filter" id="easy_t_apply_content_filter" value="1" <?php if(get_option('easy_t_apply_content_filter')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, we will apply the content filter to Testimonial content.  Use this if you are experiencing problems with other plugins applying their shortcodes, etc, to your Testimonial content.</p>
 					</td>
 				</tr>
 			</table>
