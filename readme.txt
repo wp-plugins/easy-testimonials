@@ -3,8 +3,8 @@ Contributors: richardgabriel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
-Tested up to: 3.8.1
-Stable tag: 1.7.3
+Tested up to: 3.9.1
+Stable tag: 1.7.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -99,6 +99,7 @@ You have a few things to pay attention to:
 * NOTE: This feature requires the Pro version of Easy Testimonials: http://goldplugins.com/our-plugins/easy-testimonials-details/
 * Add the shortcode [submit_testimonial] to the area of the page you want your form on.
 * Any submissions will be added to your Testimonials list, on the back end.  Only Testimonials that you choose to publish will be displayed publicly.
+* Captcha support is enabled with the installation of the Really Simple Captcha plugin: https://wordpress.org/plugins/really-simple-captcha/
 
 = Options =
 * To control the destination of the "Read More" link, set the path in the Testimonials Read More Link field.
@@ -140,6 +141,10 @@ You need to update your CSS.  Try something like `blockquote.easy_testimonial{ b
 
 Never!  Easy is in our name!  If by complicated you mean new and easy to use features, there are definitely some on the horizon!
 
+= Yikes!  I'm getting a ton of spam! =
+
+Never fear, Captcha support is here!  Go install and activate the plugin Really Simple Captcha.  Once done, make sure you have the "Enable Captcha on Submission Form" box checked on your settings, and you should be good to go!
+
 == Screenshots ==
 
 1. This is the Add New Testimonial Page.
@@ -149,6 +154,11 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 5. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.7.4 =
+* Feature: adds Captcha to Front End Testimonial Submission.
+* Update: add more classes to output to allow more control with CSS, such as client and position.
+* Fix: address undefined index notice in sidebar widget.
 
 = 1.7.3 =
 * Update: adds option to apply The Content filter to Testimonial output.
@@ -280,4 +290,4 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 == Upgrade Notice ==
 
-* 1.7.3: Update available!
+* 1.7.4: Update available!

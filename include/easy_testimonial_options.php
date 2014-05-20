@@ -69,6 +69,9 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_notification_address' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_position_web_other_field' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_name_field' );		
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_captcha' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_captcha_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_captcha_field_description' );	
 	}
 	
 	//function to produce tabs on admin screen
@@ -428,6 +431,33 @@ class easyTestimonialOptions
 					<th scope="row"><label for="easy_t_submit_notification_address">Submission Success Notification E-Mail Address</label></th>
 					<td><input type="text" name="easy_t_submit_notification_address" id="easy_t_submit_notification_address" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_notification_address'); ?>"  style="width: 250px" />
 					<p class="description">If set, we will attempt to send an e-mail notification to this address upon a succesfull submission.  If not set, submission notifications will be sent to the site's Admin E-mail address.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_captcha_field_label">"Captcha" Field Label</label></th>
+					<td><input type="text" name="easy_t_captcha_field_label" id="easy_t_captcha_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_label'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the first field in the form, which defaults to "Captcha".  Contents of this field will be passed through to the Captcha field inside WordPress.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_captcha_field_description">"Captcha" Field Description</label></th>
+					<td><input type="text" name="easy_t_captcha_field_description" id="easy_t_captcha_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_description'); ?>"  style="width: 250px" />
+					<p class="description">This is the description below the Captcha field in the form.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_use_captcha">Enable Captcha on Submission Form</label></th>
+					<td><input type="checkbox" name="easy_t_use_captcha" id="easy_t_use_captcha" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_captcha')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, and a compatible plugin is installed (such as <a href="https://wordpress.org/plugins/really-simple-captcha/" target="_blank">Really Simple Captcha</a>) then we will output a Captcha on the Submission Form.  This is useful if you are having SPAM problems.</p>
 					</td>
 				</tr>
 			</table>

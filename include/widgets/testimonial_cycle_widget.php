@@ -26,7 +26,7 @@ class cycledTestimonialWidget extends WP_Widget
 	}
 
 	function form($instance){
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '' ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '', 'use_excerpt' => 0 ) );
 		$title = $instance['title'];
 		$count = $instance['count'];
 		$show_title = $instance['show_title'];

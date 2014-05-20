@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.7.3
+Version: 1.7.4
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -101,6 +101,91 @@ function easy_t_send_notification_email(){
 	}
 }
 	
+function easy_t_check_captcha() {
+	$captcha = new ReallySimpleCaptcha();
+	// This variable holds the CAPTCHA image prefix, which corresponds to the correct answer
+	$captcha_prefix = $_POST['captcha_prefix'];
+	// This variable holds the CAPTCHA response, entered by the user
+	$captcha_code = $_POST['captcha_code'];
+	// This variable will hold the result of the CAPTCHA validation. Set to 'false' until CAPTCHA validation passes
+	$captcha_correct = false;
+	// Validate the CAPTCHA response
+	$captcha_check = $captcha->check( $captcha_prefix, $captcha_code );
+	// Set to 'true' if validation passes, and 'false' if validation fails
+	$captcha_correct = $captcha_check;
+	// clean up the tmp directory
+	$captcha->remove($captcha_prefix);
+	$captcha->cleanup();
+	
+	return $captcha_correct;
+}	
+	
+function easy_t_outputCaptcha(){
+	// Instantiate the ReallySimpleCaptcha class, which will handle all of the heavy lifting
+	$captcha = new ReallySimpleCaptcha();
+	 
+	// ReallySimpleCaptcha class option defaults.
+	// Changing these values will hav no impact. For now, these are here merely for reference.
+	// If you want to configure these options, see "Set Really Simple CAPTCHA Options", below
+	$captcha_defaults = array(
+		'chars' => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
+		'char_length' => '4',
+		'img_size' => array( '72', '24' ),
+		'fg' => array( '0', '0', '0' ),
+		'bg' => array( '255', '255', '255' ),
+		'font_size' => '16',
+		'font_char_width' => '15',
+		'img_type' => 'png',
+		'base' => array( '6', '18'),
+	);
+	 
+	/**************************************
+	* All configurable options are below  *
+	***************************************/
+	 
+	//Set Really Simple CAPTCHA Options
+	$captcha->chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+	$captcha->char_length = '4';
+	$captcha->img_size = array( '100', '50' );
+	$captcha->fg = array( '0', '0', '0' );
+	$captcha->bg = array( '255', '255', '255' );
+	$captcha->font_size = '16';
+	$captcha->font_char_width = '15';
+	$captcha->img_type = 'png';
+	$captcha->base = array( '6', '18' );
+	 
+	/********************************************************************
+	* Nothing else to edit.  No configurable options below this point.  *
+	*********************************************************************/
+	 
+	// Generate random word and image prefix
+	$captcha_word = $captcha->generate_random_word();
+	$captcha_prefix = mt_rand();
+	// Generate CAPTCHA image
+	$captcha_image_name = $captcha->generate_image($captcha_prefix, $captcha_word);
+	// Define values for CAPTCHA fields
+	$captcha_image_url =  get_bloginfo('wpurl') . '/wp-content/plugins/really-simple-captcha/tmp/';
+	$captcha_image_src = $captcha_image_url . $captcha_image_name;
+	$captcha_image_width = $captcha->img_size[0];
+	$captcha_image_height = $captcha->img_size[1];
+	$captcha_field_size = $captcha->char_length;
+	// Output the CAPTCHA fields
+	?>
+	<div class="easy_t_field_wrap">
+		<img src="<?php echo $captcha_image_src; ?>"
+		 alt="captcha"
+		 width="<?php echo $captcha_image_width; ?>"
+		 height="<?php echo $captcha_image_height; ?>" /><br/>
+		<label for="captcha_code"><?php echo get_option('easy_t_captcha_field_label','Captcha'); ?></label><br/>
+		<input id="captcha_code" name="captcha_code"
+		 size="<?php echo $captcha_field_size; ?>" type="text" />
+		<p class="easy_t_description"><?php echo get_option('easy_t_captcha_field_description','Enter the value in the image above into this field.'); ?></p>
+		<input id="captcha_prefix" name="captcha_prefix" type="hidden"
+		 value="<?php echo $captcha_prefix; ?>" />
+	</div>
+	<?php
+}
+	
 //submit testimonial shortcode
 function submitTestimonialForm($atts){     
 		ob_start();
@@ -109,7 +194,6 @@ function submitTestimonialForm($atts){
         $inserted = false;
        
         if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] )) {
-			//only process submissions from logged in users
 			if(isValidKey()){  
 				$do_not_insert = false;
 				
@@ -126,6 +210,14 @@ function submitTestimonialForm($atts){
 						echo '<p class="easy_t_error">Please enter the ' . get_option('easy_t_body_content_field_label','body content') . '.</p>';
 						$do_not_insert = true;
 				}			
+				
+				if(class_exists('ReallySimpleCaptcha') && get_option('easy_t_use_captcha',0)){ 
+					$correct = easy_t_check_captcha(); 
+					if(!$correct){
+						echo '<p class="easy_t_error">Captcha did not match.</p>';
+						$do_not_insert = true;
+					}
+				}
 			   
 				if(!$do_not_insert){
 					//snag custom fields
@@ -165,7 +257,7 @@ function submitTestimonialForm($atts){
        
         $content = '';
        
-        if(isValidKey()){ 		   
+        if(isValidKey()){ 		
 			if($inserted){
 				echo '<p class="easy_t_submission_success_message">' . get_option('easy_t_submit_success_message','Thank You For Your Submission!') . '</p>';
 				easy_t_send_notification_email();
@@ -196,7 +288,10 @@ function submitTestimonialForm($atts){
 								<label for="the-body"><?php echo get_option('easy_t_body_content_field_label','Body Content'); ?></label><br />
 								<textarea id="the-body" tabindex="3" name="the-body" cols="50" rows="6"></textarea>
 								<p class="easy_t_description"><?php echo get_option('easy_t_body_content_field_description','This is the body area of the Testimonial.'); ?></p>
-							</div>
+							</div>						
+		
+							<?php if(class_exists('ReallySimpleCaptcha') && get_option('easy_t_use_captcha',0)){ easy_t_outputCaptcha(); } ?>
+							
 							<div class="easy_t_field_wrap"><input type="submit" value="<?php echo get_option('easy_t_submit_button_label','Submit Testimonial'); ?>" tabindex="6" id="submit" name="submit" /></div>
 							<input type="hidden" name="action" value="post" />
 							<?php wp_nonce_field( 'new-post' ); ?>
@@ -436,7 +531,7 @@ function outputRandomTestimonial($atts){
 					<?php if(get_option('meta_data_position')): ?>
 						<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
 						<p class="<?php echo $author_class; ?>">
-							<cite><?php echo $testimonials[$rand]['client'];?><br/><?php echo $testimonials[$rand]['position'];?></cite>
+							<cite><span class="testimonial-client"><?php echo $testimonials[$rand]['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonials[$rand]['position'];?></span></cite>
 						</p>	
 						<?php endif; ?>
 					<?php endif; ?>
@@ -451,7 +546,7 @@ function outputRandomTestimonial($atts){
 					<?php if(!get_option('meta_data_position')): ?>	
 						<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
 						<p class="<?php echo $author_class; ?>">
-							<cite><?php echo $testimonials[$rand]['client'];?><br/><?php echo $testimonials[$rand]['position'];?></cite>
+							<cite><span class="testimonial-client"><?php echo $testimonials[$rand]['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonials[$rand]['position'];?></span></cite>
 						</p>	
 						<?php endif; ?>
 					<?php endif; ?>
@@ -549,7 +644,7 @@ function outputSingleTestimonial($atts){
 			<?php if(get_option('meta_data_position')): ?>
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p class="<?php echo $author_class; ?>">
-					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
 				</p>	
 				<?php endif; ?>
 			<?php endif; ?>
@@ -564,7 +659,7 @@ function outputSingleTestimonial($atts){
 			<?php if(!get_option('meta_data_position')): ?>			
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p class="<?php echo $author_class; ?>">
-					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
 				</p>	
 				<?php endif; ?>
 			<?php endif; ?>
@@ -655,7 +750,7 @@ function outputTestimonials($atts){
 			<?php if(get_option('meta_data_position')): ?>
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p class="<?php echo $author_class; ?>">
-					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
 				</p>	
 				<?php endif; ?>
 			<?php endif; ?>
@@ -669,7 +764,7 @@ function outputTestimonials($atts){
 			<?php if(!get_option('meta_data_position')): ?>			
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p class="<?php echo $author_class; ?>">
-					<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
 				</p>	
 				<?php endif; ?>
 			<?php endif; ?>
@@ -779,7 +874,7 @@ function outputTestimonialsCycle($atts){
 				<?php if(get_option('meta_data_position')): ?>
 					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 					<p class="<?php echo $author_class; ?>">
-						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+						<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
 					</p>	
 					<?php endif; ?>
 				<?php endif; ?>
@@ -794,7 +889,7 @@ function outputTestimonialsCycle($atts){
 				<?php if(!get_option('meta_data_position')): ?>			
 					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 					<p class="<?php echo $author_class; ?>">
-						<cite><?php echo $testimonial['client'];?><br/><?php echo $testimonial['position'];?></cite>
+						<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
 					</p>	
 					<?php endif; ?>
 				<?php endif; ?>
@@ -857,7 +952,6 @@ add_action( 'init', 'easy_testimonials_setup_testimonials' );
 
 add_filter('manage_testimonial_posts_columns', 'easy_t_column_head', 10);  
 add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 10, 2); 
-
 
 add_filter('manage_edit-easy-testimonial-category_columns', 'easy_t_cat_column_head', 10);  
 add_action('manage_easy-testimonial-category_custom_column', 'easy_t_cat_columns_content', 10, 3); 
