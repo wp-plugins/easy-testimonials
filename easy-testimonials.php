@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.7.5
+Version: 1.7.5.1
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -824,9 +824,18 @@ function outputTestimonialsCycle($atts){
 	>
 	<?php
 	
+	$easy_t_first = true;
+	
 	//load testimonials into an array
 	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'easy-testimonial-category' => $category));
 	while($loop->have_posts()) : $loop->the_post();
+		if($easy_t_first){
+			$testimonial_display = '';
+			$easy_t_first = false;
+		} else {
+			$testimonial_display = 'style="display:none;"';
+		}
+	
 		$postid = get_the_ID();
 
 		//if nothing is set for the short content, use the long content
@@ -866,7 +875,7 @@ function outputTestimonialsCycle($atts){
 	
 		if($i < $count || $count == -1){
 	
-			?><div><blockquote class="easy_testimonial">		
+			?><div <?php echo $testimonial_display; ?>><blockquote class="easy_testimonial">		
 				<?php if ($show_thumbs) {
 					echo $testimonial['image'];
 				} ?>		
