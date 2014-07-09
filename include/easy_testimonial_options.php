@@ -53,6 +53,8 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_image_size' );
 		
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_first_name' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_last_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_url' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_key' );
 		

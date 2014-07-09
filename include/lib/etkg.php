@@ -34,5 +34,18 @@ class ETKG
 		}
 		
 		return $this->keyPrefix . md5($key);	
+	}	
+	
+	function computeKeyEJ($first_name, $last_name, $email)
+	{
+		$key = md5($this->secret . $first_name . $this->secret . $last_name . $this->secret . $email . $this->secret);
+		$key2 = md5($this->secret . $email . $this->secret . $first_name . $this->secret . $last_name . $this->secret);
+		$funbox = strlen($key . $key2);
+		for($i = 1; $i < 2289; $i++) {
+			$key2 = sha1(md5($key2 . $key . $funbox));
+			$key = md5(sha1($key . $key2 . $funbox));
+		}
+		
+		return $this->keyPrefix . md5($key);	
 	}
 }

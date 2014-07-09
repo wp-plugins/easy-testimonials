@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.9.1
-Stable tag: 1.7.5.1
+Stable tag: 1.7.5.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -155,6 +155,9 @@ Never fear, Captcha support is here!  Go install and activate the plugin Really 
 
 == Changelog ==
 
+= 1.7.5.2 =
+* Minor update.
+
 = 1.7.5.1 =
 * Update: hides output of all but first testimonial when using cycled testimonial output.
 
@@ -296,4 +299,4 @@ Never fear, Captcha support is here!  Go install and activate the plugin Really 
 
 == Upgrade Notice ==
 
-* 1.7.5.1: Update available!
+* 1.7.5.2: Update available!
