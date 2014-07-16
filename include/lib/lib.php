@@ -10,7 +10,7 @@ function isValidKey(){
 	
 	$keygen = new ETKG();
 	$computedKey = $keygen->computeKey($webaddress, $email);
-	$computedKeyEJ = $keygen->computeKeyEJ($first_name, $last_name, $email);
+	$computedKeyEJ = $keygen->computeKeyEJ($email);
 
 	if ($key == $computedKey || $key == $computedKeyEJ) {
 		return true;

@@ -31,24 +31,6 @@
 	
 <table class="form-table">
 	<tr valign="top">
-		<th scope="row"><label for="easy_t_registered_first_name">First Name</label></th>
-		<td><input type="text" name="easy_t_registered_first_name" id="easy_t_registered_first_name" value="<?php echo get_option('easy_t_registered_first_name'); ?>"  style="width: 250px" />
-		<p class="description">This is the First Name that you used when you registered the plugin.</p>
-		</td>
-	</tr>
-</table>
-	
-<table class="form-table">
-	<tr valign="top">
-		<th scope="row"><label for="easy_t_registered_last_name">Last Name</label></th>
-		<td><input type="text" name="easy_t_registered_last_name" id="easy_t_registered_last_name" value="<?php echo get_option('easy_t_registered_last_name'); ?>"  style="width: 250px" />
-		<p class="description">This is the Last Name that you used when you registered the plugin.</p>
-		</td>
-	</tr>
-</table>
-	
-<table class="form-table">
-	<tr valign="top">
 		<th scope="row"><label for="easy_t_registered_key">API Key</label></th>
 		<td><input type="text" name="easy_t_registered_key" id="easy_t_registered_key" value="<?php echo get_option('easy_t_registered_key'); ?>"  style="width: 250px" />
 		<p class="description">This is the API Key that you received after registering the plugin.</p>
