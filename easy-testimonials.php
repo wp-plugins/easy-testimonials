@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.7.5.3
+Version: 1.7.6
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -30,6 +30,7 @@ include('include/lib/lib.php');
 //setup JS
 function easy_testimonials_setup_js() {
 	$disable_cycle2 = get_option('easy_t_disable_cycle2');
+	$use_cycle_fix = get_option('easy_t_use_cycle_fix');
 
 	if(!$disable_cycle2){
 		wp_enqueue_script(
@@ -38,7 +39,17 @@ function easy_testimonials_setup_js() {
 			array( 'jquery' ),
 			false,
 			true
-		);
+		);  
+		
+		if($use_cycle_fix){
+			wp_enqueue_script(
+				'easy-testimonials',
+				plugins_url('include/js/easy-testimonials-cycle-fix.js', __FILE__),
+				array( 'jquery' ),
+				false,
+				true
+			);
+		}
 		
 		if(isValidKey()){  
 			wp_enqueue_script(
@@ -689,6 +700,8 @@ function outputTestimonials($atts){
 		'category' => '',
 		'show_thumbs' => '',
 		'short_version' => false,
+		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
+		'order' => 'ASC'//'DESC'
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -702,7 +715,7 @@ function outputTestimonials($atts){
 	$i = 0;
 	
 	//load testimonials into an array
-	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => $count, 'easy-testimonial-category' => $category, 'paged' => get_query_var( 'paged' )));
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => $count, 'easy-testimonial-category' => $category, 'orderby' => $orderby, 'order' => $order, 'paged' => get_query_var( 'paged' )));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();	
 		
@@ -796,7 +809,10 @@ function outputTestimonialsCycle($atts){
 		'category' => '',
 		'body_class' => 'testimonial_body',
 		'author_class' => 'testimonial_author',
-		'random' => ''
+		'random' => '',
+		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
+		'order' => 'ASC'//'DESC'
+		
 	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -809,8 +825,8 @@ function outputTestimonialsCycle($atts){
 	
 	$i = 0;
 	
-	if(!isValidKey() && !in_array($transition, array('fadeIn','fade','scrollHorz'))){
-		$transition = 'fadeIn';
+	if(!isValidKey() && !in_array($transition, array('fadeOut','fade','scrollHorz'))){
+		$transition = 'fadeOut';
 	}
 
 	?>
@@ -827,7 +843,7 @@ function outputTestimonialsCycle($atts){
 	$easy_t_first = true;
 	
 	//load testimonials into an array
-	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'easy-testimonial-category' => $category));
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'orderby' => $orderby, 'order' => $order, 'easy-testimonial-category' => $category));
 	while($loop->have_posts()) : $loop->the_post();
 		if($easy_t_first){
 			$testimonial_display = '';

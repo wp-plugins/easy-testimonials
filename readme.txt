@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.9.1
-Stable tag: 1.7.5.3
+Stable tag: 1.7.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -85,6 +85,7 @@ You have a few things to pay attention to:
 * To output a Random Testimonial, place the shortcode [random_testimonial] in the desired area of the Page or Post Content. To display more than one random testimonial, use the shortcode [random_testimonial count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [random_testimonial show_title="1"].  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".  To show or hide the images next to Testimonials, use the attribute "show_thumbs=0" for hiding the images, and "show_thumbs=1" for displaying the images.
 * To output a list of All Testimonials, place the shortcode [testimonials] in the desired area of the Page or Post Content.  To display more than one testimonial, use the shortcode [testimonials count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [testimonials show_title="1"].  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".  To show or hide the images next to Testimonials, use the attribute "show_thumbs=0" for hiding the images, and "show_thumbs=1" for displaying the images.
 * To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.
+* To control the Order of the Testimonials with the Shortcode, use the attribute order='ASC'.  To control the Order By parameter, use the attribute orderby='title'.  Acceptable attributes for 'order' are 'ASC' and 'DESC'. Acceptable attributes for 'orderby' are 'none','ID','author','title','name','date','modified','parent', and 'rand'. 
 
 = Outputting a Testimonial Slider =
 * NOTE: You can view live examples here: http://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-examples/
@@ -94,6 +95,7 @@ You have a few things to pay attention to:
 * To change the transition to a fade in, fade out, or no transition, use the attributes 'transition="fade"', or 'transition="fadeout"', or 'transition="none"'.  These features are enabled for Pro users - 'fade' is included in the Free version!  For example: [testimonials_cycle transition="fadeout"]
 * To output a Testimonial Cycle in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can how many testimonials are shown by placing a number in the Count field - make sure you have at least 2, if you want them to Cycle!  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.  You can control the time between transitions using the Timer field - every 1000 equals 1 second.
 * Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fadeIn", "fadeOut", "flipHorz", "flipVert", and "tileSlide".
+* To control the Order of the Testimonials with the Shortcode, use the attribute order='ASC'.  To control the Order By parameter, use the attribute orderby='title'.  Acceptable attributes for 'order' are 'ASC' and 'DESC'. Acceptable attributes for 'orderby' are 'none','ID','author','title','name','date','modified','parent', and 'rand'. 
 
 = Front End Testimonial Submission =
 * NOTE: This feature requires the Pro version of Easy Testimonials: http://goldplugins.com/our-plugins/easy-testimonials-details/
@@ -145,6 +147,10 @@ Never!  Easy is in our name!  If by complicated you mean new and easy to use fea
 
 Never fear, Captcha support is here!  Go install and activate the plugin Really Simple Captcha.  Once done, make sure you have the "Enable Captcha on Submission Form" box checked on your settings, and you should be good to go!
 
+= Help!  I'm having issues getting the Slider to work on my site! =
+
+Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fully refreshing the page (to make sure any and all caches have cleared) -- hopefully everything is working now!
+
 == Screenshots ==
 
 1. This is the Add New Testimonial Page.
@@ -154,6 +160,10 @@ Never fear, Captcha support is here!  Go install and activate the plugin Really 
 5. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.7.6 =
+* Feature: adds ability to control the order in which Testimonials are displayed.
+* Update: adds new compatibilty option to help some users who have slideshow issues.
 
 = 1.7.5.3 =
 * Registration update.

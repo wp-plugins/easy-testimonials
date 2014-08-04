@@ -48,6 +48,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_style' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_disable_cycle2' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_use_cycle_fix' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_apply_content_filter' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_mystery_man' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_image_size' );
@@ -313,6 +314,15 @@ class easyTestimonialOptions
 					<th scope="row"><label for="easy_t_disable_cycle2">Disable Cycle2 Output</label></th>
 					<td><input type="checkbox" name="easy_t_disable_cycle2" id="easy_t_disable_cycle2" value="1" <?php if(get_option('easy_t_disable_cycle2')){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, we won't include the Cycle2 JavaScript file.  If you suspect you are having JavaScript compatibility issues with our plugin, please try checking this box.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_use_cycle_fix">Use Cycle Fix</label></th>
+					<td><input type="checkbox" name="easy_t_use_cycle_fix" id="easy_t_use_cycle_fix" value="1" <?php if(get_option('easy_t_use_cycle_fix')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, we will try and trigger Cycle2 a different way.  If you suspect you are having JavaScript compatibility issues with our plugin, please try checking this box.  NOTE: If you have Disable Cycle2 Output checked, this box will have no effect.</p>
 					</td>
 				</tr>
 			</table>

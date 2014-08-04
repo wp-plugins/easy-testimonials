@@ -43,7 +43,7 @@ class cycledTestimonialWidget extends WP_Widget
 			<p><select name="<?php echo $this->get_field_name('transition'); ?>" id="<?php echo $this->get_field_id('transition'); ?>">	
 				<option value="scrollHorz" <?php if(esc_attr($transition) == "scrollHorz"): echo 'selected="SELECTED"'; endif; ?>>Horizontal Scroll</option>
 				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="scrollVert" <?php if(esc_attr($transition) == "scrollVert"): echo 'selected="SELECTED"'; endif; ?>>Vertical Scroll<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
-				<option value="fadeIn" <?php if(esc_attr($transition) == "fadeIn"): echo 'selected="SELECTED"'; endif; ?>>Fade In</option>
+				<option value="fade" <?php if(esc_attr($transition) == "fade"): echo 'selected="SELECTED"'; endif; ?>>Fade</option>
 				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="fadeout" <?php if(esc_attr($transition) == "fadeout"): echo 'selected="SELECTED"'; endif; ?>>Fade Out<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
 				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="carousel" <?php if(esc_attr($transition) == "carousel"): echo 'selected="SELECTED"'; endif; ?>>Carousel<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
 				<option <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="flipHorz" <?php if(esc_attr($transition) == "flipHorz"): echo 'selected="SELECTED"'; endif; ?>>Horizontal Flip<?php if(!isValidKey()): ?> - Register to Enable!<?php endif; ?></option>
