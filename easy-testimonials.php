@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.7.6
+Version: 1.7.7
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -66,11 +66,49 @@ function easy_testimonials_setup_js() {
 //add Testimonial CSS to header
 function easy_testimonials_setup_css() {
 	wp_register_style( 'easy_testimonial_style', plugins_url('include/css/style.css', __FILE__) );
-	wp_register_style( 'easy_testimonial_dark_style', plugins_url('include/css/dark_style.css', __FILE__) );
+	wp_register_style( 'easy_testimonial_dark_style', plugins_url('include/css/dark_style.css', __FILE__) );	
 	wp_register_style( 'easy_testimonial_light_style', plugins_url('include/css/light_style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_blue_style', plugins_url('include/css/blue_style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_clean_style', plugins_url('include/css/clean_style.css', __FILE__) );
 	wp_register_style( 'easy_testimonial_no_style', plugins_url('include/css/no_style.css', __FILE__) );
+	
+	if(isValidKey()){ 
+		//bubble
+		wp_register_style( 'easy_testimonial_bubble_style', plugins_url('include/css/bubble_style.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_bubble_style-brown', plugins_url('include/css/bubble_style-brown.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_bubble_style-pink', plugins_url('include/css/bubble_style-pink.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_bubble_style-blue-orange', plugins_url('include/css/bubble_style-blue-orange.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_bubble_style-red-grey', plugins_url('include/css/bubble_style-red-grey.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_bubble_style-purple-green', plugins_url('include/css/bubble_style-purple-green.css', __FILE__) );
+		//left avatar, 150x150
+		wp_register_style( 'easy_testimonial_avatar-left-style', plugins_url('include/css/avatar-left.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-blue-orange', plugins_url('include/css/avatar-left-blue-orange.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-brown', plugins_url('include/css/avatar-left-brown.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-pink', plugins_url('include/css/avatar-left-pink.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-purple-green', plugins_url('include/css/avatar-left-purple-green.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-red-grey', plugins_url('include/css/avatar-left-red-grey.css', __FILE__) );
+		//left avatar, 50x50
+		wp_register_style( 'easy_testimonial_avatar-left-style-50x50', plugins_url('include/css/avatar-left-50x50.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-50x50-blue-orange', plugins_url('include/css/avatar-left-50x50-blue-orange.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-50x50-brown', plugins_url('include/css/avatar-left-50x50-brown.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-50x50-pink', plugins_url('include/css/avatar-left-50x50-pink.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-50x50-purple-green', plugins_url('include/css/avatar-left-50x50-purple-green.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-left-style-50x50-red-grey', plugins_url('include/css/avatar-left-50x50-red-grey.css', __FILE__) );
+		//right avatar, 150x150
+		wp_register_style( 'easy_testimonial_avatar-right-style', plugins_url('include/css/avatar-right.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-blue-orange', plugins_url('include/css/avatar-right-blue-orange.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-brown', plugins_url('include/css/avatar-right-brown.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-pink', plugins_url('include/css/avatar-right-pink.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-purple-green', plugins_url('include/css/avatar-right-purple-green.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-red-grey', plugins_url('include/css/avatar-right-red-grey.css', __FILE__) );
+		//right avatar, 50x50
+		wp_register_style( 'easy_testimonial_avatar-right-style-50x50', plugins_url('include/css/avatar-right-50x50.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-50x50-blue-orange', plugins_url('include/css/avatar-right-50x50-blue-orange.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-50x50-brown', plugins_url('include/css/avatar-right-50x50-brown.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-50x50-pink', plugins_url('include/css/avatar-right-50x50-pink.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-50x50-purple-green', plugins_url('include/css/avatar-right-50x50-purple-green.css', __FILE__) );
+		wp_register_style( 'easy_testimonial_avatar-right-style-50x50-red-grey', plugins_url('include/css/avatar-right-50x50-red-grey.css', __FILE__) );
+	}
 	
     switch(get_option('testimonials_style')){
 		case 'dark_style':
@@ -87,6 +125,161 @@ function easy_testimonials_setup_css() {
 			break;
 		case 'no_style':
 			//wp_enqueue_style( 'easy_testimonial_no_style' );
+			break;
+		//bubble
+		case 'bubble_style':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_bubble_style' );
+			}
+			break;
+		case 'bubble_style-brown':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_bubble_style-brown' );
+			}
+			break;
+		case 'bubble_style-pink':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_bubble_style-pink' );
+			}
+			break;
+		case 'bubble_style-blue-orange':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_bubble_style-blue-orange' );
+			}
+			break;
+		case 'bubble_style-red-grey':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_bubble_style-red-grey' );
+			}
+			break;
+		case 'bubble_style-purple-green':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_bubble_style-purple-green' );
+			}
+			break;
+		//left avatar, 150x150
+		case 'avatar-left-style':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style' );
+			}
+			break;
+		case 'avatar-left-style-blue-orange':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-blue-orange' );
+			}
+			break;
+		case 'avatar-left-style-pink':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-pink' );
+			}
+			break;
+		case 'avatar-left-style-brown':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-brown' );
+			}
+			break;
+		case 'avatar-left-style-red-grey':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-red-grey' );
+			}
+			break;
+		case 'avatar-left-style-purple-green':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-purple-green' );
+			}
+			break;
+		//left avatar, 50x50
+		case 'avatar-left-style-50x50':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-50x50' );
+			}
+			break;
+		case 'avatar-left-style-50x50-blue-orange':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-50x50-blue-orange' );
+			}
+			break;
+		case 'avatar-left-style-50x50-brown':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-50x50-brown' );
+			}
+			break;
+		case 'avatar-left-style-50x50-pink':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-50x50-pink' );
+			}
+			break;
+		case 'avatar-left-style-50x50-purple-green':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-50x50-purple-green' );
+			}
+			break;
+		case 'avatar-left-style-50x50-red-grey':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-left-style-50x50-red-grey' );
+			}
+			break;
+		//right avatar, 150x150
+		case 'avatar-right-style':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style' );
+			}
+			break;
+		case 'avatar-right-style-blue-orange':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-blue-orange' );
+			}
+			break;
+		case 'avatar-right-style-pink':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-pink' );
+			}
+			break;
+		case 'avatar-right-style-brown':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-brown' );
+			}
+			break;
+		case 'avatar-right-style-red-grey':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-red-grey' );
+			}
+			break;
+		case 'avatar-right-style-purple-green':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-purple-green' );
+			}
+			break;
+		//left avatar, 50x50
+		case 'avatar-right-style-50x50':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-50x50' );
+			}
+			break;
+		case 'avatar-right-style-50x50-blue-orange':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-50x50-blue-orange' );
+			}
+			break;
+		case 'avatar-right-style-50x50-brown':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-50x50-brown' );
+			}
+			break;
+		case 'avatar-right-style-50x50-pink':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-50x50-pink' );
+			}
+			break;
+		case 'avatar-right-style-50x50-purple-green':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-50x50-purple-green' );
+			}
+			break;
+		case 'avatar-right-style-50x50-red-grey':
+			if(isValidKey()){
+				wp_enqueue_style( 'easy_testimonial_avatar-right-style-50x50-red-grey' );
+			}
 			break;
 		case 'default_style':
 		default:
@@ -540,11 +733,11 @@ function outputRandomTestimonial($atts){
 					} ?>	
 					
 					<?php if(get_option('meta_data_position')): ?>
-						<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
 						<p class="<?php echo $author_class; ?>">
+							<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
 							<cite><span class="testimonial-client"><?php echo $testimonials[$rand]['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonials[$rand]['position'];?></span></cite>
+							<?php endif; ?>
 						</p>	
-						<?php endif; ?>
 					<?php endif; ?>
 					<div class="<?php echo $body_class; ?>">
 						<?php if(get_option('easy_t_apply_content_filter',false)): ?>
@@ -555,11 +748,11 @@ function outputRandomTestimonial($atts){
 						<?php if(strlen($testimonials_link)>2):?><a class="easy_testimonials_read_more_link" href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
 					</div>			
 					<?php if(!get_option('meta_data_position')): ?>	
-						<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
 						<p class="<?php echo $author_class; ?>">
+							<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
 							<cite><span class="testimonial-client"><?php echo $testimonials[$rand]['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonials[$rand]['position'];?></span></cite>
+							<?php endif; ?>
 						</p>	
-						<?php endif; ?>
 					<?php endif; ?>
 				</blockquote><?php
 			} else {
@@ -653,11 +846,11 @@ function outputSingleTestimonial($atts){
 				echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
 			} ?>	
 			<?php if(get_option('meta_data_position')): ?>
-				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p class="<?php echo $author_class; ?>">
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+					<?php endif; ?>
 				</p>	
-				<?php endif; ?>
 			<?php endif; ?>
 			<div class="<?php echo $body_class; ?>">
 				<?php if(get_option('easy_t_apply_content_filter',false)): ?>
@@ -668,11 +861,11 @@ function outputSingleTestimonial($atts){
 				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
 			</div>	
 			<?php if(!get_option('meta_data_position')): ?>			
-				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p class="<?php echo $author_class; ?>">
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+					<?php endif; ?>
 				</p>	
-				<?php endif; ?>
 			<?php endif; ?>
 		</blockquote><?php 	
 			
@@ -761,11 +954,11 @@ function outputTestimonials($atts){
 				echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
 			} ?>	
 			<?php if(get_option('meta_data_position')): ?>
-				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p class="<?php echo $author_class; ?>">
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+					<?php endif; ?>
 				</p>	
-				<?php endif; ?>
 			<?php endif; ?>
 			<div class="<?php echo $body_class; ?>">
 				<?php if(get_option('easy_t_apply_content_filter',false)): ?>
@@ -775,11 +968,11 @@ function outputTestimonials($atts){
 				<?php endif;?>
 			</div>	
 			<?php if(!get_option('meta_data_position')): ?>			
-				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 				<p class="<?php echo $author_class; ?>">
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+					<?php endif; ?>
 				</p>	
-				<?php endif; ?>
 			<?php endif; ?>
 		</blockquote><?php 	
 			
@@ -899,11 +1092,11 @@ function outputTestimonialsCycle($atts){
 					echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
 				} ?>	
 				<?php if(get_option('meta_data_position')): ?>
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 					<p class="<?php echo $author_class; ?>">
+						<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 						<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+						<?php endif; ?>
 					</p>	
-					<?php endif; ?>
 				<?php endif; ?>
 				<div class="<?php echo $body_class; ?>">
 					<?php if(get_option('easy_t_apply_content_filter',false)): ?>
@@ -914,11 +1107,11 @@ function outputTestimonialsCycle($atts){
 					<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
 				</div>	
 				<?php if(!get_option('meta_data_position')): ?>			
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 					<p class="<?php echo $author_class; ?>">
+						<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 						<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+						<?php endif; ?>
 					</p>	
-					<?php endif; ?>
 				<?php endif; ?>
 			</blockquote></div><?php 	
 			

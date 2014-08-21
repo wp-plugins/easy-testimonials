@@ -3,8 +3,8 @@ Contributors: richardgabriel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
-Tested up to: 3.9.1
-Stable tag: 1.7.6
+Tested up to: 3.9.2
+Stable tag: 1.7.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -156,10 +156,16 @@ Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fu
 1. This is the Add New Testimonial Page.
 2. This is the List of Testimonials - from here you can Edit or Delete a Testimonial.
 3. This is the Easy Testimonials Settings Page.
-4. This is the Random Testimonial Widget.
-5. This is the Testimonial Cycle Widget.
+4. This is the Style & Themes Selection Page.
+5. This is the Submission Form Settings Page.
+6. This is the Random Testimonial Widget.
+7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.7.7 =
+* Update: reworks some things on the settings screen.
+* Pro Feature: new pro theme options available.
 
 = 1.7.6 =
 * Feature: adds ability to control the order in which Testimonials are displayed.
@@ -312,4 +318,4 @@ Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fu
 
 == Upgrade Notice ==
 
-* 1.7.5.3: Update available!
+* 1.7.7: Update available!

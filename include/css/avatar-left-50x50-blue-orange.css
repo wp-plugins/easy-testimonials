@@ -1,0 +1,65 @@
+blockquote.easy_testimonial {
+  background-image: none;
+  margin: 10px 0 40px;
+  position: relative;
+  min-height: 120px;
+}
+blockquote.easy_testimonial div.testimonial_body {
+  margin-left: 60px;
+}
+blockquote.easy_testimonial div.testimonial_body a.easy_testimonials_read_more_link {
+  position: relative;
+}
+blockquote.easy_testimonial .wp-post-image {
+  border-radius: 3px;
+  box-shadow: -1px 1px 3px #bcbcbc;
+  float: left;
+  height: 50px;
+  width: 50px;
+}
+blockquote.easy_testimonial p {
+  color: #3299bb;
+  padding: 0 30px;
+  padding-bottom: 0;
+  position: relative;
+  width: auto !important;
+}
+.testimonial_body > p {
+  padding-bottom: 0 !important;
+}
+.testimonial_body > p:first-child:before {
+	color: #ff9900;
+    content: "“";
+    font-size: 50px;
+    left: 0;
+    line-height: 0;
+    margin-left: -26px;
+    margin-right: 5px;
+    position: relative;
+    top: 17px;
+}
+.testimonial_body > p:last-child:after {
+	color: #ff9900;
+	top: 21px;
+    content: "”";
+    font-size: 50px;
+    line-height: 0;
+    position: relative;
+    right: -4px;
+}
+blockquote.easy_testimonial p.testimonial_author {
+  color: #ff9900;
+  font-size: 12px !important;
+  padding: 0;
+  position: absolute;
+  top: 60px;
+  width: 60px !important;
+}
+.cycle-slide {
+  width: 100%;
+}
+
+
+blockquote.easy_testimonial cite {
+    font-size: 10px;
+}

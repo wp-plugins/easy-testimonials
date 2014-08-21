@@ -1,0 +1,106 @@
+/* CSS */
+blockquote.easy_testimonial {
+    height: auto;
+    margin: 22px 40px 40px;
+    padding: 0 0 45px;
+    position: relative;
+	background-image: none;
+}
+
+blockquote.easy_testimonial div.testimonial_body {
+    background-color: #333333;
+    border: 0 none;
+    border-radius: 18px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+blockquote.easy_testimonial div.testimonial_body a.easy_testimonials_read_more_link {
+    color: #f6f6f6 !important;
+    padding: 5px 10px;
+    position: relative;
+}
+
+blockquote.easy_testimonial .wp-post-image {
+    border: 0 none;
+    border-radius: 5px;
+    bottom: 0;
+    box-shadow: -1px 1px #e8e8e8;
+    height: 80px;
+    left: 100px;
+    margin: 0 10px 10px 0;
+    min-width: 80px;
+    position: absolute;
+    width: auto;
+}
+
+blockquote.easy_testimonial p {
+    color: #b90504;
+    font-size: 16px !important;
+    padding: 5px 27px !important;
+    position: relative;
+    width: auto !important;
+}
+
+.testimonial_body > p:first-child:before {
+    content: "“";
+    font-size: 50px;
+    left: 0;
+    line-height: 0;
+    margin-left: -26px;
+    margin-right: 5px;
+    position: relative;
+    top: 17px;
+}
+
+.testimonial_body > p:last-child:after {
+	top: 21px;
+    content: "”";
+    font-size: 50px;
+    line-height: 0;
+    position: relative;
+    right: -4px;
+}
+
+blockquote.easy_testimonial p.testimonial_author {
+    background-image: url("../img/chat_bubble_bottom_left_red_grey.png");
+    background-position: -1px -16px;
+    background-repeat: no-repeat;
+    height: 70px;
+    margin-top: -10px;
+    position: relative;
+}
+
+.testimonial-client {
+	color: #990100;
+    font-size: 28px;
+    font-style: normal;
+    line-height: 28px;
+}
+
+.testimonial-position {
+	color: #990100;
+}
+
+blockquote.easy_testimonial p a {
+}
+
+blockquote.easy_testimonial p a:hover{
+}
+
+blockquote.easy_testimonial cite {
+    left: 190px;
+    position: absolute;
+    top: 40px;
+}
+
+.widgets blockquote.easy_testimonial{
+	margin: 5px auto;
+}
+
+.cycle-slideshow{
+}
+
+.cycle-slide {
+    width: 100%;
+}
