@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 3.9.2
-Stable tag: 1.7.7
+Stable tag: 1.7.7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -163,6 +163,9 @@ Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fu
 
 == Changelog ==
 
+= 1.7.7.1 =
+* Update: Address 404 error with jquery.cycl2.js.map file in Google Chrome.
+
 = 1.7.7 =
 * Update: reworks some things on the settings screen.
 * Pro Feature: new pro theme options available.
@@ -318,4 +321,4 @@ Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fu
 
 == Upgrade Notice ==
 
-* 1.7.7: Update available!
+* 1.7.7.1: Update available!
