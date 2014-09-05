@@ -3,8 +3,8 @@ Contributors: richardgabriel
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
-Tested up to: 3.9.2
-Stable tag: 1.7.7.1
+Tested up to: 4.0
+Stable tag: 1.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -96,6 +96,8 @@ You have a few things to pay attention to:
 * To output a Testimonial Cycle in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can how many testimonials are shown by placing a number in the Count field - make sure you have at least 2, if you want them to Cycle!  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.  You can control the time between transitions using the Timer field - every 1000 equals 1 second.
 * Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fadeIn", "fadeOut", "flipHorz", "flipVert", and "tileSlide".
 * To control the Order of the Testimonials with the Shortcode, use the attribute order='ASC'.  To control the Order By parameter, use the attribute orderby='title'.  Acceptable attributes for 'order' are 'ASC' and 'DESC'. Acceptable attributes for 'orderby' are 'none','ID','author','title','name','date','modified','parent', and 'rand'. 
+* To display a pager below the slider, use the attribute pager='1'.  On the Widget, check the box labeled Display Pager Icons.
+* To have the height of the slider automatically adjust to the height of it's content, set the attribute container='1'.
 
 = Front End Testimonial Submission =
 * NOTE: This feature requires the Pro version of Easy Testimonials: http://goldplugins.com/our-plugins/easy-testimonials-details/
@@ -151,6 +153,10 @@ Never fear, Captcha support is here!  Go install and activate the plugin Really 
 
 Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fully refreshing the page (to make sure any and all caches have cleared) -- hopefully everything is working now!
 
+= Blech!  Some of my testimonials are too tall and the text is cut off by the bottom of the slider!  What gives?! =
+
+Ok!  We have the solution to adjust the height to display all of your testimonial!  Use the attribute container='1' in your shortcode and the javascript will adjust the height to match the content on each transition.
+
 == Screenshots ==
 
 1. This is the Add New Testimonial Page.
@@ -162,6 +168,10 @@ Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fu
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.8 =
+* Update: compatibile with WordPress 4.0.
+* Feature: adds support for pagers to cycled testimonials.
 
 = 1.7.7.1 =
 * Update: Address 404 error with jquery.cycl2.js.map file in Google Chrome.
@@ -321,4 +331,4 @@ Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fu
 
 == Upgrade Notice ==
 
-* 1.7.7.1: Update available!
+* 1.8: Update available!

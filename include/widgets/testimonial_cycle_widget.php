@@ -26,12 +26,13 @@ class cycledTestimonialWidget extends WP_Widget
 	}
 
 	function form($instance){
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '', 'use_excerpt' => 0, 'random' => false ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '', 'use_excerpt' => 0, 'show_pager_icons' => 0, 'random' => false ) );
 		$title = $instance['title'];
 		$count = $instance['count'];
 		$show_title = $instance['show_title'];
 		$random = $instance['random'];
 		$use_excerpt = $instance['use_excerpt'];
+		$show_pager_icons = $instance['show_pager_icons'];
 		$transition = $instance['transition'];
 		$timer = $instance['timer'];
 		$category = $instance['category'];
@@ -56,6 +57,7 @@ class cycledTestimonialWidget extends WP_Widget
 			<p><label for="<?php echo $this->get_field_id('random'); ?>">Random Testimonial Order: </label><input class="widefat" id="<?php echo $this->get_field_id('random'); ?>" name="<?php echo $this->get_field_name('random'); ?>" type="checkbox" value="1" <?php if($random){ ?>checked="CHECKED"<?php } ?>/></p>
 			<p><label for="<?php echo $this->get_field_id('show_title'); ?>">Show Testimonial Title: </label><input class="widefat" id="<?php echo $this->get_field_id('show_title'); ?>" name="<?php echo $this->get_field_name('show_title'); ?>" type="checkbox" value="1" <?php if($show_title){ ?>checked="CHECKED"<?php } ?>/></p>
 			<p><label for="<?php echo $this->get_field_id('use_excerpt'); ?>">Use Testimonial Excerpt: </label><input class="widefat" id="<?php echo $this->get_field_id('use_excerpt'); ?>" name="<?php echo $this->get_field_name('use_excerpt'); ?>" type="checkbox" value="1" <?php if($use_excerpt){ ?>checked="CHECKED"<?php } ?>/></p>
+			<p><label for="<?php echo $this->get_field_id('show_pager_icons'); ?>">Show Pager Icons: </label><input class="widefat" id="<?php echo $this->get_field_id('show_pager_icons'); ?>" name="<?php echo $this->get_field_name('show_pager_icons'); ?>" type="checkbox" value="1" <?php if($show_pager_icons){ ?>checked="CHECKED"<?php } ?>/></p>
 			<p><label for="<?php echo $this->get_field_id('category'); ?>">Category Slug: <input class="widefat" id="<?php echo $this->get_field_id('category'); ?>" name="<?php echo $this->get_field_name('category'); ?>" type="text" value="<?php echo esc_attr($category); ?>" /></label></p>
 		<?php
 	}
@@ -67,6 +69,7 @@ class cycledTestimonialWidget extends WP_Widget
 		$instance['show_title'] = $new_instance['show_title'];
 		$instance['random'] = $new_instance['random'];
 		$instance['use_excerpt'] = $new_instance['use_excerpt'];
+		$instance['show_pager_icons'] = $new_instance['show_pager_icons'];
 		$instance['timer'] = $new_instance['timer'];
 		$instance['transition'] = $new_instance['transition'];
 		$instance['category'] = $new_instance['category'];
@@ -85,13 +88,14 @@ class cycledTestimonialWidget extends WP_Widget
 		$transition = empty($instance['transition']) ? 'fade' : $instance['transition'];
 		$timer = empty($instance['timer']) ? '2000' : $instance['timer'];
 		$use_excerpt = empty($instance['use_excerpt']) ? 0 : $instance['use_excerpt'];
+		$show_pager_icons = empty($instance['show_pager_icons']) ? 0 : $instance['show_pager_icons'];
 		$category = empty($instance['category']) ? '' : $instance['category'];
 
 		if (!empty($title)){
 			echo $before_title . $title . $after_title;;
 		}
 		
-		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true, 'category' => $category, 'use_excerpt' => $use_excerpt, 'random' => $random));
+		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true, 'category' => $category, 'use_excerpt' => $use_excerpt, 'random' => $random, 'show_pager_icons' => $show_pager_icons));
 
 		echo $after_widget;
 	} 

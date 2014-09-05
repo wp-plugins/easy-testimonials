@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.7.7.1
+Version: 1.8
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -1004,8 +1004,9 @@ function outputTestimonialsCycle($atts){
 		'author_class' => 'testimonial_author',
 		'random' => '',
 		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
-		'order' => 'ASC'//'DESC'
-		
+		'order' => 'ASC',//'DESC'
+		'pager' => false,
+		'show_pager_icons' => false
 	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -1027,7 +1028,7 @@ function outputTestimonialsCycle($atts){
 	<div class="cycle-slideshow" 
 		data-cycle-fx="<?php echo $transition; ?>" 
 		data-cycle-timeout="<?php echo $timer; ?>"
-		data-cycle-slides="> div"
+		data-cycle-slides="> div.testimonial_slide"
 		<?php if($container): ?> data-cycle-auto-height="container" <?php endif; ?>
 		<?php if($random): ?> data-cycle-random="true" <?php endif; ?>
 	>
@@ -1084,7 +1085,7 @@ function outputTestimonialsCycle($atts){
 	
 		if($i < $count || $count == -1){
 	
-			?><div <?php echo $testimonial_display; ?>><blockquote class="easy_testimonial">		
+			?><div <?php echo $testimonial_display; ?> class="testimonial_slide"><blockquote class="easy_testimonial">		
 				<?php if ($show_thumbs) {
 					echo $testimonial['image'];
 				} ?>		
@@ -1121,6 +1122,11 @@ function outputTestimonialsCycle($atts){
 		
 	endwhile;	
 	wp_reset_query();
+	
+	//display pager icons
+	if($pager || $show_pager_icons ){
+		?><div class="cycle-pager"></div><?php
+	}
 	
 	?>
 	</div>
