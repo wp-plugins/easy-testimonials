@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.8
+Version: 1.9
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -389,6 +389,53 @@ function easy_t_outputCaptcha(){
 	</div>
 	<?php
 }
+
+//handle file upload for image in front end submission form
+function easy_t_upload_user_file( $file = array(), $post_id ) {
+    
+    require_once( ABSPATH . 'wp-admin/includes/admin.php' );
+    
+    $file_return = wp_handle_upload( $file, array('test_form' => false ) );
+    
+	// Set an array containing a list of acceptable formats
+	$allowed_file_types = array('image/jpg','image/jpeg','image/gif','image/png');
+	
+    if( isset( $file_return['error'] ) || isset( $file_return['upload_error_handler'] ) ) {
+        return false;
+    } else {
+	
+		//only uploaded file types that are allowed
+		if(in_array($file_return['type'], $allowed_file_types)) {
+        
+			$filename = $file_return['file'];
+			
+			$attachment = array(
+				'post_mime_type' => $file_return['type'],
+				'post_title' => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
+				'post_content' => '',
+				'post_status' => 'inherit',
+				'guid' => $file_return['url']
+			);
+			
+			$attachment_id = wp_insert_attachment( $attachment, $file_return['url'] );
+			
+			require_once (ABSPATH . 'wp-admin/includes/image.php' );
+			$attachment_data = wp_generate_attachment_metadata( $attachment_id, $filename );
+			wp_update_attachment_metadata( $attachment_id, $attachment_data );
+			
+			if( 0 < intval( $attachment_id ) ) {
+				//make this the testimonial's featured image
+				set_post_thumbnail( $post_id, $attachment_id );
+				
+				return $attachment_id;
+			}
+		} else {
+			return false;
+		}
+    }
+    
+    return false;
+}
 	
 //submit testimonial shortcode
 function submitTestimonialForm($atts){     
@@ -453,6 +500,15 @@ function submitTestimonialForm($atts){
 
 					// do the wp_insert_post action to insert it
 					do_action('wp_insert_post', 'wp_insert_post'); 
+					
+					//if the user has submitted a photo with their testimonial, handle the upload
+					if( ! empty( $_FILES ) ) {
+						foreach( $_FILES as $file ) {
+							if( is_array( $file ) ) {
+								$attachment_id = easy_t_upload_user_file( $file, $new_id );
+							}
+						}
+					}
 				}
 			} else {
 				echo "You must have a valid key to perform this action.";
@@ -468,7 +524,7 @@ function submitTestimonialForm($atts){
 			} else { ?>
 			<!-- New Post Form -->
 			<div id="postbox">
-					<form id="new_post" name="new_post" method="post">
+					<form id="new_post" class="easy-testimonials-submission-form" name="new_post" method="post" enctype="multipart/form-data" >
 							<div class="easy_t_field_wrap">
 								<label for="the-title"><?php echo get_option('easy_t_title_field_label','Title'); ?></label><br />
 								<input type="text" id="the-title" value="" tabindex="1" size="20" name="the-title" />
@@ -477,22 +533,29 @@ function submitTestimonialForm($atts){
 							<?php if(!get_option('easy_t_hide_name_field',false)): ?>
 							<div class="easy_t_field_wrap">
 								<label for="the-name"><?php echo get_option('easy_t_name_field_label','Name'); ?></label><br />
-								<input type="text" id="the-name" value="" tabindex="1" size="20" name="the-name" />
+								<input type="text" id="the-name" value="" tabindex="2" size="20" name="the-name" />
 								<p class="easy_t_description"><?php echo get_option('easy_t_name_field_description','This is the name of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Other.'); ?></p>
 							</div>
 							<?php endif; ?>
 							<?php if(!get_option('easy_t_hide_position_web_other_field',false)): ?>
 							<div class="easy_t_field_wrap">
 								<label for="the-other"><?php echo get_option('easy_t_position_web_other_field_label','Position / Web Address / Other'); ?></label><br />
-								<input type="text" id="the-other" value="" tabindex="1" size="20" name="the-other" />
+								<input type="text" id="the-other" value="" tabindex="3" size="20" name="the-other" />
 								<p class="easy_t_description"><?php echo get_option('easy_t_position_web_other_field_description','This is other identifying information of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Name.'); ?></p>
 							</div>
 							<?php endif; ?>
 							<div class="easy_t_field_wrap">
 								<label for="the-body"><?php echo get_option('easy_t_body_content_field_label','Body Content'); ?></label><br />
-								<textarea id="the-body" tabindex="3" name="the-body" cols="50" rows="6"></textarea>
+								<textarea id="the-body" name="the-body" cols="50" tabindex="4" rows="6"></textarea>
 								<p class="easy_t_description"><?php echo get_option('easy_t_body_content_field_description','This is the body area of the Testimonial.'); ?></p>
-							</div>						
+							</div>							
+							<?php if(get_option('easy_t_use_image_field',false)): ?>
+							<div class="easy_t_field_wrap">
+								<label for="the-image"><?php echo get_option('easy_t_image_field_label','Testimonial Image'); ?></label><br />
+								<input type="file" id="the-image" value="" tabindex="5" size="20" name="the-image" />
+								<p class="easy_t_description"><?php echo get_option('easy_t_image_field_description','You can select and upload 1 image along with your Testimonial.  Depending on the website\'s settings, this image may be cropped or resized.  Allowed file types are .gif, .jpg, .png, and .jpeg.'); ?></p>
+							</div>
+							<?php endif; ?>
 		
 							<?php if(class_exists('ReallySimpleCaptcha') && get_option('easy_t_use_captcha',0)){ easy_t_outputCaptcha(); } ?>
 							

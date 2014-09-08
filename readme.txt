@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: richardgabriel
+Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.8
+Stable tag: 1.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,9 +22,12 @@ Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials
 * Displaying an Image with a Testimonial
 * Custom Options Allow You to Link Your Testimonials to a Custom Page, Such As a Product Page
 * Testimonial Categories Allow You To Organize Testimonials in Many Ways!
+* Front-End Testimonial Submission Form Allows Customers to Submit Testimonials on your Website!
 * Its easy to use interface allows you to manage, edit, create, and delete Testimonials with no new knowledge
 
 Easy Testimonials includes options to set the URL of the Read More Link, whether or not to display the Testimonial Image, and more!  You can set the URL of the Testimonials read more links for many purposes - such as directing visitors to the product info page that the testimonial is about.  Showing an Image next to a Testimonial is a great tool!
+
+Collecting Testimonials can be a tedious job - fortunately, in the Pro version of Easy Testimonials, adding a form to your website for users to submit Testimonials is a breeze!  Users can even upload an image with their Testimonial!  Easy Testimonials integrates with Really Simple Captcha to prevent spam form submissions.
 
 = Why Do I Need Testimonials on My Website? =
 
@@ -104,6 +107,7 @@ You have a few things to pay attention to:
 * Add the shortcode [submit_testimonial] to the area of the page you want your form on.
 * Any submissions will be added to your Testimonials list, on the back end.  Only Testimonials that you choose to publish will be displayed publicly.
 * Captcha support is enabled with the installation of the Really Simple Captcha plugin: https://wordpress.org/plugins/really-simple-captcha/
+* Front End Image Submission is enabled via a checkbox on the Submission Form Options tab.
 
 = Options =
 * To control the destination of the "Read More" link, set the path in the Testimonials Read More Link field.
@@ -157,6 +161,10 @@ Never fear, the "Use Cycle Fix" option is here!  Try checking this option and fu
 
 Ok!  We have the solution to adjust the height to display all of your testimonial!  Use the attribute container='1' in your shortcode and the javascript will adjust the height to match the content on each transition.
 
+= Hiyo!  My customers are submitting testimonials but no images are showing up.  What gives? =
+
+As a security precaution, our plugin only allows users to upload images of the following file types: PNG, JPG, or GIF.  If they attempt to upload a different file type, or choose not to upload an image, then no image will be attached to the Testimonial.
+
 == Screenshots ==
 
 1. This is the Add New Testimonial Page.
@@ -168,6 +176,9 @@ Ok!  We have the solution to adjust the height to display all of your testimonia
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.9 =
+* Feature: adds support for front-end testimonial submission to the submission form.
 
 = 1.8 =
 * Update: compatibile with WordPress 4.0.
@@ -331,4 +342,4 @@ Ok!  We have the solution to adjust the height to display all of your testimonia
 
 == Upgrade Notice ==
 
-* 1.8: Update available!
+* 1.9: Update available!

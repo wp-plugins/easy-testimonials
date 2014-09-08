@@ -74,6 +74,9 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_position_web_other_field' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_name_field' );		
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_captcha' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_image_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_image_field_description' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_image_field' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_captcha_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_captcha_field_description' );	
 	}
@@ -557,9 +560,36 @@ class easyTestimonialOptions
 			
 			<table class="form-table">
 				<tr valign="top">
+					<th scope="row"><label for="easy_t_image_field_label">Testimonial Image Field Label</label></th>
+					<td><input type="text" name="easy_t_image_field_label" id="easy_t_image_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_image_field_label'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the Testimonial Image Field in the form, which defaults to "Testimonial Image Field".</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_image_field_description">Testimonial Image Field Description</label></th>
+					<td><input type="text" name="easy_t_image_field_description" id="easy_t_image_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_image_field_description'); ?>"  style="width: 250px" />
+					<p class="description">This is the description below the Testimonial Image Field in the form.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_use_image_field">Enable Testimonial Image on Submission Form</label></th>
+					<td><input type="checkbox" name="easy_t_use_image_field" id="easy_t_use_image_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_image_field')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, users will be allowed to upload 1 image along with their Testimonial.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
 					<th scope="row"><label for="easy_t_captcha_field_label">"Captcha" Field Label</label></th>
 					<td><input type="text" name="easy_t_captcha_field_label" id="easy_t_captcha_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_label'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the first field in the form, which defaults to "Captcha".  Contents of this field will be passed through to the Captcha field inside WordPress.</p>
+					<p class="description">This is the label of the Capthca field in the form, which defaults to "Captcha".  Contents of this field will be passed through to the Captcha function inside WordPress.</p>
 					</td>
 				</tr>
 			</table>
