@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.9
+Stable tag: 1.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,6 +89,7 @@ You have a few things to pay attention to:
 * To output a list of All Testimonials, place the shortcode [testimonials] in the desired area of the Page or Post Content.  To display more than one testimonial, use the shortcode [testimonials count='3'], where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode [testimonials show_title="1"].  To use the Excerpt of a testimonial, add the attribute "use_excerpt=1" to your shortcode.  To output Testimonials in a specific Category, use the attribute "category='the_category_slug'".  To show or hide the images next to Testimonials, use the attribute "show_thumbs=0" for hiding the images, and "show_thumbs=1" for displaying the images.
 * To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.
 * To control the Order of the Testimonials with the Shortcode, use the attribute order='ASC'.  To control the Order By parameter, use the attribute orderby='title'.  Acceptable attributes for 'order' are 'ASC' and 'DESC'. Acceptable attributes for 'orderby' are 'none','ID','author','title','name','date','modified','parent', and 'rand'. 
+* To display the rating along with the testimonial, use the attribute show_rating.  Possible values are show_rating=before, for the rating to appear before the testimonial content, and show_rating=after, for the rating to appear after the testimonial content.
 
 = Outputting a Testimonial Slider =
 * NOTE: You can view live examples here: http://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-examples/
@@ -176,6 +177,10 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.10 =
+* Feature: adds support for ratings to testimonials and the front-end submission form.
+* Cleans up Submission Form Options screen to be more legible.
 
 = 1.9 =
 * Feature: adds support for front-end testimonial submission to the submission form.
@@ -342,4 +347,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.9: Update available!
+* 1.10: Update available!

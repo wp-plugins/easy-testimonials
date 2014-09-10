@@ -79,6 +79,9 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_image_field' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_captcha_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_captcha_field_description' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_description' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_rating_field' );	
 	}
 	
 	//function to produce tabs on admin screen
@@ -126,6 +129,18 @@ class easyTestimonialOptions
 			
 			.easy-t-radio-button em {
 				margin-left: 20px;
+			}
+			
+			fieldset {
+				border: 1px solid #ccc !important;
+				display: block;
+				margin: 20px 0 !important;
+				padding: 0 20px !important;
+			}
+			
+			fieldset legend{
+				font-size: 18px;
+				font-weight: bold;
 			}
 		</style>
 		<?php if(!isValidKey()): ?>		
@@ -440,177 +455,231 @@ class easyTestimonialOptions
 			<h3>Submission Form Options</h3>
 			
 			<p>Use the below options to control the look and feel of the testimonial submission form.</p>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_title_field_label">"Title" Field Label</label></th>
-					<td><input type="text" name="easy_t_title_field_label" id="easy_t_title_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_title_field_label'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the first field in the form, which defaults to "Title".  Contents of this field will be passed through to the Title field inside WordPress.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_title_field_description">"Title" Field Description</label></th>
-					<td><input type="text" name="easy_t_title_field_description" id="easy_t_title_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_title_field_description'); ?>"  style="width: 250px" />
-					<p class="description">This is the description below the first field in the form.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_name_field_label">"Name" Field Label</label></th>
-					<td><input type="text" name="easy_t_name_field_label" id="easy_t_name_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_name_field_label'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the second field in the form, which defaults to "Name."  Contents of this field will be passed through to the Name field inside WordPress.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_name_field_description">"Name" Field Description</label></th>
-					<td><input type="text" name="easy_t_name_field_description" id="easy_t_name_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_name_field_description'); ?>"  style="width: 250px" />
-					<p class="description">This is the description below the second field in the form.</p>
-					</td>
-				</tr>
-			</table>
 			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_hide_name_field">Disable "Name" Field Display</label></th>
-					<td><input type="checkbox" name="easy_t_hide_name_field" id="easy_t_hide_name_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_name_field')){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, the second field in the form will not be displayed.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_position_web_other_field_label">"Position / Web Address / Other" Field Label</label></th>
-					<td><input type="text" name="easy_t_position_web_other_field_label" id="easy_t_position_web_other_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_position_web_other_field_label'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the third field in the form, which defaults to "Position / Web Address / Other."  Contents of this field will be passed through to the Position / Web Address / Other field inside WordPress.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_position_web_other_field_description">"Position / Web Address / Other" Field Description</label></th>
-					<td><input type="text" name="easy_t_position_web_other_field_description" id="easy_t_position_web_other_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_position_web_other_field_description'); ?>"  style="width: 250px" />
-					<p class="description">This is the description below the third field in the form.</p>
-					</td>
-				</tr>
-			</table>
+			<fieldset>
+				<legend>Title Field:</legend>			
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_title_field_label">"Title" Field Label</label></th>
+						<td><input type="text" name="easy_t_title_field_label" id="easy_t_title_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_title_field_label'); ?>"  style="width: 250px" />
+						<p class="description">This is the label of the first field in the form, which defaults to "Title".  Contents of this field will be passed through to the Title field inside WordPress.</p>
+						</td>
+					</tr>
+				</table>
+				
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_title_field_description">"Title" Field Description</label></th>
+						<td><input type="text" name="easy_t_title_field_description" id="easy_t_title_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_title_field_description'); ?>"  style="width: 250px" />
+						<p class="description">This is the description below the first field in the form.</p>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
 			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_hide_position_web_other_field">Disable "Position / Web Address / Other" Field Display</label></th>
-					<td><input type="checkbox" name="easy_t_hide_position_web_other_field" id="easy_t_hide_position_web_other_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_position_web_other_field')){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, the third field in the form will not be displayed.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_body_content_field_label">"Body Content" Field Label</label></th>
-					<td><input type="text" name="easy_t_body_content_field_label" id="easy_t_body_content_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_label'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the fourth field in the form, a textarea, which defaults to "Body Content."  Contents of this field will be passed through to the Body field inside WordPress.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_body_content_field_description">Body Content Field Description</label></th>
-					<td><input type="text" name="easy_t_body_content_field_description" id="easy_t_body_content_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_description'); ?>"  style="width: 250px" />
-					<p class="description">This is the description below the fourth field in the form, a textarea.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_submit_button_label">Submit Button Label</label></th>
-					<td><input type="text" name="easy_t_submit_button_label" id="easy_t_submit_button_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_button_label'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the submit button at the bottom of the form.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_submit_success_message">Submission Success Message</label></th>
-					<td><textarea name="easy_t_submit_success_message" id="easy_t_submit_success_message" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?>><?php echo get_option('easy_t_submit_success_message'); ?></textarea>
-					<p class="description">This is the text that appears after a successful submission.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_submit_notification_address">Submission Success Notification E-Mail Address</label></th>
-					<td><input type="text" name="easy_t_submit_notification_address" id="easy_t_submit_notification_address" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_notification_address'); ?>"  style="width: 250px" />
-					<p class="description">If set, we will attempt to send an e-mail notification to this address upon a succesfull submission.  If not set, submission notifications will be sent to the site's Admin E-mail address.</p>
-					</td>
-				</tr>
-			</table>
+			<fieldset>
+				<legend>Name Field:</legend>		
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_name_field_label">"Name" Field Label</label></th>
+						<td><input type="text" name="easy_t_name_field_label" id="easy_t_name_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_name_field_label'); ?>"  style="width: 250px" />
+						<p class="description">This is the label of the second field in the form, which defaults to "Name."  Contents of this field will be passed through to the Name field inside WordPress.</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_name_field_description">"Name" Field Description</label></th>
+						<td><input type="text" name="easy_t_name_field_description" id="easy_t_name_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_name_field_description'); ?>"  style="width: 250px" />
+						<p class="description">This is the description below the name field.</p>
+						</td>
+					</tr>
+				</table>
+				
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_hide_name_field">Disable "Name" Field Display</label></th>
+						<td><input type="checkbox" name="easy_t_hide_name_field" id="easy_t_hide_name_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_name_field')){ ?> checked="CHECKED" <?php } ?>/>
+						<p class="description">If checked, the name field will not be displayed in the form .</p>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
 			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_image_field_label">Testimonial Image Field Label</label></th>
-					<td><input type="text" name="easy_t_image_field_label" id="easy_t_image_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_image_field_label'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the Testimonial Image Field in the form, which defaults to "Testimonial Image Field".</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_image_field_description">Testimonial Image Field Description</label></th>
-					<td><input type="text" name="easy_t_image_field_description" id="easy_t_image_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_image_field_description'); ?>"  style="width: 250px" />
-					<p class="description">This is the description below the Testimonial Image Field in the form.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_use_image_field">Enable Testimonial Image on Submission Form</label></th>
-					<td><input type="checkbox" name="easy_t_use_image_field" id="easy_t_use_image_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_image_field')){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, users will be allowed to upload 1 image along with their Testimonial.</p>
-					</td>
-				</tr>
-			</table>
+			<fieldset>
+				<legend>Position / Web Address / Other Field:</legend>			
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_position_web_other_field_label">"Position / Web Address / Other" Field Label</label></th>
+						<td><input type="text" name="easy_t_position_web_other_field_label" id="easy_t_position_web_other_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_position_web_other_field_label'); ?>"  style="width: 250px" />
+						<p class="description">This is the label of the third field in the form, which defaults to "Position / Web Address / Other."  Contents of this field will be passed through to the Position / Web Address / Other field inside WordPress.</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_position_web_other_field_description">"Position / Web Address / Other" Field Description</label></th>
+						<td><input type="text" name="easy_t_position_web_other_field_description" id="easy_t_position_web_other_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_position_web_other_field_description'); ?>"  style="width: 250px" />
+						<p class="description">This is the description below the third field in the form.</p>
+						</td>
+					</tr>
+				</table>
+				
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_hide_position_web_other_field">Disable "Position / Web Address / Other" Field Display</label></th>
+						<td><input type="checkbox" name="easy_t_hide_position_web_other_field" id="easy_t_hide_position_web_other_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_position_web_other_field')){ ?> checked="CHECKED" <?php } ?>/>
+						<p class="description">If checked, the third field in the form will not be displayed.</p>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
 			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_captcha_field_label">"Captcha" Field Label</label></th>
-					<td><input type="text" name="easy_t_captcha_field_label" id="easy_t_captcha_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_label'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the Capthca field in the form, which defaults to "Captcha".  Contents of this field will be passed through to the Captcha function inside WordPress.</p>
-					</td>
-				</tr>
-			</table>
+			<fieldset>
+				<legend>Body Content Field:</legend>			
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_body_content_field_label">"Body Content" Field Label</label></th>
+						<td><input type="text" name="easy_t_body_content_field_label" id="easy_t_body_content_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_label'); ?>"  style="width: 250px" />
+						<p class="description">This is the label of the fourth field in the form, a textarea, which defaults to "Body Content."  Contents of this field will be passed through to the Body field inside WordPress.</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_body_content_field_description">Body Content Field Description</label></th>
+						<td><input type="text" name="easy_t_body_content_field_description" id="easy_t_body_content_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_description'); ?>"  style="width: 250px" />
+						<p class="description">This is the description below the fourth field in the form, a textarea.</p>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Submission Options</legend>
 						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_captcha_field_description">"Captcha" Field Description</label></th>
-					<td><input type="text" name="easy_t_captcha_field_description" id="easy_t_captcha_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_description'); ?>"  style="width: 250px" />
-					<p class="description">This is the description below the Captcha field in the form.</p>
-					</td>
-				</tr>
-			</table>
-						
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_use_captcha">Enable Captcha on Submission Form</label></th>
-					<td><input type="checkbox" name="easy_t_use_captcha" id="easy_t_use_captcha" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_captcha')){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, and a compatible plugin is installed (such as <a href="https://wordpress.org/plugins/really-simple-captcha/" target="_blank">Really Simple Captcha</a>) then we will output a Captcha on the Submission Form.  This is useful if you are having SPAM problems.</p>
-					</td>
-				</tr>
-			</table>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_submit_button_label">Submit Button Label</label></th>
+						<td><input type="text" name="easy_t_submit_button_label" id="easy_t_submit_button_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_button_label'); ?>"  style="width: 250px" />
+						<p class="description">This is the label of the submit button at the bottom of the form.</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_submit_success_message">Submission Success Message</label></th>
+						<td><textarea name="easy_t_submit_success_message" id="easy_t_submit_success_message" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?>><?php echo get_option('easy_t_submit_success_message'); ?></textarea>
+						<p class="description">This is the text that appears after a successful submission.</p>
+						</td>
+					</tr>
+				</table>
+				
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_submit_notification_address">Submission Success Notification E-Mail Address</label></th>
+						<td><input type="text" name="easy_t_submit_notification_address" id="easy_t_submit_notification_address" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_notification_address'); ?>"  style="width: 250px" />
+						<p class="description">If set, we will attempt to send an e-mail notification to this address upon a succesfull submission.  If not set, submission notifications will be sent to the site's Admin E-mail address.</p>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Testimonial Image Field:</legend>
+			
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_image_field_label">Testimonial Image Field Label</label></th>
+						<td><input type="text" name="easy_t_image_field_label" id="easy_t_image_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_image_field_label'); ?>"  style="width: 250px" />
+						<p class="description">This is the label of the Testimonial Image Field in the form, which defaults to "Testimonial Image Field".</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_image_field_description">Testimonial Image Field Description</label></th>
+						<td><input type="text" name="easy_t_image_field_description" id="easy_t_image_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_image_field_description'); ?>"  style="width: 250px" />
+						<p class="description">This is the description below the Testimonial Image Field in the form.</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_use_image_field">Enable Testimonial Image on Submission Form</label></th>
+						<td><input type="checkbox" name="easy_t_use_image_field" id="easy_t_use_image_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_image_field')){ ?> checked="CHECKED" <?php } ?>/>
+						<p class="description">If checked, users will be allowed to upload 1 image along with their Testimonial.</p>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Testimonial Ratings Field:</legend>
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_rating_field_label">Testimonial Ratings Field Label</label></th>
+						<td><input type="text" name="easy_t_rating_field_label" id="easy_t_rating_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_rating_field_label'); ?>"  style="width: 250px" />
+						<p class="description">This is the label of the Testimonial Rating Field in the form, which defaults to "Your Rating".</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_rating_field_description">Testimonial Ratings Field Description</label></th>
+						<td><input type="text" name="easy_t_rating_field_description" id="easy_t_rating_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_rating_field_description'); ?>"  style="width: 250px" />
+						<p class="description">This is the description below the Testimonial Rating Field in the form.</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_use_rating_field">Enable Testimonial Ratings on Submission Form</label></th>
+						<td><input type="checkbox" name="easy_t_use_rating_field" id="easy_t_use_rating_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_rating_field')){ ?> checked="CHECKED" <?php } ?>/>
+						<p class="description">If checked, users will be allowed to add a 1 - 5 out of 5 rating along with their Testimonial.</p>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Captcha Field:</legend>
+			
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_captcha_field_label">"Captcha" Field Label</label></th>
+						<td><input type="text" name="easy_t_captcha_field_label" id="easy_t_captcha_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_label'); ?>"  style="width: 250px" />
+						<p class="description">This is the label of the Capthca field in the form, which defaults to "Captcha".  Contents of this field will be passed through to the Captcha function inside WordPress.</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_captcha_field_description">"Captcha" Field Description</label></th>
+						<td><input type="text" name="easy_t_captcha_field_description" id="easy_t_captcha_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_description'); ?>"  style="width: 250px" />
+						<p class="description">This is the description below the Captcha field in the form.</p>
+						</td>
+					</tr>
+				</table>
+							
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_use_captcha">Enable Captcha on Submission Form</label></th>
+						<td><input type="checkbox" name="easy_t_use_captcha" id="easy_t_use_captcha" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_captcha')){ ?> checked="CHECKED" <?php } ?>/>
+						<p class="description">If checked, and a compatible plugin is installed (such as <a href="https://wordpress.org/plugins/really-simple-captcha/" target="_blank">Really Simple Captcha</a>) then we will output a Captcha on the Submission Form.  This is useful if you are having SPAM problems.</p>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
 			
 			<?php break; ?>
 			<?php } ?>

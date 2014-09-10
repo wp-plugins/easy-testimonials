@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.9
+Version: 1.10
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -59,6 +59,13 @@ function easy_testimonials_setup_js() {
 				false,
 				true
 			);
+			wp_enqueue_script(
+				'rateit',
+				plugins_url('include/js/jquery.rateit.min.js', __FILE__),
+				array( 'jquery' ),
+				false,
+				true
+			);
 		}
 	}
 }
@@ -73,6 +80,8 @@ function easy_testimonials_setup_css() {
 	wp_register_style( 'easy_testimonial_no_style', plugins_url('include/css/no_style.css', __FILE__) );
 	
 	if(isValidKey()){ 
+		//five star ratings
+		wp_register_style( 'easy_testimonial_rateit_style', plugins_url('include/css/rateit.css', __FILE__) );
 		//bubble
 		wp_register_style( 'easy_testimonial_bubble_style', plugins_url('include/css/bubble_style.css', __FILE__) );
 		wp_register_style( 'easy_testimonial_bubble_style-brown', plugins_url('include/css/bubble_style-brown.css', __FILE__) );
@@ -286,6 +295,11 @@ function easy_testimonials_setup_css() {
 			wp_enqueue_style( 'easy_testimonial_style' );
 			break;
 	}
+	
+	//five star rating CSS file
+	if(isValidKey()){
+		wp_enqueue_style( 'easy_testimonial_rateit_style' );
+	}
 }
 
 function easy_t_send_notification_email(){
@@ -479,6 +493,9 @@ function submitTestimonialForm($atts){
 					if (isset ($_POST['the-name'])) {
 						$the_name = $_POST['the-name'];
 					}
+					if (isset ($_POST['the-rating'])) {
+						$the_rating = $_POST['the-rating'];
+					}
 					
 					$tags = array();
 				   
@@ -495,6 +512,7 @@ function submitTestimonialForm($atts){
 				   
 					update_post_meta( $new_id, '_ikcf_client', $the_name );
 					update_post_meta( $new_id, '_ikcf_position', $the_other );
+					update_post_meta( $new_id, '_ikcf_rating', $the_rating );
 				   
 					$inserted = true;
 
@@ -544,22 +562,36 @@ function submitTestimonialForm($atts){
 								<p class="easy_t_description"><?php echo get_option('easy_t_position_web_other_field_description','This is other identifying information of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Name.'); ?></p>
 							</div>
 							<?php endif; ?>
+							<?php if(get_option('easy_t_use_rating_field',false)): ?>
+							<div class="easy_t_field_wrap">
+								<label for="the-rating"><?php echo get_option('easy_t_rating_field_label','Your Rating'); ?></label><br />
+								<select id="the-rating" tabindex="4" size="20" name="the-rating" >
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+								<div class="rateit" data-rateit-backingfld="#the-rating" data-rateit-min="0"></div>
+								<p class="easy_t_description"><?php echo get_option('easy_t_rating_field_description','1 - 5 out of 5, where 5/5 is the best and 1/5 is the worst.'); ?></p>
+							</div>
+							<?php endif; ?>
 							<div class="easy_t_field_wrap">
 								<label for="the-body"><?php echo get_option('easy_t_body_content_field_label','Body Content'); ?></label><br />
-								<textarea id="the-body" name="the-body" cols="50" tabindex="4" rows="6"></textarea>
+								<textarea id="the-body" name="the-body" cols="50" tabindex="5" rows="6"></textarea>
 								<p class="easy_t_description"><?php echo get_option('easy_t_body_content_field_description','This is the body area of the Testimonial.'); ?></p>
 							</div>							
 							<?php if(get_option('easy_t_use_image_field',false)): ?>
 							<div class="easy_t_field_wrap">
 								<label for="the-image"><?php echo get_option('easy_t_image_field_label','Testimonial Image'); ?></label><br />
-								<input type="file" id="the-image" value="" tabindex="5" size="20" name="the-image" />
+								<input type="file" id="the-image" value="" tabindex="6" size="20" name="the-image" />
 								<p class="easy_t_description"><?php echo get_option('easy_t_image_field_description','You can select and upload 1 image along with your Testimonial.  Depending on the website\'s settings, this image may be cropped or resized.  Allowed file types are .gif, .jpg, .png, and .jpeg.'); ?></p>
 							</div>
 							<?php endif; ?>
 		
 							<?php if(class_exists('ReallySimpleCaptcha') && get_option('easy_t_use_captcha',0)){ easy_t_outputCaptcha(); } ?>
 							
-							<div class="easy_t_field_wrap"><input type="submit" value="<?php echo get_option('easy_t_submit_button_label','Submit Testimonial'); ?>" tabindex="6" id="submit" name="submit" /></div>
+							<div class="easy_t_field_wrap"><input type="submit" value="<?php echo get_option('easy_t_submit_button_label','Submit Testimonial'); ?>" tabindex="7" id="submit" name="submit" /></div>
 							<input type="hidden" name="action" value="post" />
 							<?php wp_nonce_field( 'new-post' ); ?>
 					</form>
@@ -622,6 +654,7 @@ function easy_testimonials_setup_testimonials(){
 	$fields = array(); 
 	$fields[] = array('name' => 'client', 'title' => 'Client Name', 'description' => "Name of the Client giving the testimonial.  Appears below the Testimonial.", 'type' => 'text'); 
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
+	$fields[] = array('name' => 'rating', 'title' => 'Rating', 'description' => "The client's rating, if submitted along with their testimonial.  This can be displayed below the client's position, or name if the position is hidden, or it can be displayed above the testimonial text.", 'type' => 'text');  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
 	register_taxonomy( 'easy-testimonial-category', 'testimonial', array( 'hierarchical' => true, 'label' => __('Testimonial Category'), 'rewrite' => array('slug' => 'testimonial', 'with_front' => false) ) ); 
 	
@@ -724,7 +757,8 @@ function outputRandomTestimonial($atts){
 		'short_version' => false,
 		'use_excerpt' => false,
 		'category' => '',
-		'show_thumbs' => ''
+		'show_thumbs' => '',
+		'show_rating' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -734,6 +768,13 @@ function outputRandomTestimonial($atts){
 	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'easy-testimonial-category' => $category));
 	while($loop->have_posts()) : $loop->the_post();
 		$postid = get_the_ID();	
+
+		//load rating
+		//if set, append english text to it
+		$testimonials[$i]['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		if(strlen($testimonials[$i]['rating'])>0){
+			$testimonials[$i]['rating'] = '<span class="easy_t_ratings">' . $testimonials[$i]['rating'] . '/5 Stars.</span>';
+		}	
 
 		if($use_excerpt){
 			$testimonials[$i]['content'] = get_the_excerpt();
@@ -757,6 +798,15 @@ function outputRandomTestimonial($atts){
 		if ($word_limit) {
 			$testimonials[$i]['content'] = word_trim($testimonials[$i]['content'], 65, TRUE);
 		}
+			
+		if(strlen($show_rating)>2){
+			if($show_rating == "before"){
+				$testimonials[$i]['content'] = $testimonials[$i]['rating'] . ' ' . $testimonials[$i]['content'];
+			}
+			if($show_rating == "after"){
+				$testimonials[$i]['content'] =  $testimonials[$i]['content'] . ' ' . $testimonials[$i]['rating'];
+			}
+		}
 		
 		if ($show_thumbs) {
 			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
@@ -773,7 +823,8 @@ function outputRandomTestimonial($atts){
 		$testimonials[$i]['title'] = get_the_title($postid);
 		
 		$testimonials[$i]['client'] = get_post_meta($postid, '_ikcf_client', true); 	
-		$testimonials[$i]['position'] = get_post_meta($postid, '_ikcf_position', true); 	
+		$testimonials[$i]['position'] = get_post_meta($postid, '_ikcf_position', true); 
+		
 		$i++;
 	endwhile;
 	wp_reset_query();
@@ -851,6 +902,7 @@ function outputSingleTestimonial($atts){
 		'show_thumbs' => '',
 		'short_version' => false,
 		'word_limit' => false,
+		'show_rating' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -866,6 +918,13 @@ function outputSingleTestimonial($atts){
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+
+		//load rating
+		//if set, append english text to it
+		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		if(strlen($testimonial['rating'])>0){
+			$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
+		}	
 		
 		if($use_excerpt){
 			$testimonial['content'] = get_the_excerpt();
@@ -883,6 +942,15 @@ function outputSingleTestimonial($atts){
 				}
 			} else {				
 				$testimonial['content'] = $temp_post_content->post_content;
+			}
+		}
+			
+		if(strlen($show_rating)>2){
+			if($show_rating == "before"){
+				$testimonial['content'] = $testimonial['rating'] . ' ' . $testimonial['content'];
+			}
+			if($show_rating == "after"){
+				$testimonial['content'] =  $testimonial['content'] . ' ' . $testimonial['rating'];
 			}
 		}
 		
@@ -957,7 +1025,8 @@ function outputTestimonials($atts){
 		'show_thumbs' => '',
 		'short_version' => false,
 		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
-		'order' => 'ASC'//'DESC'
+		'order' => 'ASC',//'DESC'
+		'show_rating' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -980,6 +1049,13 @@ function outputTestimonials($atts){
 		} else {				
 			$testimonial['content'] = get_the_content();
 		}
+
+		//load rating
+		//if set, append english text to it
+		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		if(strlen($testimonial['rating'])>0){
+			$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
+		}	
 		
 		//if nothing is set for the short content, use the long content
 		if(strlen($testimonial['content']) < 2){
@@ -991,6 +1067,15 @@ function outputTestimonials($atts){
 				}
 			} else {				
 				$testimonial['content'] = $temp_post_content->post_content;
+			}
+		}
+			
+		if(strlen($show_rating)>2){
+			if($show_rating == "before"){
+				$testimonial['content'] = $testimonial['rating'] . ' ' . $testimonial['content'];
+			}
+			if($show_rating == "after"){
+				$testimonial['content'] =  $testimonial['content'] . ' ' . $testimonial['rating'];
 			}
 		}
 		
@@ -1007,7 +1092,7 @@ function outputTestimonials($atts){
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
-		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 	
 	
 		?><blockquote class="easy_testimonial">		
 			<?php if ($show_thumbs) {
@@ -1069,7 +1154,8 @@ function outputTestimonialsCycle($atts){
 		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
 		'order' => 'ASC',//'DESC'
 		'pager' => false,
-		'show_pager_icons' => false
+		'show_pager_icons' => false,
+		'show_rating' => false
 	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -1117,6 +1203,13 @@ function outputTestimonialsCycle($atts){
 		} else {				
 			$testimonial['content'] = get_the_content();
 		}
+
+		//load rating
+		//if set, append english text to it
+		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		if(strlen($testimonial['rating'])>0){
+			$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
+		}	
 		
 		//if nothing is set for the short content, use the long content
 		if(strlen($testimonial['content']) < 2){
@@ -1128,6 +1221,15 @@ function outputTestimonialsCycle($atts){
 				}
 			} else {				
 				$testimonial['content'] = $temp_post_content->post_content;
+			}
+		}
+			
+		if(strlen($show_rating)>2){			
+			if($show_rating == "before"){
+				$testimonial['content'] = $testimonial['rating'] . ' ' . $testimonial['content'];
+			}
+			if($show_rating == "after"){
+				$testimonial['content'] =  $testimonial['content'] . ' ' . $testimonial['rating'];
 			}
 		}
 		
