@@ -26,9 +26,10 @@ class cycledTestimonialWidget extends WP_Widget
 	}
 
 	function form($instance){
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '', 'use_excerpt' => 0, 'show_pager_icons' => 0, 'random' => false, 'show_rating' => false ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'testimonials_per_slide' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '', 'use_excerpt' => 0, 'show_pager_icons' => 0, 'random' => false, 'show_rating' => false ) );
 		$title = $instance['title'];
 		$count = $instance['count'];
+		$testimonials_per_slide = $instance['testimonials_per_slide'];
 		$show_title = $instance['show_title'];
 		$show_rating = $instance['show_rating'];
 		$random = $instance['random'];
@@ -41,6 +42,7 @@ class cycledTestimonialWidget extends WP_Widget
 		?>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('count'); ?>">Count: <input class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="text" value="<?php echo esc_attr($count); ?>" /></label></p>
+			<p><label for="<?php echo $this->get_field_id('testimonials_per_slide'); ?>">Testimonials Per Slide: <input class="widefat" id="<?php echo $this->get_field_id('testimonials_per_slide'); ?>" name="<?php echo $this->get_field_name('testimonials_per_slide'); ?>" type="text" value="<?php echo esc_attr($testimonials_per_slide); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('transition'); ?>">Transition: 
 			<p><select name="<?php echo $this->get_field_name('transition'); ?>" id="<?php echo $this->get_field_id('transition'); ?>">	
 				<option value="scrollHorz" <?php if(esc_attr($transition) == "scrollHorz"): echo 'selected="SELECTED"'; endif; ?>>Horizontal Scroll</option>
@@ -73,6 +75,7 @@ class cycledTestimonialWidget extends WP_Widget
 		$instance = $old_instance;
 		$instance['title'] = $new_instance['title'];
 		$instance['count'] = $new_instance['count'];
+		$instance['testimonials_per_slide'] = $new_instance['testimonials_per_slide'];
 		$instance['show_title'] = $new_instance['show_title'];
 		$instance['show_rating'] = $new_instance['show_rating'];
 		$instance['random'] = $new_instance['random'];
@@ -91,6 +94,7 @@ class cycledTestimonialWidget extends WP_Widget
 		echo $before_widget;
 		$title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
 		$count = empty($instance['count']) ? 1 : $instance['count'];
+		$testimonials_per_slide = empty($instance['testimonials_per_slide']) ? 1 : $instance['testimonials_per_slide'];
 		$show_title = empty($instance['show_title']) ? 0 : $instance['show_title'];
 		$show_rating = empty($instance['show_rating']) ? false : $instance['show_rating'];
 		$random = empty($instance['random']) ? 0 : $instance['random'];
@@ -104,7 +108,7 @@ class cycledTestimonialWidget extends WP_Widget
 			echo $before_title . $title . $after_title;;
 		}
 		
-		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true, 'category' => $category, 'use_excerpt' => $use_excerpt, 'random' => $random, 'show_pager_icons' => $show_pager_icons, 'show_rating' => $show_rating));
+		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'testimonials_per_slide' => $testimonials_per_slide, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true, 'category' => $category, 'use_excerpt' => $use_excerpt, 'random' => $random, 'show_pager_icons' => $show_pager_icons, 'show_rating' => $show_rating));
 
 		echo $after_widget;
 	} 

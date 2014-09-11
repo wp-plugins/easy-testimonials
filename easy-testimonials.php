@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.10
+Version: 1.11
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -820,8 +820,7 @@ function outputRandomTestimonial($atts){
 			}
 		}
 		
-		$testimonials[$i]['title'] = get_the_title($postid);
-		
+		$testimonials[$i]['title'] = get_the_title($postid);		
 		$testimonials[$i]['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonials[$i]['position'] = get_post_meta($postid, '_ikcf_position', true); 
 		
@@ -835,42 +834,11 @@ function outputRandomTestimonial($atts){
 	
 	foreach($randArray as $key => $rand){
 		if(isset($testimonials[$rand])){
-			if(!$short_version){	
-				?><blockquote class="easy_testimonial">		
-					
-					<?php if ($show_thumbs) {
-						echo $testimonials[$rand]['image'];
-					} ?>
-					
-					<?php if ($show_title) {
-						echo '<p class="easy_testimonial_title">' . $testimonials[$rand]['title'] . '</p>';
-					} ?>	
-					
-					<?php if(get_option('meta_data_position')): ?>
-						<p class="<?php echo $author_class; ?>">
-							<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
-							<cite><span class="testimonial-client"><?php echo $testimonials[$rand]['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonials[$rand]['position'];?></span></cite>
-							<?php endif; ?>
-						</p>	
-					<?php endif; ?>
-					<div class="<?php echo $body_class; ?>">
-						<?php if(get_option('easy_t_apply_content_filter',false)): ?>
-							<?php echo apply_filters('the_content',$testimonials[$rand]['content']); ?>
-						<?php else:?>
-							<?php echo wpautop($testimonials[$rand]['content']); ?>
-						<?php endif;?>
-						<?php if(strlen($testimonials_link)>2):?><a class="easy_testimonials_read_more_link" href="<?php echo $testimonials_link; ?>">Read More</a><?php endif; ?>
-					</div>			
-					<?php if(!get_option('meta_data_position')): ?>	
-						<p class="<?php echo $author_class; ?>">
-							<?php if(strlen($testimonials[$rand]['client'])>0 || strlen($testimonials[$rand]['position'])>0 ): ?>
-							<cite><span class="testimonial-client"><?php echo $testimonials[$rand]['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonials[$rand]['position'];?></span></cite>
-							<?php endif; ?>
-						</p>	
-					<?php endif; ?>
-				</blockquote><?php
+			$this_testimonial = $testimonials[$rand];
+			if(!$short_version){			
+				echo build_single_testimonial($this_testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link);
 			} else {
-				echo $testimonials[$rand]['content'];
+				echo $this_testimonial['content'];
 			}
 		}
 	}
@@ -969,36 +937,7 @@ function outputSingleTestimonial($atts){
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 	
-		?><blockquote class="easy_testimonial">		
-			<?php if ($show_thumbs) {
-				echo $testimonial['image'];
-			} ?>		
-			<?php if ($show_title) {
-				echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
-			} ?>	
-			<?php if(get_option('meta_data_position')): ?>
-				<p class="<?php echo $author_class; ?>">
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
-					<?php endif; ?>
-				</p>	
-			<?php endif; ?>
-			<div class="<?php echo $body_class; ?>">
-				<?php if(get_option('easy_t_apply_content_filter',false)): ?>
-					<?php echo apply_filters('the_content',$testimonial['content']); ?>
-				<?php else:?>
-					<?php echo wpautop($testimonial['content']); ?>
-				<?php endif;?>
-				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
-			</div>	
-			<?php if(!get_option('meta_data_position')): ?>			
-				<p class="<?php echo $author_class; ?>">
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
-					<?php endif; ?>
-				</p>	
-			<?php endif; ?>
-		</blockquote><?php 	
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link);
 			
 	endwhile;	
 	wp_reset_query();
@@ -1094,35 +1033,7 @@ function outputTestimonials($atts){
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 	
 	
-		?><blockquote class="easy_testimonial">		
-			<?php if ($show_thumbs) {
-				echo $testimonial['image'];
-			} ?>		
-			<?php if ($show_title) {
-				echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
-			} ?>	
-			<?php if(get_option('meta_data_position')): ?>
-				<p class="<?php echo $author_class; ?>">
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
-					<?php endif; ?>
-				</p>	
-			<?php endif; ?>
-			<div class="<?php echo $body_class; ?>">
-				<?php if(get_option('easy_t_apply_content_filter',false)): ?>
-					<?php echo apply_filters('the_content',$testimonial['content']); ?>
-				<?php else:?>
-					<?php echo wpautop($testimonial['content']); ?>
-				<?php endif;?>
-			</div>	
-			<?php if(!get_option('meta_data_position')): ?>			
-				<p class="<?php echo $author_class; ?>">
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
-					<?php endif; ?>
-				</p>	
-			<?php endif; ?>
-		</blockquote><?php 	
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link);
 			
 	endwhile;	
 	wp_reset_query();
@@ -1155,7 +1066,8 @@ function outputTestimonialsCycle($atts){
 		'order' => 'ASC',//'DESC'
 		'pager' => false,
 		'show_pager_icons' => false,
-		'show_rating' => false
+		'show_rating' => false,
+		'testimonials_per_slide' => 1
 	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -1183,17 +1095,22 @@ function outputTestimonialsCycle($atts){
 	>
 	<?php
 	
-	$easy_t_first = true;
+	$counter = 0;
 	
 	//load testimonials into an array
-	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => '-1', 'orderby' => $orderby, 'order' => $order, 'easy-testimonial-category' => $category));
-	while($loop->have_posts()) : $loop->the_post();
-		if($easy_t_first){
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => $count, 'orderby' => $orderby, 'order' => $order, 'easy-testimonial-category' => $category));
+	while($loop->have_posts()) : $loop->the_post();		
+		if($counter == 0){
 			$testimonial_display = '';
-			$easy_t_first = false;
 		} else {
 			$testimonial_display = 'style="display:none;"';
 		}
+		
+		if($counter%$testimonials_per_slide == 0){
+			?><div <?php echo $testimonial_display; ?> class="testimonial_slide"><?php
+		}
+		
+		$counter ++;
 	
 		$postid = get_the_ID();
 
@@ -1247,43 +1164,12 @@ function outputTestimonialsCycle($atts){
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
-	
-		if($i < $count || $count == -1){
-	
-			?><div <?php echo $testimonial_display; ?> class="testimonial_slide"><blockquote class="easy_testimonial">		
-				<?php if ($show_thumbs) {
-					echo $testimonial['image'];
-				} ?>		
-				<?php if ($show_title) {
-					echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
-				} ?>	
-				<?php if(get_option('meta_data_position')): ?>
-					<p class="<?php echo $author_class; ?>">
-						<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-						<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
-						<?php endif; ?>
-					</p>	
-				<?php endif; ?>
-				<div class="<?php echo $body_class; ?>">
-					<?php if(get_option('easy_t_apply_content_filter',false)): ?>
-						<?php echo apply_filters('the_content',$testimonial['content']); ?>
-					<?php else:?>
-						<?php echo wpautop($testimonial['content']); ?>
-					<?php endif;?>
-					<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
-				</div>	
-				<?php if(!get_option('meta_data_position')): ?>			
-					<p class="<?php echo $author_class; ?>">
-						<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-						<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
-						<?php endif; ?>
-					</p>	
-				<?php endif; ?>
-			</blockquote></div><?php 	
-			
-			$i ++;
-		}
 		
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link);
+		
+		if($counter%$testimonials_per_slide == 0){
+			?></div><?php
+		}
 		
 	endwhile;	
 	wp_reset_query();
@@ -1301,6 +1187,44 @@ function outputTestimonialsCycle($atts){
 	ob_end_clean();	
 	
 	return $content;
+}
+
+//given a full set of data for a testimonial
+//assemble the html for that testimonial
+//taking into account current options
+function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link){
+?>
+	<blockquote class="easy_testimonial">		
+		<?php if ($show_thumbs) {
+			echo $testimonial['image'];
+		} ?>		
+		<?php if ($show_title) {
+			echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
+		} ?>	
+		<?php if(get_option('meta_data_position')): ?>
+			<p class="<?php echo $author_class; ?>">
+				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+				<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+				<?php endif; ?>
+			</p>	
+		<?php endif; ?>
+		<div class="<?php echo $body_class; ?>">
+			<?php if(get_option('easy_t_apply_content_filter',false)): ?>
+				<?php echo apply_filters('the_content',$testimonial['content']); ?>
+			<?php else:?>
+				<?php echo wpautop($testimonial['content']); ?>
+			<?php endif;?>
+			<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
+		</div>	
+		<?php if(!get_option('meta_data_position')): ?>			
+			<p class="<?php echo $author_class; ?>">
+				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+				<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+				<?php endif; ?>
+			</p>	
+		<?php endif; ?>
+	</blockquote>
+<?php
 }
 
 //only do this once
