@@ -1,0 +1,42 @@
+#easy_t_shortcode_generator .disabled
+{
+	/* IE 8 */
+	  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+	/* IE 5-7 */
+	filter: alpha(opacity=50);
+
+	/* Netscape */
+	-moz-opacity: 0.5;
+
+	/* Safari 1.x */
+	-khtml-opacity: 0.5;
+
+	/* Good browsers */
+	opacity: 0.5;
+}
+
+.sc_gen_control_group
+{
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.sc_gen_control_group label
+{
+	display: block;
+}
+
+.inline-select-wrapper
+{
+	display: inline-block;
+}
+
+#sc_gen_output_wrapper {
+	display: none;
+}
+
+#sc_gen_output {
+	min-height: 300px;
+	min-width: 800px;
+	
+}

@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.11
+Version: 1.12
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -1243,6 +1243,20 @@ function easy_testimonials_register_widgets() {
 	register_widget( 'cycledTestimonialWidget' );
 }
 
+function easy_testimonials_admin_init()
+{
+	wp_register_style( 'easy_testimonials_admin_stylesheet', plugins_url('include/css/admin_style.css', __FILE__) );
+	wp_enqueue_style( 'easy_testimonials_admin_stylesheet' );
+	wp_enqueue_script(
+		'east-testimonials-admin',
+		plugins_url('include/js/easy-testimonials-admin.js', __FILE__),
+		array( 'jquery' ),
+		false,
+		true
+	); 	
+	
+}
+
 //create shortcodes
 add_shortcode('random_testimonial', 'outputRandomTestimonial');
 add_shortcode('single_testimonial', 'outputSingleTestimonial');
@@ -1264,6 +1278,7 @@ add_action( 'widgets_init', 'easy_testimonials_register_widgets' );
 
 //do stuff
 add_action( 'init', 'easy_testimonials_setup_testimonials' );
+add_action( 'admin_init', 'easy_testimonials_admin_init' );
 
 add_filter('manage_testimonial_posts_columns', 'easy_t_column_head', 10);  
 add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 10, 2); 

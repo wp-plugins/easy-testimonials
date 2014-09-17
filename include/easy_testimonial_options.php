@@ -38,6 +38,7 @@ class easyTestimonialOptions
 		add_submenu_page($top_level_slug , 'Basic Options', 'Basic Options', 'administrator', $top_level_slug, array($this, 'basic_settings_page'));
 		add_submenu_page($top_level_slug , 'Style & Theming Options', 'Style & Theming Options', 'administrator', 'easy-testimonials-style-settings', array($this, 'style_settings_page'));
 		add_submenu_page($top_level_slug , 'Submission Form Options', 'Submission Form Options', 'administrator', 'easy-testimonials-submission-settings', array($this, 'submission_settings_page'));
+		add_submenu_page($top_level_slug , 'Shortcode Generator', 'Shortcode Generator', 'administrator', 'easy-testimonials-shortcode-generator', array($this, 'shortcode_generator_page'));
 		add_submenu_page($top_level_slug , 'Help & Instructions', 'Help & Instructions', 'administrator', 'easy-testimonials-help', array($this, 'help_settings_page'));
 
 		//call register settings function
@@ -92,7 +93,12 @@ class easyTestimonialOptions
 	//function to produce tabs on admin screen
 	function easy_t_admin_tabs($current = 'homepage' ) {
 	
-		$tabs = array( 'easy-testimonials-settings' => __('Basic Options', $this->textdomain), 'easy-testimonials-style-settings' => __('Style & Theming Options', $this->textdomain), 'easy-testimonials-submission-settings' => __('Submission Form Options', $this->textdomain), 'easy-testimonials-help' => __('Help & Instructions', $this->textdomain));
+		$tabs = array( 	'easy-testimonials-settings' => __('Basic Options', $this->textdomain), 
+						'easy-testimonials-style-settings' => __('Style & Theming Options', $this->textdomain),
+						'easy-testimonials-submission-settings' => __('Submission Form Options', $this->textdomain),
+						'easy-testimonials-shortcode-generator' => __('Shortcode Generator', $this->textdomain),
+						'easy-testimonials-help' => __('Help & Instructions', $this->textdomain)
+					);
 		echo '<div id="icon-themes" class="icon32"><br></div>';
 		echo '<h2 class="nav-tab-wrapper">';
 			foreach( $tabs as $tab => $name ){
@@ -458,6 +464,265 @@ class easyTestimonialOptions
 		</p>
 	</form>
 	</div><?php 
+	}
+	
+	function shortcode_generator_page() {
+		$this->settings_page_top();
+		$testimonial_categories = get_terms( 'easy-testimonial-category', 'orderby=title&hide_empty=0' );
+		?>
+		
+		<h3>Shortcode Generator</h3>
+		
+		<p>Select the options you'd like, and then click the Generate button. You'll get a shortcode that you can copy and paste into any post or page.</p>
+		
+		<form id="easy_t_shortcode_generator">
+			<table class="form-table">
+				<tbody>
+					<tr>
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_count">Count</label>
+							</div>
+						</th>
+						<td>
+							<input type="text" class="valid_int" id="sc_gen_count" value="5" />
+							<p class="description">How many testimonials would you like to show?</p>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_order_by">Order By</label>
+							</div>
+						</th>
+						<td>
+							<div class="inline-select-wrapper">
+								<select id="sc_gen_order_by">
+									<option value="random">Random</option>
+									<option value="id">ID</option>
+									<option value="author">Author</option>
+									<option value="title">Title</option>
+									<option value="name">Name</option>
+									<option value="date">Date</option>
+									<option value="modified">Last Modified</option>
+									<option value="parent">Parent ID</option>								
+								</select>
+							</div>
+							<div class="inline-select-wrapper">
+								<select id="sc_gen_order_dir">
+									<option value="asc">Ascending (ASC)</option>
+									<option value="desc">Descending (DESC)</option>
+								</select>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_category">Filter By Category</label>
+							</div>
+						</th>
+						<td>
+							<select id="sc_gen_category">
+								<?php foreach($testimonial_categories as $cat):?>
+								<option value="all">All Categories</option>
+								<option value="<?=$cat->slug?>"><?=htmlentities($cat->name)?></option>
+								<?php endforeach; ?>
+							</select>
+							<p class="description"><a href="<?php echo admin_url('edit-tags.php?taxonomy=easy-testimonial-category&post_type=testimonial'); ?>">Manage Testimonial Categories</a></p>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							Title
+						</th>
+						<td>
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_show_title">
+									<input type="checkbox" class="checkbox" id="sc_gen_show_title" value="yes" />
+									Show the titles?
+								</label>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							Testimonial Length
+						</th>
+						<td>
+							<div class="sc_gen_control_group sc_gen_control_group_radio">
+								<label title="Hide Ratings">
+									<input type="radio" value="yes" id="sc_gen_use_excerpt_yes" name="sc_gen_use_excerpt" checked="checked">
+									<span>Use an excerpt for long testimonials</span>
+								</label>
+								<label title="Show Rating Before Testimonial">
+									<input type="radio" value="no" id="sc_gen_use_excerpt_no" name="sc_gen_use_excerpt">
+									<span>Always display Testimonials at their full length</span>
+								</label>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							Featured Images
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_show_thumbs">
+									<input type="checkbox" class="checkbox" id="sc_gen_show_thumbs" value="yes" />
+									Show Featured Images?
+								</label>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							Ratings
+						</th>
+						<td>
+							<div class="sc_gen_control_group sc_gen_control_group_radio">
+								<label title="Hide Ratings">
+									<input type="radio" value="hide" id="sc_gen_show_ratings_hide" name="sc_gen_show_ratings" checked="checked">
+									<span>Hide Ratings</span>
+								</label>
+								<label title="Show Rating Before Testimonial">
+									<input type="radio" value="before" id="sc_gen_show_ratings_before" name="sc_gen_show_ratings">
+									<span>Show Rating Before The Testimonial</span>
+								</label>
+								<label title="Show Rating After Testimonial">
+									<input type="radio" value="after" id="sc_gen_show_ratings_after" name="sc_gen_show_ratings">
+									<span>Show Rating After The Testimonial</span>
+								</label>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							Testimonial Slider
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_use_slider">
+									<input type="checkbox" class="checkbox" id="sc_gen_use_slider" value="yes" />
+									Output your testimonials in a slider?
+								</label>
+							</div>
+						</td>
+					</tr>					
+
+					<tr class="slider_option">
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_transition">Select A Transition</label>
+							</div>
+						</th>
+						<td>
+							<select id="sc_gen_transition">
+								<optgroup label="Standard Options">
+									<option value="fade">Fade</option>
+									<option value="fadeout">Fade Out</option>
+									<option value="none">None</option>
+								</optgroup>
+								<optgroup label="PRO Options">								
+									<?php if(!isValidKey()): ?>
+									<option value="scrollVert" disabled="disabled">Scroll (Vertical)</option>
+									<option value="scrollHorz" disabled="disabled">Scroll (Horizontal)</option>
+									<option value="fadeIn" disabled="disabled">Fade In</option>
+									<option value="fadeOut" disabled="disabled">Fade Out</option>
+									<option value="flipHorz" disabled="disabled">Flip (Horizontal)</option>
+									<option value="flipVert" disabled="disabled">Flip (Vertical)</option>
+									<option value="tileSlide" disabled="disabled">Slide</option>
+									<?php else: ?>
+									<option value="scrollVert">Scroll (Vertical)</option>
+									<option value="scrollHorz">Scroll (Horizontal)</option>
+									<option value="fadeIn">Fade In</option>
+									<option value="fadeOut">Fade Out</option>
+									<option value="flipHorz">Flip (Horizontal)</option>
+									<option value="flipVert">Flip (Vertical)</option>
+									<option value="tileSlide">Slide</option>
+									<?php endif; ?>
+								</optgroup>
+							</select>
+							<?php if(!isValidKey()): ?>
+							<p class="description"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/?utm_source=plugin_transitions">Upgrade To Unlock All The Transitions</a></p>
+							<?php endif; ?>
+						</td>
+					</tr>
+				
+					<tr class="slider_option">
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_slider_timer">Time Between Slides</label>
+							</div>
+						</th>
+						<td>
+							<input type="text" class="valid_int" id="sc_gen_slider_timer" value="4" />
+							<p class="description">The number of seconds to pause on each Testimonial</p>
+						</td>
+					</tr>
+					
+					<tr class="slider_option">
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_slider_testimonials_per_slide">Testimonials Per Slide</label>
+							</div>
+						</th>
+						<td>
+							<input type="text" class="valid_int" id="sc_gen_slider_testimonials_per_slide" value="1" />
+							<p class="description">The number of Testimonials to show on each slide</p>
+						</td>
+					</tr>			
+					
+
+					<tr class="slider_option">
+						<th scope="row">
+							Show Pager
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_show_pager">
+									<input type="checkbox" class="checkbox" id="sc_gen_show_pager" value="yes" />
+									Show A Pager Below My Testimonials
+								</label>
+							</div>
+						</td>
+					</tr>
+					
+					<tr class="slider_option">
+						<th scope="row">
+							Auto Fit Container
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_auto_fit_container">
+									<input type="checkbox" class="checkbox" id="sc_gen_auto_fit_container" value="yes" />
+									Automatically adjust the height of the slider to fit each testimonial
+								</label>
+							</div>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<p class="submit">
+				<button id="sc_generate" class="button button-primary" type="button">Build My Shortcode!</button>
+			</p>
+			
+			<div id="sc_gen_output_wrapper">
+				<textarea id="sc_gen_output" rows="4" cols="80"></textarea>
+			</div>
+			
+		</form>
+		
+		
+		</div><?php 
 	}
 		
 	function submission_settings_page(){
