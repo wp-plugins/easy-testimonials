@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.12
+Stable tag: 1.12.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -179,6 +179,9 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.12.1 =
+* Fix: address issue where Testimonials Read More Link was being displayed in the full list of testimonial, when it is intended only to be displayed in random, single, or cycled testimonials.
 
 = 1.12 =
 * Feature: adds shortcode generator to greatly increase ease of implementing plugin.
@@ -357,4 +360,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.12: Update available!
+* 1.12.1: Fix available!
