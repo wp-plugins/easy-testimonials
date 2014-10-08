@@ -1,15 +1,11 @@
-if (typeof($) == 'undefined') {
-	$ = jQuery;
-}
-
-$(function () {
-	wrapper = $('#easy_t_shortcode_generator');
+jQuery(function () {
+	wrapper = jQuery('#easy_t_shortcode_generator');
 	if (wrapper.length > 0)
 	{
 		var button = wrapper.find('#sc_generate');
 		button.on('click', build_shortcode);
 		enable_shortcode_highlighting();
-		$('#sc_gen_use_slider').parent().bind('click', function () {
+		jQuery('#sc_gen_use_slider').parent().bind('click', function () {
 			toggle_slider_options();
 		});
 		toggle_slider_options();		
@@ -18,12 +14,12 @@ $(function () {
 
 function highlight_shortcode()
 {
-	$('#sc_gen_output').select();
+	jQuery('#sc_gen_output').select();
 }
 
 function toggle_slider_options()
 {
-	var $opts_trs = $('tr.slider_option');
+	var $opts_trs = jQuery('tr.slider_option');
 	var $val = get_value_from_input('#sc_gen_use_slider', 0, 'yes_or_no_to_0_or_1');
 	if ($val == 1) {
 		$opts_trs.removeClass('disabled');
@@ -35,7 +31,7 @@ function toggle_slider_options()
 
 function enable_shortcode_highlighting()
 {
-	$('#sc_gen_output').bind('click', function ()
+	jQuery('#sc_gen_output').bind('click', function ()
 	{
 		highlight_shortcode();
 	});
@@ -43,13 +39,13 @@ function enable_shortcode_highlighting()
 
 function get_value_from_input (selector, default_value, filter)
 {
-	var trg = $(selector);
+	var trg = jQuery(selector);
 	var val = '';
 
 	if ( trg.is(':checkbox') ) {
-		val = ( $(selector).is(':checked') ? $(selector).val() : '' );
+		val = ( jQuery(selector).is(':checked') ? jQuery(selector).val() : '' );
 	} else {
-		val = $(selector).val();
+		val = jQuery(selector).val();
 	}
 	
 	val = (val ? val : default_value);
@@ -196,10 +192,9 @@ function build_shortcode()
 	
 	// finally, close and display the shortcode
 	$str += ']';
-	$('#sc_gen_output').val($str);
-	$('#sc_gen_output_wrapper').show();
+	jQuery('#sc_gen_output').val($str);
+	jQuery('#sc_gen_output_wrapper').show();
 	
 	highlight_shortcode();
 	
 }
-

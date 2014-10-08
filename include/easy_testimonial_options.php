@@ -499,7 +499,7 @@ class easyTestimonialOptions
 						<td>
 							<div class="inline-select-wrapper">
 								<select id="sc_gen_order_by">
-									<option value="random">Random</option>
+									<option value="rand">Random</option>
 									<option value="id">ID</option>
 									<option value="author">Author</option>
 									<option value="title">Title</option>
