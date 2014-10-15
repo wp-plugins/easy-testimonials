@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.12.3
+Version: 1.13
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -773,7 +773,7 @@ function outputRandomTestimonial($atts){
 		//if set, append english text to it
 		$testimonials[$i]['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
 		if(strlen($testimonials[$i]['rating'])>0){
-			$testimonials[$i]['rating'] = '<span class="easy_t_ratings">' . $testimonials[$i]['rating'] . '/5 Stars.</span>';
+			$testimonials[$i]['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonials[$i]['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
 		}	
 
 		if($use_excerpt){
@@ -892,7 +892,8 @@ function outputSingleTestimonial($atts){
 		//if set, append english text to it
 		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
 		if(strlen($testimonial['rating'])>0){
-			$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
+			$testimonial['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonial['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
+			//$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
 		}	
 		
 		if($use_excerpt){
@@ -994,7 +995,8 @@ function outputTestimonials($atts){
 		//if set, append english text to it
 		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
 		if(strlen($testimonial['rating'])>0){
-			$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
+			$testimonial['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonial['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
+			//$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
 		}	
 		
 		//if nothing is set for the short content, use the long content
@@ -1126,7 +1128,8 @@ function outputTestimonialsCycle($atts){
 		//if set, append english text to it
 		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
 		if(strlen($testimonial['rating'])>0){
-			$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
+			$testimonial['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonial['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
+			//$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';
 		}	
 		
 		//if nothing is set for the short content, use the long content
@@ -1194,22 +1197,36 @@ function outputTestimonialsCycle($atts){
 //assemble the html for that testimonial
 //taking into account current options
 function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link){
+/* scheme.org example
+ <div itemprop="review" itemscope itemtype="http://schema.org/Review">
+    <span itemprop="name">Not a happy camper</span> -
+    by <span itemprop="author">Ellie</span>,
+    <meta itemprop="datePublished" content="2011-04-01">April 1, 2011
+    <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+      <meta itemprop="worstRating" content = "1">
+      <span itemprop="ratingValue">1</span>/
+      <span itemprop="bestRating">5</span>stars
+    </div>
+    <span itemprop="description">The lamp burned out and now I have to replace
+    it. </span>
+  </div>
+ */
 ?>
-	<blockquote class="easy_testimonial">		
+	<blockquote itemprop="review" itemscope itemtype="http://schema.org/Review" class="easy_testimonial">		
 		<?php if ($show_thumbs) {
 			echo $testimonial['image'];
 		} ?>		
 		<?php if ($show_title) {
-			echo '<p class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
+			echo '<p itemprop="name" class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
 		} ?>	
 		<?php if(get_option('meta_data_position')): ?>
 			<p class="<?php echo $author_class; ?>">
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-				<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+				<cite><span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
 				<?php endif; ?>
 			</p>	
 		<?php endif; ?>
-		<div class="<?php echo $body_class; ?>">
+		<div class="<?php echo $body_class; ?>" itemprop="description">
 			<?php if(get_option('easy_t_apply_content_filter',false)): ?>
 				<?php echo apply_filters('the_content',$testimonial['content']); ?>
 			<?php else:?>
@@ -1220,7 +1237,7 @@ function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,
 		<?php if(!get_option('meta_data_position')): ?>			
 			<p class="<?php echo $author_class; ?>">
 				<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-				<cite><span class="testimonial-client"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
+				<cite><span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?></span><br/><span class="testimonial-position"><?php echo $testimonial['position'];?></span></cite>
 				<?php endif; ?>
 			</p>	
 		<?php endif; ?>

@@ -183,6 +183,12 @@ class ikTestimonialsCustomPostType
 	* Save the new Custom Fields values
 	*/
 	function saveCustomFields( $post_id, $post ) {
+		//idea from here: http://wordpress.stackexchange.com/questions/37967/custom-field-being-erased-after-autosave
+		//don't udpate custom fields on quickedit screen so that they aren't erased.
+		if ((defined('DOING_AJAX') && DOING_AJAX) || isset($_REQUEST['bulk_edit'])){
+			return;
+		}
+	
 		//RWG: 1.30.14 - added isset($_POST[ 'my-custom-fields_wpnonce' ]) to prevent undefined index notices on new item creation
 		if ( isset($_POST[ 'my-custom-fields_wpnonce' ]) && !wp_verify_nonce( $_POST[ 'my-custom-fields_wpnonce' ], 'my-custom-fields' ) )
 			return;

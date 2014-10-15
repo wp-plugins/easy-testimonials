@@ -34,7 +34,7 @@ blockquote.easy_testimonial .wp-post-image {
     width: auto;
 }
 
-blockquote.easy_testimonial p {
+blockquote.easy_testimonial p, blockquote.easy_testimonial .easy_t_ratings {
     color: #8f0853;
     font-size: 16px !important;
     padding: 5px 27px !important;
@@ -42,7 +42,7 @@ blockquote.easy_testimonial p {
     width: auto !important;
 }
 
-.testimonial_body > p:first-child:before {
+.testimonial_body > p:first-child:before,.testimonial_body > p:first-of-type:before {
     content: "“";
     font-size: 50px;
     left: 0;
@@ -53,7 +53,7 @@ blockquote.easy_testimonial p {
     top: 17px;
 }
 
-.testimonial_body > p:last-child:after {
+.testimonial_body > p:last-child:after, .testimonial_body > p:last-of-type:after {
 	top: 21px;
     content: "”";
     font-size: 50px;

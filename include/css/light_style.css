@@ -15,7 +15,7 @@ blockquote.easy_testimonial .wp-post-image{
     margin: 0 10px 10px 0;
 }
 
-blockquote.easy_testimonial p {
+blockquote.easy_testimonial p, blockquote.easy_testimonial .easy_t_ratings {
     width: 100%;
 }
 

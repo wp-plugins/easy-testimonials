@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.12.3
+Stable tag: 1.13
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -20,6 +20,8 @@ Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials
 * Outputting a List of Testimonials
 * Outputting a Fading or Sliding Testimonial Widget
 * Displaying an Image with a Testimonial
+* Displaying a Testimonial with a Rating
+* Displaying Testimonials using Schema.org compliant markup
 * Custom Options Allow You to Link Your Testimonials to a Custom Page, Such As a Product Page
 * Testimonial Categories Allow You To Organize Testimonials in Many Ways!
 * Front-End Testimonial Submission Form Allows Customers to Submit Testimonials on your Website!
@@ -179,6 +181,10 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.13 =
+* Supports schema.org review markup.
+* Address issue with custom fields being lost during quick edit.
 
 = 1.12.3 =
 * Address issues with easy-testimonials-admin.js
@@ -367,4 +373,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.12.3: Fix available!
+* 1.13: Update available!
