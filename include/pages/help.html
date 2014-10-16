@@ -27,10 +27,13 @@
 	<h3>Contents:</h3>
 	<ol class="quick_nav">
 		<li><a href="#add_a_new_testimonial">Adding a New Testimonial</a></li>
-		<li><a href="#edit_a_testimonial">Editing an Testimonial</a></li>
-		<li><a href="#delete_a_testimonial">Deleting an Testimonial</a></li>
-		<li><a href="#outputting_testimonials">Outputting Testimonials</a></li>
-		<li><a href="#outputting_testimonial_slider">Outputting A Testimonial Slider</a></li>
+		<li><a href="#edit_a_testimonial">Editing a Testimonial</a></li>
+		<li><a href="#delete_a_testimonial">Deleting a Testimonial</a></li>
+		<li><a href="#outputting_random_testimonials">Outputting Random Testimonials</a></li>
+		<li><a href="#output_a_list_of_testimonials">Output a List of Testimonials</a></li>
+		<li><a href="#output_a_testimonial_in_the_sidebar">Output a Testimonial in the Sidebar</a></li>
+		<li><a href="#outputting_testimonial_slider">Outputting a Testimonial Slider</a></li>
+		<li><a href="#outputting_a_testimonial_slider_in_the_sidebar">Outputting a Testimonial Slider in the Sidebar</a></li>
 		<li><a href="#testimonial_submission">Front End Testimonial Submission</a></li>
 		<li><a href="#testimonial_options">Options</a></li>
 	</ol>
@@ -71,17 +74,32 @@
 		</ol>
 		<p><strong>You can also change the Status of a Testimonial, if you want to keep it on file.</strong></p>
 	</div>
-	<div id="outputting_testimonials">
-		<h3 id="outputting-testimonials">Outputting Testimonials</h3>
+	<div id="outputting_random_testimonials">
+		<h3 id="outputting-random-testimonials">Outputting Random Testimonials</h3>
 		<ul>
-		<li>To output a Random Testimonial, place the shortcode <code>[random_testimonial]</code> in the desired area of the Page or Post Content. To display more than one random testimonial, use the shortcode <code>[random_testimonial count='3']</code>, where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode <code>[random_testimonial show_title="1"]</code>.  To use the Excerpt of a testimonial, add the attribute <code>use_excerpt=1</code> to your shortcode.  To output Testimonials in a specific Category, use the attribute <code>category='the_category_slug'</code>.  To show or hide the images next to Testimonials, use the attribute <code>show_thumbs=0</code> for hiding the images, and <code>show_thumbs=1</code> for displaying the images.</li>
-		<li>To output a list of All Testimonials, place the shortcode <code>[testimonials]</code> in the desired area of the Page or Post Content.  To display more than one testimonial, use the shortcode <code>[testimonials count='3']</code>, where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode <code>[testimonials show_title="1"]</code>.  To use the Excerpt of a testimonial, add the attribute <code>use_excerpt=1</code> to your shortcode.  To output Testimonials in a specific Category, use the attribute <code>category='the_category_slug'</code>.  To show or hide the images next to Testimonials, use the attribute <code>show_thumbs=0</code> for hiding the images, and <code>show_thumbs=1</code> for displaying the images.</li>
-		<li>To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.</li>
-		<li>To control the Order of the Testimonials with the Shortcode, use the attribute order='ASC'.  To control the Order By parameter, use the attribute orderby='title'.  Acceptable attributes for 'order' are 'ASC' and 'DESC'. Acceptable attributes for 'orderby' are 'none','ID','author','title','name','date','modified','parent', and 'rand'. </li>
+		<li>To output a Random Testimonial, place the shortcode <code>[random_testimonial]</code> in the desired area of the Page or Post Content. To display more than one random testimonial, use the shortcode <code>[random_testimonial count='3']</code>, where count is the number of testimonials you want displayed.<br />
+		</li>
+		<li>To display the title above the testimonial, use the shortcode <code>[random_testimonial show_title="1"]</code>.  To use the Excerpt of a testimonial, add the attribute <code>use_excerpt=1</code> to your shortcode.  To output Testimonials in a specific Category, use the attribute <code>category='the_category_slug'</code>.  To show or hide the images next to Testimonials, use the attribute <code>show_thumbs=0</code> for hiding the images, and <code>show_thumbs=1</code> for displaying the images.</li>
+		<li>To control the Order of the Testimonials with the Shortcode, use the attribute <code>order='ASC'</code>.  To control the Order By parameter, use the attribute <code>orderby='title'</code>.  Acceptable attributes for <code>'order'</code> are <code>'ASC'</code> and <code>'DESC'</code>. Acceptable attributes for <code>'orderby'</code> are <code>'none'</code>,<code>'ID'</code>,<code>'author'</code>,<code>'title'</code>,<code>'name'</code>,<code>'date'</code>,<code>'modified'</code>,<code>'parent'</code>, and <code>'rand'</code>. </li>
 		<li>To display the rating along with the testimonial, use the attribute <code>show_rating</code>.  Possible values are <code>show_rating=before</code>, for the rating to appear before the testimonial content, and <code>show_rating=after</code>, for the rating to appear after the testimonial content.</li>
 		</ul>
 	</div>
-	<div id="outputting_testimonial_slider">
+	<div id="output_a_list_of_testimonials">
+		<h3 id="output-a-list-of-testimonials">Output a List of Testimonials</h3>
+		<ul>
+		<li>To output a list of All Testimonials, place the shortcode <code>[testimonials]</code> in the desired area of the Page or Post Content.  To display more than one testimonial, use the shortcode <code>[testimonials count='3']</code>, where count is the number of testimonials you want displayed.  To display the title above the testimonial, use the shortcode <code>[testimonials show_title="1"]</code>.  To use the Excerpt of a testimonial, add the attribute <code>use_excerpt=1</code> to your shortcode.  To output Testimonials in a specific Category, use the attribute <code>category='the_category_slug'</code>.  To show or hide the images next to Testimonials, use the attribute <code>show_thumbs=0</code> for hiding the images, and <code>show_thumbs=1</code> for displaying the images.</li>
+		<li>To control the Order of the Testimonials with the Shortcode, use the attribute <code>order='ASC'</code>.  To control the Order By parameter, use the attribute <code>orderby='title'</code>.  Acceptable attributes for <code>'order'</code> are <code>'ASC'</code> and <code>'DESC'</code>. Acceptable attributes for <code>'orderby'</code> are <code>'none'</code>,<code>'ID'</code>,<code>'author'</code>,<code>'title'</code>,<code>'name'</code>,<code>'date'</code>,<code>'modified'</code>,<code>'parent'</code>, and <code>'rand'</code>. </li>
+		<li>To display the rating along with the testimonial, use the attribute <code>show_rating</code>.  Possible values are <code>show_rating=before</code>, for the rating to appear before the testimonial content, and <code>show_rating=after</code>, for the rating to appear after the testimonial content.</li>
+		<li>To paginate the list of Testimonials, use the attribute <code>paginate='1'</code>.  When paginated, to control the number of Testimonials shown per page use the attribute <code>testimonials_per_page='5'</code> (where 5 is the number of Testimonials displayed.)</li>
+		</ul>
+	</div>
+	<div id="output_a_testimonial_in_the_sidebar">
+		<h3 id="output-a-testimonial-in-the-sidebar">Output a Testimonial in the Sidebar</h3>
+		<ul>
+		<li>To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.</li>
+		</ul>
+	</div>
+	<div id="outputting_a_testimonial_slider">
 		<h3 id="outputting-a-testimonial-slider">Outputting a Testimonial Slider</h3>
 		<ul>
 		<li><strong>NOTE:</strong> You can view live examples <a href="http://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-examples/" title="Example Testimonial Sliders">here</a>.</li>
@@ -89,12 +107,18 @@
 		<li>The same properties as the list of testimonials, such as Showing the Title and controlling the Count, also apply.  To use the Excerpt of a testimonial, add the attribute <code>use_excerpt=1</code> to your shortcode.  To output Testimonials in a specific Category, use the attribute <code>category='the_category_slug'</code>.  To show or hide the images next to Testimonials, use the attribute <code>show_thumbs=0</code> for hiding the images, and <code>show_thumbs=1</code> for displaying the images.  You can randomize the order of the testimonials with the attribute <code>random="true"</code>.</li>
 		<li>To change the timer, use the attribute <code>timer</code>, which defaults to 2000 (2 seconds.)  For example: <code>[testimonials_cycle timer="4000"]</code></li>
 		<li>To change the transition to a fade in, fade out, or no transition, use the attributes <code>transition="fade"</code>, or <code>transition="fadeout"</code>, or <code>transition="none"</code>.  These features are enabled for Pro users - 'fade' is included in the Free version!  For example: <code>[testimonials_cycle transition="fadeout"]</code></li>
-		<li>To output a Testimonial Cycle in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can how many testimonials are shown by placing a number in the Count field - make sure you have at least 2, if you want them to Cycle!  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.  You can control the time between transitions using the Timer field - every 1000 equals 1 second.</li>
 		<li>Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fadeIn", "fadeOut", "flipHorz", "flipVert", and "tileSlide".</li>
 		<li>To control the Order of the Testimonials with the Shortcode, use the attribute <code>order='ASC'</code>.  To control the Order By parameter, use the attribute <code>orderby='title'</code>.  Acceptable attributes for <code>order</code> are <code>ASC</code> and <code>DESC</code>. Acceptable attributes for <code>orderby</code> are <code>none</code>,<code>ID</code>,<code>author</code>,<code>title</code>,<code>name</code>,<code>date</code>,<code>modified</code>,<code>parent</code>, and <code>rand</code>. </li>
 		<li>To display a pager below the slider, use the attribute <code>pager='1'</code>.  On the Widget, check the box labeled Display Pager Icons.</li>
 		<li>To have the height of the slider automatically adjust to the height of it's content, set the attribute <code>container='1'</code>.</li>
 		<li>To control the number of testimonials that appear per slide, use the attribue <code>testimonials_per_slide='1'</code>.</li>
+		</ul>
+	</div>
+	<div id="outputting_a_testimonial_slider_in_the_sidebar">
+		<h3 id="outputting-a-testimonial-slider-in-the-sidebar">Outputting a Testimonial Slider in the Sidebar</h3>
+		<ul>
+		<li>To output a Testimonial Cycle in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can how many testimonials are shown by placing a number in the Count field - make sure you have at least 2, if you want them to Cycle!  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.  You can control the time between transitions using the Timer field - every 1000 equals 1 second.</li>
+		<li>Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fadeIn", "fadeOut", "flipHorz", "flipVert", and "tileSlide".</li>
 		</ul>
 	</div>
 	<div id="testimonial_submission">

@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.13
+Version: 1.14
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -967,13 +967,20 @@ function outputTestimonials($atts){
 		'short_version' => false,
 		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
 		'order' => 'ASC',//'DESC'
-		'show_rating' => false
+		'show_rating' => false,
+		'paginate' => false,
+		'testimonials_per_page' => 10
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
 			
 	if(!is_numeric($count)){
 		$count = -1;
+	}
+	
+	//if we are paging the testimonials, set the $count to the number of testimonials per page
+	if($paginate){
+		$count = $testimonials_per_page;
 	}
 	
 	ob_start();
@@ -1039,6 +1046,16 @@ function outputTestimonials($atts){
 		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link);
 			
 	endwhile;	
+	
+	//output the pagination links, if instructed to do so
+	//TBD: make all labels controllable via settings
+	if($paginate){
+		echo '<div class="easy_t_pagination">';
+			echo '<div style="float:left;">' . get_previous_posts_link( 'Previous Testimonials' ) . '</div>';
+			echo '<div style="float:right;">' . get_next_posts_link( 'Next Testimonials', $loop->max_num_pages ) . '</div>';
+		echo '</div>';
+	}
+	
 	wp_reset_query();
 	
 	$content = ob_get_contents();

@@ -474,10 +474,11 @@ class easyTestimonialOptions
 		<h3>Shortcode Generator</h3>
 		
 		<p>Select the options you'd like, and then click the Generate button. You'll get a shortcode that you can copy and paste into any post or page.</p>
+		<p>This generator will create a shortcode for displaying a list of testimonials or a testimonial slider.  Also available is the <code>[single_testimonial]</code> shortcode, for displaying a specific Testimonial.  <a href="http://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-installation-and-usage-instructions/" target="_blank">Click here</a> for more information.</p>
 		
 		<form id="easy_t_shortcode_generator">
 			<table class="form-table">
-				<tbody>
+				<tbody>										
 					<tr>
 						<th scope="row">
 							<div class="sc_gen_control_group">
@@ -555,11 +556,11 @@ class easyTestimonialOptions
 						</th>
 						<td>
 							<div class="sc_gen_control_group sc_gen_control_group_radio">
-								<label title="Hide Ratings">
+								<label title="Use an excerpt for long testimonials">
 									<input type="radio" value="yes" id="sc_gen_use_excerpt_yes" name="sc_gen_use_excerpt" checked="checked">
 									<span>Use an excerpt for long testimonials</span>
 								</label>
-								<label title="Show Rating Before Testimonial">
+								<label title="Always display Testimonials at their full length">
 									<input type="radio" value="no" id="sc_gen_use_excerpt_no" name="sc_gen_use_excerpt">
 									<span>Always display Testimonials at their full length</span>
 								</label>
@@ -600,6 +601,32 @@ class easyTestimonialOptions
 									<span>Show Rating After The Testimonial</span>
 								</label>
 							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							Pagination
+						</th>
+						<td>
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_paginate">
+									<input type="checkbox" class="checkbox" id="sc_gen_paginate" value="yes" />
+									Paginate the Testimonials?
+								</label>
+							</div>
+						</td>
+					</tr>
+				
+					<tr class="pagination_option">
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_num_per_page">Testimonials Per Page</label>
+							</div>
+						</th>
+						<td>
+							<input type="text" class="valid_int" id="sc_gen_num_per_page" value="4" />
+							<p class="description">The number of Testimonials to show per page.</p>
 						</td>
 					</tr>
 					

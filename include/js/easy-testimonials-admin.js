@@ -5,10 +5,14 @@ jQuery(function () {
 		var button = wrapper.find('#sc_generate');
 		button.on('click', build_shortcode);
 		enable_shortcode_highlighting();
+		jQuery('#sc_gen_paginate').parent().bind('click', function () {
+			toggle_pagination_options();
+		});
 		jQuery('#sc_gen_use_slider').parent().bind('click', function () {
 			toggle_slider_options();
 		});
-		toggle_slider_options();		
+		toggle_slider_options();	
+		toggle_pagination_options();		
 	}
 });
 
@@ -21,6 +25,18 @@ function toggle_slider_options()
 {
 	var $opts_trs = jQuery('tr.slider_option');
 	var $val = get_value_from_input('#sc_gen_use_slider', 0, 'yes_or_no_to_0_or_1');
+	if ($val == 1) {
+		$opts_trs.removeClass('disabled');
+	} else {
+		$opts_trs.addClass('disabled');
+	}
+	
+}
+
+function toggle_pagination_options()
+{
+	var $opts_trs = jQuery('tr.pagination_option');
+	var $val = get_value_from_input('#sc_gen_paginate', 0, 'yes_or_no_to_0_or_1');
 	if ($val == 1) {
 		$opts_trs.removeClass('disabled');
 	} else {
@@ -80,7 +96,7 @@ function get_value_from_input (selector, default_value, filter)
 	}
 }
 
-function add_attribute($key, $val, $orderby, $use_slider)
+function add_attribute($key, $val, $orderby, $use_slider, $use_pagination, $use_random)
 {
 	if ($key == 'use_excerpt') {
 		return ($val == 1) ? " use_excerpt='1'" : '';
@@ -114,10 +130,30 @@ function add_attribute($key, $val, $orderby, $use_slider)
 		return ($val != 'hide') ? " show_rating='" + $val + "'" : '';
 	}
 	else if ($key == 'orderby') {
-		return ($val != '') ? " orderby='" + $val + "'" : '';
+		//don't add orderby attribute to the random_testimonial shortcode or testimonial_cycle random=true
+		if ($use_random){
+			return '';
+		} else {
+			return ($val != '') ? " orderby='" + $val + "'" : '';
+		}
 	}
 	else if ($key == 'use_slider') {
 		return '';
+	}
+	else if ($key == 'paginate') {
+		//don't add pagination attribute to random_testimonial or testimonial_cycle shortcodes
+		if ($use_random || $use_slider) {
+			return '';
+		} else {
+			return ($val == 1) ? " paginate='1'" : '';
+		}
+	}
+	else if ($key == 'num_per_page') {
+		if ($use_pagination) {
+			return " testimonials_per_page='" + $val + "'";
+		} else {
+			return '';
+		}
 	}
 	else if ($key == 'transition') {
 		if ($use_slider) {
@@ -160,6 +196,8 @@ function build_shortcode()
 	$atts['show_rating'] = get_value_from_input("input[name='sc_gen_show_ratings']:checked", 'hide');
 	$atts['use_slider'] = get_value_from_input('#sc_gen_use_slider', 0, 'yes_or_no_to_0_or_1');
 	$atts['transition'] = get_value_from_input('#sc_gen_transition', 'fade');
+	$atts['paginate'] = get_value_from_input('#sc_gen_paginate', 0, 'yes_or_no_to_0_or_1');
+	$atts['num_per_page'] = get_value_from_input('#sc_gen_num_per_page', 1, 'int');
 	$atts['timer'] = get_value_from_input('#sc_gen_slider_timer', 4000, 'convert_to_milliseconds');
 	$atts['testimonials_per_slide'] = get_value_from_input('#sc_gen_slider_testimonials_per_slide', 1, 'int');
 	$atts['pager'] = get_value_from_input('#sc_gen_show_pager', 0, 'yes_or_no_to_0_or_1');
@@ -168,17 +206,31 @@ function build_shortcode()
 	// begin with either "[testimonials", "[random_testimonial", or "[testimonial_cycle"
 	$str = '[';
 	$use_slider = false;
+	$use_pagination = false;
+	$use_random = false;
+	
+	//set to true if paginate is set
+	if ($atts['paginate'] == 1){
+		$use_pagination = true;
+	}	
+	
 	if ($atts['use_slider'] == 1) 
 	{
-		if ($atts['order_by'] == 'random') {	
-			$str += 'testimonials_cycle random="true"';
+		if ($atts['orderby'] == 'rand') {	
+			$str += 'testimonials_cycle random="true"';	
+			$use_random = true;
 		} else {
 			$str += 'testimonials_cycle';
 		}
 		$use_slider = true;
+		//if this is a testimonial cycle, disable pagination		
+		$use_pagination = false;	
 	}
-	else if ($atts['orderby'] == 'random') {	
+	else if ($atts['orderby'] == 'rand') {	
 		$str += 'random_testimonial';
+		//if this is a random testimonial, disable pagination		
+		$use_pagination = false;	
+		$use_random = true;
 	}
 	else {
 		$str += 'testimonials';	
@@ -187,7 +239,7 @@ function build_shortcode()
 	// next add each attribute according to the user supplied values
 	var $a;
 	for ($key in $atts) {
-		$str += add_attribute($key, $atts[$key], $atts['orderby'], $use_slider);
+		$str += add_attribute($key, $atts[$key], $atts['orderby'], $use_slider, $use_pagination, $use_random);
 	}
 	
 	// finally, close and display the shortcode
