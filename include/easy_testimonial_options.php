@@ -24,7 +24,8 @@ class easyTestimonialOptions
 		//may be running in non WP mode (for example from a notification)
 		if(function_exists('add_action')){
 			//add a menu item
-			add_action('admin_menu', array($this, 'add_admin_menu_item'));		
+			add_action('admin_menu', array($this, 'add_admin_menu_item'));
+			add_action('admin_init', 'hello_t_nag_ignore');
 		}
 	}
 	
@@ -39,8 +40,9 @@ class easyTestimonialOptions
 		add_submenu_page($top_level_slug , 'Style & Theming Options', 'Style & Theming Options', 'administrator', 'easy-testimonials-style-settings', array($this, 'style_settings_page'));
 		add_submenu_page($top_level_slug , 'Submission Form Options', 'Submission Form Options', 'administrator', 'easy-testimonials-submission-settings', array($this, 'submission_settings_page'));
 		add_submenu_page($top_level_slug , 'Shortcode Generator', 'Shortcode Generator', 'administrator', 'easy-testimonials-shortcode-generator', array($this, 'shortcode_generator_page'));
+		add_submenu_page($top_level_slug , 'Import & Export Testimonials', 'Import & Export Testimonials', 'administrator', 'easy-testimonials-import-export', array($this, 'import_export_settings_page'));
 		add_submenu_page($top_level_slug , 'Help & Instructions', 'Help & Instructions', 'administrator', 'easy-testimonials-help', array($this, 'help_settings_page'));
-
+		
 		//call register settings function
 		add_action( 'admin_init', array($this, 'register_settings'));	
 	}
@@ -88,6 +90,11 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_description' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_rating_field' );	
+		
+		register_setting( 'easy-testimonials-import-export-settings-group', 'easy_t_hello_t_json_url' );		
+		register_setting( 'easy-testimonials-import-export-settings-group', 'easy_t_hello_t_enable_cron' );	
+		
+		register_setting( 'easy-testimonials-private-settings-group', 'easy_t_hello_t_last_time' );
 	}
 	
 	//function to produce tabs on admin screen
@@ -97,6 +104,7 @@ class easyTestimonialOptions
 						'easy-testimonials-style-settings' => __('Style & Theming Options', $this->textdomain),
 						'easy-testimonials-submission-settings' => __('Submission Form Options', $this->textdomain),
 						'easy-testimonials-shortcode-generator' => __('Shortcode Generator', $this->textdomain),
+						'easy-testimonials-import-export' => __('Import & Export Testimonials', $this->textdomain),
 						'easy-testimonials-help' => __('Help & Instructions', $this->textdomain)
 					);
 		echo '<div id="icon-themes" class="icon32"><br></div>';
@@ -116,32 +124,7 @@ class easyTestimonialOptions
 	?>
 	<div class="wrap">
 		<h2><?php echo $title; ?></h2>
-		<style type="text/css">
-			.form-table.easy_t_options img {
-				background-color: #fff;
-				display: block;
-				margin: 10px 0 20px;
-				padding: 10px;
-			}
-			
-			.easy-t-radio-button {
-				float: left;
-				height: 340px;
-				margin: 0 10px 10px 0;
-				width: 367px;
-			}			
-			
-			.form-table.easy_t_options h4 {
-				clear: both;
-				margin: 0 0 0.5em;
-				padding: 1.33em 0 0;
-				text-decoration: underline;
-			}
-			
-			.easy-t-radio-button em {
-				margin-left: 20px;
-			}
-			
+		<style type="text/css">			
 			fieldset {
 				border: 1px solid #ccc !important;
 				display: block;
@@ -155,100 +138,19 @@ class easyTestimonialOptions
 			}
 		</style>
 		<?php if(!isValidKey()): ?>		
-				<!-- Begin MailChimp Signup Form -->
-				<style type="text/css">
-					/* MailChimp Form Embed Code - Slim - 08/17/2011 */
-					#mc_embed_signup form {display:block; position:relative; text-align:left; padding:10px 0 10px 3%}
-					#mc_embed_signup h2 {font-weight:bold; padding:0; margin:15px 0; font-size:1.4em;}
-					#mc_embed_signup input {border:1px solid #999; -webkit-appearance:none;}
-					#mc_embed_signup input[type=checkbox]{-webkit-appearance:checkbox;}
-					#mc_embed_signup input[type=radio]{-webkit-appearance:radio;}
-					#mc_embed_signup input:focus {border-color:#333;}
-					#mc_embed_signup .button {clear:both; background-color: #aaa; border: 0 none; border-radius:4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size:15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding:0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: auto;}
-					#mc_embed_signup .button:hover {background-color:#777;}
-					#mc_embed_signup .small-meta {font-size: 11px;}
-					#mc_embed_signup .nowrap {white-space:nowrap;}     
-					#mc_embed_signup .clear {clear:none; display:inline;}
-
-					#mc_embed_signup h3 { color: #008000; display:block; font-size:19px; padding-bottom:10px; font-weight:bold; margin: 0 0 10px;}
-					#mc_embed_signup .explain {
-						color: #808080;
-						width: 600px;
-					}
-					#mc_embed_signup label {
-						color: #000000;
-						display: block;
-						font-size: 15px;
-						font-weight: bold;
-						padding-bottom: 10px;
-					}
-					#mc_embed_signup input.email {display:block; padding:8px 0; margin:0 4% 10px 0; text-indent:5px; width:58%; min-width:130px;}
-
-					#mc_embed_signup div#mce-responses {float:left; top:-1.4em; padding:0em .5em 0em .5em; overflow:hidden; width:90%;margin: 0 5%; clear: both;}
-					#mc_embed_signup div.response {margin:1em 0; padding:1em .5em .5em 0; font-weight:bold; float:left; top:-1.5em; z-index:1; width:80%;}
-					#mc_embed_signup #mce-error-response {display:none;}
-					#mc_embed_signup #mce-success-response {color:#529214; display:none;}
-					#mc_embed_signup label.error {display:block; float:none; width:auto; margin-left:1.05em; text-align:left; padding:.5em 0;}		
-					#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
-						#mc_embed_signup{    
-								background-color: white;
-								border: 1px solid #DCDCDC;
-								clear: left;
-								color: #008000;
-								font: 14px Helvetica,Arial,sans-serif;
-								margin-top: 10px;
-								margin-bottom: 0px;
-								max-width: 800px;
-								padding: 5px 12px 0px;
-					}
-					#mc_embed_signup form{padding: 10px}
-
-					#mc_embed_signup .special-offer {
-						color: #808080;
-						margin: 0;
-						padding: 0 0 3px;
-						text-transform: uppercase;
-					}
-					#mc_embed_signup .button {
-					  background: #5dd934;
-					  background-image: -webkit-linear-gradient(top, #5dd934, #549e18);
-					  background-image: -moz-linear-gradient(top, #5dd934, #549e18);
-					  background-image: -ms-linear-gradient(top, #5dd934, #549e18);
-					  background-image: -o-linear-gradient(top, #5dd934, #549e18);
-					  background-image: linear-gradient(to bottom, #5dd934, #549e18);
-					  -webkit-border-radius: 5;
-					  -moz-border-radius: 5;
-					  border-radius: 5px;
-					  font-family: Arial;
-					  color: #ffffff;
-					  font-size: 20px;
-					  padding: 10px 20px 10px 20px;
-					  line-height: 1.5;
-					  height: auto;
-					  margin-top: 7px;
-					  text-decoration: none;
-					}
-
-					#mc_embed_signup .button:hover {
-					  background: #65e831;
-					  background-image: -webkit-linear-gradient(top, #65e831, #5dd934);
-					  background-image: -moz-linear-gradient(top, #65e831, #5dd934);
-					  background-image: -ms-linear-gradient(top, #65e831, #5dd934);
-					  background-image: -o-linear-gradient(top, #65e831, #5dd934);
-					  background-image: linear-gradient(to bottom, #65e831, #5dd934);
-					  text-decoration: none;
-					}
-					#signup_wrapper {
-						max-width: 800px;
-						margin-bottom: 20px;
-					}
-					#signup_wrapper .u_to_p
-					{
-						font-size: 10px;
-						margin: 0;
-						padding: 2px 0 0 3px;				
-					]
-				</style>
+			<?php 
+				global $current_user ;
+				$user_id = $current_user->ID;
+				/* Check that the user hasn't already clicked to ignore the message */
+				if ( !get_user_meta($user_id, 'hello_t_nag_ignore') ) {
+					echo '<div class="updated" style="padding-top:10px;">'; 
+						printf('<h3><strong>Do you need more Testimonials?</strong></h3>
+							<a href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!"><img src="'.plugins_url('img/hello_t_logo.png', __FILE__).'" /></a>
+							<p>You should try out Hello Testimonials, a new product from the makers of this plugin that helps you collect new testimonials automatically from each of your new customers.</p><p>Of course, it integrates seamlessly with Easy Testimonials, so as you collect new testimonials they\'ll automatically appear on your website.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!">Click Here Start Your 14-Day Free Trial!</a></p>
+							<p>From the makers of Easy Testimonials. | <a href="?page=easy-testimonials-settings&hello_t_nag_ignore=0">Hide This</a></p>');
+					echo "</div>";
+				} else { 
+			?>
 				<div id="signup_wrapper">
 					<div id="mc_embed_signup">
 						<form action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -263,8 +165,8 @@ class easyTestimonialOptions
 						</form>
 					</div>
 					<p class="u_to_p"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>
-				</div>
-				<!--End mc_embed_signup-->			
+				</div>		
+			<?php } ?>
 		<?php endif; ?>
 		
 		<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') : ?>
@@ -1000,6 +902,88 @@ class easyTestimonialOptions
 	function help_settings_page(){
 		$this->settings_page_top();
 		include('pages/help.html');
+	}	
+	
+	function import_export_settings_page(){
+		$this->settings_page_top();
+		
+		?><form method="post" action="options.php">
+			<?php settings_fields( 'easy-testimonials-import-export-settings-group' ); ?>					
+			
+			<?php if(!isValidKey()): ?>
+			<div style="background-color: #fff;
+				border-left: 4px solid #7ad03a;
+				box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+				padding: 12px 12px 1px;
+				margin: 10px 0;">
+				<h3><strong>Do you need more Testimonials?</strong></h3>
+				<a href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!"><img src="<?php echo plugins_url('img/hello_t_logo.png', __FILE__); ?>" /></a>
+				<p>You should try out Hello Testimonials, a new product from the makers of this plugin that helps you collect new testimonials automatically from each of your new customers.</p><p>Of course, it integrates seamlessly with Easy Testimonials, so as you collect new testimonials they'll automatically appear on your website.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!">Click Here Start Your 14-Day Free Trial!</a></p>
+			</div>
+			<?php endif; ?>
+			
+			<fieldset>
+				<legend>Hello Testimonials Integration</legend>
+				
+				<?php if(isValidKey()): ?>
+					<p><strong>Want to learn more about Hello Testimonials? <a href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/">Click Here!</a></strong></p>
+				<?php endif; ?>
+				
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_hello_t_json_url">Hello Testimonials JSON Feed URL</label></th>
+						<td><textarea name="easy_t_hello_t_json_url" id="easy_t_hello_t_json_url" rows=1 style="width: 100%"><?php echo get_option('easy_t_hello_t_json_url'); ?></textarea>
+						<p class="description">This is the JSON URL you copied from the Custom Integrations page inside Hello Testimonials.</p>
+						</td>
+					</tr>
+				</table>
+				
+				<table class="form-table">
+					<tr valign="top">
+						<th scope="row"><label for="easy_t_hello_t_enable_cron">Enable Hello Testimonials Integration</label></th>
+						<td><input type="checkbox" name="easy_t_hello_t_enable_cron" id="easy_t_hello_t_enable_cron" value="1" <?php if(get_option('easy_t_hello_t_enable_cron')){ ?> checked="CHECKED" <?php } ?>/>
+						<p class="description">If checked, new Testimonials will be loaded from your Hello Testimonials account and automatically added to your Testimonials list.</p>
+						</td>
+					</tr>
+				</table>
+				
+			</fieldset>
+			
+			<p class="submit">
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			</p>	
+			<p class="submit" style="margin-top:0;">
+				<a href="?page=easy-testimonials-import-export&run-cron-now=true" class="button-primary" title="<?php _e('Import Testimonials Now') ?>"><?php _e('Import Testimonials Now') ?></a>
+			</p>		
+		</form>
+		
+		</div><?php 
+		
+		//schedule cron if enabled
+		if(get_option('easy_t_hello_t_enable_cron', 0)){
+			//and if the cron job hasn't already been scheduled
+			if(!wp_get_schedule('hello_t_subscription')){
+				//schedule the cron job
+				hello_t_cron_activate();
+			}
+			
+			//if the run cron now button has been clicked
+			if (isset($_GET['run-cron-now']) && $_GET['run-cron-now'] == 'true'){
+				//go ahead and add the testimonials, too
+				add_hello_t_testimonials();
+				
+				echo '<div id="message" class="updated fade"><p>Success!  Your Testimonials have been imported!</p></div>';
+			}
+		} else {
+			//else if the cron job option has been unchecked
+			//clear the scheduled job
+			hello_t_cron_deactivate();
+			
+			//if the run cron now button has been clicked
+			if (isset($_GET['run-cron-now']) && $_GET['run-cron-now'] == 'true'){				
+				echo '<div id="message" class="updated fade"><p>Hello Testimonials Integration is disabled!  Please enable to Import Testimonials.</p></div>';
+			}
+		}
 	}	
 } // end class
 ?>

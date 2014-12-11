@@ -28,13 +28,14 @@
 	<ol class="quick_nav">
 		<li><a href="#add_a_new_testimonial">Adding a New Testimonial</a></li>
 		<li><a href="#edit_a_testimonial">Editing a Testimonial</a></li>
-		<li><a href="#delete_a_testimonial">Deleting a Testimonial</a></li>
+		<li><a href="#testimonial_theme_via_shortcode">Selecting Testimonial Theme via Shortcode</a></li>
 		<li><a href="#outputting_random_testimonials">Outputting Random Testimonials</a></li>
 		<li><a href="#output_a_list_of_testimonials">Output a List of Testimonials</a></li>
 		<li><a href="#output_a_testimonial_in_the_sidebar">Output a Testimonial in the Sidebar</a></li>
 		<li><a href="#outputting_testimonial_slider">Outputting a Testimonial Slider</a></li>
 		<li><a href="#outputting_a_testimonial_slider_in_the_sidebar">Outputting a Testimonial Slider in the Sidebar</a></li>
 		<li><a href="#testimonial_submission">Front End Testimonial Submission</a></li>
+		<li><a href="#testimonial_filters">Testimonial Filters</a></li>
 		<li><a href="#testimonial_options">Options</a></li>
 	</ol>
 	<div id="add_a_new_testimonial">
@@ -73,6 +74,15 @@
 		<li>Hover over the Testimonial you want to Delete and click "Delete".</li>
 		</ol>
 		<p><strong>You can also change the Status of a Testimonial, if you want to keep it on file.</strong></p>
+	</div>
+	<div id="testimonial_theme_via_shortcode">
+		<h3 id="controlling-testimonial-theme-via-shortcode">Controlling Testimonial Theme via Shortcode</h3>
+		<ul>
+			<li>To select a theme via the Shortcode, use the <code>theme='theme_name'</code> attribute in any of our shortcodes.</li>
+			<li>Valid theme options in the Free version are: <code>'dark_style','light_style','clean_style','no_style','default_style'</code>.</li>
+			<li>Valid theme options in the Pro version are: <code>'bubble_style','bubble_style-brown','bubble_style-pink','bubble_style-blue-orange','bubble_style-red-grey','bubble_style-purple-green','avatar-left-style','avatar-left-style-blue-orange','avatar-left-style-pink','avatar-left-style-brown','avatar-left-style-red-grey','avatar-left-style-purple-green','avatar-left-style-50x50','avatar-left-style-50x50-blue-orange','avatar-left-style-50x50-brown','avatar-left-style-50x50-pink','avatar-left-style-50x50-purple-green','avatar-left-style-50x50-red-grey','avatar-right-style','avatar-right-style-blue-orange','avatar-right-style-pink','avatar-right-style-brown','avatar-right-style-red-grey','avatar-right-style-purple-green','avatar-right-style-50x50','avatar-right-style-50x50-blue-orange','avatar-right-style-50x50-brown','avatar-right-style-50x50-pink','avatar-right-style-50x50-purple-green','avatar-right-style-50x50-red-grey'</code></li>
+		<li>If no Theme is passed via the Shortcode, the Theme set on the Settings page will be used.</li>
+		</ul>
 	</div>
 	<div id="outputting_random_testimonials">
 		<h3 id="outputting-random-testimonials">Outputting Random Testimonials</h3>
@@ -131,6 +141,17 @@
 		<li>Front End Image Submission is enabled via a checkbox on the Submission Form Options tab.</li>
 		</ul>
 	</div>
+	<div id="testimonial_filters">
+		<h3 id="using-filters-to-customize-output">Using Filters to Customize Output</h3>
+		<p>We provide the following filters to developers for customizing output even further:</p>
+		<ul>
+			<li><p><code>easy_t_random_testimonials_html</code> -- random testimonials filter</p></li>
+			<li><p><code>easy_t_single_testimonial_html</code> -- single testimonial filter</p></li>
+			<li><p><code>easy_t_testimonials_html</code> -- all testimonials list filter</p></li>
+			<li><p><code>easy_t_testimonials_cyle_html</code> -- testimonials cycle filter</p></li>
+			<li><p><code>easy_t_submission_form</code> -- testimonial submission form</p></li>
+		</ul>
+	</div>	
 	<div id="testimonial_options">
 		<h3 id="options">Options</h3>
 		<ul>

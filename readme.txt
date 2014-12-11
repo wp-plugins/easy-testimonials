@@ -2,9 +2,9 @@
 Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
-Requires at least: 3.0.1
-Tested up to: 4.0
-Stable tag: 1.14
+Requires at least: 3.1
+Tested up to: 4.0.1
+Stable tag: 1.15
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,6 +19,8 @@ Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials
 * Adding a Random Testimonial to Your Page
 * Outputting a List of Testimonials
 * Outputting a Fading or Sliding Testimonial Widget
+* Able To Use Multiple Testimonial Themes on the Same Page!
+* Developers love our Filters!
 * Displaying an Image with a Testimonial
 * Displaying a Testimonial with a Rating
 * Displaying Testimonials using Schema.org compliant markup
@@ -86,6 +88,12 @@ You have a few things to pay attention to:
   
   **You can also change the Status of a Testimonial, if you want to keep it on file.**
 
+### Controlling Testimonial Theme via Shortcode ###
+* To select a theme via the Shortcode, use the ```theme='theme_name'``` attribute in any of our shortcodes.  
+* Valid theme options in the Free version are: ```'dark_style','light_style','clean_style','no_style','default_style'```.
+* Valid theme options in the Pro version are: ```'bubble_style','bubble_style-brown','bubble_style-pink','bubble_style-blue-orange','bubble_style-red-grey','bubble_style-purple-green','avatar-left-style','avatar-left-style-blue-orange','avatar-left-style-pink','avatar-left-style-brown','avatar-left-style-red-grey','avatar-left-style-purple-green','avatar-left-style-50x50','avatar-left-style-50x50-blue-orange','avatar-left-style-50x50-brown','avatar-left-style-50x50-pink','avatar-left-style-50x50-purple-green','avatar-left-style-50x50-red-grey','avatar-right-style','avatar-right-style-blue-orange','avatar-right-style-pink','avatar-right-style-brown','avatar-right-style-red-grey','avatar-right-style-purple-green','avatar-right-style-50x50','avatar-right-style-50x50-blue-orange','avatar-right-style-50x50-brown','avatar-right-style-50x50-pink','avatar-right-style-50x50-purple-green','avatar-right-style-50x50-red-grey'```
+* If no Theme is passed via the Shortcode, the Theme set on the Settings page will be used.
+  
 ### Outputting Random Testimonials ###
 * To output a Random Testimonial, place the shortcode ```[random_testimonial]``` in the desired area of the Page or Post Content. To display more than one random testimonial, use the shortcode ```[random_testimonial count='3']```, where count is the number of testimonials you want displayed.  
 * To display the title above the testimonial, use the shortcode ```[random_testimonial show_title="1"]```.  To use the Excerpt of a testimonial, add the attribute ```use_excerpt=1``` to your shortcode.  To output Testimonials in a specific Category, use the attribute ```category='the_category_slug'```.  To show or hide the images next to Testimonials, use the attribute ```show_thumbs=0``` for hiding the images, and ```show_thumbs=1``` for displaying the images.
@@ -123,6 +131,14 @@ You have a few things to pay attention to:
 * Any submissions will be added to your Testimonials list, on the back end.  Only Testimonials that you choose to publish will be displayed publicly.
 * Captcha support is enabled with the installation of the [Really Simple Captcha plugin](https://wordpress.org/plugins/really-simple-captcha/ "Really Simple Captcha").
 * Front End Image Submission is enabled via a checkbox on the Submission Form Options tab.
+
+### Using Filters to Customize Output ###
+* We provide the following filters to developers for customizing output even further:
+```easy_t_random_testimonials_html``` -- random testimonials filter
+```easy_t_single_testimonial_html``` -- single testimonial filter
+```easy_t_testimonials_html``` -- all testimonials list filter
+```easy_t_testimonials_cyle_html``` -- testimonials cycle filter
+```easy_t_submission_form``` -- testimonial submission form
 
 ### Options ###
 * To control the destination of the "Read More" link, set the path in the Testimonials Read More Link field.
@@ -191,6 +207,12 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.15 =
+* Feature: Adds ability to choose a specific theme via the shortcode.
+* Feature: Adds integration with Hello Testimonials.
+* Feature: Adds output filters for greater developer control over display formatting.
+* Fix: Various bug fixes.
 
 = 1.14 =
 * Feature: adds ability to use pagination with the list all testimonials shortcode.
@@ -388,4 +410,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.14: Update available!
+* 1.15: Update available!

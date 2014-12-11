@@ -40,3 +40,203 @@
 	min-width: 800px;
 	
 }
+
+.bigBlueButton {
+	-moz-box-shadow: 0 2px 5px -2px #111, 0 2px 5px 0 rgba(255, 255, 255, 0.3) inset;
+	-webkit-box-shadow: 0 2px 5px -2px #111, 0 2px 5px 0 rgba(255, 255, 255, 0.3) inset;
+	box-shadow: 0 2px 5px -2px #111, 0 2px 5px 0 rgba(255, 255, 255, 0.3) inset;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
+	background:-moz-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-webkit-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-o-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-ms-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5',GradientType=0);
+	background-color:#79bbff;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #337bc4;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:arial;
+	font-size:37px;
+	font-weight:bold;
+	padding:12px 44px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+}
+.bigBlueButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
+	background:-moz-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-webkit-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-o-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-ms-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff',GradientType=0);
+	background-color:#378de5;
+}
+.bigBlueButton:active {
+	position:relative;
+	top:1px;
+}
+
+.smallBlueButton {
+	-moz-box-shadow: 0 2px 5px -2px #111, 0 2px 5px 0 rgba(255, 255, 255, 0.3) inset;
+	-webkit-box-shadow: 0 2px 5px -2px #111, 0 2px 5px 0 rgba(255, 255, 255, 0.3) inset;
+	box-shadow: 0 2px 5px -2px #111, 0 2px 5px 0 rgba(255, 255, 255, 0.3) inset;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5));
+	background:-moz-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-webkit-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-o-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:-ms-linear-gradient(top, #79bbff 5%, #378de5 100%);
+	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5',GradientType=0);
+	background-color:#79bbff;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #337bc4;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:arial;
+	font-size:22px;
+	font-weight:bold;
+	padding:12px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+}
+.smallBlueButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff));
+	background:-moz-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-webkit-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-o-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:-ms-linear-gradient(top, #378de5 5%, #79bbff 100%);
+	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff',GradientType=0);
+	background-color:#378de5;
+	color:#ffffff;
+}
+.smallBlueButton:active {
+	position:relative;
+	top:1px;
+}
+
+/* MailChimp Form Embed Code - Slim - 08/17/2011 */
+#mc_embed_signup form {display:block; position:relative; text-align:left; padding:10px 0 10px 3%}
+#mc_embed_signup h2 {font-weight:bold; padding:0; margin:15px 0; font-size:1.4em;}
+#mc_embed_signup input {border:1px solid #999; -webkit-appearance:none;}
+#mc_embed_signup input[type=checkbox]{-webkit-appearance:checkbox;}
+#mc_embed_signup input[type=radio]{-webkit-appearance:radio;}
+#mc_embed_signup input:focus {border-color:#333;}
+#mc_embed_signup .button {clear:both; background-color: #aaa; border: 0 none; border-radius:4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size:15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding:0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: auto;}
+#mc_embed_signup .button:hover {background-color:#777;}
+#mc_embed_signup .small-meta {font-size: 11px;}
+#mc_embed_signup .nowrap {white-space:nowrap;}     
+#mc_embed_signup .clear {clear:none; display:inline;}
+
+#mc_embed_signup h3 { color: #008000; display:block; font-size:19px; padding-bottom:10px; font-weight:bold; margin: 0 0 10px;}
+#mc_embed_signup .explain {
+color: #808080;
+width: 600px;
+}
+#mc_embed_signup label {
+color: #000000;
+display: block;
+font-size: 15px;
+font-weight: bold;
+padding-bottom: 10px;
+}
+#mc_embed_signup input.email {display:block; padding:8px 0; margin:0 4% 10px 0; text-indent:5px; width:58%; min-width:130px;}
+
+#mc_embed_signup div#mce-responses {float:left; top:-1.4em; padding:0em .5em 0em .5em; overflow:hidden; width:90%;margin: 0 5%; clear: both;}
+#mc_embed_signup div.response {margin:1em 0; padding:1em .5em .5em 0; font-weight:bold; float:left; top:-1.5em; z-index:1; width:80%;}
+#mc_embed_signup #mce-error-response {display:none;}
+#mc_embed_signup #mce-success-response {color:#529214; display:none;}
+#mc_embed_signup label.error {display:block; float:none; width:auto; margin-left:1.05em; text-align:left; padding:.5em 0;}		
+#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+#mc_embed_signup{    
+background-color: white;
+border: 1px solid #DCDCDC;
+clear: left;
+color: #008000;
+font: 14px Helvetica,Arial,sans-serif;
+margin-top: 10px;
+margin-bottom: 0px;
+max-width: 800px;
+padding: 5px 12px 0px;
+}
+#mc_embed_signup form{padding: 10px}
+
+#mc_embed_signup .special-offer {
+color: #808080;
+margin: 0;
+padding: 0 0 3px;
+text-transform: uppercase;
+}
+#mc_embed_signup .button {
+background: #5dd934;
+background-image: -webkit-linear-gradient(top, #5dd934, #549e18);
+background-image: -moz-linear-gradient(top, #5dd934, #549e18);
+background-image: -ms-linear-gradient(top, #5dd934, #549e18);
+background-image: -o-linear-gradient(top, #5dd934, #549e18);
+background-image: linear-gradient(to bottom, #5dd934, #549e18);
+-webkit-border-radius: 5;
+-moz-border-radius: 5;
+border-radius: 5px;
+font-family: Arial;
+color: #ffffff;
+font-size: 20px;
+padding: 10px 20px 10px 20px;
+line-height: 1.5;
+height: auto;
+margin-top: 7px;
+text-decoration: none;
+}
+
+#mc_embed_signup .button:hover {
+background: #65e831;
+background-image: -webkit-linear-gradient(top, #65e831, #5dd934);
+background-image: -moz-linear-gradient(top, #65e831, #5dd934);
+background-image: -ms-linear-gradient(top, #65e831, #5dd934);
+background-image: -o-linear-gradient(top, #65e831, #5dd934);
+background-image: linear-gradient(to bottom, #65e831, #5dd934);
+text-decoration: none;
+}
+#signup_wrapper {
+max-width: 800px;
+margin-bottom: 20px;
+}
+#signup_wrapper .u_to_p
+{
+font-size: 10px;
+margin: 0;
+padding: 2px 0 0 3px;				
+}
+
+.form-table.easy_t_options img {
+	background-color: #fff;
+	display: block;
+	margin: 10px 0 20px;
+	padding: 10px;
+}
+
+.easy-t-radio-button {
+	float: left;
+	height: 340px;
+	margin: 0 10px 10px 0;
+	width: 367px;
+}			
+
+.form-table.easy_t_options h4 {
+	clear: both;
+	margin: 0 0 0.5em;
+	padding: 1.33em 0 0;
+	text-decoration: underline;
+}
+
+.easy-t-radio-button em {
+	margin-left: 20px;
+}
