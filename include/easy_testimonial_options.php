@@ -181,6 +181,7 @@ class easyTestimonialOptions
 	}
 	
 	function settings_page_sidebar(){
+		if(!isValidKey()):
 		?>
 		<div id="wpmdb-sidebar">
 			<a href="http://goldplugins.com/our-plugins/easy-testimonials-details/" target="_blank" class="wpmdb-banner"><img width="292" height="292" alt="Upgrade to PRO Now; Get instant access to all themes and features." src="<?php echo plugins_url('img/pro-upgrade.png', __FILE__); ?>"></a>
@@ -220,6 +221,7 @@ class easyTestimonialOptions
 			</div>
 		</div>
 		<?php
+		endif;
 	}
 	
 	function basic_settings_page(){	
