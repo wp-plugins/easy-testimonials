@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.0.1
-Stable tag: 1.15
+Stable tag: 1.15.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -208,6 +208,9 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Changelog ==
 
+= 1.15.1 =
+* Fix: address compatibility issue with Tri.be Events Calendar.
+
 = 1.15 =
 * Feature: Adds ability to choose a specific theme via the shortcode.
 * Feature: Adds integration with Hello Testimonials.
@@ -410,4 +413,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.15: Update available!
+* 1.15.1: Update available!

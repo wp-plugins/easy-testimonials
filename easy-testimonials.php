@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.15
+Version: 1.15.1
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -310,9 +310,6 @@ function submitTestimonialForm($atts){
 					update_post_meta( $new_id, '_ikcf_rating', $the_rating );
 				   
 					$inserted = true;
-
-					// do the wp_insert_post action to insert it
-					do_action('wp_insert_post', 'wp_insert_post'); 
 					
 					//if the user has submitted a photo with their testimonial, handle the upload
 					if( ! empty( $_FILES ) ) {

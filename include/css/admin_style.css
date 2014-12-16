@@ -104,7 +104,7 @@
 	font-family:arial;
 	font-size:22px;
 	font-weight:bold;
-	padding:12px 24px;
+	padding:12px 24px !important;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #528ecc;
 }
@@ -239,4 +239,117 @@ padding: 2px 0 0 3px;
 
 .easy-t-radio-button em {
 	margin-left: 20px;
+}
+
+/* Admin Sidebar */
+#wpmdb-sidebar {
+	float: right;
+    padding: 327px 10px 10px 0;
+    width: 292px;
+}
+#wpmdb-sidebar .block {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+#wpmdb-sidebar .subscribe {
+    border-top: medium none;
+}
+#wpmdb-sidebar .subscribe h2 {
+    color: #666;
+    float: none;
+    font-size: 20px;
+    line-height: 1.2em;
+    margin: 0 0 0.5em;
+    padding: 0;
+}
+#wpmdb-sidebar .subscribe h3 {
+    font-size: 16px;
+    margin: 0;
+}
+#wpmdb-sidebar .subscribe p {
+    margin: 0;
+}
+#wpmdb-sidebar .subscribe p.interesting {
+    line-height: 1.4;
+    margin-bottom: 1em;
+}
+#wpmdb-sidebar .subscribe .links {
+    margin-bottom: 2em;
+}
+#wpmdb-sidebar .subscribe .links a {
+    text-decoration: none;
+}
+#wpmdb-sidebar .subscribe .promise {
+    color: #999;
+    font-size: 12px;
+    line-height: 1.4em;
+}
+#wpmdb-sidebar .subscribe .field {
+    margin-bottom: 0.5em;
+}
+#wpmdb-sidebar .subscribe .field p {
+    margin-bottom: 0.3em;
+}
+#wpmdb-sidebar .subscribe .field.submit-button {
+    margin-bottom: 1em;
+}
+#wpmdb-sidebar .testimonial {
+    border-top: medium none;
+}
+#wpmdb-sidebar .testimonial p {
+    margin: 0;
+}
+#wpmdb-sidebar .testimonial .quote {
+    font-size: 20px;
+}
+#wpmdb-sidebar .testimonial .author {
+    text-align: right;
+    white-space: nowrap;
+}
+#wpmdb-sidebar .testimonial .stars {
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+#wpmdb-sidebar .testimonial .via {
+    font-size: 12px;
+    text-align: right;
+}
+#wpmdb-sidebar .testimonial .via a {
+    color: #666;
+}
+#wpmdb-sidebar .testimonial .via a:before {
+    content: "";
+    display: inline-block;
+    font: 18px/1 "dashicons";
+    margin-right: 3px;
+    vertical-align: top;
+}
+@media (min--moz-device-pixel-ratio: 1.3), not all, not all, not all, (min-resolution: 1.3dppx) {
+#wpmdb-sidebar .wpmdb-banner {
+    background-image: url("../img/pro-upgrade.jpg");
+    background-size: 292px 292px;
+    display: block;
+    height: 292px;
+    width: 292px;
+}
+#wpmdb-sidebar .wpmdb-banner img {
+    display: none;
+}
+}
+@media screen and (max-width: 1252px) {
+#wpmdb-sidebar {
+    margin-top: 50px;
+    position: relative;
+    right: auto;
+    top: auto;
+}
+}
+/* Settings */
+.easy_testimonials_admin_wrap {
+    float: none;
+    margin-right: 310px;
+}
+
+.easy_testimonials_admin_wrap .form-table{
+	clear: none;
 }

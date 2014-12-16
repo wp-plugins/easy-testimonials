@@ -121,8 +121,11 @@ class easyTestimonialOptions
 		$message = "Easy Testimonials Settings Updated.";
 		
 		global $pagenow;
+		
+		//display sidebar
+		$this->settings_page_sidebar();
 	?>
-	<div class="wrap">
+	<div class="wrap easy_testimonials_admin_wrap">
 		<h2><?php echo $title; ?></h2>
 		<style type="text/css">			
 			fieldset {
@@ -139,18 +142,11 @@ class easyTestimonialOptions
 		</style>
 		<?php if(!isValidKey()): ?>		
 			<?php 
-				global $current_user ;
-				$user_id = $current_user->ID;
-				/* Check that the user hasn't already clicked to ignore the message */
-				if ( !get_user_meta($user_id, 'hello_t_nag_ignore') ) {
-					echo '<div class="updated" style="padding-top:10px;">'; 
-						printf('<h3><strong>Do you need more Testimonials?</strong></h3>
-							<a href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!"><img src="'.plugins_url('img/hello_t_logo.png', __FILE__).'" /></a>
-							<p>You should try out Hello Testimonials, a new product from the makers of this plugin that helps you collect new testimonials automatically from each of your new customers.</p><p>Of course, it integrates seamlessly with Easy Testimonials, so as you collect new testimonials they\'ll automatically appear on your website.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!">Click Here Start Your 14-Day Free Trial!</a></p>
-							<p>From the makers of Easy Testimonials. | <a href="?page=easy-testimonials-settings&hello_t_nag_ignore=0">Hide This</a></p>');
-					echo "</div>";
-				} else { 
-			?>
+				echo '<div class="updated" style="padding-top:10px;">'; 
+					printf('<h3><strong>Do you need more Testimonials? Try Hello Testimonials Now!</strong></h3>
+						<p>Hello Testimonials is a new product from the makers of this plugin that helps you collect new testimonials automatically from each of your new customers.</p><p>Of course, it integrates seamlessly with Easy Testimonials, so as you collect new testimonials they\'ll automatically appear on your website.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!">Click Here Start Your 14-Day Free Trial!</a></p><br/>');
+				echo "</div>";
+			/*?>
 				<div id="signup_wrapper">
 					<div id="mc_embed_signup">
 						<form action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -166,7 +162,7 @@ class easyTestimonialOptions
 					</div>
 					<p class="u_to_p"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>
 				</div>		
-			<?php } ?>
+			<?php */ ?>
 		<?php endif; ?>
 		
 		<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') : ?>
@@ -182,6 +178,48 @@ class easyTestimonialOptions
 		$this->easy_t_admin_tabs($tab); 
 				
 		return $tab;
+	}
+	
+	function settings_page_sidebar(){
+		?>
+		<div id="wpmdb-sidebar">
+			<a href="http://goldplugins.com/our-plugins/easy-testimonials-details/" target="_blank" class="wpmdb-banner"><img width="292" height="292" alt="Upgrade to PRO Now; Get instant access to all themes and features." src="<?php echo plugins_url('img/pro-upgrade.png', __FILE__); ?>"></a>
+
+			<form class="subscribe block" target="_blank" action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post">
+				<h2>Get 20% Off!</h2>
+				
+				<p class="interesting">
+					Submit your email and we’ll send you a coupon for 20% off your upgrade to the pro version.		</p>
+
+				<label for="mce-EMAIL">Your Email:</label>
+				<input type="email" id="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;"><input type="text" name="b_403e206455845b3b4bd0c08dc_6ad78db648" tabindex="-1" id=""></div>
+				<div class="clear"><input type="submit" value="Subscribe Now" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+
+				<p class="promise">
+					We promise we will not use your email for anything else and you can unsubscribe with 1-click anytime.		</p>
+			</form>
+
+			<div class="block testimonial">
+				<p class="stars">
+					<span class="dashicons dashicons-star-filled"></span>
+					<span class="dashicons dashicons-star-filled"></span>
+					<span class="dashicons dashicons-star-filled"></span>
+					<span class="dashicons dashicons-star-filled"></span>
+					<span class="dashicons dashicons-star-filled"></span>
+				</p>
+
+				<p class="quote">
+					“Tried and is great. This is light and has all the features I need and more! Awesome!”
+				</p>
+
+				<p class="author">&mdash; davidwalt</p>
+
+				<p class="via"><a href="https://wordpress.org/support/topic/excellent-plugin-941" target="_blank">via WordPress.org</a></p>
+			</div>
+		</div>
+		<?php
 	}
 	
 	function basic_settings_page(){	
@@ -904,7 +942,7 @@ class easyTestimonialOptions
 		include('pages/help.html');
 	}	
 	
-	function import_export_settings_page(){
+	function import_export_settings_page(){				
 		$this->settings_page_top();
 		
 		?><form method="post" action="options.php">
@@ -916,9 +954,8 @@ class easyTestimonialOptions
 				box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
 				padding: 12px 12px 1px;
 				margin: 10px 0;">
-				<h3><strong>Do you need more Testimonials?</strong></h3>
-				<a href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!"><img src="<?php echo plugins_url('img/hello_t_logo.png', __FILE__); ?>" /></a>
-				<p>You should try out Hello Testimonials, a new product from the makers of this plugin that helps you collect new testimonials automatically from each of your new customers.</p><p>Of course, it integrates seamlessly with Easy Testimonials, so as you collect new testimonials they'll automatically appear on your website.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!">Click Here Start Your 14-Day Free Trial!</a></p>
+				<h3><strong>Do you need more Testimonials? Try Hello Testimonials Now!</strong></h3>
+				<p>Hello Testimonials is a new product from the makers of this plugin that helps you collect new testimonials automatically from each of your new customers.</p><p>Of course, it integrates seamlessly with Easy Testimonials, so as you collect new testimonials they'll automatically appear on your website.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!">Click Here Start Your 14-Day Free Trial!</a></p>
 			</div>
 			<?php endif; ?>
 			
