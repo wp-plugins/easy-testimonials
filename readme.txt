@@ -3,8 +3,8 @@ Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
-Tested up to: 4.0.1
-Stable tag: 1.15.2
+Tested up to: 4.1
+Stable tag: 1.16
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -207,6 +207,11 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.16 =
+* Feature: adds ability to display testimonial publication date via shortcode.
+* Update: adds new shortcode options to shortcode generator.
+* Update: updates compatibility to WP 4.1
 
 = 1.15.2 =
 * Fix: hide newsletter signup form from Pro activated users.
@@ -416,4 +421,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.15.2: Update available!
+* 1.16: Update available!

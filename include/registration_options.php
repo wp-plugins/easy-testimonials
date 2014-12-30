@@ -1,24 +1,10 @@
 <h3>Pro Registration</h3>			
 <?php if(!isValidKey()): ?><p>Fill out the fields below, if you have purchased the pro version of the plugin, to activate additional features such as Front-End Testimonial Submission.</p><?php endif; ?>
 <?php if(isValidKey()): ?>	
-<p class="easy_t_registered">Your plugin is succesfully registered and activated!</p>
+<p class="plugin_is_registered">✓ Easy Testimonials Pro is registered and activated. Thank you!</p>
 <?php else: ?>
-<p class="easy_t_not_registered">Your plugin is not succesfully registered and activated. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details/" target="_blank">Click here</a> to upgrade today!</p>
+<p class="plugin_is_not_registered">✘ Your plugin is not registered and activated. You will not be able to use the PRO features until you upgrade. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details/" target="_blank">Click here</a> to upgrade today!</p>
 <?php endif; ?>	
-<style type="text/css">
-.easy_t_registered {
-    background-color: #90EE90;
-    font-weight: bold;
-    padding: 20px;
-    width: 860px;
-}
-.easy_t_not_registered {
-	background-color: #FF8C00;
-    font-weight: bold;
-    padding: 20px;
-    width: 860px;
-}
-</style>
 <?php if(!isValidMSKey()): ?>
 <table class="form-table">
 	<tr valign="top">
