@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.1
-Stable tag: 1.16
+Stable tag: 1.16.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,7 +141,7 @@ You have a few things to pay attention to:
 ```easy_t_submission_form``` -- testimonial submission form
 
 ### Options ###
-* To control the destination of the "Read More" link, set the path in the Testimonials Read More Link field.
+* To control the destination of the "View More" link, set the path in the Testimonials View More Link field.
 * To display any Featured Images that you have attached to your Testimonials, check the box next to Show Testimonial Image.
 * To display any Testimonial Information above the content, check the box next to Show Testimonial Info Above Testimonial.
 * To add any Custom CSS, to further modify the output of the plugin, input the CSS in the textarea labeled Custom CSS.  You do not need to include the opening or closing <style> tags, treat it like you're inside a CSS file.
@@ -207,6 +207,9 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.16.1 =
+* Fix: Address broken images on Style and Theme Options Settings.
 
 = 1.16 =
 * Feature: adds ability to display testimonial publication date via shortcode.
@@ -421,4 +424,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.16: Update available!
+* 1.16.1: Update available!
