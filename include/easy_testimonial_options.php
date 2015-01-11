@@ -26,6 +26,7 @@ class easyTestimonialOptions
 			//add a menu item
 			add_action('admin_menu', array($this, 'add_admin_menu_item'));
 			add_action('admin_init', 'hello_t_nag_ignore');
+				
 		}
 	}
 	
@@ -327,6 +328,61 @@ class easyTestimonialOptions
 					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="light_style" value="light_style" <?php if(get_option('testimonials_style') == "light_style"): echo 'checked="CHECKED"'; endif; ?>><label for="light_style">Light Style<br/><img src="<?php echo plugins_url('img/easy-t-light-style.png', __FILE__); ?>"/></label></p>
 					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="clean_style" value="clean_style" <?php if(get_option('testimonials_style') == "clean_style"): echo 'checked="CHECKED"'; endif; ?>><label for="clean_style">Clean Style<br/><img src="<?php echo plugins_url('img/easy-t-clean-style.png', __FILE__); ?>"/></label></p>
 					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="no_style" value="no_style" <?php if(get_option('testimonials_style') == "no_style"): echo 'checked="CHECKED"'; endif; ?>><label for="no_style">No Style<br/><img src="<?php echo plugins_url('img/easy-t-no-style.png', __FILE__); ?>"/></label></p>
+				</td>
+			</tr>
+		</table>
+		
+		<p class="submit">
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+		</p>
+		
+		<h3>Pro Themes</h3>
+		<?php if(!isValidKey()): ?><p class="plugin_is_not_registered">✘ Your plugin is not registered and activated. You will not be able to use the PRO features until you upgrade. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details#buy_now" target="_blank">Click here</a> to upgrade today!</p><?php endif; ?>
+				
+		<table class="form-table easy_t_options">
+			<tr valign="top">
+				<td>
+					<h4>Card Theme</h4>
+					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
+					<!-- card style with avatar on the left -->
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style" <?php if(get_option('testimonials_style') == "card_style"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style">Card Theme - Grey<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-regular.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style-salmon" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style-salmon" <?php if(get_option('testimonials_style') == "card_style-salmon"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style-salmon">Card Theme - Salmon<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-salmon.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style-orange" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style-orange" <?php if(get_option('testimonials_style') == "card_style-orange"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style-orange">Card Theme - Orange<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-orange.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style-purple" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style-purple" <?php if(get_option('testimonials_style') == "card_style-purple"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style-purple">Card Theme - Purple<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-purple.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style-slate" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style-slate" <?php if(get_option('testimonials_style') == "card_style-slate"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style-slate">Card Theme - Slate<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-slate.png', __FILE__); ?>"/></label></p>
+					<h4>Elegant Theme</h4>
+					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
+					<!-- elegant style with avatar in the center -->
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-graphite" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-graphite" <?php if(get_option('testimonials_style') == "elegant_style-graphite"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-graphite">Elegant Theme - Graphite<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-graphite.png', __FILE__); ?>"/></label></p>
+					
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-salmon" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-salmon" <?php if(get_option('testimonials_style') == "elegant_style-salmon"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-salmon">Elegant Theme - Salmon<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-salmon.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-sky_blue" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-sky_blue" <?php if(get_option('testimonials_style') == "elegant_style-sky_blue"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-sky_blue">Elegant Theme - Sky Blue<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-sky-blue.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-smoke" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-smoke" <?php if(get_option('testimonials_style') == "elegant_style-smoke"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-smoke">Elegant Theme - Smoke<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-smoke.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-green_hills" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-green_hills" <?php if(get_option('testimonials_style') == "elegant_style-green_hills"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-green_hills">Elegant Theme - Green Hills<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-green-hills.png', __FILE__); ?>"/></label></p>
+					<h4>Notepad Theme</h4>
+					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed after the Testimonial.  For example, <code>[random_testimonial show_thumbs='1' show_rating='after' show_date='1']</code>.</p>
+					<!-- notepad style with avatar on the left, partially rotated -->
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-stone" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-stone" <?php if(get_option('testimonials_style') == "notepad_style-stone"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-stone">Notepad Theme - Stone<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-grey-sky.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-sea_blue" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-sea_blue" <?php if(get_option('testimonials_style') == "notepad_style-sea_blue"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-sea_blue">Notepad Theme - Sea Blue<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-sea-blue.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-forest_green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-forest_green" <?php if(get_option('testimonials_style') == "notepad_style-forest_green"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-forest_green">Notepad Theme - Forest Green<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-forest-green.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-red_rock" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-red_rock" <?php if(get_option('testimonials_style') == "notepad_style-red_rock"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-red_rock">Notepad Theme - Red Rock<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-red-rock.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-purple_gems" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-purple_gems" <?php if(get_option('testimonials_style') == "notepad_style-purple_gems"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-purple_gems">Notepad Theme - Purple Gems<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-purple-gems.png', __FILE__); ?>"/></label></p>
+					<h4>Business Theme</h4>
+					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
+					<!-- business style with avatar on the left -->
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-stone" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-stone" <?php if(get_option('testimonials_style') == "business_style-stone"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-stone">Business Theme - Stone<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-stone.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-blue" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-blue" <?php if(get_option('testimonials_style') == "business_style-blue"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-blue">Business Theme - Blue<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-blue.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-green" <?php if(get_option('testimonials_style') == "business_style-green"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-green">Business Theme - Green<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-green.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-red" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-red" <?php if(get_option('testimonials_style') == "business_style-red"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-red">Business Theme - Red<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-red.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-grey" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-grey" <?php if(get_option('testimonials_style') == "business_style-grey"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-grey">Business Theme - Grey<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-grey.png', __FILE__); ?>"/></label></p>
+					<h4>Modern Theme</h4>
+					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
+					<!-- modern style with avatar at the bottom, centered -->
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-concept" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-concept" <?php if(get_option('testimonials_style') == "modern_style-concept"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-concept">Modern Theme - Concept<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-concept.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-money" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-money" <?php if(get_option('testimonials_style') == "modern_style-money"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-money">Modern Theme - Money<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-money.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-digitalism" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-digitalism" <?php if(get_option('testimonials_style') == "modern_style-digitalism"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-digitalism">Modern Theme - Digitalism<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-digitalism.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-power" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-power" <?php if(get_option('testimonials_style') == "modern_style-power"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-power">Modern Theme - Power<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-power.png', __FILE__); ?>"/></label></p>
+					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-sleek" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-sleek" <?php if(get_option('testimonials_style') == "modern_style-sleek"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-sleek">Modern Theme - Sleek<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-sleek.png', __FILE__); ?>"/></label></p>
 					<h4>Bubble Theme</h4>
 					<!-- bubble style -->
 					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="bubble_style" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="bubble_style" <?php if(get_option('testimonials_style') == "bubble_style"): echo 'checked="CHECKED"'; endif; ?>><label for="bubble_style">Bubble Theme - Regular<?php if(!isValidKey()): ?><br/><em>Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-bubble-regular.png', __FILE__); ?>"/></label></p>
@@ -390,7 +446,7 @@ class easyTestimonialOptions
 		
 		<form id="easy_t_shortcode_generator">
 			<table class="form-table">
-				<tbody>										
+				<tbody>						
 					<tr>
 						<th scope="row">
 							<div class="sc_gen_control_group">
@@ -496,6 +552,20 @@ class easyTestimonialOptions
 					
 					<tr>
 						<th scope="row">
+							Show Publication Date
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_show_date">
+									<input type="checkbox" class="checkbox" id="sc_gen_show_date" value="yes" />
+									Show Publication Date?
+								</label>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
 							Ratings
 						</th>
 						<td>
@@ -511,6 +581,10 @@ class easyTestimonialOptions
 								<label title="Show Rating After Testimonial">
 									<input type="radio" value="after" id="sc_gen_show_ratings_after" name="sc_gen_show_ratings">
 									<span>Show Rating After The Testimonial</span>
+								</label>
+								<label title="Show Rating As Stars">
+									<input type="radio" value="stars" id="sc_gen_show_ratings_stars" name="sc_gen_show_ratings">
+									<span>Show Rating As Stars</span>
 								</label>
 							</div>
 						</td>

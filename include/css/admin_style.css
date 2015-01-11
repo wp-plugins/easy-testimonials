@@ -451,3 +451,9 @@
     color: #0074a2;
     text-decoration: underline;
 }
+
+.form-table .ezt_theme_description {
+    font-size: 12px;
+    font-style: italic;
+    padding: 10px;
+}
