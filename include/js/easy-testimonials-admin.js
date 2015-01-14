@@ -151,6 +151,9 @@ function ezt_add_attribute($key, $val, $orderby, $use_slider, $use_pagination, $
 			return ($val == 1) ? " paginate='1'" : '';
 		}
 	}
+	else if ($key == 'theme') {
+		return " theme='" + $val + "'";
+	}
 	else if ($key == 'num_per_page') {
 		if ($use_pagination) {
 			return " testimonials_per_page='" + $val + "'";
@@ -194,6 +197,7 @@ function ezt_build_shortcode()
 	$atts['order'] = ezt_get_value_from_input('#sc_gen_order_dir', 'ASC');
 	$atts['category'] = ezt_get_value_from_input('#sc_gen_category', 'all');
 	$atts['show_title'] = ezt_get_value_from_input('#sc_gen_show_title', 0, 'yes_or_no_to_0_or_1');
+	$atts['theme'] = ezt_get_value_from_input('#sc_gen_theme', 'default_style');
 	$atts['use_excerpt'] = ezt_get_value_from_input("input[name='sc_gen_use_excerpt']:checked", 1, 'yes_or_no_to_0_or_1');
 	$atts['show_thumbs'] = ezt_get_value_from_input('#sc_gen_show_thumbs', 0, 'yes_or_no_to_0_or_1');
 	$atts['show_rating'] = ezt_get_value_from_input("input[name='sc_gen_show_ratings']:checked", 'hide');

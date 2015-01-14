@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.1
-Stable tag: 1.17.3
+Stable tag: 1.17.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -210,6 +210,10 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.17.4 =
+* Update: add option to control registered shortcodes to allow compatibility adjustments for various themes and plugins.
+* Update: adds Themes to shortcode generator.
 
 = 1.17.3 =
 * Fix: address issue where stars weren't showing appropriately to logged out users.
@@ -441,4 +445,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.17.3: Update available!
+* 1.17.4: Update available!

@@ -60,6 +60,11 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_apply_content_filter' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_mystery_man' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_image_size' );
+		register_setting( 'easy-testimonials-settings-group', 'ezt_testimonials_shortcode' );
+		register_setting( 'easy-testimonials-settings-group', 'ezt_single_testimonial_shortcode' );
+		register_setting( 'easy-testimonials-settings-group', 'ezt_submit_testimonial_shortcode' );
+		register_setting( 'easy-testimonials-settings-group', 'ezt_cycle_testimonial_shortcode_shortcode' );
+		register_setting( 'easy-testimonials-settings-group', 'ezt_random_testimonial_shortcode' );
 		
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_first_name' );
@@ -176,7 +181,7 @@ class easyTestimonialOptions
 							</div>
 						</form>
 					</div>
-					<p class="u_to_p"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>
+					<p class="u_to_p"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>
 				</div>
 		<?php endif; ?>
 		
@@ -295,6 +300,49 @@ class easyTestimonialOptions
 					</td>
 				</tr>
 			</table>
+
+			<h3>Shortcode Options</h3>
+			<p class="description">Use these fields to control our registered shortcodes.  If you are experiencing issues where our shortcodes do not display at all, you can try changing them here.</p>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="ezt_random_testimonial_shortcode">Random Testimonial Shortcode</label></th>
+					<td><input type="text" name="ezt_random_testimonial_shortcode" id="ezt_random_testimonial_shortcode" value="<?php echo get_option('ezt_random_testimonial_shortcode', 'random_testimonial'); ?>"  style="width: 250px" />
+					<p class="description">This is the shortcode for displaying random testimonials.  If you suspect you are having compatibility issues with shortcodes already registered by your theme or other plugins, try changing this value and any corresponding shortcodes you are using on your site.</p>
+					</td>
+				</tr>
+			</table>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="ezt_single_testimonial_shortcode">Single Testimonial Shortcode</label></th>
+					<td><input type="text" name="ezt_single_testimonial_shortcode" id="ezt_single_testimonial_shortcode" value="<?php echo get_option('ezt_single_testimonial_shortcode', 'single_testimonial'); ?>"  style="width: 250px" />
+					<p class="description">This is the shortcode for displaying a single testimonial.  If you suspect you are having compatibility issues with shortcodes already registered by your theme or other plugins, try changing this value and any corresponding shortcodes you are using on your site.</p>
+					</td>
+				</tr>
+			</table>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="ezt_testimonials_shortcode">Testimonials List Shortcode</label></th>
+					<td><input type="text" name="ezt_testimonials_shortcode" id="ezt_testimonials_shortcode" value="<?php echo get_option('ezt_testimonials_shortcode', 'testimonials'); ?>"  style="width: 250px" />
+					<p class="description">This is the shortcode for displaying a list of testimonials.  If you suspect you are having compatibility issues with shortcodes already registered by your theme or other plugins, try changing this value and any corresponding shortcodes you are using on your site.</p>
+					</td>
+				</tr>
+			</table>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="ezt_cycle_testimonial_shortcode">Testimonials Cycle Shortcode</label></th>
+					<td><input type="text" name="ezt_cycle_testimonial_shortcode" id="ezt_cycle_testimonial_shortcode" value="<?php echo get_option('ezt_cycle_testimonial_shortcode', 'testimonials_cycle'); ?>"  style="width: 250px" />
+					<p class="description">This is the shortcode for displaying cycled testimonials.  If you suspect you are having compatibility issues with shortcodes already registered by your theme or other plugins, try changing this value and any corresponding shortcodes you are using on your site.</p>
+					</td>
+				</tr>
+			</table>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="ezt_submit_testimonial_shortcode">Testimonial Submission Form Shortcode</label></th>
+					<td><input type="text" name="ezt_submit_testimonial_shortcode" id="ezt_submit_testimonial_shortcode" value="<?php echo get_option('ezt_submit_testimonial_shortcode', 'submit_testimonial'); ?>"  style="width: 250px" />
+					<p class="description">This is the shortcode for displaying the testimonial submission form.  If you suspect you are having compatibility issues with shortcodes already registered by your theme or other plugins, try changing this value and any corresponding shortcodes you are using on your site.</p>
+					</td>
+				</tr>
+			</table>
 			
 			<?php include('registration_options.php'); ?>
 			
@@ -310,7 +358,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php"><?php
 		
 		if(!isValidKey()): ?>
-			<p><a href="http://goldplugins.com/our-plugins/easy-testimonials/"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
+			<p><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
 		<?php endif; ?>
 				
 		<?php settings_fields( 'easy-testimonials-style-settings-group' ); ?>	
@@ -337,7 +385,7 @@ class easyTestimonialOptions
 		</p>
 		
 		<h3>Pro Themes</h3>
-		<?php if(!isValidKey()): ?><p class="plugin_is_not_registered">✘ Your plugin is not registered and activated. You will not be able to use the PRO features until you upgrade. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details#buy_now" target="_blank">Click here</a> to upgrade today!</p><?php endif; ?>
+		<?php if(!isValidKey()): ?><p class="plugin_is_not_registered">✘ Your plugin is not registered and activated. You will not be able to use the PRO features until you upgrade. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes" target="_blank">Click here</a> to upgrade today!</p><?php endif; ?>
 				
 		<table class="form-table easy_t_options">
 			<tr valign="top">
@@ -437,6 +485,76 @@ class easyTestimonialOptions
 	function shortcode_generator_page() {
 		$this->settings_page_top();
 		$testimonial_categories = get_terms( 'easy-testimonial-category', 'orderby=title&hide_empty=0' );
+		
+		//array of free themes that are available
+		$free_theme_array = array(
+			'default_style' => 'Default Style',
+			'dark_style' => 'Dark Style',
+			'light_style' => 'Light Style',
+			'blue_style' => 'Blue Style',
+			'clean_style' => 'Clean Style',
+			'no_style' => 'No Style'
+		);
+		
+		//array of pro themes that are available
+		$pro_theme_array = array(
+			'bubble_style' => 'Bubble Style',
+			'bubble_style-brown' => 'Bubble Style - Brown',
+			'bubble_style-pink' => 'Bubble Style - Pink',
+			'bubble_style-blue-orange' => 'Bubble Style - Blue Orange',
+			'bubble_style-red-grey' => 'Bubble Style - Red Grey',
+			'bubble_style-purple-green' => 'Bubble Style - Purple Green',
+			'avatar-left-style' => 'Avatar Left Style',
+			'avatar-left-style-blue-orange' => 'Avatar Left Style - Blue Orange',
+			'avatar-left-style-pink' => 'Avatar Left Style - Pink',
+			'avatar-left-style-brown' => 'Avatar Left Style - Brown',
+			'avatar-left-style-red-grey' => 'Avatar Left Style - Red Grey',
+			'avatar-left-style-purple-green' => 'Avatar Left Style - Purple Green',
+			'avatar-left-style-50x50' => 'Avatar Left 50x50 Style',
+			'avatar-left-style-50x50-blue-orange' => 'Avatar Left 50x50 Style - Blue Orange',
+			'avatar-left-style-50x50-brown' => 'Avatar Left 50x50 Style - Brown',
+			'avatar-left-style-50x50-pink' => 'Avatar Left 50x50 Style - Pink',
+			'avatar-left-style-50x50-purple-green' => 'Avatar Left 50x50 Style - Purple Green',
+			'avatar-left-style-50x50-red-grey' => 'Avatar Left 50x50 Style - Red Grey',
+			'avatar-right-style' => 'Avatar Right Style',
+			'avatar-right-style-blue-orange' => 'Avatar Right Style - Blue Orange',
+			'avatar-right-style-pink' => 'Avatar Right Style - Pink',
+			'avatar-right-style-brown' => 'Avatar Right Style - Brown',
+			'avatar-right-style-red-grey' => 'Avatar Right Style - Red Grey',
+			'avatar-right-style-purple-green' => 'Avatar Right Style - Purple Green',
+			'avatar-right-style-50x50' => 'Avatar Right 50x50 Style',
+			'avatar-right-style-50x50-blue-orange' => 'Avatar Right 50x50 Style - Blue Orange',
+			'avatar-right-style-50x50-brown' => 'Avatar Right 50x50 Style - Brown',
+			'avatar-right-style-50x50-pink' => 'Avatar Right 50x50 Style - Pink',
+			'avatar-right-style-50x50-purple-green' => 'Avatar Right 50x50 Style - Purple Green',
+			'avatar-right-style-50x50-red-grey' => 'Avatar Right 50x50 Style - Red Grey',
+			'card_style' => 'Card Style',
+			'card_style-salmon' => 'Card Style - Salmon',
+			'card_style-orange' => 'Card Style - Orange',
+			'card_style-purple' => 'Card Style - Purple',
+			'card_style-slate' => 'Card Style - Slate',
+			'elegant_style-sky_blue' => 'Elegant Style - Sky Blue',
+			'elegant_style-graphite' => 'Elegant Style - Graphite',
+			'elegant_style-green_hills' => 'Elegant Style - Green Hills',
+			'elegant_style-salmon' => 'Elegant Style - Salmon',
+			'elegant_style-smoke' => 'Elegant Style - Smoke',
+			'notepad_style-stone' => 'Notepad Style - Stone',
+			'notepad_style-sea_blue' => 'Notepad Style - Sea Blue',
+			'notepad_style-forest_green' => 'Notepad Style - Forest Green',
+			'notepad_style-red_rock' => 'Notepad Style - Red Rock',
+			'notepad_style-purple_gems' => 'Notepad Style - Purple Gems',
+			'business_style-stone' => 'Business Style - Stone',
+			'business_style-blue' => 'Business Style - Blue',
+			'business_style-green' => 'Business Style - Green',
+			'business_style-red' => 'Business Style - Red',
+			'business_style-grey' => 'Business Style - Grey',
+			'modern_style-concept' => 'Modern Style - Concept',
+			'modern_style-money' => 'Modern Style - Money',
+			'modern_style-digitalism' => 'Modern Style - Digitalism',
+			'modern_style-power' => 'Modern Style - Power',
+			'modern_style-sleek' => 'Modern Style - Sleek'
+		);
+		
 		?>
 		
 		<h3>Shortcode Generator</h3>
@@ -588,6 +706,31 @@ class easyTestimonialOptions
 								</label>
 							</div>
 						</td>
+					</tr>	
+
+					<tr>
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_theme">Select A Theme</label>
+							</div>
+						</th>
+						<td>
+							<select id="sc_gen_theme">
+								<optgroup label="Free Options">
+									<?php foreach($free_theme_array as $theme_slug => $theme_name): ?>
+									<option value="<?php echo $theme_slug; ?>" <?php if(get_option('testimonials_style', 'default_style') == $theme_slug){ ?> selected="selected" <?php } ?>><?php echo $theme_name; ?></option>
+									<?php endforeach; ?>
+								</optgroup>
+								<optgroup label="PRO Options">		
+									<?php foreach($pro_theme_array as $theme_slug => $theme_name): ?>
+									<option <?php if(!isValidKey()): ?>disabled="disabled" <?php endif; ?>value="<?php echo $theme_slug; ?>" <?php if(get_option('testimonials_style', 'default_style') == $theme_slug){ ?> selected="selected" <?php } ?>><?php echo $theme_name; ?></option>
+									<?php endforeach; ?>	
+								</optgroup>
+							</select>
+							<?php if(!isValidKey()): ?>
+							<p class="description"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade To Unlock All The Themes</a></p>
+							<?php endif; ?>
+						</td>
 					</tr>
 					
 					<tr>
@@ -602,7 +745,7 @@ class easyTestimonialOptions
 								</label>
 							</div>
 						</td>
-					</tr>
+					</tr>		
 				
 					<tr class="pagination_option">
 						<th scope="row">
@@ -614,7 +757,7 @@ class easyTestimonialOptions
 							<input type="text" class="valid_int" id="sc_gen_num_per_page" value="4" />
 							<p class="description">The number of Testimonials to show per page.</p>
 						</td>
-					</tr>
+					</tr>	
 					
 					<tr>
 						<th scope="row">
@@ -664,7 +807,7 @@ class easyTestimonialOptions
 								</optgroup>
 							</select>
 							<?php if(!isValidKey()): ?>
-							<p class="description"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/?utm_source=plugin_transitions">Upgrade To Unlock All The Transitions</a></p>
+							<p class="description"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=transitions">Upgrade To Unlock All The Transitions</a></p>
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -743,7 +886,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php">
 		
 		<?php if(!isValidKey()): ?>
-			<p><a href="http://goldplugins.com/our-plugins/easy-testimonials/"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
+			<p><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
 		<?php endif; ?>
 		
 		<?php settings_fields( 'easy-testimonials-submission_form_options-settings-group' ); ?>		

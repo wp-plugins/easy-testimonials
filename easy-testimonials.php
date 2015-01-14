@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.17.3
+Version: 1.17.4
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -1300,12 +1300,19 @@ register_deactivation_hook( __FILE__, 'hello_t_cron_deactivate' );
 
 //"Construct"
 
+//load any custom shortcodes
+$random_testimonial_shortcode = get_option('ezt_random_testimonial_shortcode', 'random_testimonial');
+$single_testimonial_shortcode = get_option('ezt_single_testimonial_shortcode', 'single_testimonials');
+$testimonials_shortcode = get_option('ezt_testimonials_shortcode', 'testimonials');
+$submit_testimonial_shortcode = get_option('ezt_submit_testimonial_shortcode', 'submit_testimonial');
+$testimonials_cycle_shortcode = get_option('ezt_cycle_testimonial_shortcode', 'testimonials_cycle');
+
 //create shortcodes
-add_shortcode('random_testimonial', 'outputRandomTestimonial');
-add_shortcode('single_testimonial', 'outputSingleTestimonial');
-add_shortcode('testimonials', 'outputTestimonials');
-add_shortcode('submit_testimonial', 'submitTestimonialForm');
-add_shortcode('testimonials_cycle' , 'outputTestimonialsCycle');
+add_shortcode($random_testimonial_shortcode, 'outputRandomTestimonial');
+add_shortcode($single_testimonial_shortcode, 'outputSingleTestimonial');
+add_shortcode($testimonials_shortcode, 'outputTestimonials');
+add_shortcode($submit_testimonial_shortcode, 'submitTestimonialForm');
+add_shortcode($testimonials_cycle_shortcode , 'outputTestimonialsCycle');
 
 //add JS
 add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js' );
