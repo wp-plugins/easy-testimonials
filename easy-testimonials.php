@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.17.4
+Version: 1.17.5
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -1192,6 +1192,11 @@ function add_custom_links_to_plugin_description($links, $file) {
 	{		
 		$new_links['settings_link'] = '<a href="admin.php?page=easy-testimonials-settings">Settings</a>';
 		$new_links['support_link'] = '<a href="http://goldplugins.com/contact/?utm-source=plugin_menu&utm_campaign=support&utm_banner=bananaphone" target="_blank">Get Support</a>';
+			
+		if(!isValidKey()){
+			$new_links['upgrade_to_pro'] = '<a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=plugin_menu&utm_campaign=upgrade" target="_blank">Upgrade to Pro</a>';
+		}
+		
 		$links = array_merge( $links, $new_links);
 	}
 	return $links; 
@@ -1302,7 +1307,7 @@ register_deactivation_hook( __FILE__, 'hello_t_cron_deactivate' );
 
 //load any custom shortcodes
 $random_testimonial_shortcode = get_option('ezt_random_testimonial_shortcode', 'random_testimonial');
-$single_testimonial_shortcode = get_option('ezt_single_testimonial_shortcode', 'single_testimonials');
+$single_testimonial_shortcode = get_option('ezt_single_testimonial_shortcode', 'single_testimonial');
 $testimonials_shortcode = get_option('ezt_testimonials_shortcode', 'testimonials');
 $submit_testimonial_shortcode = get_option('ezt_submit_testimonial_shortcode', 'submit_testimonial');
 $testimonials_cycle_shortcode = get_option('ezt_cycle_testimonial_shortcode', 'testimonials_cycle');
@@ -1318,7 +1323,7 @@ add_shortcode($testimonials_cycle_shortcode , 'outputTestimonialsCycle');
 add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js' );
 
 //add CSS
-add_action( 'wp_head', 'easy_testimonials_setup_css' );
+add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_css' );
 
 //add Custom CSS
 add_action( 'wp_head', 'easy_testimonials_setup_custom_css');

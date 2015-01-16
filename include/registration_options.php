@@ -3,7 +3,7 @@
 <?php if(isValidKey()): ?>	
 <p class="plugin_is_registered">✓ Easy Testimonials Pro is registered and activated. Thank you!</p>
 <?php else: ?>
-<p class="plugin_is_not_registered">✘ Your plugin is not registered and activated. You will not be able to use the PRO features until you upgrade. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details/" target="_blank">Click here</a> to upgrade today!</p>
+<p class="plugin_is_not_registered">✘ Your plugin is not registered and activated. You will not be able to use the PRO features until you upgrade. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=registration_fields" target="_blank">Click here</a> to upgrade today!</p>
 <?php endif; ?>	
 <?php if(!isValidMSKey()): ?>
 <table class="form-table">
