@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.1
-Stable tag: 1.17.5
+Stable tag: 1.18
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -210,6 +210,13 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.18 =
+* Feature: Updates Testimonial Submission Notification e-mails to send to multiple addresses and optionally include the submitted testimonial.
+* Feature: Adds option to display star ratings via the Widgets.
+* Feature: Adds option to display the Testimonial Date via the Widgets.
+* Fix: Replace "Category Slug" field on Widgets with Category Drop Down selector.
+* Fix: Address issue where some options weren't defaulted correctly.
 
 = 1.17.5 =
 * Update: Fix incorrect default for custom single_testimonial shortcode.
@@ -449,4 +456,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.17.5: Update available!
+* 1.18: Upgrade available!

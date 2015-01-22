@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.17.5
+Version: 1.18
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -97,20 +97,36 @@ function easy_testimonials_setup_css() {
 	}
 }
 
-function easy_t_send_notification_email(){
+function easy_t_send_notification_email($submitted_testimonial = array()){
 	//get e-mail address from post meta field
-	$email_address = get_option('easy_t_submit_notification_address', get_bloginfo('admin_email'));
+	//TBD: logic to use comma-separated e-mail addresses
+	$email_addresses = explode(",", get_option('easy_t_submit_notification_address', get_bloginfo('admin_email')));
  
 	$subject = "New Easy Testimonial Submission on " . get_bloginfo('name');
-	$body = "You have received a new submission with Easy Testimonials on your site, " . get_bloginfo('name') . ".  Login and see what they had to say!";
+	
+	//see if option is set to include testimonial in e-mail
+	if(get_option('easy_t_submit_notification_include_testimonial')){ //option is set, build message containing testimonial
+		$body = "You have received a new submission with Easy Testimonials on your site, " . get_bloginfo('name') . ".  Login to approve or trash it! \r\n\r\n";		
+		
+		$body .= "Title: {$submitted_testimonial['post']['post_title']} \r\n";
+		$body .= "Body: {$submitted_testimonial['post']['post_content']} \r\n";
+		$body .= "Name: {$submitted_testimonial['the_name']} \r\n";
+		$body .= "Position/Web Address/Other: {$submitted_testimonial['the_other']} \r\n";
+		$body .= "Rating: {$submitted_testimonial['the_rating']} \r\n";
+	} else { //option isn't set, use default message
+		$body = "You have received a new submission with Easy Testimonials on your site, " . get_bloginfo('name') . ".  Login and see what they had to say!";
+	}
  
 	//use this to set the From address of the e-mail
 	$headers = 'From: ' . get_bloginfo('name') . ' <'.get_bloginfo('admin_email').'>' . "\r\n";
- 
-	if(wp_mail($email_address, $subject, $body, $headers)){
-		//mail sent!
-	} else {
-		//failure!
+	
+	//loop through available e-mail addresses and fire off the e-mails!
+	foreach($email_addresses as $email_address){
+		if(wp_mail($email_address, $subject, $body, $headers)){
+			//mail sent!
+		} else {
+			//failure!
+		}
 	}
 }
 	
@@ -281,16 +297,9 @@ function submitTestimonialForm($atts){
 			   
 				if(!$do_not_insert){
 					//snag custom fields
-					$the_other = $the_name = '';					
-					if (isset ($_POST['the-other'])) {
-						$the_other = $_POST['the-other'];
-					}
-					if (isset ($_POST['the-name'])) {
-						$the_name = $_POST['the-name'];
-					}
-					if (isset ($_POST['the-rating'])) {
-						$the_rating = $_POST['the-rating'];
-					}
+					$the_other = isset($_POST['the-other']) ? $_POST['the-other'] : '';
+					$the_name = isset($_POST['the-name']) ? $_POST['the-name'] : '';
+					$the_rating = isset($_POST['the-rating']) ? $_POST['the-rating'] : '';
 					
 					$tags = array();
 				   
@@ -308,6 +317,14 @@ function submitTestimonialForm($atts){
 					update_post_meta( $new_id, '_ikcf_client', $the_name );
 					update_post_meta( $new_id, '_ikcf_position', $the_other );
 					update_post_meta( $new_id, '_ikcf_rating', $the_rating );
+				   
+				   //collect info for notification e-mail
+				   $submitted_testimonial = array(
+						'post' => $post,
+						'the_name' => $the_name,
+						'the_other' => $the_other,
+						'the_rating' => $the_rating
+				   );
 				   
 					$inserted = true;
 					
@@ -330,7 +347,7 @@ function submitTestimonialForm($atts){
         if(isValidKey()){ 		
 			if($inserted){
 				echo '<p class="easy_t_submission_success_message">' . get_option('easy_t_submit_success_message','Thank You For Your Submission!') . '</p>';
-				easy_t_send_notification_email();
+				easy_t_send_notification_email($submitted_testimonial);
 			} else { ?>
 			<!-- New Post Form -->
 			<div id="postbox">
@@ -338,20 +355,20 @@ function submitTestimonialForm($atts){
 							<div class="easy_t_field_wrap">
 								<label for="the-title"><?php echo get_option('easy_t_title_field_label','Title'); ?></label><br />
 								<input type="text" id="the-title" value="" tabindex="1" size="20" name="the-title" />
-								<p class="easy_t_description"><?php echo get_option('easy_t_title_field_description','This is for internal reference, when viewing the Testimonials in the Dashboard.  This may also be displayed.'); ?></p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_title_field_description','Please give your Testimonial a Title.'); ?></p>
 							</div>
 							<?php if(!get_option('easy_t_hide_name_field',false)): ?>
 							<div class="easy_t_field_wrap">
 								<label for="the-name"><?php echo get_option('easy_t_name_field_label','Name'); ?></label><br />
 								<input type="text" id="the-name" value="" tabindex="2" size="20" name="the-name" />
-								<p class="easy_t_description"><?php echo get_option('easy_t_name_field_description','This is the name of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Other.'); ?></p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_name_field_description','Please enter your Full Name.'); ?></p>
 							</div>
 							<?php endif; ?>
 							<?php if(!get_option('easy_t_hide_position_web_other_field',false)): ?>
 							<div class="easy_t_field_wrap">
 								<label for="the-other"><?php echo get_option('easy_t_position_web_other_field_label','Position / Web Address / Other'); ?></label><br />
 								<input type="text" id="the-other" value="" tabindex="3" size="20" name="the-other" />
-								<p class="easy_t_description"><?php echo get_option('easy_t_position_web_other_field_description','This is other identifying information of the entity leaving the Testimonial.  This will be displayed, along with Body Content and Name.'); ?></p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_position_web_other_field_description','Please enter your Job Title or Website address.'); ?></p>
 							</div>
 							<?php endif; ?>
 							<?php if(get_option('easy_t_use_rating_field',false)): ?>
@@ -371,7 +388,7 @@ function submitTestimonialForm($atts){
 							<div class="easy_t_field_wrap">
 								<label for="the-body"><?php echo get_option('easy_t_body_content_field_label','Body Content'); ?></label><br />
 								<textarea id="the-body" name="the-body" cols="50" tabindex="5" rows="6"></textarea>
-								<p class="easy_t_description"><?php echo get_option('easy_t_body_content_field_description','This is the body area of the Testimonial.'); ?></p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_body_content_field_description','Please enter your Testimonial.'); ?></p>
 							</div>							
 							<?php if(get_option('easy_t_use_image_field',false)): ?>
 							<div class="easy_t_field_wrap">
