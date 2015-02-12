@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.18
+Version: 1.19
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -485,6 +485,12 @@ function easy_testimonials_setup_testimonials(){
 	//if neither of the above hit, the theme in general supports them for everything.  that includes us!
 	
 	add_image_size( 'easy_testimonial_thumb', 50, 50, true );
+		
+	add_action( 'admin_menu', 'easy_t_add_meta_boxes'); // add our custom meta boxes
+}
+
+function easy_t_add_meta_boxes(){
+	add_meta_box( 'testimonial_shortcodes', 'Shortcodes', 'easy_t_display_shortcodes_meta_box', 'testimonial', 'side', 'default' );
 }
 
 //from http://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
@@ -1097,7 +1103,7 @@ function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,
 				<?php else:?>
 					<?php echo wpautop($testimonial['content']); ?>
 				<?php endif;?>
-				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link">Read More</a><?php endif; ?>
+				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link"><?php echo get_option('easy_t_view_more_link_text', 'Read More Testimonials'); ?></a><?php endif; ?>
 			</div>	
 			<?php if(!get_option('meta_data_position')): ?>			
 				<p class="<?php echo $author_class; ?>">
@@ -1182,13 +1188,19 @@ function easy_testimonials_admin_init()
 	wp_register_style( 'easy_testimonials_admin_stylesheet', plugins_url('include/css/admin_style.css', __FILE__) );
 	wp_enqueue_style( 'easy_testimonials_admin_stylesheet' );
 	wp_enqueue_script(
-		'east-testimonials-admin',
+		'easy-testimonials-admin',
 		plugins_url('include/js/easy-testimonials-admin.js', __FILE__),
 		array( 'jquery' ),
 		false,
 		true
-	); 	
-	
+	); 
+	wp_enqueue_script(
+		'gp-admin',
+		plugins_url('include/js/gp-admin.js', __FILE__),
+		array( 'jquery' ),
+		false,
+		true
+	);	
 }
 
 //add an inline link to the settings page, before the "deactivate" link
@@ -1217,6 +1229,13 @@ function add_custom_links_to_plugin_description($links, $file) {
 		$links = array_merge( $links, $new_links);
 	}
 	return $links; 
+}
+	
+/* Displays a meta box with the shortcodes to display the current testimonial */
+function easy_t_display_shortcodes_meta_box() {
+	global $post;
+	echo "Add this shortcode to any page where you'd like to <strong>display</strong> this testimonial:<br />";
+	echo '<pre>[single_testimonial id="' . $post->ID . '"]</pre>';
 }
 
 /* hello t integration */

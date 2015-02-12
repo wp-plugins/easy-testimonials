@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.1
-Stable tag: 1.18
+Stable tag: 1.19
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -210,6 +210,10 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.19 =
+* Feature: Adds ability to set the View More Text
+* Feature: Adds copyable Single Testimonial Shortcode display to Single Testimonial Edit screen.
 
 = 1.18 =
 * Feature: Updates Testimonial Submission Notification e-mails to send to multiple addresses and optionally include the submitted testimonial.
@@ -456,4 +460,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.18: Upgrade available!
+* 1.19: Upgrade available!

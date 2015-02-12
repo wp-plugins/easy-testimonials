@@ -52,6 +52,7 @@ class easyTestimonialOptions
 	function register_settings(){
 		//register our settings
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_link' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_view_more_link_text' );
 		register_setting( 'easy-testimonials-settings-group', 'testimonials_image' );
 		register_setting( 'easy-testimonials-settings-group', 'meta_data_position' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
@@ -131,10 +132,17 @@ class easyTestimonialOptions
 		global $current_user;
 		get_currentuserinfo();
 	?>
+	<script type="text/javascript">
+	jQuery(function () {
+		if (typeof(gold_plugins_init_mailchimp_form) == 'function') {
+			gold_plugins_init_mailchimp_form();
+		}
+	});
+	</script>
 	<?php if(isValidKey()): ?>	
-	<div class="wrap easy_testimonials_admin_wrap">
+	<div class="wrap easy_testimonials_admin_wrap gold_plugins_settings">
 	<?php else: ?>
-	<div class="wrap easy_testimonials_admin_wrap not-pro">			
+	<div class="wrap easy_testimonials_admin_wrap gold_plugins_settings not-pro">
 	<?php endif; ?>
 		<h2><?php echo $title; ?></h2>
 		<style type="text/css">			
@@ -151,43 +159,12 @@ class easyTestimonialOptions
 			}
 		</style>
 		<?php if(!isValidKey()): ?>		
-			<?php 
-				echo '<div class="updated" style="padding-top:10px;">'; 
-					printf('<h3><strong>Do you need more Testimonials? Try Hello Testimonials Now!</strong></h3>
-						<p>Hello Testimonials is a new product from the makers of this plugin that helps you collect new testimonials automatically from each of your new customers.</p><p>Of course, it integrates seamlessly with Easy Testimonials, so as you collect new testimonials they\'ll automatically appear on your website.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Click Here Start Your 14-Day Free Trial!">Click Here Start Your 14-Day Free Trial!</a></p><br/>');
-				echo "</div>";
-			?>
 				<div id="signup_wrapper">
-					<div id="mc_embed_signup">
-						<form action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-							<p class="special-offer green_bg">Special Offer:</p>
-							<h3>Save 20% on Easy Testimonials PRO</h3>
-							<p class="explain">Submit your name and email and we'll send you a coupon for 20% off your upgrade to the PRO version.</p>
-							<label for="mce-NAME">Your Name:</label>
-							<input type="text" value="<?php echo (!empty($current_user->display_name) ?  $current_user->display_name : ''); ?>" name="NAME" class="name" id="mce-NAME" placeholder="Your Name">
-							<label for="mce-EMAIL">Your Email:</label>
-							<input type="email" value="<?php echo (!empty($current_user->user_email) ?  $current_user->user_email : ''); ?>" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Your Email" required>
-							<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-							<div style="position: absolute; left: -5000px;"><input type="text" name="b_403e206455845b3b4bd0c08dc_6ad78db648" tabindex="-1" id=""></div>
-							<div class="clear"><input type="submit" value="Send Me The Coupon" name="subscribe" id="mc-embedded-subscribe" class="button"></div>	
-							<p class="respect">
-								<em>We respect your privacy.</em>		
-							</p>
-							<div class="customer_testimonial">
-								<div class="stars">
-									<span class="dashicons dashicons-star-filled"></span>
-									<span class="dashicons dashicons-star-filled"></span>
-									<span class="dashicons dashicons-star-filled"></span>
-									<span class="dashicons dashicons-star-filled"></span>
-									<span class="dashicons dashicons-star-filled"></span>
-								</div>
-								“Tried and is great. This is light and has all the features I need and more! Awesome!”
-								<p class="author">&mdash; davidwalt  <a href="https://wordpress.org/support/topic/excellent-plugin-941" target="_blank">via WordPress.org</a></p>
-							</div>
-						</form>
-					</div>
-					<p class="u_to_p"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>
+					<?php $this->output_sidebar_coupon_form(); ?>
+					<p class="u_to_p"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>					
+					<?php $this->output_hello_t_banner(); ?>
 				</div>
+				
 		<?php endif; ?>
 		
 		<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') : ?>
@@ -195,6 +172,69 @@ class easyTestimonialOptions
 		<?php endif;
 		
 		$this->get_and_output_current_tab($pagenow);
+	}
+	
+	function output_sidebar_coupon_form()
+	{
+		?>
+		<div class="topper">
+			<h3>Save 20% on Easy Testimonials Pro!</h3>
+			<p class="pitch">Submit your name and email and we’ll send you a coupon for 20% off your upgrade to the Pro version.</p>
+		</div>
+		<div id="mc_embed_signup">
+			<form action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<label for="mce-NAME">Your Name:</label>
+				<input type="text" value="<?php echo (!empty($current_user->display_name) ?  $current_user->display_name : ''); ?>" name="NAME" class="name" id="mce-NAME" placeholder="Your Name">
+				<label for="mce-EMAIL">Your Email:</label>
+				<input type="email" value="<?php echo (!empty($current_user->user_email) ?  $current_user->user_email : ''); ?>" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;"><input type="text" name="b_403e206455845b3b4bd0c08dc_6ad78db648" tabindex="-1" value=""></div>
+				<div class="clear"><input type="submit" value="Send Me The Coupon Now" name="subscribe" id="mc-embedded-subscribe" class="smallBlueButton"></div>
+				<p class="secure"><img src="<?php echo plugins_url( 'img/lock.png', __FILE__ ); ?>" alt="Lock" width="16px" height="16px" />We respect your privacy.</p>
+				
+				<input type="hidden" id="mc-upgrade-plugin-name" value="Easy Testimonials Pro" />
+				<input type="hidden" id="mc-upgrade-link-per" value="http://goldplugins.com/purchase/easy-testimonials/single?promo=newsub20" />
+				<input type="hidden" id="mc-upgrade-link-biz" value="http://goldplugins.com/purchase/easy-testimonials/business?promo=newsub20" />
+				<input type="hidden" id="mc-upgrade-link-dev" value="http://goldplugins.com/purchase/easy-testimonials/developer?promo=newsub20" />
+
+				<div class="features">
+					<strong>When you upgrade, you'll instantly unlock:</strong>
+					<ul>
+						<li>Testimonial Submission Form</li>
+						<li>50+ Professionally Designed Themes</li>
+						<li>7 new transitions for your testimonial widgets</li>
+						<li>Cusom image sizes for your avatars</li>
+						<li>Advanced styling and customization options</li>
+						<li>Outstanding support from our developers</li>
+						<li>Remove all banners from the admin area</li>
+						<li>And more! We add new features regularly.</li>
+					</ul>
+				</div>
+				
+				<div class="customer_testimonial">
+						<div class="stars">
+							<span class="dashicons dashicons-star-filled"></span>
+							<span class="dashicons dashicons-star-filled"></span>
+							<span class="dashicons dashicons-star-filled"></span>
+							<span class="dashicons dashicons-star-filled"></span>
+							<span class="dashicons dashicons-star-filled"></span>
+						</div>
+						“Tried and is great. This is light and has all the features I need and more! Awesome!”
+						<p class="author">&mdash; davidwalt  <a href="https://wordpress.org/support/topic/excellent-plugin-941" target="_blank">via WordPress.org</a></p>
+				</div>
+			</form>
+		</div>			
+		<?php			
+	}
+	
+	function output_hello_t_banner()
+	{
+		echo '<div class="sidebar_hello_t hello_t_banner" style="padding-top:1px; padding-left: 30px;">'; 
+		echo '<h3><strong>Need more Testimonials? We can help.</strong></h3>
+				<p>We are happy to introduce <strong>Hello Testimonials</strong>, a new system that helps you collect new testimonials from your customers automatically. Whenever you add a new customer to the system, they\'ll automatically receive a personalized email asking them to leave a testimonial.</p><p>For a limited time, we\'re offering a 14-Day Free Trial of the Hello Testimonials to users of Easy Testimonials, so you have nothing to lose by giving it a try.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Start Your Free Trial">Start Your Free Trial &raquo;</a></p>
+				<br/>';
+		echo "</div>";
+		echo '<p class="u_to_p u_to_p_main_col"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>';				
 	}
 	
 	function get_and_output_current_tab($pagenow){
@@ -236,6 +276,15 @@ class easyTestimonialOptions
 					<th scope="row"><label for="testimonials_link">Testimonials View More Link</label></th>
 					<td><input type="text" name="testimonials_link" id="testimonials_link" value="<?php echo get_option('testimonials_link', ''); ?>"  style="width: 250px" />
 					<p class="description">This is the URL of the 'View More' Link.  If not set, no View More Link is output.  If set, View More Link will be output next to testimonial that will go to this page.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_view_more_link_text">Testimonials View More Link Text</label></th>
+					<td><input type="text" name="easy_t_view_more_link_text" id="easy_t_view_more_link_text" value="<?php echo get_option('easy_t_view_more_link_text', 'Read More Testimonials'); ?>"  style="width: 250px" />
+					<p class="description">The Value of the View More Link text.  This defaults to Read More, but can be changed.</p>
 					</td>
 				</tr>
 			</table>
