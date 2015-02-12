@@ -176,6 +176,7 @@ class easyTestimonialOptions
 	
 	function output_sidebar_coupon_form()
 	{
+		global $current_user;
 		?>
 		<div class="topper">
 			<h3>Save 20% on Easy Testimonials Pro!</h3>
@@ -193,9 +194,9 @@ class easyTestimonialOptions
 				<p class="secure"><img src="<?php echo plugins_url( 'img/lock.png', __FILE__ ); ?>" alt="Lock" width="16px" height="16px" />We respect your privacy.</p>
 				
 				<input type="hidden" id="mc-upgrade-plugin-name" value="Easy Testimonials Pro" />
-				<input type="hidden" id="mc-upgrade-link-per" value="http://goldplugins.com/purchase/easy-testimonials/single?promo=newsub20" />
-				<input type="hidden" id="mc-upgrade-link-biz" value="http://goldplugins.com/purchase/easy-testimonials/business?promo=newsub20" />
-				<input type="hidden" id="mc-upgrade-link-dev" value="http://goldplugins.com/purchase/easy-testimonials/developer?promo=newsub20" />
+				<input type="hidden" id="mc-upgrade-link-per" value="http://goldplugins.com/purchase/easy-testimonials-pro/single?promo=newsub20" />
+				<input type="hidden" id="mc-upgrade-link-biz" value="http://goldplugins.com/purchase/easy-testimonials-pro/business?promo=newsub20" />
+				<input type="hidden" id="mc-upgrade-link-dev" value="http://goldplugins.com/purchase/easy-testimonials-pro/developer?promo=newsub20" />
 
 				<div class="features">
 					<strong>When you upgrade, you'll instantly unlock:</strong>
