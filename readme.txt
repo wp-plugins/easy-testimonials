@@ -3,8 +3,8 @@ Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
-Tested up to: 4.1
-Stable tag: 1.19.1
+Tested up to: 4.1.1
+Stable tag: 1.20
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -210,6 +210,13 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.20 =
+* Feature: Adds option third custom field, Location / Product Reviewed / Other, to allow more information collection and more display customization.
+* Feature: Adds option to redirect users to a specific URL after succesfully submitting their Testimonial.
+* Fix: Address issue with Cycled Testimonial Widget not displaying dates or remember Ratings as Stars options.
+* Update: Alter Cycled Widget to use a random order WP Query when displaying random testimonials - to prevent showing the same 5 testimonials in a random order every page load.
+* Update: Updates compatibility to WP 4.1.1
 
 = 1.19.1 =
 * Fix: address issue with some incorrectly set settings data.
@@ -464,4 +471,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.19: Upgrade available!
+* 1.19.2: Update available!

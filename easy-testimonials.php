@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.19.1
+Version: 1.20
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -112,6 +112,7 @@ function easy_t_send_notification_email($submitted_testimonial = array()){
 		$body .= "Body: {$submitted_testimonial['post']['post_content']} \r\n";
 		$body .= "Name: {$submitted_testimonial['the_name']} \r\n";
 		$body .= "Position/Web Address/Other: {$submitted_testimonial['the_other']} \r\n";
+		$body .= "Location/Product Reviewed/Other: {$submitted_testimonial['the_other_other']} \r\n";
 		$body .= "Rating: {$submitted_testimonial['the_rating']} \r\n";
 	} else { //option isn't set, use default message
 		$body = "You have received a new submission with Easy Testimonials on your site, " . get_bloginfo('name') . ".  Login and see what they had to say!";
@@ -298,6 +299,7 @@ function submitTestimonialForm($atts){
 				if(!$do_not_insert){
 					//snag custom fields
 					$the_other = isset($_POST['the-other']) ? $_POST['the-other'] : '';
+					$the_other_other = isset($_POST['the-other-other']) ? $_POST['the-other-other'] : '';
 					$the_name = isset($_POST['the-name']) ? $_POST['the-name'] : '';
 					$the_rating = isset($_POST['the-rating']) ? $_POST['the-rating'] : '';
 					
@@ -316,6 +318,7 @@ function submitTestimonialForm($atts){
 				   
 					update_post_meta( $new_id, '_ikcf_client', $the_name );
 					update_post_meta( $new_id, '_ikcf_position', $the_other );
+					update_post_meta( $new_id, '_ikcf_other', $the_other_other );
 					update_post_meta( $new_id, '_ikcf_rating', $the_rating );
 				   
 				   //collect info for notification e-mail
@@ -323,6 +326,7 @@ function submitTestimonialForm($atts){
 						'post' => $post,
 						'the_name' => $the_name,
 						'the_other' => $the_other,
+						'the_other_other' => $the_other_other,
 						'the_rating' => $the_rating
 				   );
 				   
@@ -346,8 +350,13 @@ function submitTestimonialForm($atts){
        
         if(isValidKey()){ 		
 			if($inserted){
-				echo '<p class="easy_t_submission_success_message">' . get_option('easy_t_submit_success_message','Thank You For Your Submission!') . '</p>';
+				$redirect_url = get_option('easy_t_submit_success_redirect_url','');
 				easy_t_send_notification_email($submitted_testimonial);
+				if(strlen($redirect_url) > 2){
+					echo '<script type="text/javascript">window.location.replace("'.$redirect_url.'");</script>';
+				} else {					
+					echo '<p class="easy_t_submission_success_message">' . get_option('easy_t_submit_success_message','Thank You For Your Submission!') . '</p>';
+				}
 			} else { ?>
 			<!-- New Post Form -->
 			<div id="postbox">
@@ -369,6 +378,13 @@ function submitTestimonialForm($atts){
 								<label for="the-other"><?php echo get_option('easy_t_position_web_other_field_label','Position / Web Address / Other'); ?></label><br />
 								<input type="text" id="the-other" value="" tabindex="3" size="20" name="the-other" />
 								<p class="easy_t_description"><?php echo get_option('easy_t_position_web_other_field_description','Please enter your Job Title or Website address.'); ?></p>
+							</div>
+							<?php endif; ?>
+							<?php if(!get_option('easy_t_hide_other_other_field',false)): ?>
+							<div class="easy_t_field_wrap">
+								<label for="the-other-other"><?php echo get_option('easy_t_hide_other_other_field_label','Location / Product Reviewed / Other'); ?></label><br />
+								<input type="text" id="the-other-other" value="" tabindex="3" size="20" name="the-other-other" />
+								<p class="easy_t_description"><?php echo get_option('easy_t_hide_other_other_field_description','Please enter your Job Title or Website address.'); ?></p>
 							</div>
 							<?php endif; ?>
 							<?php if(get_option('easy_t_use_rating_field',false)): ?>
@@ -463,6 +479,7 @@ function easy_testimonials_setup_testimonials(){
 	$fields = array(); 
 	$fields[] = array('name' => 'client', 'title' => 'Client Name', 'description' => "Name of the Client giving the testimonial.  Appears below the Testimonial.", 'type' => 'text'); 
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
+	$fields[] = array('name' => 'other', 'title' => 'Location / Product Reviewed / Other', 'description' => "The information that appears below the second custom field, Postion / Location / Other.", 'type' => 'text');  
 	$fields[] = array('name' => 'rating', 'title' => 'Rating', 'description' => "The client's rating, if submitted along with their testimonial.  This can be displayed below the client's position, or name if the position is hidden, or it can be displayed above the testimonial text.", 'type' => 'text');  
 	$fields[] = array('name' => 'htid', 'title' => 'HTID', 'description' => "Please leave this alone -- this field should never be publicly displayed.");  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
@@ -651,6 +668,7 @@ function outputRandomTestimonial($atts){
 		$testimonials[$i]['postid'] = $postid;	
 		$testimonials[$i]['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonials[$i]['position'] = get_post_meta($postid, '_ikcf_position', true); 
+		$testimonials[$i]['other'] = get_post_meta($postid, '_ikcf_other', true); 
 		
 		$i++;
 	endwhile;
@@ -760,6 +778,7 @@ function outputSingleTestimonial($atts){
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 
 	
 		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating);
 			
@@ -866,7 +885,8 @@ function outputTestimonials($atts){
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
-		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 	
+		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 	
 	
 		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating);
 			
@@ -928,6 +948,12 @@ function outputTestimonialsCycle($atts){
 	
 	if(!isValidKey() && !in_array($transition, array('fadeOut','fade','scrollHorz'))){
 		$transition = 'fadeOut';
+	}
+	
+	//use random WP query to be sure we aren't just randomly sorting a chronologically queried set of testimonials
+	//this prevents us from just randomly ordering the same 5 testimonials constantly!
+	if($random){
+		$orderby = "rand";
 	}
 
 	?>
@@ -1014,6 +1040,7 @@ function outputTestimonialsCycle($atts){
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 
 		
 		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating);
 		
@@ -1070,10 +1097,11 @@ function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,
 			} ?>	
 			<?php if(get_option('meta_data_position')): ?>
 				<p class="<?php echo $author_class; ?>">
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 || strelen($testimonial['other'])>0 ): ?>
 					<cite>
 						<span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?>&nbsp;</span>
 						<span class="testimonial-position"><?php echo $testimonial['position'];?>&nbsp;</span>
+						<span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span>
 						<?php if($show_date): ?>
 							<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>"><?php echo $testimonial['date'];?>&nbsp;</span>
 						<?php endif; ?>
@@ -1111,6 +1139,7 @@ function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,
 					<cite>
 						<span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?>&nbsp;</span>
 						<span class="testimonial-position"><?php echo $testimonial['position'];?>&nbsp;</span>
+						<span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span>
 						<?php if($show_date): ?>
 							<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>"><?php echo $testimonial['date'];?>&nbsp;</span>
 						<?php endif; ?>

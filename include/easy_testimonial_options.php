@@ -81,13 +81,17 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_name_field_description' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_position_web_other_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_position_web_other_field_description' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_other_other_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_other_other_field_description' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_body_content_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_body_content_field_description' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_button_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_success_message' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_notification_address' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_notification_include_testimonial' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_submit_success_redirect_url' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_position_web_other_field' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_other_other_field' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_name_field' );		
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_captcha' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_image_field_label' );
@@ -1032,12 +1036,42 @@ class easyTestimonialOptions
 		</fieldset>
 		
 		<fieldset>
+			<legend>Location / Product Reviewed / Other Field:</legend>			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_other_other_field_label">"Location / Product Reviewed / Other" Field Label</label></th>
+					<td><input type="text" name="easy_t_other_other_field_label" id="easy_t_other_other_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_other_other_field_label', 'Location / Product Reviewed / Other'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the fourth field in the form, which defaults to "Location / Product Reviewed / Other."  Contents of this field will be passed through to the Location / Product Reviewed / Other field inside WordPress.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_other_other_field_description">"Location / Product Reviewed / Other" Field Description</label></th>
+					<td><textarea name="easy_t_other_other_field_description" id="easy_t_other_other_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?>><?php echo get_option('easy_t_other_other_field_description', 'Please enter your Location or the Product being Reviewed.'); ?></textarea>
+					<p class="description">This is the description below the fourth field in the form.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_hide_other_other_field">Disable "Location / Product Reviewed / Other" Field Display</label></th>
+					<td><input type="checkbox" name="easy_t_hide_other_other_field" id="easy_t_hide_other_other_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_other_other_field')){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, the fourth field in the form will not be displayed.</p>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		
+		<fieldset>
 			<legend>Body Content Field:</legend>			
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_body_content_field_label">"Body Content" Field Label</label></th>
 					<td><input type="text" name="easy_t_body_content_field_label" id="easy_t_body_content_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_label', 'Your Testimonial'); ?>"  style="width: 250px" />
-					<p class="description">This is the label of the fourth field in the form, a textarea, which defaults to "Your Testimonial."  Contents of this field will be passed through to the Body field inside WordPress.</p>
+					<p class="description">This is the label of the fifth field in the form, a textarea, which defaults to "Your Testimonial."  Contents of this field will be passed through to the Body field inside WordPress.</p>
 					</td>
 				</tr>
 			</table>
@@ -1046,7 +1080,7 @@ class easyTestimonialOptions
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_body_content_field_description">Body Content Field Description</label></th>
 					<td><textarea name="easy_t_body_content_field_description" id="easy_t_body_content_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?>><?php echo get_option('easy_t_body_content_field_description', 'Please enter your Testimonial.'); ?></textarea>
-					<p class="description">This is the description below the fourth field in the form, a textarea.</p>
+					<p class="description">This is the description below the fifth field in the form, a textarea.</p>
 					</td>
 				</tr>
 			</table>
@@ -1069,6 +1103,15 @@ class easyTestimonialOptions
 					<th scope="row"><label for="easy_t_submit_success_message">Submission Success Message</label></th>
 					<td><textarea name="easy_t_submit_success_message" id="easy_t_submit_success_message" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?>><?php echo get_option('easy_t_submit_success_message', 'Thank You For Your Submission!'); ?></textarea>
 					<p class="description">This is the text that appears after a successful submission.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_submit_success_redirect_url">Submission Success Redirect URL</label></th>
+					<td><input type="text" name="easy_t_submit_success_redirect_url" id="easy_t_submit_success_redirect_url" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_success_redirect_url', ''); ?>" style="width: 250px" />
+					<p class="description">If you want the user to be taken to a specific URL on your site after submitting their Testimonial, enter it into this field.  If the field is empty, they will stay on the same page and see the Success Message, instead.</p>
 					</td>
 				</tr>
 			</table>
