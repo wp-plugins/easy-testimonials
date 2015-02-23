@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.20.1
+Version: 1.20.2
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -382,9 +382,9 @@ function submitTestimonialForm($atts){
 							<?php endif; ?>
 							<?php if(!get_option('easy_t_hide_other_other_field',false)): ?>
 							<div class="easy_t_field_wrap">
-								<label for="the-other-other"><?php echo get_option('easy_t_hide_other_other_field_label','Location / Product Reviewed / Other'); ?></label><br />
+								<label for="the-other-other"><?php echo get_option('easy_t_other_other_field_label','Location / Product Reviewed / Other'); ?></label><br />
 								<input type="text" id="the-other-other" value="" tabindex="3" size="20" name="the-other-other" />
-								<p class="easy_t_description"><?php echo get_option('easy_t_hide_other_other_field_description','Please enter your Job Title or Website address.'); ?></p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_other_other_field_description','Please enter your Job Title or Website address.'); ?></p>
 							</div>
 							<?php endif; ?>
 							<?php if(get_option('easy_t_use_rating_field',false)): ?>
