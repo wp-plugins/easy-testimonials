@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.20.2
+Version: 1.20.3
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -1139,7 +1139,7 @@ function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,
 					<cite>
 						<span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?>&nbsp;</span>
 						<span class="testimonial-position"><?php echo $testimonial['position'];?>&nbsp;</span>
-						<span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span>
+						<?php if(strlen($testimonial['other'])>1): ?><span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span><?php endif; ?>
 						<?php if($show_date): ?>
 							<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>"><?php echo $testimonial['date'];?>&nbsp;</span>
 						<?php endif; ?>
