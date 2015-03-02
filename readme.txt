@@ -14,6 +14,10 @@ Easy Testimonials is a simple-to-use plugin for adding Testimonials to your Word
 
 Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials to the sidebar, as a widget, or to embed them into a Page or Post using the shortcode.  The Easy Testimonials plugin also allows you to insert a list of all Testimonials or output a Random Testimonial. Easy Testimonials allows you to include an image with each testimonial - this is a great feature for adding a photo of the testimonial author.
 
+= Premium Support =
+
+The GoldPlugins team does not provide direct support for Easy Testimonials plugin on the WordPress.org forums. One on one email support is available to people who have purchased Easy Testimonials Pro only. Easy Testimonials Pro also includes tons of extra themes and advanced features including a Testimonial Collection Form, so you should [upgrade today!](http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/ "Upgrade to Easy Testimonials Pro")
+
 = Easy Testimonials is a great plugin for: =
 * Adding a Random Testimonial to Your Sidebar
 * Adding a Random Testimonial to Your Page
@@ -29,7 +33,7 @@ Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials
 * Front-End Testimonial Submission Form Allows Customers to Submit Testimonials on your Website!
 * Its easy to use interface allows you to manage, edit, create, and delete Testimonials with no new knowledge
 
-Easy Testimonials includes options to set the URL of the Read More Link, whether or not to display the Testimonial Image, and more!  You can set the URL of the Testimonials read more links for many purposes - such as directing visitors to the product info page that the testimonial is about.  Showing an Image next to a Testimonial is a great tool!
+Easy Testimonials includes options to set the URL of the View More Link, whether or not to display the Testimonial Image, and more!  You can set the URL of the Testimonials read more links for many purposes - such as directing visitors to the product info page that the testimonial is about.  Showing an Image next to a Testimonial is a great tool!
 
 Collecting Testimonials can be a tedious job - fortunately, in the Pro version of Easy Testimonials, adding a form to your website for users to submit Testimonials is a breeze!  Users can even upload an image with their Testimonial!  Easy Testimonials integrates with Really Simple Captcha to prevent spam form submissions.
 
