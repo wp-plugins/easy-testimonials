@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 1.20.3
+Stable tag: 1.20.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -214,6 +214,15 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.20.4 =
+* Adds general class to testimonial wrapping div, for better CSS targeting.
+* Adds schema.org itemReviewed markup to third custom field, Product Reviewed.
+* Adds shortcode attribute, show_other, that defaults to false, to control whether or not the third custom field is displayed.
+* Updates Pro Theme styles to support more features.
+* Admin Style cleanup.
+* Adds attribute based classes to wrapping HTML, to allow better user control of styling.
+
 
 = 1.20.3 =
 * Fix: addresses issue with empty custom fields being displayed, causing issues with certain themes.
@@ -485,4 +494,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.20.3: Update available!
+* 1.20.4: Update available!

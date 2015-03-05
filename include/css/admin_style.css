@@ -257,7 +257,7 @@
 /* MailChimp Form Embed Code - Slim - 08/17/2011 */
 .easy_testimonials_admin_wrap  {
 	position: relative;
-	padding-right: 440px;
+	/* padding-right: 440px; */
 }
 .easy_testimonials_admin_wrap .topper {
 	background-color: dodgerblue;

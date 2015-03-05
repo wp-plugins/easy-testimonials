@@ -144,9 +144,9 @@ class easyTestimonialOptions
 	});
 	</script>
 	<?php if(isValidKey()): ?>	
-	<div class="wrap easy_testimonials_admin_wrap gold_plugins_settings">
+	<div class="wrap easy_testimonials_admin_wrap">
 	<?php else: ?>
-	<div class="wrap easy_testimonials_admin_wrap gold_plugins_settings not-pro">
+	<div class="wrap easy_testimonials_admin_wrap not-pro">
 	<?php endif; ?>
 		<h2><?php echo $title; ?></h2>
 		<style type="text/css">			
@@ -736,6 +736,20 @@ class easyTestimonialOptions
 								<label for="sc_gen_show_date">
 									<input type="checkbox" class="checkbox" id="sc_gen_show_date" value="yes" />
 									Show Publication Date?
+								</label>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th scope="row">
+							Show "Location / Product Reviewed / Other" Field
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_show_other">
+									<input type="checkbox" class="checkbox" id="sc_gen_show_other" value="yes" />
+									Show "Location / Product Reviewed / Other" Field?
 								</label>
 							</div>
 						</td>

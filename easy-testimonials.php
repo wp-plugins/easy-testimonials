@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.20.3
+Version: 1.20.4
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -601,7 +601,8 @@ function outputRandomTestimonial($atts){
 		'show_thumbs' => '',
 		'show_rating' => false,
 		'theme' => '',
-		'show_date' => false
+		'show_date' => false,
+		'show_other' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -682,7 +683,7 @@ function outputRandomTestimonial($atts){
 		if(isset($testimonials[$rand])){
 			$this_testimonial = $testimonials[$rand];
 			if(!$short_version){
-				echo build_single_testimonial($this_testimonial,$show_thumbs,$show_title,$this_testimonial['postid'],$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating);
+				echo build_single_testimonial($this_testimonial,$show_thumbs,$show_title,$this_testimonial['postid'],$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other);
 			} else {
 				echo $this_testimonial['content'];
 			}
@@ -710,7 +711,8 @@ function outputSingleTestimonial($atts){
 		'word_limit' => false,
 		'show_rating' => false,
 		'theme' => '',
-		'show_date' => false
+		'show_date' => false,
+		'show_other' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -780,7 +782,7 @@ function outputSingleTestimonial($atts){
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 
 	
-		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating);
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other);
 			
 	endwhile;	
 	wp_reset_query();
@@ -812,7 +814,8 @@ function outputTestimonials($atts){
 		'paginate' => false,
 		'testimonials_per_page' => 10,
 		'theme' => '',
-		'show_date' => false
+		'show_date' => false,
+		'show_other' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -888,7 +891,7 @@ function outputTestimonials($atts){
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 	
 	
-		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating);
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other);
 			
 	endwhile;	
 	
@@ -933,7 +936,8 @@ function outputTestimonialsCycle($atts){
 		'show_rating' => false,
 		'testimonials_per_slide' => 1,
 		'theme' => '',
-		'show_date' => false
+		'show_date' => false,
+		'show_other' => false
 	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -1042,7 +1046,7 @@ function outputTestimonialsCycle($atts){
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 
 		
-		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating);
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other);
 		
 		if($counter%$testimonials_per_slide == 0){
 			?></div><?php
@@ -1066,10 +1070,23 @@ function outputTestimonialsCycle($atts){
 	return apply_filters( 'easy_t_testimonials_cyle_html', $content);
 }
 
+//passed an array of acceptable shortcode attributes
+//this function will build a string of classes representing the chosen attributes
+//returns string ready for echoing as classes
+function easy_t_build_classes_from_atts($atts = array()){
+	$class_string = "";
+	
+	foreach ($atts as $key => $value){
+		$class_string .= " " . $value . "_" . $key;
+	}
+	
+	return $class_string;
+}
+
 //given a full set of data for a testimonial
 //assemble the html for that testimonial
 //taking into account current options
-function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date=false,$show_rating=false){
+function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=false,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date=false,$show_rating=false,$show_other=false){
 /* scheme.org example
  <div itemprop="review" itemscope itemtype="http://schema.org/Review">
     <span itemprop="name">Not a happy camper</span> -
@@ -1084,10 +1101,19 @@ function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,
     it. </span>
   </div>
  */
+	$atts = array(
+		'thumbs' => ($show_thumbs) ? 'show' : 'hide',
+		'title' => ($show_title) ? 'show' : 'hide',
+		'date' => ($show_date) ? 'show' : 'hide',
+		'rating' => $show_rating,
+		'other' => ($show_other) ? 'show' : 'hide'
+	);
+ 
+	$attribute_classes = easy_t_build_classes_from_atts($atts);
  
 	$output_theme = easy_t_get_theme_class($theme);
 ?>
-	<div class="<?php echo $output_theme; ?>">
+	<div class="<?php echo $output_theme; ?> <?php echo $attribute_classes; ?> easy_t_single_testimonial">
 		<blockquote itemprop="review" itemscope itemtype="http://schema.org/Review" class="easy_testimonial">		
 			<?php if ($show_thumbs) {
 				echo $testimonial['image'];
@@ -1101,7 +1127,9 @@ function build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,
 					<cite>
 						<span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?>&nbsp;</span>
 						<span class="testimonial-position"><?php echo $testimonial['position'];?>&nbsp;</span>
-						<span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span>
+						<?php if($show_other): ?>
+							<span class="testimonial-other" itemprop="itemReviewed"><?php echo $testimonial['other'];?>&nbsp;</span>
+						<?php endif; ?>
 						<?php if($show_date): ?>
 							<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>"><?php echo $testimonial['date'];?>&nbsp;</span>
 						<?php endif; ?>
