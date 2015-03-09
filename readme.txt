@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 1.20.4
+Stable tag: 1.20.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -214,6 +214,9 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.20.5 =
+* Addresses issue with Hello Testimonials importing.
 
 = 1.20.4 =
 * Adds general class to testimonial wrapping div, for better CSS targeting.
@@ -494,4 +497,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.20.4: Update available!
+* 1.20.5: Hello Testimonials Compatibility Update
