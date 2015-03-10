@@ -227,6 +227,7 @@ class easyTestimonialOptions
 						“Tried and is great. This is light and has all the features I need and more! Awesome!”
 						<p class="author">&mdash; davidwalt  <a href="https://wordpress.org/support/topic/excellent-plugin-941" target="_blank">via WordPress.org</a></p>
 				</div>
+				<input type="hidden" id="gold_plugins_already_subscribed" name="gold_plugins_already_subscribed" value="<?php echo get_user_setting ('_gp_ml_has_subscribed', '0'); ?>" />
 			</form>
 		</div>			
 		<?php			
@@ -674,7 +675,7 @@ class easyTestimonialOptions
 							<select id="sc_gen_category">
 								<option value="all">All Categories</option>
 								<?php foreach($testimonial_categories as $cat):?>
-								<option value="<?=$cat->slug?>"><?=htmlentities($cat->name)?></option>
+								<option value="<?php echo $cat->slug?>"><?php echo htmlentities($cat->name)?></option>
 								<?php endforeach; ?>
 							</select>
 							<p class="description"><a href="<?php echo admin_url('edit-tags.php?taxonomy=easy-testimonial-category&post_type=testimonial'); ?>">Manage Testimonial Categories</a></p>
