@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.20.6
+Version: 1.20.7
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -483,7 +483,7 @@ function easy_testimonials_setup_testimonials(){
 	$fields[] = array('name' => 'rating', 'title' => 'Rating', 'description' => "The client's rating, if submitted along with their testimonial.  This can be displayed below the client's position, or name if the position is hidden, or it can be displayed above the testimonial text.", 'type' => 'text');  
 	$fields[] = array('name' => 'htid', 'title' => 'HTID', 'description' => "Please leave this alone -- this field should never be publicly displayed.");  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
-	register_taxonomy( 'easy-testimonial-category', 'testimonial', array( 'hierarchical' => true, 'label' => __('Testimonial Category'), 'rewrite' => array('slug' => 'testimonial', 'with_front' => false) ) ); 
+	register_taxonomy( 'easy-testimonial-category', 'testimonial', array( 'hierarchical' => true, 'label' => __('Testimonial Category'), 'rewrite' => array('slug' => 'testimonial-category', 'with_front' => true) ) ); 
 	
 	//load list of current posts that have featured images	
 	$supportedTypes = get_theme_support( 'post-thumbnails' );
