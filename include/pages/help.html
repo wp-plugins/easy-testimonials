@@ -36,6 +36,7 @@
 		<li><a href="#outputting_a_testimonial_slider_in_the_sidebar">Outputting a Testimonial Slider in the Sidebar</a></li>
 		<li><a href="#testimonial_submission">Front End Testimonial Submission</a></li>
 		<li><a href="#testimonial_filters">Testimonial Filters</a></li>
+		<li><a href="#testimonial_count">Outputting a Count of your Testimonials</a></li>
 		<li><a href="#testimonial_options">Options</a></li>
 	</ol>
 	<div id="add_a_new_testimonial">
@@ -150,6 +151,16 @@
 			<li><p><code>easy_t_testimonials_html</code> -- all testimonials list filter</p></li>
 			<li><p><code>easy_t_testimonials_cyle_html</code> -- testimonials cycle filter</p></li>
 			<li><p><code>easy_t_submission_form</code> -- testimonial submission form</p></li>
+		</ul>
+	</div>	
+	<div id="testimonial_count">
+		<h3 id="outputting-a-count-of-your-testimonials">Outputting a Count of your Testimonials</h3>
+		<ul>
+			<li>To display a numerical Count of your Testimonials, use the shortcode <code>[testimonials_count]</code> where you want the Number to appear.</li>
+			<li>The Testimonials Count shortcode supports two attributes, <code>status</code> and category.</li>
+			<li>Supported parameters for <code>status</code> are <code>publish</code>,<code>pending</code>,<code>draft</code>,<code>future</code>,<code>private</code>,<code>trash</code>,<code>any</code>.  For example, <code>[testimonials_count status='any']</code> will display a count of all Testimonials, excluding those in the Trash.</li>
+			<li>Supported parameters for <code>category</code> are the matching slugs for the Testimonial Categories currently on your website.  For example, <code>[testimonials_count category='gold-plugins']</code> would display the numerical count of all Testimonials in the Gold Plugins category.</li>
+			<li><strong>Note:</strong> this Shortcode only displays the numerical count -- you will need to add any words yourself.  For example, "There are currently <code>[testimonials_count]</code> Testimonials on your website!"</li>
 		</ul>
 	</div>	
 	<div id="testimonial_options">

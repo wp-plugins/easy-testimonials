@@ -12,9 +12,36 @@ jQuery(function () {
 			ezt_toggle_slider_options();
 		});
 		ezt_toggle_slider_options();	
-		ezt_toggle_pagination_options();		
+		ezt_toggle_pagination_options();
 	}
+	
+	ezt_link_upgrade_labels();
 });
+
+
+function ezt_link_upgrade_labels()
+{
+	if (jQuery('.plugin_is_not_registered').length == 0) {
+		return;
+	}
+	jQuery('.easy-t-radio-button').each(function (index) {
+		var my_radio = jQuery(this).find('input[type=radio]');
+		if (my_radio)
+		{
+			var disabled = (my_radio.attr('disabled') && my_radio.attr('disabled').toLowerCase() == 'disabled');
+			if (disabled) {
+				var my_em = jQuery(this).find('label em:first');
+				if (my_em.length > 0) {
+					var my_id = my_radio.attr('id');
+					var buy_url = 'http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=upgrade_themes&utm_source=theme_selection&utm_banner=' + my_id;
+					var link_template = '<a href="@buy_url" target="_blank"></a>';
+					var link = link_template.replace(/@buy_url/g, buy_url);
+					my_em.wrap(link);
+				}				
+			}
+		}
+	});
+}
 
 function ezt_highlight_shortcode()
 {

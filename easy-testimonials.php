@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.20.7
+Version: 1.21
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -302,20 +302,26 @@ function submitTestimonialForm($atts){
 					$the_other_other = isset($_POST['the-other-other']) ? $_POST['the-other-other'] : '';
 					$the_name = isset($_POST['the-name']) ? $_POST['the-name'] : '';
 					$the_rating = isset($_POST['the-rating']) ? $_POST['the-rating'] : '';
+					$the_category = isset($_POST['the-category']) ? $_POST['the-category'] : "";
 					
 					$tags = array();
 				   
 					$post = array(
 						'post_title'    => $title,
 						'post_content'  => $body,
-						'post_category' => array(1),  // custom taxonomies too, needs to be an array
+						'post_category' => array(),  // custom taxonomies too, needs to be an array
 						'tags_input'    => $tags,
 						'post_status'   => 'pending',
 						'post_type'     => 'testimonial'
 					);
 				
 					$new_id = wp_insert_post($post);
+					
+					//set the testimonial category
+					//TBD: handle multiple categories
+					wp_set_object_terms($new_id, $the_category, 'easy-testimonial-category');
 				   
+					//set the custom fields
 					update_post_meta( $new_id, '_ikcf_client', $the_name );
 					update_post_meta( $new_id, '_ikcf_position', $the_other );
 					update_post_meta( $new_id, '_ikcf_other', $the_other_other );
@@ -387,6 +393,18 @@ function submitTestimonialForm($atts){
 								<p class="easy_t_description"><?php echo get_option('easy_t_other_other_field_description','Please enter your Job Title or Website address.'); ?></p>
 							</div>
 							<?php endif; ?>
+							<?php if(!get_option('easy_t_hide_category_field',false)): ?>
+							<?php $testimonial_categories = get_terms( 'easy-testimonial-category', 'orderby=title&hide_empty=0' ); ?>
+							<div class="easy_t_field_wrap">
+								<label for="the-category"><?php echo get_option('easy_t_category_field_label','Category'); ?></label><br />
+								<select id="the-category" name="the-category">
+									<?php foreach($testimonial_categories as $cat):?>
+									<option value="<?php echo $cat->slug?>"><?php echo htmlentities($cat->name)?></option>
+									<?php endforeach; ?>
+								</select>
+								<p class="easy_t_description"><?php echo get_option('easy_t_category_field_description','Please select the Category that best matches your Testimonial.'); ?></p>
+							</div>
+							<?php endif; ?>
 							<?php if(get_option('easy_t_use_rating_field',false)): ?>
 							<div class="easy_t_field_wrap">
 								<label for="the-rating"><?php echo get_option('easy_t_rating_field_label','Your Rating'); ?></label><br />
@@ -442,6 +460,51 @@ function easy_testimonials_setup_custom_css() {
 		echo '<style type="text/css" media="screen">' . get_option('easy_t_custom_css') . "</style>";
 		$easy_t_footer_css_output = true;
 	}
+}
+
+//display Testimonial Count
+//$category is the slug of the category you want a count from
+//if nothing is passed, displays count of all testimonials
+//$status is the status of the testimonials to be included in the count
+//defaults to published testimonials only
+function easy_testimonials_display_count($category = '', $status = 'publish'){
+	$tax_query = array();	
+	
+	//if a category slug was passed
+	//only count testimonials within that category
+	if(strlen($category)>0){
+		$tax_query = array(
+			array(
+				'taxonomy' => 'easy-testimonial-category',
+				'field' => 'slug',
+				'terms' => $category
+			)
+		);
+	}
+	
+	$args = array (
+		'post_type' => 'testimonial',
+		'tax_query' => $tax_query,
+		'post_status' => $status
+	);
+	
+	$count_query = new WP_Query( $args );
+	
+	$count = $count_query->found_posts;
+	
+	return $count;
+}
+
+//shortcode mapping function for easy_testimonials_display_count
+//accepts two attributes, category and status
+function outputTestimonialsCount($atts){
+	//load shortcode attributes into an array
+	extract( shortcode_atts( array(
+		'category' => '',
+		'status' => 'publish'
+	), $atts ) );
+	
+	return easy_testimonials_display_count($category, $status);
 }
 
 if(!function_exists('word_trim')):
@@ -1404,6 +1467,7 @@ $single_testimonial_shortcode = get_option('ezt_single_testimonial_shortcode', '
 $testimonials_shortcode = get_option('ezt_testimonials_shortcode', 'testimonials');
 $submit_testimonial_shortcode = get_option('ezt_submit_testimonial_shortcode', 'submit_testimonial');
 $testimonials_cycle_shortcode = get_option('ezt_cycle_testimonial_shortcode', 'testimonials_cycle');
+$testimonials_count_shortcode = get_option('ezt_testimonials_count_shortcode', 'testimonials_count');
 
 //create shortcodes
 add_shortcode($random_testimonial_shortcode, 'outputRandomTestimonial');
@@ -1411,6 +1475,7 @@ add_shortcode($single_testimonial_shortcode, 'outputSingleTestimonial');
 add_shortcode($testimonials_shortcode, 'outputTestimonials');
 add_shortcode($submit_testimonial_shortcode, 'submitTestimonialForm');
 add_shortcode($testimonials_cycle_shortcode , 'outputTestimonialsCycle');
+add_shortcode($testimonials_count_shortcode , 'outputTestimonialsCount');
 
 //add JS
 add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js' );

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 1.20.7
+Stable tag: 1.21
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -147,6 +147,13 @@ You have a few things to pay attention to:
 ```easy_t_testimonials_cyle_html``` -- testimonials cycle filter
 ```easy_t_submission_form``` -- testimonial submission form
 
+### Outputting a Count of your Testimonials ###
+* To display a numerical Count of your Testimonials, use the shortcode ```[testimonials_count]``` where you want the Number to appears.
+* The Testimonials Count shortcode supports two attributes, ```status``` and category.
+* Supported parameters for ```status``` are ```publish```,```pending```,```draft```,```future```,```private```,```trash```,```any```.  For example, ```[testimonials_count status='any']``` will display a count of all Testimonials, excluding those in the Trash.
+* Supported parameters for ```category``` are the matching slugs for the Testimonial Categories currently on your website.  For example, ```[testimonials_count category='gold-plugins']``` would display the numerical count of all Testimonials in the Gold Plugins category.
+* Note: this Shortcode only displays the numerical count -- you will need to add any words yourself.  For example, "There are currently ```[testimonials_count]``` Testimonials on your website!"
+
 ### Options ###
 * To control the destination of the "View More" link, set the path in the Testimonials View More Link field.
 * To display any Featured Images that you have attached to your Testimonials, check the box next to Show Testimonial Image.
@@ -214,6 +221,10 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.21 =
+* Feature: adds support for Categories to front end submission form.
+* Feature: adds new shortcode, [testimonials_count], that allows display of number of testimonials in the system.
 
 = 1.20.7 =
 * Update: addresses issue that was preventing users from listing a Category full of Testimonials via /category-slug/ lists.
@@ -503,4 +514,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.20.7: Add Support for Category Listings from front end.
+* 1.21: Adds Support for Category on Submission Form and Testimonial Counts.
