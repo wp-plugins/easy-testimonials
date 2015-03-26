@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.21
+Version: 1.22
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -679,6 +679,7 @@ function outputRandomTestimonial($atts){
 		//load rating
 		//if set, append english text to it
 		$testimonials[$i]['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		$testimonial['num_stars'] = ''; //reset num stars (Thanks Steve@IntegrityConsultants!)
 		if(strlen($testimonials[$i]['rating'])>0){
 			$testimonials[$i]['num_stars'] = $testimonials[$i]['rating'];
 			$testimonials[$i]['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonials[$i]['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
@@ -795,6 +796,7 @@ function outputSingleTestimonial($atts){
 		//load rating
 		//if set, append english text to it
 		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		$testimonial['num_stars'] = ''; //reset num stars (Thanks Steve@IntegrityConsultants!)
 		if(strlen($testimonial['rating'])>0){
 			$testimonial['num_stars'] = $testimonial['rating'];
 			$testimonial['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonial['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
@@ -910,6 +912,7 @@ function outputTestimonials($atts){
 		//load rating
 		//if set, append english text to it
 		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		$testimonial['num_stars'] = ''; //reset num stars (Thanks Steve@IntegrityConsultants!)
 		if(strlen($testimonial['rating'])>0){	
 			$testimonial['num_stars'] = $testimonial['rating'];
 			$testimonial['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonial['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
@@ -1065,6 +1068,7 @@ function outputTestimonialsCycle($atts){
 		//load rating
 		//if set, append english text to it
 		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		$testimonial['num_stars'] = ''; //reset num stars (Thanks Steve@IntegrityConsultants!)
 		if(strlen($testimonial['rating'])>0){
 			$testimonial['num_stars'] = $testimonial['rating'];
 			$testimonial['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonial['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
@@ -1184,38 +1188,9 @@ function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=fa
 			<?php if ($show_title) {
 				echo '<p itemprop="name" class="easy_testimonial_title">' . get_the_title($postid) . '</p>';
 			} ?>	
-			<?php if(get_option('meta_data_position')): ?>
-				<p class="<?php echo $author_class; ?>">
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 || strlen($testimonial['other'])>0 ): ?>
-					<cite>
-						<span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?>&nbsp;</span>
-						<span class="testimonial-position"><?php echo $testimonial['position'];?>&nbsp;</span>
-						<?php if($show_other): ?>
-							<span class="testimonial-other" itemprop="itemReviewed"><?php echo $testimonial['other'];?>&nbsp;</span>
-						<?php endif; ?>
-						<?php if($show_date): ?>
-							<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>"><?php echo $testimonial['date'];?>&nbsp;</span>
-						<?php endif; ?>
-						<?php if($show_rating == "stars"): ?>
-							<span class="stars">
-							<?php 
-								$x = 5; //total available stars
-								//output dark stars for the filled in ones
-								for($i = 0; $i < $testimonial['num_stars']; $i ++){
-									echo '<span class="dashicons dashicons-star-filled"></span>';
-									$x--; //one less star available
-								}
-								//fill out the remaining empty stars
-								for($i = 0; $i < $x; $i++){
-									echo '<span class="dashicons dashicons-star-filled empty"></span>';
-								}
-							?>			
-							</span>	
-						<?php endif; ?>
-					</cite>
-					<?php endif; ?>
-				</p>	
-			<?php endif; ?>
+			<?php if(get_option('meta_data_position')) {
+				easy_testimonials_build_metadata_html($testimonial, $author_class, $show_date, $show_rating, $show_other);	
+			} ?>
 			<div class="<?php echo $body_class; ?>" itemprop="description">
 				<?php if(get_option('easy_t_apply_content_filter',false)): ?>
 					<?php echo apply_filters('the_content',$testimonial['content']); ?>
@@ -1224,38 +1199,50 @@ function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=fa
 				<?php endif;?>
 				<?php if(strlen($testimonials_link)>2):?><a href="<?php echo $testimonials_link; ?>" class="easy_testimonials_read_more_link"><?php echo get_option('easy_t_view_more_link_text', 'Read More Testimonials'); ?></a><?php endif; ?>
 			</div>	
-			<?php if(!get_option('meta_data_position')): ?>			
-				<p class="<?php echo $author_class; ?>">
-					<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
-					<cite>
-						<span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?>&nbsp;</span>
-						<span class="testimonial-position"><?php echo $testimonial['position'];?>&nbsp;</span>
-						<?php if(strlen($testimonial['other'])>1): ?><span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span><?php endif; ?>
-						<?php if($show_date): ?>
-							<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>"><?php echo $testimonial['date'];?>&nbsp;</span>
-						<?php endif; ?>
-						<?php if($show_rating == "stars"): ?>
-							<span class="stars">
-							<?php 
-								$x = 5; //total available stars
-								//output dark stars for the filled in ones
-								for($i = 0; $i < $testimonial['num_stars']; $i ++){
-									echo '<span class="dashicons dashicons-star-filled"></span>';
-									$x--; //one less star available
-								}
-								//fill out the remaining empty stars
-								for($i = 0; $i < $x; $i++){
-									echo '<span class="dashicons dashicons-star-filled empty"></span>';
-								}
-							?>			
-							</span>	
-						<?php endif; ?>
-					</cite>
-					<?php endif; ?>					
-				</p>	
-			<?php endif; ?>
+			<?php if(!get_option('meta_data_position')) {	
+				easy_testimonials_build_metadata_html($testimonial, $author_class, $show_date, $show_rating, $show_other);	
+			} ?>
 		</blockquote>
 	</div>
+<?php
+}
+
+/*
+ *  Assemble the html for the testimonials metadata taking into account current options
+ */
+function easy_testimonials_build_metadata_html($testimonial, $author_class, $show_date, $show_rating, $show_other)
+{
+?>
+	<p class="<?php echo $author_class; ?>">
+		<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
+		<cite>
+			<span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?>&nbsp;</span>
+			<span class="testimonial-position"><?php echo $testimonial['position'];?>&nbsp;</span>
+			<?php if(strlen($testimonial['other'])>1): ?><span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span><?php endif; ?>
+			<?php if($show_date): ?>
+				<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>"><?php echo $testimonial['date'];?>&nbsp;</span>
+			<?php endif; ?>
+			<?php if($show_rating == "stars"): ?>
+				<?php if(strlen($testimonial['num_stars'])>0): ?>
+				<span class="stars">
+				<?php 
+					$x = 5; //total available stars
+					//output dark stars for the filled in ones
+					for($i = 0; $i < $testimonial['num_stars']; $i ++){
+						echo '<span class="dashicons dashicons-star-filled"></span>';
+						$x--; //one less star available
+					}
+					//fill out the remaining empty stars
+					for($i = 0; $i < $x; $i++){
+						echo '<span class="dashicons dashicons-star-filled empty"></span>';
+					}
+				?>			
+				</span>	
+				<?php endif; ?>
+			<?php endif; ?>
+		</cite>
+		<?php endif; ?>					
+	</p>	
 <?php
 }
 
@@ -1315,8 +1302,8 @@ function easy_testimonials_admin_init()
 		true
 	); 
 	wp_enqueue_script(
-		'gp-admin',
-		plugins_url('include/js/gp-admin.js', __FILE__),
+		'gp-admin_v2',
+		plugins_url('include/js/gp-admin_v2.js', __FILE__),
 		array( 'jquery' ),
 		false,
 		true

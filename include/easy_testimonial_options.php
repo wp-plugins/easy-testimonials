@@ -142,8 +142,8 @@ class easyTestimonialOptions
 	?>
 	<script type="text/javascript">
 	jQuery(function () {
-		if (typeof(gold_plugins_init_mailchimp_form) == 'function') {
-			gold_plugins_init_mailchimp_form();
+		if (typeof(gold_plugins_init_coupon_box) == 'function') {
+			gold_plugins_init_coupon_box();
 		}
 	});
 	</script>
@@ -188,16 +188,19 @@ class easyTestimonialOptions
 		?>
 		<div class="topper">
 			<h3>Save 20% on Easy Testimonials Pro!</h3>
-			<p class="pitch">Submit your name and email and we’ll send you a coupon for 20% off your upgrade to the Pro version.</p>
+			<p class="pitch">Sign-up for our newsletter, and we’ll send you a coupon for 20% off your upgrade to Easy Testimonials Pro!</p>
 		</div>
 		<div id="mc_embed_signup">
-			<form action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-				<label for="mce-NAME">Your Name:</label>
-				<input type="text" value="<?php echo (!empty($current_user->display_name) ?  $current_user->display_name : ''); ?>" name="NAME" class="name" id="mce-NAME" placeholder="Your Name">
-				<label for="mce-EMAIL">Your Email:</label>
-				<input type="email" value="<?php echo (!empty($current_user->user_email) ?  $current_user->user_email : ''); ?>" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
-				<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-				<div style="position: absolute; left: -5000px;"><input type="text" name="b_403e206455845b3b4bd0c08dc_6ad78db648" tabindex="-1" value=""></div>
+			<!--<form action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>-->
+			<form action="http://goldplugins.com/atm/atm.php?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<div class="fields_wrapper">
+					<label for="mce-NAME">Your Name:</label>
+					<input type="text" value="<?php echo (!empty($current_user->display_name) ?  $current_user->display_name : ''); ?>" name="NAME" class="name" id="mce-NAME" placeholder="Your Name">
+					<label for="mce-EMAIL">Your Email:</label>
+					<input type="email" value="<?php echo (!empty($current_user->user_email) ?  $current_user->user_email : ''); ?>" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+					<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+					<div style="position: absolute; left: -5000px;"><input type="text" name="b_403e206455845b3b4bd0c08dc_6ad78db648" tabindex="-1" value=""></div>
+				</div>
 				<div class="clear"><input type="submit" value="Send Me The Coupon Now" name="subscribe" id="mc-embedded-subscribe" class="smallBlueButton"></div>
 				<p class="secure"><img src="<?php echo plugins_url( 'img/lock.png', __FILE__ ); ?>" alt="Lock" width="16px" height="16px" />We respect your privacy.</p>
 				
@@ -212,7 +215,7 @@ class easyTestimonialOptions
 						<li>Testimonial Submission Form</li>
 						<li>50+ Professionally Designed Themes</li>
 						<li>7 new transitions for your testimonial widgets</li>
-						<li>Cusom image sizes for your avatars</li>
+						<li>Custom image sizes for your avatars</li>
 						<li>Advanced styling and customization options</li>
 						<li>Outstanding support from our developers</li>
 						<li>Remove all banners from the admin area</li>
