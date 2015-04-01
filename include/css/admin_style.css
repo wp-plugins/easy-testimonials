@@ -133,14 +133,17 @@
 
 #signup_wrapper {
 	background-color: #ccc;
-    bottom: -70px;
+    bottom: auto;
+	min-height: 100%;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 10px;
+    padding-bottom: 10px;
     position: absolute;
     right: -20px;
     top: -10px;
     width: 400px;
+	z-index: 9999;
 }
 
 #signup_wrapper .customer_testimonial {
@@ -511,4 +514,23 @@
 }
 .hello_t_banner P{
 	font-size: 16px;
+}
+
+
+/* API Key boxes */
+.easy_testimonials_registered {
+	background-color: white;
+	border-left: 4px solid green;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+	color: green;
+	font-weight: bold;
+	padding: 10px 15px;
+}
+.easy_testimonials_not_registered {
+	background-color: white;
+	border-left: 4px solid red;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+	color: red;
+	font-weight: bold;
+	padding: 10px 15px;
 }

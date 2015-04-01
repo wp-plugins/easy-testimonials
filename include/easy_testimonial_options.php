@@ -38,7 +38,8 @@ class easyTestimonialOptions
 		//create new top-level menu
 		add_menu_page($page_title, $title, 'administrator', $top_level_slug , array($this, 'basic_settings_page'));
 		add_submenu_page($top_level_slug , 'Basic Options', 'Basic Options', 'administrator', $top_level_slug, array($this, 'basic_settings_page'));
-		add_submenu_page($top_level_slug , 'Style & Theming Options', 'Style & Theming Options', 'administrator', 'easy-testimonials-style-settings', array($this, 'style_settings_page'));
+		add_submenu_page($top_level_slug , 'Display Options', 'Display Options', 'administrator', 'easy-testimonials-display-settings', array($this, 'display_settings_page'));
+		add_submenu_page($top_level_slug , 'Themes', 'Themes', 'administrator', 'easy-testimonials-style-settings', array($this, 'style_settings_page'));
 		add_submenu_page($top_level_slug , 'Submission Form Options', 'Submission Form Options', 'administrator', 'easy-testimonials-submission-settings', array($this, 'submission_settings_page'));
 		add_submenu_page($top_level_slug , 'Shortcode Generator', 'Shortcode Generator', 'administrator', 'easy-testimonials-shortcode-generator', array($this, 'shortcode_generator_page'));
 		add_submenu_page($top_level_slug , 'Import & Export Testimonials', 'Import & Export Testimonials', 'administrator', 'easy-testimonials-import-export', array($this, 'import_export_settings_page'));
@@ -51,16 +52,14 @@ class easyTestimonialOptions
 
 	function register_settings(){
 		//register our settings
-		register_setting( 'easy-testimonials-settings-group', 'testimonials_link' );
-		register_setting( 'easy-testimonials-settings-group', 'easy_t_view_more_link_text' );
-		register_setting( 'easy-testimonials-settings-group', 'testimonials_image' );
-		register_setting( 'easy-testimonials-settings-group', 'meta_data_position' );
+		
+		/* Basic options */
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_custom_css' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_disable_cycle2' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_use_cycle_fix' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_apply_content_filter' );
-		register_setting( 'easy-testimonials-settings-group', 'easy_t_mystery_man' );
-		register_setting( 'easy-testimonials-settings-group', 'easy_t_image_size' );
+		
+		/* Shortcodes */
 		register_setting( 'easy-testimonials-settings-group', 'ezt_testimonials_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_single_testimonial_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_submit_testimonial_shortcode' );
@@ -68,14 +67,17 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'ezt_random_testimonial_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_testimonials_count_shortcode' );
 		
+		/* Pro registration */
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_first_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_last_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_url' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_key' );
 		
+		/* Theme selection */
 		register_setting( 'easy-testimonials-style-settings-group', 'testimonials_style' );
 		
+		/* Submission form settings */
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_title_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_title_field_description' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_name_field_label' );
@@ -107,20 +109,58 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_description' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_rating_field' );	
 		
+		/* Import / Export */
 		register_setting( 'easy-testimonials-import-export-settings-group', 'easy_t_hello_t_json_url' );		
 		register_setting( 'easy-testimonials-import-export-settings-group', 'easy_t_hello_t_enable_cron' );	
 		
+		/* Hello T */
 		register_setting( 'easy-testimonials-private-settings-group', 'easy_t_hello_t_last_time' );
+		
+		/* Typography options */
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_body_font_size' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_body_font_color' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_body_font_style' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_body_font_family' );
+
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_author_font_size' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_author_font_color' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_author_font_style' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_author_font_family' );
+
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_position_font_size' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_position_font_color' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_position_font_style' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_position_font_family' );
+
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_date_font_size' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_date_font_color' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_date_font_style' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_date_font_family' );
+
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_rating_font_size' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_rating_font_color' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_rating_font_style' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_rating_font_family' );
+		
+		/* Display settings */
+		register_setting( 'easy-testimonials-display-settings-group', 'testimonials_link' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_view_more_link_text' );
+		register_setting( 'easy-testimonials-display-settings-group', 'testimonials_image' );
+		register_setting( 'easy-testimonials-display-settings-group', 'meta_data_position' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_mystery_man' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_image_size' );
+		
 	}
 	
 	//function to produce tabs on admin screen
 	function easy_t_admin_tabs($current = 'homepage' ) {
 	
 		$tabs = array( 	'easy-testimonials-settings' => __('Basic Options', $this->textdomain), 
-						'easy-testimonials-style-settings' => __('Style & Theming Options', $this->textdomain),
+						'easy-testimonials-display-settings' => __('Display Options', $this->textdomain),
+						'easy-testimonials-style-settings' => __('Themes', $this->textdomain),
 						'easy-testimonials-submission-settings' => __('Submission Form Options', $this->textdomain),
 						'easy-testimonials-shortcode-generator' => __('Shortcode Generator', $this->textdomain),
-						'easy-testimonials-import-export' => __('Import & Export Testimonials', $this->textdomain),
+						'easy-testimonials-import-export' => __('Import & Export', $this->textdomain),
 						'easy-testimonials-help' => __('Help & Instructions', $this->textdomain)
 					);
 		echo '<div id="icon-themes" class="icon32"><br></div>';
@@ -286,63 +326,6 @@ class easyTestimonialOptions
 			
 			<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for="testimonials_link">Testimonials View More Link</label></th>
-					<td><input type="text" name="testimonials_link" id="testimonials_link" value="<?php echo get_option('testimonials_link', ''); ?>"  style="width: 250px" />
-					<p class="description">This is the URL of the 'View More' Link.  If not set, no View More Link is output.  If set, View More Link will be output next to testimonial that will go to this page.</p>
-					</td>
-				</tr>
-			</table>
-			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_view_more_link_text">Testimonials View More Link Text</label></th>
-					<td><input type="text" name="easy_t_view_more_link_text" id="easy_t_view_more_link_text" value="<?php echo get_option('easy_t_view_more_link_text', 'Read More Testimonials'); ?>"  style="width: 250px" />
-					<p class="description">The Value of the View More Link text.  This defaults to Read More, but can be changed.</p>
-					</td>
-				</tr>
-			</table>
-			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="testimonials_image">Show Testimonial Image</label></th>
-					<td><input type="checkbox" name="testimonials_image" id="testimonials_image" value="1" <?php if(get_option('testimonials_image', true)){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, the Image will be shown next to the Testimonial.</p>
-					</td>
-				</tr>
-			</table>
-			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_image_size">Testimonial Image Size</a></th>
-					<td>
-						<select name="easy_t_image_size" id="easy_t_image_size">	
-							<?php easy_t_output_image_options(); ?>
-						</select>
-						<p class="description">Select which size image to display with your Testimonials.  Defaults to 50px X 50px.</p>
-					</td>
-				</tr>
-			</table>
-			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="easy_t_mystery_man">Use Mystery Man</label></th>
-					<td><input type="checkbox" name="easy_t_mystery_man" id="easy_t_mystery_man" value="1" <?php if(get_option('easy_t_mystery_man', true)){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, we and you are displaying Testimonial Images, the Mystery Man avatar will be used for any missing images.</p>
-					</td>
-				</tr>
-			</table>
-			
-			<table class="form-table">
-				<tr valign="top">
-					<th scope="row"><label for="meta_data_position">Show Testimonial Info Above Testimonial</label></th>
-					<td><input type="checkbox" name="meta_data_position" id="meta_data_position" value="1" <?php if(get_option('meta_data_position', false)){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, the Testimonial Custom Fields will be displayed Above the Testimonial.  Defaults to Displaying Below the Testimonial.  Note: the Testimonial Image will be displayed to the left of this information.  NOTE: Checking this may have adverse affects on certain Styles.</p>
-					</td>
-				</tr>
-			</table>
-			
-			<table class="form-table">
-				<tr valign="top">
 					<th scope="row"><label for="easy_t_disable_cycle2">Disable Cycle2 Output</label></th>
 					<td><input type="checkbox" name="easy_t_disable_cycle2" id="easy_t_disable_cycle2" value="1" <?php if(get_option('easy_t_disable_cycle2', false)){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, we won't include the Cycle2 JavaScript file.  If you suspect you are having JavaScript compatibility issues with our plugin, please try checking this box.</p>
@@ -433,7 +416,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php"><?php
 		
 		if(!isValidKey()): ?>
-			<p><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
+			<p><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('to unlock all 75+ themes!');?> </p>
 		<?php endif; ?>
 				
 		<?php settings_fields( 'easy-testimonials-style-settings-group' ); ?>	
@@ -459,97 +442,96 @@ class easyTestimonialOptions
 			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 		</p>
 		
-		<h3>Pro Themes</h3>
-		<?php if(!isValidKey()): ?><p class="plugin_is_not_registered">✘ These themes require Easy Testimonials Pro. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=upgrade_themes&utm_source=plugin&utm_banner=upgrade2" target="_blank" class="button">Upgrade Now</a></p><?php endif; ?>
+		<h3>Pro Themes</h3>		
+			
+		<?php include('theme_options.php'); ?>
 				
-		<table class="form-table easy_t_options">
-			<tr valign="top">
-				<td>
-					<h4>Card Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
-					<!-- card style with avatar on the left -->
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style" <?php if(get_option('testimonials_style') == "card_style"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style">Card Theme - Grey<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-regular.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style-salmon" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style-salmon" <?php if(get_option('testimonials_style') == "card_style-salmon"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style-salmon">Card Theme - Salmon<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-salmon.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style-orange" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style-orange" <?php if(get_option('testimonials_style') == "card_style-orange"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style-orange">Card Theme - Orange<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-orange.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style-purple" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style-purple" <?php if(get_option('testimonials_style') == "card_style-purple"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style-purple">Card Theme - Purple<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-purple.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="card_style-slate" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="card_style-slate" <?php if(get_option('testimonials_style') == "card_style-slate"): echo 'checked="CHECKED"'; endif; ?>><label for="card_style-slate">Card Theme - Slate<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-card-slate.png', __FILE__); ?>"/></label></p>
-					<h4>Elegant Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
-					<!-- elegant style with avatar in the center -->
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-graphite" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-graphite" <?php if(get_option('testimonials_style') == "elegant_style-graphite"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-graphite">Elegant Theme - Graphite<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-graphite.png', __FILE__); ?>"/></label></p>
-					
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-salmon" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-salmon" <?php if(get_option('testimonials_style') == "elegant_style-salmon"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-salmon">Elegant Theme - Salmon<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-salmon.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-sky_blue" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-sky_blue" <?php if(get_option('testimonials_style') == "elegant_style-sky_blue"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-sky_blue">Elegant Theme - Sky Blue<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-sky-blue.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-smoke" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-smoke" <?php if(get_option('testimonials_style') == "elegant_style-smoke"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-smoke">Elegant Theme - Smoke<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-smoke.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="elegant_style-green_hills" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="elegant_style-green_hills" <?php if(get_option('testimonials_style') == "elegant_style-green_hills"): echo 'checked="CHECKED"'; endif; ?>><label for="elegant_style-green_hills">Elegant Theme - Green Hills<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-elegant-green-hills.png', __FILE__); ?>"/></label></p>
-					<h4>Notepad Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed after the Testimonial.  For example, <code>[random_testimonial show_thumbs='1' show_rating='after' show_date='1']</code>.</p>
-					<!-- notepad style with avatar on the left, partially rotated -->
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-stone" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-stone" <?php if(get_option('testimonials_style') == "notepad_style-stone"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-stone">Notepad Theme - Stone<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-grey-sky.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-sea_blue" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-sea_blue" <?php if(get_option('testimonials_style') == "notepad_style-sea_blue"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-sea_blue">Notepad Theme - Sea Blue<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-sea-blue.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-forest_green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-forest_green" <?php if(get_option('testimonials_style') == "notepad_style-forest_green"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-forest_green">Notepad Theme - Forest Green<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-forest-green.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-red_rock" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-red_rock" <?php if(get_option('testimonials_style') == "notepad_style-red_rock"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-red_rock">Notepad Theme - Red Rock<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-red-rock.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="notepad_style-purple_gems" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="notepad_style-purple_gems" <?php if(get_option('testimonials_style') == "notepad_style-purple_gems"): echo 'checked="CHECKED"'; endif; ?>><label for="notepad_style-purple_gems">Notepad Theme - Purple Gems<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-notepad-purple-gems.png', __FILE__); ?>"/></label></p>
-					<h4>Business Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
-					<!-- business style with avatar on the left -->
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-stone" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-stone" <?php if(get_option('testimonials_style') == "business_style-stone"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-stone">Business Theme - Stone<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-stone.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-blue" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-blue" <?php if(get_option('testimonials_style') == "business_style-blue"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-blue">Business Theme - Blue<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-blue.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-green" <?php if(get_option('testimonials_style') == "business_style-green"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-green">Business Theme - Green<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-green.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-red" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-red" <?php if(get_option('testimonials_style') == "business_style-red"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-red">Business Theme - Red<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-red.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="business_style-grey" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="business_style-grey" <?php if(get_option('testimonials_style') == "business_style-grey"): echo 'checked="CHECKED"'; endif; ?>><label for="business_style-grey">Business Theme - Grey<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-business-grey.png', __FILE__); ?>"/></label></p>
-					<h4>Modern Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
-					<!-- modern style with avatar at the bottom, centered -->
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-concept" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-concept" <?php if(get_option('testimonials_style') == "modern_style-concept"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-concept">Modern Theme - Concept<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-concept.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-money" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-money" <?php if(get_option('testimonials_style') == "modern_style-money"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-money">Modern Theme - Money<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-money.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-digitalism" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-digitalism" <?php if(get_option('testimonials_style') == "modern_style-digitalism"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-digitalism">Modern Theme - Digitalism<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-digitalism.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-power" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-power" <?php if(get_option('testimonials_style') == "modern_style-power"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-power">Modern Theme - Power<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-power.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="modern_style-sleek" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="modern_style-sleek" <?php if(get_option('testimonials_style') == "modern_style-sleek"): echo 'checked="CHECKED"'; endif; ?>><label for="modern_style-sleek">Modern Theme - Sleek<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-modern-sleek.png', __FILE__); ?>"/></label></p>
-					<h4>Bubble Theme</h4>
-					<!-- bubble style -->
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="bubble_style" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="bubble_style" <?php if(get_option('testimonials_style') == "bubble_style"): echo 'checked="CHECKED"'; endif; ?>><label for="bubble_style">Bubble Theme - Regular<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-bubble-regular.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="bubble_style-brown" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="bubble_style-brown" <?php if(get_option('testimonials_style') == "bubble_style-brown"): echo 'checked="CHECKED"'; endif; ?>><label for="bubble_style-brown">Bubble Theme - Brown<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-bubble-brown.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="bubble_style-pink" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="bubble_style-pink" <?php if(get_option('testimonials_style') == "bubble_style-pink"): echo 'checked="CHECKED"'; endif; ?>><label for="bubble_style-pink">Bubble Theme - Pink<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-bubble-pink.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="bubble_style-blue-orange" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="bubble_style-blue-orange" <?php if(get_option('testimonials_style') == "bubble_style-blue-orange"): echo 'checked="CHECKED"'; endif; ?>><label for="bubble_style-blue-orange">Bubble Theme - Blue Orange<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-bubble-blue-orange.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="bubble_style-red-grey" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="bubble_style-red-grey" <?php if(get_option('testimonials_style') == "bubble_style-red-grey"): echo 'checked="CHECKED"'; endif; ?>><label for="bubble_style-red-grey">Bubble Theme - Red Grey<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-bubble-red-grey.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="bubble_style-purple-green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="bubble_style-purple-green" <?php if(get_option('testimonials_style') == "bubble_style-purple-green"): echo 'checked="CHECKED"'; endif; ?>><label for="bubble_style-purple-green">Bubble Theme - Purple Green<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-bubble-purple-green.png', __FILE__); ?>"/></label></p>
-					<h4>Left Avatar - 150x150</h4>
-					<!-- left avatar, 150x150 -->
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style" <?php if(get_option('testimonials_style') == "avatar-left-style"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style">Avatar Left Style<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-regular.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-brown" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-brown" <?php if(get_option('testimonials_style') == "avatar-left-style-brown"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-brown">Avatar Left Theme - Brown<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-brown.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-pink" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-pink" <?php if(get_option('testimonials_style') == "avatar-left-style-pink"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-pink">Avatar Left Theme - Pink<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-pink.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-blue-orange" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-blue-orange" <?php if(get_option('testimonials_style') == "avatar-left-style-blue-orange"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-blue-orange">Avatar Left Theme - Blue Orange<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-blue-orange.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-red-grey" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-red-grey" <?php if(get_option('testimonials_style') == "avatar-left-style-red-grey"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-red-grey">Avatar Left Theme - Red Grey<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-red-grey.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-purple-green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-purple-green" <?php if(get_option('testimonials_style') == "avatar-left-style-purple-green"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-purple-green">Avatar Left Theme - Purple Green<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-purple-green.png', __FILE__); ?>"/></label></p>
-					<h4>Left Avatar - 50x50</h4>
-					<!-- left avatar, 50x50 -->                      
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-50x50" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-50x50" <?php if(get_option('testimonials_style') == "avatar-left-style-50x50"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-50x50">Avatar Left Theme - 50x50<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-small-regular.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-50x50-brown" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-50x50-brown" <?php if(get_option('testimonials_style') == "avatar-left-style-50x50-brown"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-50x50-brown">Avatar Left Theme - 50x50 - Brown<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-small-brown.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-50x50-pink" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-50x50-pink" <?php if(get_option('testimonials_style') == "avatar-left-style-50x50-pink"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-50x50-pink">Avatar Left Theme - 50x50 - Pink<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-small-pink.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-50x50-blue-orange" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-50x50-blue-orange" <?php if(get_option('testimonials_style') == "avatar-left-style-50x50-blue-orange"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-50x50-blue-orange">Avatar Left Theme - 50x50 - Blue Orange<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-small-blue-orange.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-50x50-red-grey" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-50x50-red-grey" <?php if(get_option('testimonials_style') == "avatar-left-style-50x50-red-grey"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-50x50-red-grey">Avatar Left Theme - 50x50 - Red Grey<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-small-red-grey.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-left-style-50x50-purple-green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-left-style-50x50-purple-green" <?php if(get_option('testimonials_style') == "avatar-left-style-50x50-purple-green"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-left-style-50x50-purple-green">Avatar Left Theme - 50x50 - Purple Green<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-left-small-purple-green.png', __FILE__); ?>"/></label></p>
-					<h4>Right Avatar - 150x150</h4>
-					<!-- right avatar, 150x150 -->                   
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style" <?php if(get_option('testimonials_style') == "avatar-right-style"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style">Avatar Right Style<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-regular.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-brown" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-brown" <?php if(get_option('testimonials_style') == "avatar-right-style-brown"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-brown">Avatar Right Theme - Brown<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-brown.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-pink" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-pink" <?php if(get_option('testimonials_style') == "avatar-right-style-pink"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-pink">Avatar Right Theme - Pink<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-pink.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-blue-orange" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-blue-orange" <?php if(get_option('testimonials_style') == "avatar-right-style-blue-orange"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-blue-orange">Avatar Right Theme - Blue Orange<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-blue-orange.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-red-grey" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-red-grey" <?php if(get_option('testimonials_style') == "avatar-right-style-red-grey"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-red-grey">Avatar Right Theme - Red Grey<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-red-grey.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-purple-green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-purple-green" <?php if(get_option('testimonials_style') == "avatar-right-style-purple-green"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-purple-green">Avatar Right Theme - Purple Green<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-purple-green.png', __FILE__); ?>"/></label></p>
-					<h4>Right Avatar - 50x50</h4>
-					<!-- right avatar, 50x50 -->                     
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-50x50" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-50x50" <?php if(get_option('testimonials_style') == "avatar-right-style-50x50"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-50x50">Avatar Right Theme - 50x50<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-small-regular.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-50x50-brown" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-50x50-brown" <?php if(get_option('testimonials_style') == "avatar-right-style-50x50-brown"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-50x50-brown">Avatar Right Theme - 50x50 - Brown<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-small-brown.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-50x50-pink" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-50x50-pink" <?php if(get_option('testimonials_style') == "avatar-right-style-50x50-pink"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-50x50-pink">Avatar Right Theme - 50x50 - Pink<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-small-pink.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-50x50-blue-orange" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-50x50-blue-orange" <?php if(get_option('testimonials_style') == "avatar-right-style-50x50-blue-orange"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-50x50-blue-orange">Avatar Right Theme - 50x50 - Blue Orange<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-small-blue-orange.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-50x50-red-grey" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-50x50-red-grey" <?php if(get_option('testimonials_style') == "avatar-right-style-50x50-red-grey"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-50x50-red-grey">Avatar Right Theme - 50x50 - Red Grey<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-small-red-grey.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="avatar-right-style-50x50-purple-green" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="avatar-right-style-50x50-purple-green" <?php if(get_option('testimonials_style') == "avatar-right-style-50x50-purple-green"): echo 'checked="CHECKED"'; endif; ?>><label for="avatar-right-style-50x50-purple-green">Avatar Right Theme - 50x50 - Purple Green<?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-avatar-right-small-purple-green.png', __FILE__); ?>"/></label></p>
-					<div style="clear:both;"></div>
-				</td>
-			</tr>
-		</table>
+		<p class="submit">
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+		</p>
+	</form>
+	</div><?php 
+	}
+
+	function display_settings_page(){
+		$this->settings_page_top();
+		?><form method="post" action="options.php"><?php
+		
+		if(!isValidKey()): ?>
+			<!--<p><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>-->
+		<?php endif; ?>
+				
+		<?php settings_fields( 'easy-testimonials-display-settings-group' ); ?>	
+		
+		<h3>Display Options</h3>
+		
+		<fieldset>
+			<legend>Font Styles</legend>
+			<?php if(!isValidKey()):?>
+			<p class="easy_testimonials_not_registered"><strong>These settings require Easy Testimonials Pro.</strong>&nbsp;&nbsp;&nbsp;<a class="button" target="blank" href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/">Upgrade Now To Enable</a></p>
+			<?php endif;?>
+			<table class="form-table">
+				<?php $this->typography_input('easy_t_body_*', 'Testimonial Body', 'Font style of the title.'); ?>
+				<?php $this->typography_input('easy_t_author_*', 'Author\'s Name', 'Font style of the author\'s name.'); ?>
+				<?php $this->typography_input('easy_t_position_*', 'Author\'s Position / Job Title', 'Font style of the author\'s Position (Job Title).'); ?>
+				<?php $this->typography_input('easy_t_date_*', 'Date', 'Font style of the testimonial date.'); ?>
+				<?php $this->typography_input('easy_t_rating_*', 'Rating (when text)', 'Font style of the rating (used only when ratings are displayed as text).'); ?>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend>Testimonial Images</legend>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="testimonials_image">Show Testimonial Image</label></th>
+					<td><input type="checkbox" name="testimonials_image" id="testimonials_image" value="1" <?php if(get_option('testimonials_image', true)){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, the Image will be shown next to the Testimonial.</p>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_image_size">Testimonial Image Size</a></th>
+					<td>
+						<select name="easy_t_image_size" id="easy_t_image_size">	
+							<?php easy_t_output_image_options(); ?>
+						</select>
+						<p class="description">Select which size image to display with your Testimonials.  Defaults to 50px X 50px.</p>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_mystery_man">Use Mystery Man</label></th>
+					<td><input type="checkbox" name="easy_t_mystery_man" id="easy_t_mystery_man" value="1" <?php if(get_option('easy_t_mystery_man', true)){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, we and you are displaying Testimonial Images, the Mystery Man avatar will be used for any missing images.</p>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend>View More Testimonials Link</legend>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="testimonials_link">Testimonials View More Link</label></th>
+					<td><input type="text" name="testimonials_link" id="testimonials_link" value="<?php echo get_option('testimonials_link', ''); ?>"  style="width: 250px" />
+					<p class="description">This is the URL of the 'View More' Link.  If not set, no View More Link is output.  If set, View More Link will be output next to testimonial that will go to this page.</p>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_view_more_link_text">Testimonials View More Link Text</label></th>
+					<td><input type="text" name="easy_t_view_more_link_text" id="easy_t_view_more_link_text" value="<?php echo get_option('easy_t_view_more_link_text', 'Read More Testimonials'); ?>"  style="width: 250px" />
+					<p class="description">The Value of the View More Link text.  This defaults to Read More, but can be changed.</p>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend>Custom Fields</legend>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="meta_data_position">Show Testimonial Info Above Testimonial</label></th>
+					<td><input type="checkbox" name="meta_data_position" id="meta_data_position" value="1" <?php if(get_option('meta_data_position', false)){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, the Testimonial Custom Fields will be displayed Above the Testimonial.  Defaults to Displaying Below the Testimonial.  Note: the Testimonial Image will be displayed to the left of this information.  NOTE: Checking this may have adverse affects on certain Styles.</p>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
 		<p class="submit">
 			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 		</p>
@@ -561,75 +543,9 @@ class easyTestimonialOptions
 		$this->settings_page_top();
 		$testimonial_categories = get_terms( 'easy-testimonial-category', 'orderby=title&hide_empty=0' );
 		
-		//array of free themes that are available
-		$free_theme_array = array(
-			'default_style' => 'Default Style',
-			'dark_style' => 'Dark Style',
-			'light_style' => 'Light Style',
-			'blue_style' => 'Blue Style',
-			'clean_style' => 'Clean Style',
-			'no_style' => 'No Style'
-		);
-		
-		//array of pro themes that are available
-		$pro_theme_array = array(
-			'bubble_style' => 'Bubble Style',
-			'bubble_style-brown' => 'Bubble Style - Brown',
-			'bubble_style-pink' => 'Bubble Style - Pink',
-			'bubble_style-blue-orange' => 'Bubble Style - Blue Orange',
-			'bubble_style-red-grey' => 'Bubble Style - Red Grey',
-			'bubble_style-purple-green' => 'Bubble Style - Purple Green',
-			'avatar-left-style' => 'Avatar Left Style',
-			'avatar-left-style-blue-orange' => 'Avatar Left Style - Blue Orange',
-			'avatar-left-style-pink' => 'Avatar Left Style - Pink',
-			'avatar-left-style-brown' => 'Avatar Left Style - Brown',
-			'avatar-left-style-red-grey' => 'Avatar Left Style - Red Grey',
-			'avatar-left-style-purple-green' => 'Avatar Left Style - Purple Green',
-			'avatar-left-style-50x50' => 'Avatar Left 50x50 Style',
-			'avatar-left-style-50x50-blue-orange' => 'Avatar Left 50x50 Style - Blue Orange',
-			'avatar-left-style-50x50-brown' => 'Avatar Left 50x50 Style - Brown',
-			'avatar-left-style-50x50-pink' => 'Avatar Left 50x50 Style - Pink',
-			'avatar-left-style-50x50-purple-green' => 'Avatar Left 50x50 Style - Purple Green',
-			'avatar-left-style-50x50-red-grey' => 'Avatar Left 50x50 Style - Red Grey',
-			'avatar-right-style' => 'Avatar Right Style',
-			'avatar-right-style-blue-orange' => 'Avatar Right Style - Blue Orange',
-			'avatar-right-style-pink' => 'Avatar Right Style - Pink',
-			'avatar-right-style-brown' => 'Avatar Right Style - Brown',
-			'avatar-right-style-red-grey' => 'Avatar Right Style - Red Grey',
-			'avatar-right-style-purple-green' => 'Avatar Right Style - Purple Green',
-			'avatar-right-style-50x50' => 'Avatar Right 50x50 Style',
-			'avatar-right-style-50x50-blue-orange' => 'Avatar Right 50x50 Style - Blue Orange',
-			'avatar-right-style-50x50-brown' => 'Avatar Right 50x50 Style - Brown',
-			'avatar-right-style-50x50-pink' => 'Avatar Right 50x50 Style - Pink',
-			'avatar-right-style-50x50-purple-green' => 'Avatar Right 50x50 Style - Purple Green',
-			'avatar-right-style-50x50-red-grey' => 'Avatar Right 50x50 Style - Red Grey',
-			'card_style' => 'Card Style',
-			'card_style-salmon' => 'Card Style - Salmon',
-			'card_style-orange' => 'Card Style - Orange',
-			'card_style-purple' => 'Card Style - Purple',
-			'card_style-slate' => 'Card Style - Slate',
-			'elegant_style-sky_blue' => 'Elegant Style - Sky Blue',
-			'elegant_style-graphite' => 'Elegant Style - Graphite',
-			'elegant_style-green_hills' => 'Elegant Style - Green Hills',
-			'elegant_style-salmon' => 'Elegant Style - Salmon',
-			'elegant_style-smoke' => 'Elegant Style - Smoke',
-			'notepad_style-stone' => 'Notepad Style - Stone',
-			'notepad_style-sea_blue' => 'Notepad Style - Sea Blue',
-			'notepad_style-forest_green' => 'Notepad Style - Forest Green',
-			'notepad_style-red_rock' => 'Notepad Style - Red Rock',
-			'notepad_style-purple_gems' => 'Notepad Style - Purple Gems',
-			'business_style-stone' => 'Business Style - Stone',
-			'business_style-blue' => 'Business Style - Blue',
-			'business_style-green' => 'Business Style - Green',
-			'business_style-red' => 'Business Style - Red',
-			'business_style-grey' => 'Business Style - Grey',
-			'modern_style-concept' => 'Modern Style - Concept',
-			'modern_style-money' => 'Modern Style - Money',
-			'modern_style-digitalism' => 'Modern Style - Digitalism',
-			'modern_style-power' => 'Modern Style - Power',
-			'modern_style-sleek' => 'Modern Style - Sleek'
-		);
-		
+		//load options
+		include("lib/config.php");
+				
 		?>
 		
 		<h3>Shortcode Generator</h3>
@@ -811,8 +727,10 @@ class easyTestimonialOptions
 									<?php endforeach; ?>
 								</optgroup>
 								<optgroup label="PRO Options">		
-									<?php foreach($pro_theme_array as $theme_slug => $theme_name): ?>
-									<option <?php if(!isValidKey()): ?>disabled="disabled" <?php endif; ?>value="<?php echo $theme_slug; ?>" <?php if(get_option('testimonials_style', 'default_style') == $theme_slug){ ?> selected="selected" <?php } ?>><?php echo $theme_name; ?></option>
+									<?php foreach($pro_theme_array as $top_level_theme_name => $theme_array): ?>
+										<?php foreach($theme_array as $theme_slug => $theme_name): ?>
+											<option <?php if(!isValidKey()): ?>disabled="disabled" <?php endif; ?>value="<?php echo $theme_slug; ?>" <?php if(get_option('testimonials_style', 'default_style') == $theme_slug){ ?> selected="selected" <?php } ?>><?php echo $theme_name; ?></option>
+										<?php endforeach; ?>
 									<?php endforeach; ?>	
 								</optgroup>
 							</select>
@@ -1364,6 +1282,35 @@ class easyTestimonialOptions
 				echo '<div id="message" class="updated fade"><p>Hello Testimonials Integration is disabled!  Please enable to Import Testimonials.</p></div>';
 			}
 		}
-	}	
+	}
+	
+	function typography_input($name, $label, $description)
+	{
+		global $EasyT_BikeShed;
+		$options = array();
+		$options['name'] = $name;
+		$options['label'] = $label;
+		$options['description'] = $description;
+		$options['google_fonts'] = true;
+		$options['default_color'] = '#008800';
+		$options['values'] = $this->get_typography_values($name);		
+		$options['disabled'] = !isValidKey(); // typography inputs are Pro only
+		$EasyT_BikeShed->typography( $options );
+	}
+	
+	function get_typography_values($pattern, $default_value = '')
+	{
+		$keys = array();
+		$values = array();
+		$keys[] = 'font_size';
+		$keys[] = 'font_family';
+		$keys[] = 'font_style';
+		$keys[] = 'font_color';
+		foreach($keys as $key) {			
+			$option_key = str_replace('*', $key, $pattern);
+			$values[$key] = get_option($option_key, $default_value);
+		}
+		return $values;
+	}
 } // end class
 ?>

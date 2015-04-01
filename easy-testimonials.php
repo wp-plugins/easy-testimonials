@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.22
+Version: 1.23
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -26,6 +26,7 @@ along with Easy Testimonials .  If not, see <http://www.gnu.org/licenses/>.
 global $easy_t_footer_css_output;
 
 include('include/lib/lib.php');
+include('include/lib/BikeShed/bikeshed.php');
 
 //setup JS
 function easy_testimonials_setup_js() {
@@ -978,6 +979,134 @@ function outputTestimonials($atts){
 	return apply_filters('easy_t_testimonials_html', $content);
 }
 
+//output a single testimonial for each theme_array
+//useful for demoing all of the themes or testing compatibility on a given website
+//output all testimonials
+function outputAllThemes($atts){ 
+	
+	//load options
+	include("include/lib/config.php");	
+	
+	//load shortcode attributes into an array
+	extract( shortcode_atts( array(	
+		'testimonials_link' => '',//get_option('testimonials_link'),
+		'show_title' => 0,
+		'count' => 1,
+		'body_class' => 'testimonial_body',
+		'author_class' => 'testimonial_author',
+		'id' => '',
+		'use_excerpt' => false,
+		'category' => '',
+		'show_thumbs' => '',
+		'short_version' => false,
+		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
+		'order' => 'ASC',//'DESC'
+		'show_rating' => false,
+		'paginate' => false,
+		'testimonials_per_page' => 10,
+		'theme' => '',
+		'show_date' => false,
+		'show_other' => false,
+		'show_free_themes' => false
+	), $atts ) );
+	
+	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
+			
+	if(!is_numeric($count)){
+		$count = -1;
+	}
+	
+	//if we are paging the testimonials, set the $count to the number of testimonials per page
+	if($paginate){
+		$count = $testimonials_per_page;
+	}
+	
+	ob_start();
+	
+	$i = 0;
+	
+	//load testimonials into an array
+	$loop = new WP_Query(array( 'post_type' => 'testimonial','posts_per_page' => $count, 'easy-testimonial-category' => $category, 'orderby' => $orderby, 'order' => $order, 'paged' => get_query_var( 'paged' )));
+	while($loop->have_posts()) : $loop->the_post();
+		$postid = get_the_ID();	
+		$testimonial['date'] = get_the_date('M. j, Y');
+		if($use_excerpt){
+			$testimonial['content'] = get_the_excerpt();
+		} else {				
+			$testimonial['content'] = get_the_content();
+		}
+
+		//load rating
+		//if set, append english text to it
+		$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+		$testimonial['num_stars'] = ''; //reset num stars (Thanks Steve@IntegrityConsultants!)
+		if(strlen($testimonial['rating'])>0){	
+			$testimonial['num_stars'] = $testimonial['rating'];
+			$testimonial['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonial['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
+			//$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';		
+		}	
+		
+		//if nothing is set for the short content, use the long content
+		if(strlen($testimonial['content']) < 2){
+			$temp_post_content = get_post($postid); 			
+				$testimonial['content'] = $temp_post_content->post_excerpt;
+			if($use_excerpt){
+				if($testimonial['content'] == ''){
+					$testimonial['content'] = wp_trim_excerpt($temp_post_content->post_content);
+				}
+			} else {				
+				$testimonial['content'] = $temp_post_content->post_content;
+			}
+		}
+			
+		if(strlen($show_rating)>2){
+			if($show_rating == "before"){
+				$testimonial['content'] = $testimonial['rating'] . ' ' . $testimonial['content'];
+			}
+			if($show_rating == "after"){
+				$testimonial['content'] =  $testimonial['content'] . ' ' . $testimonial['rating'];
+			}
+		}
+		
+		if ($show_thumbs) {		
+			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
+			if(strlen($testimonial_image_size) < 2){
+				$testimonial_image_size = "easy_testimonial_thumb";
+			}
+		
+			$testimonial['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
+			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
+				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_mystery_man" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
+			}
+		}
+		
+		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
+		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 	
+			
+	endwhile;	
+	
+	wp_reset_query();
+	
+	if($show_free_themes){
+		foreach($free_theme_array as $theme_slug => $theme_name){
+			echo "<h4>$theme_name</h4>";
+			echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme_slug,$show_date,$show_rating,$show_other);
+		}
+	}
+	
+	foreach($pro_theme_array as $theme_set => $theme_set_array){
+		foreach($theme_set_array as $theme_slug => $theme_name){
+			echo "<h4>$theme_name</h4>";
+			echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme_slug,$show_date,$show_rating,$show_other);
+		}
+	}
+	
+	$content = ob_get_contents();
+	ob_end_clean();	
+	
+	return apply_filters('easy_t_testimonials_html', $content);
+}
 
 //output all testimonials for use in JS widget
 function outputTestimonialsCycle($atts){ 	
@@ -1175,13 +1304,13 @@ function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=fa
 		'rating' => $show_rating,
 		'other' => ($show_other) ? 'show' : 'hide'
 	);
- 
 	$attribute_classes = easy_t_build_classes_from_atts($atts);
  
 	$output_theme = easy_t_get_theme_class($theme);
+	$testimonial_body_css = easy_testimonials_build_typography_css('easy_t_body_');	
 ?>
 	<div class="<?php echo $output_theme; ?> <?php echo $attribute_classes; ?> easy_t_single_testimonial">
-		<blockquote itemprop="review" itemscope itemtype="http://schema.org/Review" class="easy_testimonial">		
+		<blockquote itemprop="review" itemscope itemtype="http://schema.org/Review" class="easy_testimonial" style="<?php echo $testimonial_body_css; ?>">
 			<?php if ($show_thumbs) {
 				echo $testimonial['image'];
 			} ?>		
@@ -1212,15 +1341,19 @@ function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=fa
  */
 function easy_testimonials_build_metadata_html($testimonial, $author_class, $show_date, $show_rating, $show_other)
 {
+	$date_css = easy_testimonials_build_typography_css('easy_t_date_');
+	$position_css = easy_testimonials_build_typography_css('easy_t_position_');
+	$client_css = easy_testimonials_build_typography_css('easy_t_author_');
+	$rating_css = easy_testimonials_build_typography_css('easy_t_rating_');
 ?>
 	<p class="<?php echo $author_class; ?>">
 		<?php if(strlen($testimonial['client'])>0 || strlen($testimonial['position'])>0 ): ?>
 		<cite>
-			<span class="testimonial-client" itemprop="author"><?php echo $testimonial['client'];?>&nbsp;</span>
-			<span class="testimonial-position"><?php echo $testimonial['position'];?>&nbsp;</span>
+			<span class="testimonial-client" itemprop="author" style="<?php echo $client_css; ?>"><?php echo $testimonial['client'];?>&nbsp;</span>
+			<span class="testimonial-position" style="<?php echo $position_css; ?>"><?php echo $testimonial['position'];?>&nbsp;</span>
 			<?php if(strlen($testimonial['other'])>1): ?><span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span><?php endif; ?>
 			<?php if($show_date): ?>
-				<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>"><?php echo $testimonial['date'];?>&nbsp;</span>
+				<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>" style="<?php echo $date_css; ?>"><?php echo $testimonial['date'];?>&nbsp;</span>
 			<?php endif; ?>
 			<?php if($show_rating == "stars"): ?>
 				<?php if(strlen($testimonial['num_stars'])>0): ?>
@@ -1252,10 +1385,8 @@ function easy_testimonials_build_metadata_html($testimonial, $author_class, $sho
 function easy_t_get_theme_class($theme_string){	
 	$the_theme = get_option('testimonials_style');
 	
-	//array of themes that are available
-	$theme_array = array(
-		'dark_style','light_style','blue_style','clean_style','no_style','bubble_style','bubble_style-brown','bubble_style-pink','bubble_style-blue-orange','bubble_style-red-grey','bubble_style-purple-green','avatar-left-style','avatar-left-style-blue-orange','avatar-left-style-pink','avatar-left-style-brown','avatar-left-style-red-grey','avatar-left-style-purple-green','avatar-left-style-50x50','avatar-left-style-50x50-blue-orange','avatar-left-style-50x50-brown','avatar-left-style-50x50-pink','avatar-left-style-50x50-purple-green','avatar-left-style-50x50-red-grey','avatar-right-style','avatar-right-style-blue-orange','avatar-right-style-pink','avatar-right-style-brown','avatar-right-style-red-grey','avatar-right-style-purple-green','avatar-right-style-50x50','avatar-right-style-50x50-blue-orange','avatar-right-style-50x50-brown','avatar-right-style-50x50-pink','avatar-right-style-50x50-purple-green','avatar-right-style-50x50-red-grey','default_style','card_style','card_style-salmon','card_style-orange','card_style-purple','card_style-slate','elegant_style-sky_blue','elegant_style-graphite','elegant_style-green_hills','elegant_style-salmon','elegant_style-smoke','notepad_style-stone','notepad_style-sea_blue','notepad_style-forest_green','notepad_style-red_rock','notepad_style-purple_gems','business_style-stone','business_style-blue','business_style-green','business_style-red','business_style-grey','modern_style-concept','modern_style-money','modern_style-digitalism','modern_style-power','modern_style-sleek',
-	);
+	//load options
+	include("include/lib/config.php");			
 	
 	//if the theme string is passed
 	if(strlen($theme_string)>2){
@@ -1445,6 +1576,87 @@ register_deactivation_hook( __FILE__, 'hello_t_cron_deactivate' );
 
 /* end hello t integration */
 
+/* Styling Functions */
+/*
+* Builds a CSS string corresponding to the values of a typography setting
+*
+* @param $prefix The prefix for the settings. We'll append font_name,
+* font_size, etc to this prefix to get the actual keys
+*
+* @returns string The completed CSS string, with the values inlined
+*/
+function easy_testimonials_build_typography_css($prefix)
+{
+	$css_rule_template = ' %s: %s;';
+	$output = '';
+	if (!isValidKey()) {
+		return $output;
+	}
+	/*
+	* Font Family
+	*/
+	$option_val = get_option($prefix . 'font_family', '');
+	if (!empty($option_val)) {
+		// strip off 'google:' prefix if needed
+		$option_val = str_replace('google:', '', $option_val);
+		// wrap font family name in quotes
+		$option_val = '\'' . $option_val . '\'';
+		$output .= sprintf($css_rule_template, 'font-family', $option_val);
+	}
+	/*
+	* Font Size
+	*/
+	$option_val = get_option($prefix . 'font_size', '');
+	if (!empty($option_val)) {
+		// append 'px' if needed
+		if ( is_numeric($option_val) ) {
+			$option_val .= 'px';
+		}
+		$output .= sprintf($css_rule_template, 'font-size', $option_val);
+	}
+	/*
+	* Font Color
+	*/
+	$option_val = get_option($prefix . 'font_color', '');
+	if (!empty($option_val)) {
+		$output .= sprintf($css_rule_template, 'color', $option_val);
+	}
+	/*
+	* Font Style - add font-style and font-weight rules
+	* NOTE: in this special case, we are adding 2 rules!
+	*/
+	$option_val = get_option($prefix . 'font_style', '');
+	// Convert the value to 2 CSS rules, font-style and font-weight
+	// NOTE: we lowercase the value before comparison, for simplification
+	switch(strtolower($option_val))
+	{
+		case 'regular':
+			// not bold not italic
+			$output .= sprintf($css_rule_template, 'font-style', 'normal');
+			$output .= sprintf($css_rule_template, 'font-weight', 'normal');
+		break;
+		case 'bold':
+			// bold, but not italic
+			$output .= sprintf($css_rule_template, 'font-style', 'normal');
+			$output .= sprintf($css_rule_template, 'font-weight', 'bold');
+		break;
+		case 'italic':
+			// italic, but not bold
+			$output .= sprintf($css_rule_template, 'font-style', 'italic');
+			$output .= sprintf($css_rule_template, 'font-weight', 'normal');
+		break;
+		case 'bold italic':
+			// bold and italic
+			$output .= sprintf($css_rule_template, 'font-style', 'italic');
+			$output .= sprintf($css_rule_template, 'font-weight', 'bold');
+		break;
+		default:
+			// empty string or other invalid value, ignore and move on
+		break;
+	}
+	// return the completed CSS string
+	return trim($output);
+}
 
 //"Construct"
 
@@ -1463,6 +1675,7 @@ add_shortcode($testimonials_shortcode, 'outputTestimonials');
 add_shortcode($submit_testimonial_shortcode, 'submitTestimonialForm');
 add_shortcode($testimonials_cycle_shortcode , 'outputTestimonialsCycle');
 add_shortcode($testimonials_count_shortcode , 'outputTestimonialsCount');
+add_shortcode('output_all_themes', 'outputAllThemes');
 
 //add JS
 add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js' );
@@ -1493,4 +1706,9 @@ add_filter( 'plugin_row_meta', 'add_custom_links_to_plugin_description', 10, 2 )
 
 //flush rewrite rules - only do this once!
 register_activation_hook( __FILE__, 'easy_testimonials_rewrite_flush' );
-?>
+
+// create an instance of BikeShed that we can use later
+if (is_admin()) {
+	global $EasyT_BikeShed;
+	$EasyT_BikeShed = new Easy_Testimonials_GoldPlugins_BikeShed();
+}
