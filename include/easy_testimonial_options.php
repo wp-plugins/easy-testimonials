@@ -252,11 +252,11 @@ class easyTestimonialOptions
 				<div class="features">
 					<strong>When you upgrade, you'll instantly unlock:</strong>
 					<ul>
-						<li>Testimonial Submission Form</li>
-						<li>50+ Professionally Designed Themes</li>
+						<li>75+ Professionally Designed Themes</li>
+						<li>Advanced styling and customization options</li>
+						<li>A customizable Testimonial submission form</li>
 						<li>7 new transitions for your testimonial widgets</li>
 						<li>Custom image sizes for your avatars</li>
-						<li>Advanced styling and customization options</li>
 						<li>Outstanding support from our developers</li>
 						<li>Remove all banners from the admin area</li>
 						<li>And more! We add new features regularly.</li>
@@ -416,7 +416,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php"><?php
 		
 		if(!isValidKey()): ?>
-			<p><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('to unlock all 75+ themes!');?> </p>
+			<p class="plugin_is_not_registered"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('to unlock all 75+ themes!');?> </p>
 		<?php endif; ?>
 				
 		<?php settings_fields( 'easy-testimonials-style-settings-group' ); ?>	
@@ -468,7 +468,7 @@ class easyTestimonialOptions
 		<fieldset>
 			<legend>Font Styles</legend>
 			<?php if(!isValidKey()):?>
-			<p class="easy_testimonials_not_registered"><strong>These settings require Easy Testimonials Pro.</strong>&nbsp;&nbsp;&nbsp;<a class="button" target="blank" href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/">Upgrade Now To Enable</a></p>
+			<p class="easy_testimonials_not_registered"><strong>These features require Easy Testimonials Pro.</strong>&nbsp;&nbsp;&nbsp;<a class="button" target="blank" href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=easy_testimonials_settings&utm_campaign=upgrade&utm_banner=display_options">Upgrade Now To Enable</a></p>
 			<?php endif;?>
 			<table class="form-table">
 				<?php $this->typography_input('easy_t_body_*', 'Testimonial Body', 'Font style of the title.'); ?>

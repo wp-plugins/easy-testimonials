@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.1.1
-Stable tag: 1.23
+Stable tag: 1.24
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -221,6 +221,9 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.24 =
+* Make shortcodes easier to copy, and other misc admin UI updates
 
 = 1.23 =
 * Adds Many New Color Schemes To Our Pro Themes
@@ -524,4 +527,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.23: New Pro Themes, Free Theme Updates, Font Style Choices, and more!
+* 1.24: Makes shortcodes easier to copy, and other misc admin UI updates

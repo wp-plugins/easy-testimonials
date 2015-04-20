@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.23
+Version: 1.24
 Author URI: http://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -1472,8 +1472,9 @@ function add_custom_links_to_plugin_description($links, $file) {
 /* Displays a meta box with the shortcodes to display the current testimonial */
 function easy_t_display_shortcodes_meta_box() {
 	global $post;
-	echo "Add this shortcode to any page where you'd like to <strong>display</strong> this testimonial:<br />";
-	echo '<pre>[single_testimonial id="' . $post->ID . '"]</pre>';
+	echo "<strong>To display this testimonial</strong>, add this shortcode to any post or page:<br />";	
+	$ex_shortcode = sprintf('[single_testimonial id="%d"]', $post->ID);	
+	printf('<textarea class="gp_highlight_code">%s</textarea>', $ex_shortcode);
 }
 
 /* hello t integration */

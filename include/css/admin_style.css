@@ -208,16 +208,18 @@
 
 .easy_testimonials_admin_wrap  .form-table.easy_t_options img {
 	background-color: #fff;
-	display: block;
-	margin: 10px 0 20px;
-	padding: 10px;
+    display: block;
+    margin: 10px 0 20px;
+    max-width: 95%;
+    padding: 10px;
 }
 
 .easy_testimonials_admin_wrap  .easy-t-radio-button {
 	float: left;
-	height: 340px;
-	margin: 0 10px 10px 0;
-	width: 367px;
+	/* height: 340px; */
+	margin: 0 20px 10px 0;
+	max-width: 367px;
+	width: 30%;
 }			
 
 .easy_testimonials_admin_wrap  .form-table.easy_t_options h4 {
@@ -233,7 +235,7 @@
 .easy_testimonials_admin_wrap .plugin_is_registered {
     background-color: white;
     border-left: 4px solid green;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 1px 0 lightgray;
     color: green;
     font-weight: bold;
     padding: 10px 15px;
@@ -241,6 +243,7 @@
 .easy_testimonials_admin_wrap .plugin_is_not_registered {
     background-color: white;
     border-left: 6px solid orangered;
+    box-shadow: 0 1px 1px 0 lightgray;
     color: orangered;
     font-weight: bold;
     padding: 10px 15px;
@@ -533,4 +536,48 @@
 	color: red;
 	font-weight: bold;
 	padding: 10px 15px;
+}
+
+/* Single Testimonial Shortcode Metabox */
+#testimonial_shortcodes .gp_highlight_code {
+    height: 2em;
+    margin: 10px 0 0;
+    width: 100%;
+}
+
+.easy_testimonials_not_registered_box {
+    background-color: white;
+    border-left: 4px solid lightseagreen;
+    box-shadow: 1px 1px 1px lightgray;
+    font-weight: bold;
+	margin-bottom: 25px;
+    padding: 15px;
+    width: 860px;
+	margin: 25px 2px;
+}
+.easy_testimonials_not_registered_box {
+    background-color: white;
+    border-left: 4px solid red;
+    box-shadow: 1px 1px 1px lightgray;
+    font-weight: bold;
+	margin-bottom: 25px;
+    padding: 15px;
+    width: 860px;
+	margin: 25px 2px;
+}
+
+.easy_testimonials_not_registered_box h3 {
+	border-bottom: 1px solid lightgray;
+    color: darkcyan;
+    margin-top: 0;
+    padding-bottom: 12px;
+}
+div.easy_testimonials_not_registered_box {
+	box-sizing: border-box;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    width: 100%;
+}
+div.easy_testimonials_not_registered_box > p {
+	margin-left: 2px;
 }
