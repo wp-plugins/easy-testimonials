@@ -38,7 +38,7 @@ function ezt_link_upgrade_labels()
 				var my_img = jQuery(this).find('label img');
 				if (my_em.length > 0 || my_img.length > 0) {
 					var my_id = my_radio.attr('id');
-					var buy_url = 'http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=upgrade_themes&utm_source=theme_selection&utm_banner=' + my_id;
+					var buy_url = 'https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=upgrade_themes&utm_source=theme_selection&utm_banner=' + my_id;
 					var link_template = '<a href="@buy_url" target="_blank"></a>';
 					var link = link_template.replace(/@buy_url/g, buy_url);
 					my_em.wrap(link);

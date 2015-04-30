@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Easy Testimonials
-Plugin URI: http://goldplugins.com/our-plugins/easy-testimonials-details/
+Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.24
-Author URI: http://goldplugins.com
+Version: 1.25
+Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
 
@@ -25,8 +25,10 @@ along with Easy Testimonials .  If not, see <http://www.gnu.org/licenses/>.
 
 global $easy_t_footer_css_output;
 
-include('include/lib/lib.php');
-include('include/lib/BikeShed/bikeshed.php');
+require_once('include/lib/lib.php');
+require_once('include/lib/BikeShed/bikeshed.php');
+require_once("include/lib/testimonials_importer.php");
+require_once("include/lib/testimonials_exporter.php");
 
 //setup JS
 function easy_testimonials_setup_js() {
@@ -1146,7 +1148,7 @@ function outputTestimonialsCycle($atts){
 	$i = 0;
 	
 	if(!isValidKey() && !in_array($transition, array('fadeOut','fade','scrollHorz'))){
-		$transition = 'fadeOut';
+		$transition = 'fadeout';
 	}
 	
 	//use random WP query to be sure we aren't just randomly sorting a chronologically queried set of testimonials
@@ -1458,10 +1460,10 @@ function add_custom_links_to_plugin_description($links, $file) {
 	if ( $file == $plugin_file )
 	{		
 		$new_links['settings_link'] = '<a href="admin.php?page=easy-testimonials-settings">Settings</a>';
-		$new_links['support_link'] = '<a href="http://goldplugins.com/contact/?utm-source=plugin_menu&utm_campaign=support&utm_banner=bananaphone" target="_blank">Get Support</a>';
+		$new_links['support_link'] = '<a href="https://goldplugins.com/contact/?utm-source=plugin_menu&utm_campaign=support&utm_banner=bananaphone" target="_blank">Get Support</a>';
 			
 		if(!isValidKey()){
-			$new_links['upgrade_to_pro'] = '<a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=plugin_menu&utm_campaign=upgrade" target="_blank">Upgrade to Pro</a>';
+			$new_links['upgrade_to_pro'] = '<a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=plugin_menu&utm_campaign=upgrade" target="_blank">Upgrade to Pro</a>';
 		}
 		
 		$links = array_merge( $links, $new_links);
@@ -1475,6 +1477,19 @@ function easy_t_display_shortcodes_meta_box() {
 	echo "<strong>To display this testimonial</strong>, add this shortcode to any post or page:<br />";	
 	$ex_shortcode = sprintf('[single_testimonial id="%d"]', $post->ID);	
 	printf('<textarea class="gp_highlight_code">%s</textarea>', $ex_shortcode);
+}
+
+/* CSV import / export */
+	
+/* Looks for a special POST value, and if its found, outputs a CSV of testimonials */
+function process_export()
+{
+	// look for an Export command first
+	if (isset($_POST['_easy_t_do_export']) && $_POST['_easy_t_do_export'] == '_easy_t_do_export') {
+		$exporter = new TestimonialsPlugin_Exporter();
+		$exporter->process_export();
+		exit();
+	}
 }
 
 /* hello t integration */
@@ -1659,6 +1674,45 @@ function easy_testimonials_build_typography_css($prefix)
 	return trim($output);
 }
 
+function list_required_google_fonts()
+{
+	// check each typography setting for google fonts, and build a list
+	$option_keys = array(
+		'easy_t_body_font_family',
+		'easy_t_author_font_family',
+		'easy_t_position_font_family',
+		'easy_t_date_font_family',
+		'easy_t_rating_font_family'		
+	);  
+	$fonts = array();
+	foreach ($option_keys as $option_key) {
+		$option_value = get_option($option_key);
+		if (strpos($option_value, 'google:') !== FALSE) {
+			$option_value = str_replace('google:', '', $option_value);
+			
+			//only add the font to the array if it was in fact a google font
+			$fonts[$option_value] = $option_value;				
+		}
+	}
+	return $fonts;
+}
+	
+// Enqueue any needed Google Web Fonts
+function enqueue_webfonts()
+{
+	$font_list = list_required_google_fonts();
+	$font_list_encoded = array_map('urlencode', list_required_google_fonts());
+	$font_str = implode('|', $font_list_encoded);
+	
+	//don't register this unless a font is set to register
+	if(strlen($font_str)>2){
+		$protocol = is_ssl() ? 'https:' : 'http:';
+		$font_url = $protocol . '//fonts.googleapis.com/css?family=' . $font_str;
+		wp_register_style( 'easy_testimonials_webfonts', $font_url);
+		wp_enqueue_style( 'easy_testimonials_webfonts' );
+	}
+}
+
 //"Construct"
 
 //load any custom shortcodes
@@ -1678,8 +1732,14 @@ add_shortcode($testimonials_cycle_shortcode , 'outputTestimonialsCycle');
 add_shortcode($testimonials_count_shortcode , 'outputTestimonialsCount');
 add_shortcode('output_all_themes', 'outputAllThemes');
 
+//CSV export
+add_action('admin_init', 'process_export');
+
 //add JS
 add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js' );
+		
+// add Google web fonts if needed
+add_action( 'wp_enqueue_scripts', 'enqueue_webfonts');
 
 //add CSS
 add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_css' );

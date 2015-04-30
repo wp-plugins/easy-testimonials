@@ -5,6 +5,7 @@ class ETKG
 	var $keyPrefix = 'easy_testimonials_';	
 
 	function __construct($config = array())	{
+
 		if (is_array($config))
 		{
 			if (isset($config['secret'])) {

@@ -14,7 +14,7 @@ var gold_plugins_init_coupon_box = function () {
 			
 			var btn = jQuery(this).find('.smallBlueButton');
 			btn.val('Sending Now...');
-			var $ajax_url = 'http://goldplugins.com/list-manage/ajax.php';
+			var $ajax_url = 'https://goldplugins.com/list-manage/ajax.php';
 			var $ajax_data = $form.serialize();
 			jQuery.ajax(
 			{

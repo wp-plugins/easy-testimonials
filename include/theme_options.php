@@ -1,6 +1,6 @@
 		<?php //load options ? ?>
 		<?php include("lib/config.php"); ?>
-		<?php if(!isValidKey()): ?><p class="plugin_is_not_registered">✘ These themes require Easy Testimonials Pro. <a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=upgrade_themes&utm_source=plugin&utm_banner=upgrade2" target="_blank" class="button">Upgrade Now</a></p><?php endif; ?>		
+		<?php if(!isValidKey()): ?><p class="plugin_is_not_registered">✘ These themes require Easy Testimonials Pro. <a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=upgrade_themes&utm_source=plugin&utm_banner=upgrade2" target="_blank" class="button">Upgrade Now</a></p><?php endif; ?>		
 		<table class="form-table easy_t_options">
 			<tr valign="top">
 				<td>

@@ -544,17 +544,6 @@
     margin: 10px 0 0;
     width: 100%;
 }
-
-.easy_testimonials_not_registered_box {
-    background-color: white;
-    border-left: 4px solid lightseagreen;
-    box-shadow: 1px 1px 1px lightgray;
-    font-weight: bold;
-	margin-bottom: 25px;
-    padding: 15px;
-    width: 860px;
-	margin: 25px 2px;
-}
 .easy_testimonials_not_registered_box {
     background-color: white;
     border-left: 4px solid red;
@@ -562,7 +551,8 @@
     font-weight: bold;
 	margin-bottom: 25px;
     padding: 15px;
-    width: 860px;
+    width: auto;
+	max-width: 860px;
 	margin: 25px 2px;
 }
 
@@ -580,4 +570,25 @@ div.easy_testimonials_not_registered_box {
 }
 div.easy_testimonials_not_registered_box > p {
 	margin-left: 2px;
+}
+
+.gp_upload_file_wrapper p:first-child {
+	font-weight: bold;
+	vertical-align: middle;
+	margin-bottom: 3px;
+}
+
+.gp_upload_file_wrapper #upload {
+	background-color: white;
+	font-weight: normal;
+	display: block;
+	padding: 4px;
+	margin-top: 6px;
+	margin-left: 2px;
+	border: 1px solid lightgray;
+}
+
+.gp_upload_file_wrapper p.submit {
+	margin-top: 3px;
+
 }

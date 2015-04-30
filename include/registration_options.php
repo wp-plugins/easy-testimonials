@@ -2,7 +2,7 @@
 <?php if(isValidKey()): ?>	
 <p class="plugin_is_registered">✓ Easy Testimonials Pro is registered and activated. Thank you!</p>
 <?php else: ?>
-<p class="easy_testimonials_not_registered_box">Easy Testimonials Pro is not activated. You will not be able to use the Pro features until you activate the plugin. <br /><br /><a class="button" href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=registration&utm_source=easy_testimonials_settings" target="_blank">Click Here To Upgrade To Pro</a> <br /> <br /><em>When you upgrade, you'll unlock powerful new features including over 75 professionally designed themes, advanced styling options, and a Testimonial Submission form.</em></p>
+<p class="easy_testimonials_not_registered_box">Easy Testimonials Pro is not activated. You will not be able to use the Pro features until you activate the plugin. <br /><br /><a class="button" href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=registration&utm_source=easy_testimonials_settings" target="_blank">Click Here To Upgrade To Pro</a> <br /> <br /><em>When you upgrade, you'll unlock powerful new features including over 75 professionally designed themes, advanced styling options, and a Testimonial Submission form.</em></p>
 <?php endif; ?>	
 
 <?php if(!isValidKey()): ?><p>If you have purchased Easy Testimonials Pro, please complete the following fields to activate additional features such as Front-End Testimonial Submission.</p><?php endif; ?>

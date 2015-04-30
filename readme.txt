@@ -3,8 +3,8 @@ Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
-Tested up to: 4.1.1
-Stable tag: 1.24
+Tested up to: 4.2.1
+Stable tag: 1.25
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,7 +16,7 @@ Easy Testimonials is an easy-to-use plugin that allows users to add Testimonials
 
 = Premium Support =
 
-The GoldPlugins team does not provide direct support for Easy Testimonials plugin on the WordPress.org forums. One on one email support is available to people who have purchased Easy Testimonials Pro only. Easy Testimonials Pro also includes tons of extra themes and advanced features including a Testimonial Collection Form, so you should [upgrade today!](http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/ "Upgrade to Easy Testimonials Pro")
+The GoldPlugins team does not provide direct support for the Easy Testimonials plugin on the WordPress.org forums. One on one email support is available to people who have purchased Easy Testimonials Pro only. Easy Testimonials Pro also includes tons of extra themes and advanced features including a Testimonial Collection Form, so you should [upgrade today!](https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/ "Upgrade to Easy Testimonials Pro")
 
 = Easy Testimonials is a great plugin for: =
 * Adding a Random Testimonial to Your Sidebar
@@ -53,7 +53,7 @@ This section describes how to install the plugin and get it working.
 
 1. Upload the contents of `/easy_testimonials/` to the `/wp-content/plugins/` directory
 2. Activate Easy Testimonials through the 'Plugins' menu in WordPress
-3. Visit [here](http://goldplugins.com/documentation/easy-testimonials-documentation/ "Easy Testimonials Pro Documentation") for information on how to configure the plugin.
+3. Visit [here](https://goldplugins.com/documentation/easy-testimonials-documentation/ "Easy Testimonials Pro Documentation") for information on how to configure the plugin.
 
 ### Adding a New Testimonial ###
 
@@ -116,12 +116,12 @@ You have a few things to pay attention to:
 * To output a Testimonial in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can show more than one random testimonial by placing a number in the Count field.  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.
 
 ### Outputting a Testimonial Slider ###
-* **NOTE:** You can view live examples [here](http://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-examples/ "Example Testimonial Sliders").
+* **NOTE:** You can view live examples [here](https://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-examples/ "Example Testimonial Sliders").
 * Easy Testimonials Supports Cycle2!  To output a sliding widget, use this shortcode: ```[testimonials_cycle]```.
 * The same properties as the list of testimonials, such as Showing the Title and controlling the Count, also apply.  To use the Excerpt of a testimonial, add the attribute ```use_excerpt=1``` to your shortcode.  To output Testimonials in a specific Category, use the attribute ```category='the_category_slug'```.  To show or hide the images next to Testimonials, use the attribute ```show_thumbs=0``` for hiding the images, and ```show_thumbs=1``` for displaying the images.  You can randomize the order of the testimonials with the attribute ```random="true"```.
 * To change the timer, use the attribute ```timer```, which defaults to 2000 (2 seconds.)  For example: ```[testimonials_cycle timer="4000"]```
 * To change the transition to a fade in, fade out, or no transition, use the attributes ```transition="fade"```, or ```transition="fadeout"```, or ```transition="none"```.  These features are enabled for Pro users - 'fade' is included in the Free version!  For example: ```[testimonials_cycle transition="fadeout"]```
-* Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fadeIn", "fadeOut", "flipHorz", "flipVert", and "tileSlide".
+* Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fade", "fadeout", "flipHorz", "flipVert", and "tileSlide".
 * To control the Order of the Testimonials with the Shortcode, use the attribute ```order='ASC'```.  To control the Order By parameter, use the attribute ```orderby='title'```.  Acceptable attributes for ```order``` are ```ASC``` and ```DESC```. Acceptable attributes for ```orderby``` are ```none```,```ID```,```author```,```title```,```name```,```date```,```modified```,```parent```, and ```rand```. 
 * To display a pager below the slider, use the attribute ```pager='1'```.  On the Widget, check the box labeled Display Pager Icons.
 * To have the height of the slider automatically adjust to the height of it's content, set the attribute ```container='1'```.
@@ -130,10 +130,10 @@ You have a few things to pay attention to:
 
 ### Outputting a Testimonial Slider in the Sidebar ###
 * To output a Testimonial Cycle in the Sidebar, use the Widgets section of your WordPress Theme, Accessible on the Appearance Menu in the WordPress Admin.  You can how many testimonials are shown by placing a number in the Count field - make sure you have at least 2, if you want them to Cycle!  You can show the Testimonial Title above the Testimonial by checking Show Testimonial Title Note: The Title Field on the Widget is displayed above the Widget, if your theme supports Widget Titles - this is different than the Testimonial Title.  You can control the time between transitions using the Timer field - every 1000 equals 1 second.
-* Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fadeIn", "fadeOut", "flipHorz", "flipVert", and "tileSlide".
+* Supported transitions in the Pro version are "scrollVert", "scrollHorz", "fadeout", "flipHorz", "flipVert", and "tileSlide".
 
 ### Front End Testimonial Submission ###
-* **NOTE:** This feature requires the [Pro version of Easy Testimonials](http://goldplugins.com/our-plugins/easy-testimonials-details/ "Easy Testimonials Pro").
+* **NOTE:** This feature requires the [Pro version of Easy Testimonials](https://goldplugins.com/our-plugins/easy-testimonials-details/ "Easy Testimonials Pro").
 * Add the shortcode ```[submit_testimonial]``` to the area of the page you want your form on.
 * Any submissions will be added to your Testimonials list, on the back end.  Only Testimonials that you choose to publish will be displayed publicly.
 * Captcha support is enabled with the installation of the [Really Simple Captcha plugin](https://wordpress.org/plugins/really-simple-captcha/ "Really Simple Captcha").
@@ -164,7 +164,7 @@ You have a few things to pay attention to:
 
 = Help!  I need more information! =
 
-OK!  We have a great page with some helpful information [here](http://goldplugins.com/documentation/easy-testimonials-documentation/ "Easy Testimonials Pro Documentation").
+OK!  We have a great page with some helpful information [here](https://goldplugins.com/documentation/easy-testimonials-documentation/ "Easy Testimonials Pro Documentation").
 
 = I Updated, and my formatting changed! =
 
@@ -172,7 +172,7 @@ Yikes!  Before 1.7.2, we were not respecting the content filter when outputting 
 
 = Hey!  How do I allow my visitors to submit testimonials? =
 
-Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit [here](http://goldplugins.com/our-plugins/easy-testimonials-details/ "Easy Testimonials Pro") to purchase the Pro version.
+Great question!  With the Pro version of the plugin, you can do this with our front end form that is output with a shortcode!  Testimonials will show up as pending on the Dashboard, for admin moderation.  Visit [here](https://goldplugins.com/our-plugins/easy-testimonials-details/ "Easy Testimonials Pro") to purchase the Pro version.
 
 = Urk! When I Activate Easy Testimonials, I start having trouble with my Cycle2 powered JavaScript! =
 
@@ -180,7 +180,7 @@ Oh no!  Check the box that is labeled "Disable Cycle2 Output".  This will cease 
 
 = Yo!  Your plugin is great - I would really like to change the size of the images that are output.  How do I do it? =
 
-Another good question!  With the Pro version of the plugin, you can do this by controlling the Testimonial Image Size drop down menu on the Settings screen.  Depending on your website, using bigger images may require CSS changes to be made.  Visit [here](http://goldplugins.com/our-plugins/easy-testimonials-details/ "Easy Testimonials Pro") to purchase the Pro version.
+Another good question!  With the Pro version of the plugin, you can do this by controlling the Testimonial Image Size drop down menu on the Settings screen.  Depending on your website, using bigger images may require CSS changes to be made.  Visit [here](https://goldplugins.com/our-plugins/easy-testimonials-details/ "Easy Testimonials Pro") to purchase the Pro version.
 
 = Eek!  I love everything about this plugin... but, I don't know how to use it inside my Template Files!  What do I do? =
 
@@ -221,6 +221,11 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.25 =
+* Adds CSV Import and Export
+* Updates Cycle2 to 2.1.6
+* Compatibility updates, fixes
 
 = 1.24 =
 * Make shortcodes easier to copy, and other misc admin UI updates
@@ -527,4 +532,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.24: Makes shortcodes easier to copy, and other misc admin UI updates
+* 1.25: Adds CSV Import and Export, compatibility updates, fixes; updates Cycle2 to 2.1.6

@@ -209,8 +209,9 @@ class easyTestimonialOptions
 		<?php if(!isValidKey()): ?>		
 				<div id="signup_wrapper">
 					<?php $this->output_sidebar_coupon_form(); ?>
-					<p class="u_to_p"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>					
+					<p class="u_to_p"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>					
 					<?php $this->output_hello_t_banner(); ?>
+					<div style="clear:right;"></div>
 				</div>
 				
 		<?php endif; ?>
@@ -232,7 +233,7 @@ class easyTestimonialOptions
 		</div>
 		<div id="mc_embed_signup">
 			<!--<form action="http://illuminatikarate.us2.list-manage.com/subscribe/post?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>-->
-			<form action="http://goldplugins.com/atm/atm.php?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+			<form action="https://goldplugins.com/atm/atm.php?u=403e206455845b3b4bd0c08dc&amp;id=a70177def0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
 				<div class="fields_wrapper">
 					<label for="mce-NAME">Your Name:</label>
 					<input type="text" value="<?php echo (!empty($current_user->display_name) ?  $current_user->display_name : ''); ?>" name="NAME" class="name" id="mce-NAME" placeholder="Your Name">
@@ -245,9 +246,9 @@ class easyTestimonialOptions
 				<p class="secure"><img src="<?php echo plugins_url( 'img/lock.png', __FILE__ ); ?>" alt="Lock" width="16px" height="16px" />We respect your privacy.</p>
 				
 				<input type="hidden" id="mc-upgrade-plugin-name" value="Easy Testimonials Pro" />
-				<input type="hidden" id="mc-upgrade-link-per" value="http://goldplugins.com/purchase/easy-testimonials-pro/single?promo=newsub20" />
-				<input type="hidden" id="mc-upgrade-link-biz" value="http://goldplugins.com/purchase/easy-testimonials-pro/business?promo=newsub20" />
-				<input type="hidden" id="mc-upgrade-link-dev" value="http://goldplugins.com/purchase/easy-testimonials-pro/developer?promo=newsub20" />
+				<input type="hidden" id="mc-upgrade-link-per" value="https://goldplugins.com/purchase/easy-testimonials-pro/single?promo=newsub20" />
+				<input type="hidden" id="mc-upgrade-link-biz" value="https://goldplugins.com/purchase/easy-testimonials-pro/business?promo=newsub20" />
+				<input type="hidden" id="mc-upgrade-link-dev" value="https://goldplugins.com/purchase/easy-testimonials-pro/developer?promo=newsub20" />
 
 				<div class="features">
 					<strong>When you upgrade, you'll instantly unlock:</strong>
@@ -257,6 +258,7 @@ class easyTestimonialOptions
 						<li>A customizable Testimonial submission form</li>
 						<li>7 new transitions for your testimonial widgets</li>
 						<li>Custom image sizes for your avatars</li>
+						<li>Import/Export your Testimonials</li>
 						<li>Outstanding support from our developers</li>
 						<li>Remove all banners from the admin area</li>
 						<li>And more! We add new features regularly.</li>
@@ -287,7 +289,7 @@ class easyTestimonialOptions
 				<p>We are happy to introduce <strong>Hello Testimonials</strong>, a new system that helps you collect new testimonials from your customers automatically. Whenever you add a new customer to the system, they\'ll automatically receive a personalized email asking them to leave a testimonial.</p><p>For a limited time, we\'re offering a 14-Day Free Trial of the Hello Testimonials to users of Easy Testimonials, so you have nothing to lose by giving it a try.</p><p><a class="smallBlueButton" href="http://hellotestimonials.com/p/welcome-easy-testimonials-users/" title="Start Your Free Trial">Start Your Free Trial &raquo;</a></p>
 				<br/>';
 		echo "</div>";
-		echo '<p class="u_to_p u_to_p_main_col"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>';				
+		echo '<p class="u_to_p u_to_p_main_col"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade to Easy Testimonials Pro now</a> to remove banners like this one.</p>';				
 	}
 	
 	function get_and_output_current_tab($pagenow){
@@ -320,7 +322,7 @@ class easyTestimonialOptions
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_custom_css">Custom CSS</a></th>
 					<td><textarea name="easy_t_custom_css" id="easy_t_custom_css" style="width: 250px; height: 250px;"><?php echo get_option('easy_t_custom_css', ''); ?></textarea>
-					<p class="description">Input any Custom CSS you want to use here.  The plugin will work without you placing anything here - this is useful in case you need to edit any styles for it to work with your theme, though.<br/> For a list of available classes, click <a href="http://goldplugins.com/documentation/easy-testimonials-documentation/html-css-information-for-easy-testimonials/" target="_blank">here</a>.</p></td>
+					<p class="description">Input any Custom CSS you want to use here.  The plugin will work without you placing anything here - this is useful in case you need to edit any styles for it to work with your theme, though.<br/> For a list of available classes, click <a href="https://goldplugins.com/documentation/easy-testimonials-documentation/html-css-information-for-easy-testimonials/" target="_blank">here</a>.</p></td>
 				</tr>
 			</table>
 			
@@ -416,7 +418,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php"><?php
 		
 		if(!isValidKey()): ?>
-			<p class="plugin_is_not_registered"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('to unlock all 75+ themes!');?> </p>
+			<p class="plugin_is_not_registered"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('to unlock all 75+ themes!');?> </p>
 		<?php endif; ?>
 				
 		<?php settings_fields( 'easy-testimonials-style-settings-group' ); ?>	
@@ -458,7 +460,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php"><?php
 		
 		if(!isValidKey()): ?>
-			<!--<p><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>-->
+			<!--<p><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>-->
 		<?php endif; ?>
 				
 		<?php settings_fields( 'easy-testimonials-display-settings-group' ); ?>	
@@ -468,7 +470,7 @@ class easyTestimonialOptions
 		<fieldset>
 			<legend>Font Styles</legend>
 			<?php if(!isValidKey()):?>
-			<p class="easy_testimonials_not_registered"><strong>These features require Easy Testimonials Pro.</strong>&nbsp;&nbsp;&nbsp;<a class="button" target="blank" href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=easy_testimonials_settings&utm_campaign=upgrade&utm_banner=display_options">Upgrade Now To Enable</a></p>
+			<p class="easy_testimonials_not_registered"><strong>These features require Easy Testimonials Pro.</strong>&nbsp;&nbsp;&nbsp;<a class="button" target="blank" href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=easy_testimonials_settings&utm_campaign=upgrade&utm_banner=display_options">Upgrade Now To Enable</a></p>
 			<?php endif;?>
 			<table class="form-table">
 				<?php $this->typography_input('easy_t_body_*', 'Testimonial Body', 'Font style of the title.'); ?>
@@ -551,7 +553,7 @@ class easyTestimonialOptions
 		<h3>Shortcode Generator</h3>
 		
 		<p>Select the options you'd like, and then click the Generate button. You'll get a shortcode that you can copy and paste into any post or page.</p>
-		<p>This generator will create a shortcode for displaying a list of testimonials or a testimonial slider.  Also available is the <code>[single_testimonial]</code> shortcode, for displaying a specific Testimonial.  <a href="http://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-installation-and-usage-instructions/" target="_blank">Click here</a> for more information.</p>
+		<p>This generator will create a shortcode for displaying a list of testimonials or a testimonial slider.  Also available is the <code>[single_testimonial]</code> shortcode, for displaying a specific Testimonial.  <a href="https://goldplugins.com/documentation/easy-testimonials-documentation/easy-testimonials-installation-and-usage-instructions/" target="_blank">Click here</a> for more information.</p>
 		
 		<form id="easy_t_shortcode_generator">
 			<table class="form-table">
@@ -735,7 +737,7 @@ class easyTestimonialOptions
 								</optgroup>
 							</select>
 							<?php if(!isValidKey()): ?>
-							<p class="description"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade To Unlock All The Themes</a></p>
+							<p class="description"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes">Upgrade To Unlock All The Themes</a></p>
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -797,16 +799,16 @@ class easyTestimonialOptions
 									<?php if(!isValidKey()): ?>
 									<option value="scrollVert" disabled="disabled">Scroll (Vertical)</option>
 									<option value="scrollHorz" disabled="disabled">Scroll (Horizontal)</option>
-									<option value="fadeIn" disabled="disabled">Fade In</option>
-									<option value="fadeOut" disabled="disabled">Fade Out</option>
+									<option value="fade" disabled="disabled">Fade In</option>
+									<option value="fadeout" disabled="disabled">Fade Out</option>
 									<option value="flipHorz" disabled="disabled">Flip (Horizontal)</option>
 									<option value="flipVert" disabled="disabled">Flip (Vertical)</option>
 									<option value="tileSlide" disabled="disabled">Slide</option>
 									<?php else: ?>
 									<option value="scrollVert">Scroll (Vertical)</option>
 									<option value="scrollHorz">Scroll (Horizontal)</option>
-									<option value="fadeIn">Fade In</option>
-									<option value="fadeOut">Fade Out</option>
+									<option value="fade">Fade In</option>
+									<option value="fadeout">Fade Out</option>
 									<option value="flipHorz">Flip (Horizontal)</option>
 									<option value="flipVert">Flip (Vertical)</option>
 									<option value="tileSlide">Slide</option>
@@ -814,7 +816,7 @@ class easyTestimonialOptions
 								</optgroup>
 							</select>
 							<?php if(!isValidKey()): ?>
-							<p class="description"><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=transitions">Upgrade To Unlock All The Transitions</a></p>
+							<p class="description"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=transitions">Upgrade To Unlock All The Transitions</a></p>
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -893,7 +895,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php">
 		
 		<?php if(!isValidKey()): ?>
-			<p><a href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
+			<p><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
 		<?php endif; ?>
 		
 		<?php settings_fields( 'easy-testimonials-submission_form_options-settings-group' ); ?>		
@@ -1251,9 +1253,39 @@ class easyTestimonialOptions
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 			</p>	
 			<p class="submit" style="margin-top:0;">
-				<a href="?page=easy-testimonials-import-export&run-cron-now=true" class="button-primary" title="<?php _e('Import Testimonials Now') ?>"><?php _e('Import Testimonials Now') ?></a>
-			</p>		
+				<a href="?page=easy-testimonials-import-export&run-cron-now=true" class="button-primary" title="<?php _e('Import From Hello Testimonials Now') ?>"><?php _e('Import From Hello Testimonials Now') ?></a>
+			</p>	
+		</form>	
+		
+		
+		<?php if(isValidKey()): ?>	
+		<form method="POST" action="" enctype="multipart/form-data">					
+			<fieldset>
+				<legend>CSV Import / Export</legend>
+				<h3>Testimonials Importer</h3>	
+				<?php 
+					//CSV Importer
+					$importer = new TestimonialsPlugin_Importer($this);
+					$importer->csv_importer(); // outputs form and handles input. TODO: break into 2 functions (one to show form, one to process input)
+				?>
+				<h3>Testimonials Exporter</h3>	
+				<?php 
+					//CSV Exporter
+					TestimonialsPlugin_Exporter::output_form();
+				?>
+			</fieldset>
 		</form>
+		<?php else: ?>
+		<form method="POST" action="" enctype="multipart/form-data">					
+			<fieldset>
+				<legend>CSV Import / Export</legend>
+				<h3>Testimonials Importer</h3>	
+				<p class="easy_testimonials_not_registered"><strong>This feature require Easy Testimonials Pro.</strong>&nbsp;&nbsp;&nbsp;<a class="button" target="blank" href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=upgrade&utm_source=plugin&utm_banner=import_upgrade">Upgrade Now</a></p>
+				<h3>Testimonials Exporter</h3>
+				<p class="easy_testimonials_not_registered"><strong>This feature require Easy Testimonials Pro.</strong>&nbsp;&nbsp;&nbsp;<a class="button" target="blank" href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_campaign=upgrade&utm_source=plugin&utm_banner=import_upgrade">Upgrade Now</a></p>	
+			</fieldset>
+		</form>
+		<?php endif; ?>
 		
 		</div><?php 
 		
