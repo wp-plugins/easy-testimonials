@@ -3,8 +3,8 @@ Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
-Tested up to: 4.2.1
-Stable tag: 1.25
+Tested up to: 4.2.2
+Stable tag: 1.25.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -221,6 +221,9 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.25.1 =
+* CSS Update, Cycle Fix Update, Compatibilty Update
 
 = 1.25 =
 * Adds CSV Import and Export
@@ -532,4 +535,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.25: Adds CSV Import and Export, compatibility updates, fixes; updates Cycle2 to 2.1.6
+* 1.25.1: CSS Update, Cycle Fix Update, Compatibilty Update

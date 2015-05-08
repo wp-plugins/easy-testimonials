@@ -473,7 +473,7 @@ class easyTestimonialOptions
 			<p class="easy_testimonials_not_registered"><strong>These features require Easy Testimonials Pro.</strong>&nbsp;&nbsp;&nbsp;<a class="button" target="blank" href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=easy_testimonials_settings&utm_campaign=upgrade&utm_banner=display_options">Upgrade Now To Enable</a></p>
 			<?php endif;?>
 			<table class="form-table">
-				<?php $this->typography_input('easy_t_body_*', 'Testimonial Body', 'Font style of the title.'); ?>
+				<?php $this->typography_input('easy_t_body_*', 'Testimonial Body', 'Font style of the body.'); ?>
 				<?php $this->typography_input('easy_t_author_*', 'Author\'s Name', 'Font style of the author\'s name.'); ?>
 				<?php $this->typography_input('easy_t_position_*', 'Author\'s Position / Job Title', 'Font style of the author\'s Position (Job Title).'); ?>
 				<?php $this->typography_input('easy_t_date_*', 'Date', 'Font style of the testimonial date.'); ?>

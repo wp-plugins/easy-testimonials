@@ -1,3 +1,11 @@
 jQuery(document).ready(function () {
-  jQuery(".cycle-slideshow").cycle({slides:"> div"});
+	var slideshowData = jQuery(".cycle-slideshow").data();
+	
+	jQuery(".cycle-slideshow").cycle({
+		'slides': slideshowData.cycleSlides,
+		'timeout': slideshowData.cycleTimeout,
+		'fx': slideshowData.cycleFx,
+		'auto-height': slideshowData.cycleAutoHeight,
+		'random': slideshowData.cycleRandom
+	});
 });
