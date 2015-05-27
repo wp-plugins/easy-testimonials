@@ -6,6 +6,7 @@ jQuery(document).ready(function () {
 	var cycleFx = "fade";	
 	var cycleAutoHeight = "container";
 	var cycleRandom = "false";
+	var pauseOnHover = "false";
 	
 	if (null != slideshowData && typeof slideshowData != "undefined"){
 		if (null != slideshowData.cycleSlides && typeof slideshowData.cycleSlides != 'undefined') {
@@ -23,6 +24,9 @@ jQuery(document).ready(function () {
 		if (null != slideshowData.cycleRandom && typeof slideshowData.cycleRandom != 'undefined') {
 			cycleRandom = slideshowData.cycleRandom;
 		}
+		if (null != slideshowData.pauseOnHover && typeof slideshowData.pauseOnHover != 'undefined') {
+			pauseOnHover = slideshowData.pauseOnHover;
+		}
 	}
 	
 	jQuery(".cycle-slideshow").cycle({
@@ -30,6 +34,7 @@ jQuery(document).ready(function () {
 		'timeout': cycleTimeout,
 		'fx': cycleFx,
 		'auto-height': cycleAutoHeight,
-		'random': cycleRandom
+		'random': cycleRandom,
+		'pause-on-hover': pauseOnHover
 	});
 });

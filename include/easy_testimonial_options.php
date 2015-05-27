@@ -1215,7 +1215,7 @@ class easyTestimonialOptions
 	
 	function help_settings_page(){
 		$this->settings_page_top();
-		include('pages/help.html');
+		include('pages/help.php');
 	}	
 	
 	function import_export_settings_page(){				

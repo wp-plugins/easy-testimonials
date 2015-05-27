@@ -59,6 +59,7 @@ class ikTestimonialsCustomPostType
 				'capability_type' => 'post',
 				'hierarchical' => false,
 				'supports' => array('title','editor','author','thumbnail','excerpt','comments','custom-fields'),
+				'menu_icon' => 'dashicons-testimonial',//RWG: added this for Easy Testimonials, specifically
 			); 
 			$this->customPostTypeArgs = $args;
 	

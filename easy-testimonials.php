@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.25.3
+Version: 1.26
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -623,7 +623,7 @@ function easy_t_column_head($defaults) {
 //this content is displayed in the testimonial post list
 function easy_t_columns_content($column_name, $post_ID) {  
     if ($column_name == 'single_shortcode') {  
-		echo "<code>[single_testimonial id={$post_ID}]</code>";
+		echo "<input type=\"text\" value=\"[single_testimonial id={$post_ID}]\" />";
     }  
 } 
 
@@ -640,7 +640,7 @@ function easy_t_cat_columns_content($value, $column_name, $tax_id) {
 
 	$category = get_term_by('id', $tax_id, 'easy-testimonial-category');
 	
-	return "<code>[testimonials category='{$category->slug}']</code>"; 
+	return "<textarea>[testimonials category='{$category->slug}']</textarea>"; 
 } 
 
 //return an array of random numbers within a given range
@@ -1134,7 +1134,8 @@ function outputTestimonialsCycle($atts){
 		'testimonials_per_slide' => 1,
 		'theme' => '',
 		'show_date' => false,
-		'show_other' => false
+		'show_other' => false,
+		'pause_on_hover' => false
 	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -1165,6 +1166,7 @@ function outputTestimonialsCycle($atts){
 		data-cycle-slides="> div.testimonial_slide"
 		<?php if($container): ?> data-cycle-auto-height="container" <?php endif; ?>
 		<?php if($random): ?> data-cycle-random="true" <?php endif; ?>
+		<?php if($pause_on_hover): ?> data-cycle-pause-on-hover="true" <?php endif; ?>
 	>
 	<?php
 	
@@ -1443,6 +1445,32 @@ function easy_testimonials_admin_init()
 	);	
 }
 
+//check for installed plugins with known conflicts
+//if any are found, display appropriate messaging with suggested steps
+//currently only checks for woothemes testimonials
+function easy_testimonials_conflict_check($hook_suffix){		
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	
+	$plugin = "testimonials-by-woothemes/woothemes-testimonials.php";
+		
+	if(is_plugin_active($plugin)){
+		
+		if (strpos($hook_suffix,'easy-testimonials') !== false) {
+			add_action('admin_notices', 'easy_t_woothemes_testimonials_admin_notice');
+		}
+	}
+	else {
+		return false;
+	}
+}
+
+//output warning message about woothemes testimonials conflicts
+function easy_t_woothemes_testimonials_admin_notice(){
+	echo '<div class="error"><p>';
+	echo '<strong>ALERT:</strong> We have detected that Testimonials by WooThemes is installed.<br/><br/>  This plugin has known conflicts with Easy Testimonials. To prevent any issues, we recommend deactivating Testimonials by WooThemes while using Easy Testimonials.';
+	echo "</p></div>";
+}
+
 //add an inline link to the settings page, before the "deactivate" link
 function add_settings_link_to_plugin_action_links($links) { 
   $settings_link = '<a href="admin.php?page=easy-testimonials-settings">Settings</a>';
@@ -1713,6 +1741,139 @@ function enqueue_webfonts()
 	}
 }
 
+// Dashboard Widget Yang
+
+/**
+ * Add a widget to the dashboard.
+	*
+ * This function is hooked into the 'wp_dashboard_setup' action below.
+ */
+function easy_t_add_dashboard_widget() {
+	wp_add_dashboard_widget(
+		'easy_t_submissions_dashboard_widget',         // Widget slug.
+		'Easy Testimonials Pro - Recent Submissions',         // Title.
+		'easy_t_output_dashboard_widget' // Display function.
+	);	
+}
+
+/**
+ * Create the function to output the contents of our Dashboard Widget.
+ */
+function easy_t_output_dashboard_widget()
+{
+	
+	$recent_submissions = '';
+	
+	$recent_submissions = get_posts('post_type=testimonial&posts_per_page=10&post_status=pending');
+	
+	if (is_array($recent_submissions)) {
+		//also output a panel of stats (ie, # of pending submissions)
+		
+		echo '<table id="easy_t_recent_submissions" class="widefat">';
+		echo '<thead>';
+		echo '<tr>';
+		echo '<th>Date</th>';
+		echo '<th>Summary</th>';
+		echo '<th>Rating</th>';
+		echo '<th>Action</th>';
+		echo '</tr>';
+		echo '</thead>';
+		echo '<tbody>';
+		foreach($recent_submissions as $i => $submission)
+		{
+			$row_class = ($i % 2 == 0) ? 'alternate' : '';
+			echo '<tr class="'.$row_class.'">';
+			
+			$action_url = get_admin_url() . "post.php?post=$submission->ID&action=edit";
+			$action_links = '<p><a href="'.$action_url.'" class="edit_testimonial" id="'.$submission->ID.'" title="Edit Testimonial"><span class="dashicons dashicons-edit"></span>Edit</a></p>';
+			$action_links .= '<p><a class="approve_testimonial" id="'.$submission->ID.'" title="Approve Testimonial"><span class="dashicons dashicons-yes"></span>Approve</a></p>';
+			$action_links .= '<p><a class="trash_testimonial" id="'.$submission->ID.'" title="Trash Testimonial"><span class="dashicons dashicons-no"></span>Trash</a></p>';
+			
+			$rating = get_post_meta($submission->ID, '_ikcf_rating', true); 
+			$rating = !empty($rating) ? $rating . "/5" : "No Rating";
+			
+			$friendly_time = date('Y-m-d H:i:s', strtotime($submission->post_date));
+			printf ('<td>%s</td>', htmlentities($friendly_time));
+			
+			printf ('<td>%s</td>', wp_trim_words($submission->post_content, 25));
+			printf ('<td>%s</td>', htmlentities($rating));
+			printf ('<td class="action_links">%s</td>', $action_links);
+
+			echo '</tr>';				
+		}
+		echo '</tbody>';
+		echo '</table>';
+		
+		$view_all_testimonials_url= '/wp-admin/edit.php?post_type=testimonial';
+		$link_text = 'View All Testimonials';
+		printf ('<p class="view_all_testimonials"><a href="%s">%s &raquo;</a></p>', $view_all_testimonials_url, $link_text);
+	}
+}	
+
+//admin ajax yang for dashboard widget
+function easy_t_action_javascript($action) {
+    ?>
+    <script type="text/javascript" >
+    jQuery(document).ready(function($) {
+        jQuery('.action_links a').on('click', function() {
+            var $this = jQuery(this);
+			var	data = {action: 'easy_t_action', my_action: $this.attr('class'), my_postid: $this.attr('id')};
+			
+			if($this.attr('class') != "edit_testimonial"){//no ajax on edit, take visitor to edit screen instead
+				jQuery.post(ajaxurl, data, function(response) {
+					if($this.attr('class') == "approve_testimonial"){
+						$this.parent().parent().html("<p>Approved!</p>").parent().addClass("updated");
+					} else if($this.attr('class') == "trash_testimonial"){
+						$this.parent().parent().html("<p>Trashed!</p>").parent().addClass("updated");
+					}
+				});
+				
+				return false;
+			}
+        });
+     });
+     </script>
+     <?php
+}
+
+function easy_t_action_callback() {
+    $action = $_POST['my_action'];
+    $id = $_POST['my_postid'];
+	$response = "";
+	
+    switch($action) {
+            case 'approve_testimonial':
+                $testimonial = array(
+					'ID' => $id,
+					'post_status' => 'publish'
+				);
+				
+                $response = wp_update_post($testimonial);//returns 0 if error, otherwise ID of the updated testimonial
+	 
+				if($response != 0){
+					echo $response;
+				} else {
+					//error, do something
+				}
+            break;
+
+            case 'trash_testimonial':				
+                $response = wp_trash_post($id);//returns false if error
+				
+				if(!$response){
+					//error, do something
+				} else {
+					echo $id;
+				}
+            break;
+     }
+	 
+     die();
+}
+//end admin ajax yang for dashboard widget
+	
+// End Dashboard Widget Yang
+
 //"Construct"
 
 //load any custom shortcodes
@@ -1731,6 +1892,10 @@ add_shortcode($submit_testimonial_shortcode, 'submitTestimonialForm');
 add_shortcode($testimonials_cycle_shortcode , 'outputTestimonialsCycle');
 add_shortcode($testimonials_count_shortcode , 'outputTestimonialsCount');
 add_shortcode('output_all_themes', 'outputAllThemes');
+
+//dashboard widget ajax functionality 
+add_action('admin_head', 'easy_t_action_javascript');
+add_action('wp_ajax_easy_t_action', 'easy_t_action_callback');
 
 //CSV export
 add_action('admin_init', 'process_export');
@@ -1753,6 +1918,7 @@ add_action( 'widgets_init', 'easy_testimonials_register_widgets' );
 //do stuff
 add_action( 'init', 'easy_testimonials_setup_testimonials' );
 add_action( 'admin_init', 'easy_testimonials_admin_init' );
+add_action( 'admin_enqueue_scripts', 'easy_testimonials_conflict_check' );
 
 add_filter('manage_testimonial_posts_columns', 'easy_t_column_head', 10);  
 add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 10, 2); 
@@ -1764,6 +1930,11 @@ add_action('manage_easy-testimonial-category_custom_column', 'easy_t_cat_columns
 $plugin = plugin_basename(__FILE__);
 add_filter( "plugin_action_links_{$plugin}", 'add_settings_link_to_plugin_action_links' );
 add_filter( 'plugin_row_meta', 'add_custom_links_to_plugin_description', 10, 2 );	
+
+//dashboard widget for pro users
+if (isValidKey()) {
+	add_action( 'wp_dashboard_setup', 'easy_t_add_dashboard_widget');		
+}
 
 //flush rewrite rules - only do this once!
 register_activation_hook( __FILE__, 'easy_testimonials_rewrite_flush' );

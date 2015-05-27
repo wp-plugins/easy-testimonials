@@ -592,3 +592,18 @@ div.easy_testimonials_not_registered_box > p {
 	margin-top: 3px;
 
 }
+
+/* dashboard widget */
+a.approve_testimonial{
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+a.trash_testimonial{
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+#easy_t_recent_submissions tr.updated{
+    background-color: lightyellow;
+}
