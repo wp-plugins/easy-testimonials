@@ -58,19 +58,18 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_disable_cycle2' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_use_cycle_fix' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_apply_content_filter' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_cache_buster', array($this, 'easy_t_bust_options_cache') );
 		
 		/* Shortcodes */
 		register_setting( 'easy-testimonials-settings-group', 'ezt_testimonials_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_single_testimonial_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_submit_testimonial_shortcode' );
-		register_setting( 'easy-testimonials-settings-group', 'ezt_cycle_testimonial_shortcode_shortcode' );
+		register_setting( 'easy-testimonials-settings-group', 'ezt_cycle_testimonial_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_random_testimonial_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_testimonials_count_shortcode' );
 		
 		/* Pro registration */
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
-		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_first_name' );
-		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_last_name' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_url' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_key' );
 		
@@ -108,10 +107,12 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_description' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_rating_field' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_cache_buster', array($this, 'easy_t_bust_options_cache') );
 		
 		/* Import / Export */
 		register_setting( 'easy-testimonials-import-export-settings-group', 'easy_t_hello_t_json_url' );		
 		register_setting( 'easy-testimonials-import-export-settings-group', 'easy_t_hello_t_enable_cron' );	
+		register_setting( 'easy-testimonials-import-export-settings-group', 'easy_t_cache_buster', array($this, 'easy_t_bust_options_cache') );
 		
 		/* Hello T */
 		register_setting( 'easy-testimonials-private-settings-group', 'easy_t_hello_t_last_time' );
@@ -149,6 +150,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-display-settings-group', 'meta_data_position' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_mystery_man' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_image_size' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_cache_buster', array($this, 'easy_t_bust_options_cache') );
 		
 	}
 	
@@ -1343,6 +1345,12 @@ class easyTestimonialOptions
 			$values[$key] = get_option($option_key, $default_value);
 		}
 		return $values;
+	}
+	
+	function easy_t_bust_options_cache()
+	{
+		delete_transient('_easy_t_webfont_str');
+		delete_transient('_easy_t_testimonial_style');
 	}
 } // end class
 ?>

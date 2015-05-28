@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.26
+Version: 1.27
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -77,27 +77,28 @@ function easy_testimonials_setup_js() {
 function easy_testimonials_setup_css() {
 	wp_register_style( 'easy_testimonial_style', plugins_url('include/css/style.css', __FILE__) );
 	
-	if(isValidKey()){ 
-		//five star ratings
-		wp_register_style( 'easy_testimonial_rateit_style', plugins_url('include/css/rateit.css', __FILE__) );
-		//pro themes
-		wp_register_style( 'easy_testimonials_pro_styles', plugins_url('include/css/easy_testimonials_pro.css', __FILE__) );
+	$cache_key = '_easy_t_testimonial_style';
+	$style = get_transient($cache_key);
+	if ($style == false) {
+		$style = get_option('testimonials_style', 'x');
+		set_transient($cache_key, $style);
 	}
-	
-	//no style or the base style
-    $style = get_option('testimonials_style');
-	if($style == 'no_style'){
-		//do nothing
-	} else {
+
+	// enqueue the base style unless "no_style" has been specified
+	if($style != 'no_style') {
 		wp_enqueue_style( 'easy_testimonial_style' );
 	}
-	
-	//five star rating CSS file
-	//premium CSS file
-	if(isValidKey()){
+
+	// enqueue Pro CSS files
+	if(isValidKey()) {
+		//five star ratings
+		wp_register_style( 'easy_testimonial_rateit_style', plugins_url('include/css/rateit.css', __FILE__) );
 		wp_enqueue_style( 'easy_testimonial_rateit_style' );
+		
+		//pro themes
+		wp_register_style( 'easy_testimonials_pro_styles', plugins_url('include/css/easy_testimonials_pro.css', __FILE__) );
 		wp_enqueue_style( 'easy_testimonials_pro_styles' );
-	}
+	}	
 }
 
 function easy_t_send_notification_email($submitted_testimonial = array()){
@@ -1728,9 +1729,18 @@ function list_required_google_fonts()
 // Enqueue any needed Google Web Fonts
 function enqueue_webfonts()
 {
-	$font_list = list_required_google_fonts();
-	$font_list_encoded = array_map('urlencode', list_required_google_fonts());
-	$font_str = implode('|', $font_list_encoded);
+	$cache_key = '_easy_t_webfont_str';
+	$font_str = get_transient($cache_key);
+	if ($font_str == false) {
+		$font_list = list_required_google_fonts();
+		if ( !empty($font_list) ) {
+			$font_list_encoded = array_map('urlencode', $font_list);
+			$font_str = implode('|', $font_list_encoded);
+		} else {
+			$font_str = 'x';
+		}
+		set_transient($cache_key, $font_str);		
+	}
 	
 	//don't register this unless a font is set to register
 	if(strlen($font_str)>2){
