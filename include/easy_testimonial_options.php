@@ -58,6 +58,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_disable_cycle2' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_use_cycle_fix' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_apply_content_filter' );
+		register_setting( 'easy-testimonials-settings-group', 'easy_t_show_in_search' );
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_cache_buster', array($this, 'easy_t_bust_options_cache') );
 		
 		/* Shortcodes */
@@ -351,6 +352,15 @@ class easyTestimonialOptions
 					<th scope="row"><label for="easy_t_apply_content_filter">Apply The Content Filter</label></th>
 					<td><input type="checkbox" name="easy_t_apply_content_filter" id="easy_t_apply_content_filter" value="1" <?php if(get_option('easy_t_apply_content_filter', true)){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, we will apply the content filter to Testimonial content.  Use this if you are experiencing problems with other plugins applying their shortcodes, etc, to your Testimonial content.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_show_in_search">Show in Search</label></th>
+					<td><input type="checkbox" name="easy_t_show_in_search" id="easy_t_show_in_search" value="1" <?php if(get_option('easy_t_show_in_search', true)){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, we will Show your Testimonials in the public site search in WordPress.</p>
 					</td>
 				</tr>
 			</table>

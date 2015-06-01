@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.2.2
-Stable tag: 1.27
+Stable tag: 1.28
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -216,6 +216,11 @@ We provide the following filters to developers for customizing output even furth
      [testimonials_count status='any']
 -   **Note:** this Shortcode only displays the numerical count -- you will need to add any words yourself. For example, "There are currently [testimonials_count] Testimonials on your website!"
 
+### Ouptting a Testimonials Search Form
+
+-   To display a form that Searches your Testimonials, use the following shortcode:
+     [easy_t_search_testimonials]
+
 ### Options
 
 -   To control the destination of the "View More" link, set the path in the Testimonials View More Link field.
@@ -225,6 +230,8 @@ We provide the following filters to developers for customizing output even furth
 -   To pick a global theme, use our Themes tab to browse the available choices.
 -   To control the display of the Testimonial Submission Form, use the Submission Form Options tab.
 -   To customize the appearance of your Testimonials, use the Display Options tab.
+-   To Show Testimonials in Public Search, use the Show in Search checkbox on the Basic Settings Page.
+-   To change your Registered Shortcodes, in case of conflict with theme or other plugins, use the Shortcode Options section on the Basic Settings screen.
 
 == Frequently Asked Questions ==
 
@@ -276,6 +283,10 @@ Ok!  We have the solution to adjust the height to display all of your testimonia
 
 As a security precaution, our plugin only allows users to upload images of the following file types: PNG, JPG, or GIF.  If they attempt to upload a different file type, or choose not to upload an image, then no image will be attached to the Testimonial.
 
+= What's Going On?!  When I use the [testimonials] shortcode, I'm not seeing anything that looks right! =
+
+Sometimes, your theme or other plugins have shortcodes in the same namespace as ours.  In case you suspect this is happening, use the Shortcode Options on the Basic Settings screen to change our shortcodes -- typically adding easy_ to our shortcodes will fix the problem!
+
 == Screenshots ==
 
 1. This is the Add New Testimonial Page.
@@ -287,6 +298,10 @@ As a security precaution, our plugin only allows users to upload images of the f
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.28 =
+* Add Option to Exclude Testimonials from Site Search.
+* Adds Testimonials Search Form shortcode.
 
 = 1.27 =
 * Reduces database calls around options to improve performance
@@ -620,4 +635,4 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 == Upgrade Notice ==
 
-* 1.27: Reduces database calls around options to improve performance
+* 1.28: Add Option to Exclude Testimonials from Site Search, adds Testimonials Search Form shortcode

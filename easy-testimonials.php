@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.27
+Version: 1.28
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -542,7 +542,7 @@ function easy_testimonials_setup_testimonials(){
 	$easy_testimonial_options = new easyTestimonialOptions();
 			
 	//setup post type for testimonials
-	$postType = array('name' => 'Testimonial', 'plural' =>'Testimonials', 'slug' => 'testimonial' );
+	$postType = array('name' => 'Testimonial', 'plural' =>'Testimonials', 'slug' => 'testimonial', 'exclude_from_search' => !get_option('easy_t_show_in_search', true));
 	$fields = array(); 
 	$fields[] = array('name' => 'client', 'title' => 'Client Name', 'description' => "Name of the Client giving the testimonial.  Appears below the Testimonial.", 'type' => 'text'); 
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
@@ -1884,6 +1884,29 @@ function easy_t_action_callback() {
 	
 // End Dashboard Widget Yang
 
+//checks for registered shortcodes and displays alert on settings screen if there are any current conflicts
+function easy_testimonials_shortcode_checker(array $atts){
+	//TBD
+}
+
+//search form shortcode
+function easy_t_search_form_shortcode()
+{
+	add_filter('get_search_form', 'easy_t_restrict_search_to_custom_post_type', 10);
+	$search_html = get_search_form();
+	remove_filter('get_search_form', 'easy_t_restrict_search_to_custom_post_type');
+	return $search_html;
+}
+
+function easy_t_restrict_search_to_custom_post_type($search_html)
+{
+	$post_type = 'testimonial';
+	$hidden_input = sprintf('<input type="hidden" name="post_type" value="%s">', $post_type);
+	$replace_with = $hidden_input . '</form>';
+	return str_replace('</form>', $replace_with, $search_html);
+}
+
+
 //"Construct"
 
 //load any custom shortcodes
@@ -1894,6 +1917,10 @@ $submit_testimonial_shortcode = get_option('ezt_submit_testimonial_shortcode', '
 $testimonials_cycle_shortcode = get_option('ezt_cycle_testimonial_shortcode', 'testimonials_cycle');
 $testimonials_count_shortcode = get_option('ezt_testimonials_count_shortcode', 'testimonials_count');
 
+//check for shortcode conflicts
+$shortcodes = array();
+easy_testimonials_shortcode_checker($shortcodes);
+
 //create shortcodes
 add_shortcode($random_testimonial_shortcode, 'outputRandomTestimonial');
 add_shortcode($single_testimonial_shortcode, 'outputSingleTestimonial');
@@ -1902,6 +1929,7 @@ add_shortcode($submit_testimonial_shortcode, 'submitTestimonialForm');
 add_shortcode($testimonials_cycle_shortcode , 'outputTestimonialsCycle');
 add_shortcode($testimonials_count_shortcode , 'outputTestimonialsCount');
 add_shortcode('output_all_themes', 'outputAllThemes');
+add_shortcode('easy_t_search_testimonials', 'easy_t_search_form_shortcode');
 
 //dashboard widget ajax functionality 
 add_action('admin_head', 'easy_t_action_javascript');

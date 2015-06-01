@@ -42,6 +42,7 @@
 		<li><a href="#testimonial_submission">Front End Testimonial Submission</a></li>
 		<li><a href="#testimonial_filters">Testimonial Filters</a></li>
 		<li><a href="#testimonial_count">Outputting a Count of your Testimonials</a></li>
+		<li><a href="#testimonial_search">Outputting a Testimonials Search Form</a></li>
 		<li><a href="#testimonial_options">Options</a></li>
 	</ol>
 	<div id="add_a_new_testimonial">
@@ -235,6 +236,16 @@
 			<li><strong>Note:</strong> this Shortcode only displays the numerical count -- you will need to add any words yourself.  For example, "There are currently [testimonials_count] Testimonials on your website!"</li>
 		</ul>
 	</div>	
+	<div id="testimonial_search">
+		<h3 id="outputting-a-testimonials-search-form">Outputting a Testimonials Search Form</h3>
+		<ul>
+			<li>To output a Testimonials search form on your site, use the following shortcode where you want the form to appear: <br/>
+				<textarea>[easy_t_search_testimonials]</textarea>
+			</li>
+			<li><strong>Note:</strong> this Shortcode only displays the form -- you'll want to add any additional text yourself!  Search results are displayed on your default search results page.</li>
+			<li><strong>Note:</strong> if Show in Search is not checked, you will not see any search results from this form.</li>
+		</ul>
+	</div>
 	<div id="testimonial_options">
 		<h3 id="options">Options</h3>
 		<ul>
@@ -245,6 +256,8 @@
 			<li>To pick a global theme, use our <a href="<?php echo get_admin_url() . "admin.php?page=easy-testimonials-style-settings"; ?>">Themes tab</a> to browse the available choices.</li>
 			<li>To control the display of the Testimonial Submission Form, use the <a href="<?php echo get_admin_url() . "admin.php?page=easy-testimonials-submission-settings"; ?>">Submission Form Options tab</a>.</li>
 			<li>To customize the appearance of your Testimonials, use the <a href="<?php echo get_admin_url() . "admin.php?page=easy-testimonials-display-settings"; ?>">Display Options tab</a>.</li>
+			<li>To Show Testimonials in Public Search, use the Show in Search checkbox on the Basic Settings Page.</li>
+			<li>To change your Registered Shortcodes, in case of conflict with theme or other plugins, use the Shortcode Options section on the Basic Settings screen.</li>
 		</ul>
 	</div>
 </div>

@@ -27,7 +27,8 @@ class ikTestimonialsCustomPostType
 	{
 		$singular = ucwords($postType['name']);
 		$plural = isset($postType['plural']) ? ucwords($postType['plural']) : $singular . 's';
-
+		$exclude_from_search = isset($postType['exclude_from_search']) ? $postType['exclude_from_search'] : false;
+		
 		$this->customPostTypeName = strtolower($singular);
 		$this->customPostTypeSingular = $singular;
 		$this->customPostTypePlural = $plural;
@@ -53,6 +54,7 @@ class ikTestimonialsCustomPostType
 				'labels' => $labels,
 				'public' => true,
 				'publicly_queryable' => true,
+				'exclude_from_search' => $exclude_from_search,
 				'show_ui' => true, 
 				'query_var' => true,
 				'rewrite' => true,
