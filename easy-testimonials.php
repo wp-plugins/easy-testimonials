@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.28
+Version: 1.28.1
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -46,7 +46,7 @@ function easy_testimonials_setup_js() {
 		
 		if($use_cycle_fix){
 			wp_enqueue_script(
-				'easy-testimonials',
+				'easy-testimonials-cycle-fix',
 				plugins_url('include/js/easy-testimonials-cycle-fix.js', __FILE__),
 				array( 'jquery' ),
 				false,
