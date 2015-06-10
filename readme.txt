@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.2.2
-Stable tag: 1.28.1
+Stable tag: 1.28.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,10 @@ Sometimes, your theme or other plugins have shortcodes in the same namespace as 
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.28.2 =
+* Reorder Cycle Fix includes.
+* Avada compatibility update.
 
 = 1.28.1 =
 * Bugfix for advanced transitions on sites with Cycle Fix enabled.
@@ -638,4 +642,4 @@ Sometimes, your theme or other plugins have shortcodes in the same namespace as 
 
 == Upgrade Notice ==
 
-* 1.28.1: Bugfix available for advanced transitions on sites with Cycle Fix enabled.
+* 1.28.2: Avada compatibility update.

@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.28.1
+Version: 1.28.2
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -44,16 +44,6 @@ function easy_testimonials_setup_js() {
 			true
 		);  
 		
-		if($use_cycle_fix){
-			wp_enqueue_script(
-				'easy-testimonials-cycle-fix',
-				plugins_url('include/js/easy-testimonials-cycle-fix.js', __FILE__),
-				array( 'jquery' ),
-				false,
-				true
-			);
-		}
-		
 		if(isValidKey()){  
 			wp_enqueue_script(
 				'easy-testimonials',
@@ -65,6 +55,16 @@ function easy_testimonials_setup_js() {
 			wp_enqueue_script(
 				'rateit',
 				plugins_url('include/js/jquery.rateit.min.js', __FILE__),
+				array( 'jquery' ),
+				false,
+				true
+			);
+		}
+		
+		if($use_cycle_fix){
+			wp_enqueue_script(
+				'easy-testimonials-cycle-fix',
+				plugins_url('include/js/easy-testimonials-cycle-fix.js', __FILE__),
 				array( 'jquery' ),
 				false,
 				true
@@ -1939,7 +1939,7 @@ add_action('wp_ajax_easy_t_action', 'easy_t_action_callback');
 add_action('admin_init', 'process_export');
 
 //add JS
-add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js' );
+add_action( 'wp_enqueue_scripts', 'easy_testimonials_setup_js', 9999 );
 		
 // add Google web fonts if needed
 add_action( 'wp_enqueue_scripts', 'enqueue_webfonts');
