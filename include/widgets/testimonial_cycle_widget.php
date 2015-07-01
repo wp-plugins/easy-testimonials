@@ -26,7 +26,7 @@ class cycledTestimonialWidget extends WP_Widget
 	}
 
 	function form($instance){
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 1, 'testimonials_per_slide' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '', 'use_excerpt' => 0, 'show_pager_icons' => 0, 'random' => false, 'show_rating' => false, 'show_date' => false, 'pause_on_hover' => false  ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'count' => 5, 'testimonials_per_slide' => 1, 'show_title' => 0, 'transition' => 'fade', 'timer' => '2000', 'category' => '', 'use_excerpt' => 0, 'show_pager_icons' => 0, 'random' => false, 'show_rating' => false, 'show_date' => false, 'pause_on_hover' => false, 'width' => false, 'prev_next' => false, 'auto_height' => false, 'paused' => false  ) );
 		$title = $instance['title'];
 		$count = $instance['count'];
 		$testimonials_per_slide = $instance['testimonials_per_slide'];
@@ -40,12 +40,17 @@ class cycledTestimonialWidget extends WP_Widget
 		$category = $instance['category'];
 		$show_date = $instance['show_date'];
 		$pause_on_hover = $instance['pause_on_hover'];
+		$paused = $instance['paused'];
+		$prev_next = $instance['prev_next'];
+		$width = $instance['width'];
+		$auto_height = $instance['auto_height'];
 		
 		$testimonial_categories = get_terms( 'easy-testimonial-category', 'orderby=title&hide_empty=0' );				
 		?>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('count'); ?>">Count: <input class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="text" value="<?php echo esc_attr($count); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('show_date'); ?>">Show Testimonial Date: </label><input class="widefat" id="<?php echo $this->get_field_id('show_date'); ?>" name="<?php echo $this->get_field_name('show_date'); ?>" type="checkbox" value="1" <?php if($show_date){ ?>checked="CHECKED"<?php } ?>/></p>
+			<p><label for="<?php echo $this->get_field_id('width'); ?>">Width: <input class="widefat" id="<?php echo $this->get_field_id('width'); ?>" name="<?php echo $this->get_field_name('width'); ?>" type="text" value="<?php echo esc_attr($width); ?>" /></label><br/><em>(e.g. 100px or 25%)</em></p>
 			<p><label for="<?php echo $this->get_field_id('testimonials_per_slide'); ?>">Testimonials Per Slide: <input class="widefat" id="<?php echo $this->get_field_id('testimonials_per_slide'); ?>" name="<?php echo $this->get_field_name('testimonials_per_slide'); ?>" type="text" value="<?php echo esc_attr($testimonials_per_slide); ?>" /></label></p>
 			<p><label for="<?php echo $this->get_field_id('transition'); ?>">Transition: 
 			<p><select name="<?php echo $this->get_field_name('transition'); ?>" id="<?php echo $this->get_field_id('transition'); ?>">	
@@ -63,7 +68,10 @@ class cycledTestimonialWidget extends WP_Widget
 			<p><label for="<?php echo $this->get_field_id('timer'); ?>">Timer: <input class="widefat" id="<?php echo $this->get_field_id('timer'); ?>" name="<?php echo $this->get_field_name('timer'); ?>" type="text" value="<?php echo esc_attr($timer); ?>" /></label></p>
 			<p><span class="description">The time between transitions.  Please Note: 1000 = 1 second.</span></label></p>
 			<p><label for="<?php echo $this->get_field_id('pause_on_hover'); ?>">Pause on Hover: </label><input class="widefat" id="<?php echo $this->get_field_id('pause_on_hover'); ?>" name="<?php echo $this->get_field_name('pause_on_hover'); ?>" type="checkbox" value="true" <?php if($pause_on_hover){ ?>checked="CHECKED"<?php } ?>/></p>
+			<p><label for="<?php echo $this->get_field_id('auto_height'); ?>">Auto Height: </label><input class="widefat" id="<?php echo $this->get_field_id('auto_height'); ?>" name="<?php echo $this->get_field_name('auto_height'); ?>" type="checkbox" value="1" <?php if($auto_height){ ?>checked="CHECKED"<?php } ?>/><br/><em>If checked, the height of the slideshow will be adjusted to the height of the Testimonial.</em></p>	
 			<p><label for="<?php echo $this->get_field_id('show_pager_icons'); ?>">Show Pager Icons: </label><input class="widefat" id="<?php echo $this->get_field_id('show_pager_icons'); ?>" name="<?php echo $this->get_field_name('show_pager_icons'); ?>" type="checkbox" value="1" <?php if($show_pager_icons){ ?>checked="CHECKED"<?php } ?>/></p>	
+			<p><label for="<?php echo $this->get_field_id('prev_next'); ?>">Show Previous and Next Buttons: </label><input class="widefat" id="<?php echo $this->get_field_id('prev_next'); ?>" name="<?php echo $this->get_field_name('prev_next'); ?>" type="checkbox" value="1" <?php if($prev_next){ ?>checked="CHECKED"<?php } ?>/></p>
+			<p><label for="<?php echo $this->get_field_id('paused'); ?>">Disable Auto Transition: </label><input class="widefat" id="<?php echo $this->get_field_id('paused'); ?>" name="<?php echo $this->get_field_name('paused'); ?>" type="checkbox" value="1" <?php if($paused){ ?>checked="CHECKED"<?php } ?>/><br/><em>If checked, Testimonials only Transition when manually triggered (ie, via Pager Icons or Previous/Next buttons)</em></p>	
 			<p><label for="<?php echo $this->get_field_id('random'); ?>">Random Testimonial Order: </label><input class="widefat" id="<?php echo $this->get_field_id('random'); ?>" name="<?php echo $this->get_field_name('random'); ?>" type="checkbox" value="1" <?php if($random){ ?>checked="CHECKED"<?php } ?>/></p>
 			<p><label for="<?php echo $this->get_field_id('show_title'); ?>">Show Testimonial Title: </label><input class="widefat" id="<?php echo $this->get_field_id('show_title'); ?>" name="<?php echo $this->get_field_name('show_title'); ?>" type="checkbox" value="1" <?php if($show_title){ ?>checked="CHECKED"<?php } ?>/></p>
 			<p><label for="<?php echo $this->get_field_id('use_excerpt'); ?>">Use Testimonial Excerpt: </label><input class="widefat" id="<?php echo $this->get_field_id('use_excerpt'); ?>" name="<?php echo $this->get_field_name('use_excerpt'); ?>" type="checkbox" value="1" <?php if($use_excerpt){ ?>checked="CHECKED"<?php } ?>/></p>								
@@ -99,8 +107,11 @@ class cycledTestimonialWidget extends WP_Widget
 		$instance['transition'] = $new_instance['transition'];
 		$instance['category'] = $new_instance['category'];
 		$instance['show_date'] = $new_instance['show_date'];
-		$instance['pause_on_hover'] = $new_instance['pause_on_hover'];
-		
+		$instance['pause_on_hover'] = $new_instance['pause_on_hover'];		
+		$instance['width'] = $new_instance['width'];
+		$instance['prev_next'] = $new_instance['prev_next'];
+		$instance['auto_height'] = $new_instance['auto_height'];
+		$instance['paused'] = $new_instance['paused'];
 		return $instance;
 	}
 
@@ -121,12 +132,22 @@ class cycledTestimonialWidget extends WP_Widget
 		$category = empty($instance['category']) ? '' : $instance['category'];
 		$show_date = empty($instance['show_date']) ? false : $instance['show_date'];
 		$pause_on_hover = empty($instance['pause_on_hover']) ? false : $instance['pause_on_hover'];
+		$prev_next = empty($instance['prev_next']) ? false : $instance['prev_next'];
+		$width = empty($instance['width']) ? false : $instance['width'];
+		$auto_height = empty($instance['auto_height']) ? false : $instance['auto_height'];
+		$paused = empty($instance['paused']) ? false : $instance['paused'];
 
 		if (!empty($title)){
 			echo $before_title . $title . $after_title;;
 		}
 		
-		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'testimonials_per_slide' => $testimonials_per_slide, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'container' => true, 'category' => $category, 'use_excerpt' => $use_excerpt, 'random' => $random, 'show_pager_icons' => $show_pager_icons, 'show_rating' => $show_rating, 'show_date' => $show_date, 'pause_on_hover' => $pause_on_hover));
+		if (!$auto_height){
+			$auto_height = "calc";
+		} else {
+			$auto_height = "container";
+		}
+		
+		echo outputTestimonialsCycle(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'testimonials_per_slide' => $testimonials_per_slide, 'show_title' => $show_title, 'transition' => $transition, 'timer' => $timer, 'auto_height' => $auto_height, 'category' => $category, 'use_excerpt' => $use_excerpt, 'random' => $random, 'show_pager_icons' => $show_pager_icons, 'show_rating' => $show_rating, 'show_date' => $show_date, 'pause_on_hover' => $pause_on_hover, 'prev_next' => $prev_next, 'width' => $width, 'paused' => $paused));
 
 		echo $after_widget;
 	} 

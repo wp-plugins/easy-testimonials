@@ -7,6 +7,9 @@ jQuery(document).ready(function () {
 	var cycleAutoHeight = "container";
 	var cycleRandom = "false";
 	var pauseOnHover = "false";
+	var cyclePrev = "false";
+	var cycleNext = "false";
+	var paused = "false";
 	
 	if (null != slideshowData && typeof slideshowData != "undefined"){
 		if (null != slideshowData.cycleSlides && typeof slideshowData.cycleSlides != 'undefined') {
@@ -27,6 +30,15 @@ jQuery(document).ready(function () {
 		if (null != slideshowData.pauseOnHover && typeof slideshowData.pauseOnHover != 'undefined') {
 			pauseOnHover = slideshowData.pauseOnHover;
 		}
+		if (null != slideshowData.paused && typeof slideshowData.paused != 'undefined') {
+			paused = slideshowData.paused;
+		}
+		if (null != slideshowData.cyclePrev && typeof slideshowData.cyclePrev != 'undefined') {
+			cyclePrev = slideshowData.cyclePrev;
+		}
+		if (null != slideshowData.cycleNext && typeof slideshowData.cycleNext != 'undefined') {
+			cycleNext = slideshowData.cycleNext;
+		}
 	}
 	
 	jQuery(".cycle-slideshow").cycle({
@@ -35,6 +47,9 @@ jQuery(document).ready(function () {
 		'fx': cycleFx,
 		'auto-height': cycleAutoHeight,
 		'random': cycleRandom,
-		'pause-on-hover': pauseOnHover
+		'pause-on-hover': pauseOnHover,
+		'paused': paused,
+		'cycle-prev': cyclePrev,
+		'cycle-next': cycleNext
 	});
 });

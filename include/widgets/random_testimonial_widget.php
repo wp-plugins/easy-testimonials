@@ -26,7 +26,7 @@ class randomTestimonialWidget extends WP_Widget
 	}
 
 	function form($instance){
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'use_excerpt' => 0, 'count' => 1, 'show_title' => 0, 'category' => '', 'show_rating' => false, 'show_date' => false ) );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'use_excerpt' => 0, 'count' => 1, 'show_title' => 0, 'category' => '', 'show_rating' => false, 'show_date' => false, 'width' => false ) );
 		$title = $instance['title'];
 		$count = $instance['count'];
 		$show_title = $instance['show_title'];
@@ -34,6 +34,7 @@ class randomTestimonialWidget extends WP_Widget
 		$show_date = $instance['show_date'];
 		$use_excerpt = $instance['use_excerpt'];
 		$category = $instance['category'];
+		$width = $instance['width'];
 				
 		$testimonial_categories = get_terms( 'easy-testimonial-category', 'orderby=title&hide_empty=0' );
 		?>
@@ -42,6 +43,7 @@ class randomTestimonialWidget extends WP_Widget
 			<p><label for="<?php echo $this->get_field_id('show_title'); ?>">Show Testimonial Title: </label><input class="widefat" id="<?php echo $this->get_field_id('show_title'); ?>" name="<?php echo $this->get_field_name('show_title'); ?>" type="checkbox" value="1" <?php if($show_title){ ?>checked="CHECKED"<?php } ?>/></p>
 			<p><label for="<?php echo $this->get_field_id('use_excerpt'); ?>">Use Testimonial Excerpt: </label><input class="widefat" id="<?php echo $this->get_field_id('use_excerpt'); ?>" name="<?php echo $this->get_field_name('use_excerpt'); ?>" type="checkbox" value="1" <?php if($use_excerpt){ ?>checked="CHECKED"<?php } ?>/></p>
 			<p><label for="<?php echo $this->get_field_id('show_date'); ?>">Show Testimonial Date: </label><input class="widefat" id="<?php echo $this->get_field_id('show_date'); ?>" name="<?php echo $this->get_field_name('show_date'); ?>" type="checkbox" value="1" <?php if($show_date){ ?>checked="CHECKED"<?php } ?>/></p>
+			<p><label for="<?php echo $this->get_field_id('width'); ?>">Width: <input class="widefat" id="<?php echo $this->get_field_id('width'); ?>" name="<?php echo $this->get_field_name('width'); ?>" type="text" value="<?php echo esc_attr($width); ?>" /></label><br/><em>(e.g. 100px or 25%)</em></p>
 			
 			<p><label for="<?php echo $this->get_field_id('category'); ?>">Category:</label></p>
 			<p><select name="<?php echo $this->get_field_name('category'); ?>" id="<?php echo $this->get_field_id('category'); ?>">
@@ -70,6 +72,7 @@ class randomTestimonialWidget extends WP_Widget
 		$instance['category'] = $new_instance['category'];
 		$instance['show_rating'] = $new_instance['show_rating'];
 		$instance['show_date'] = $new_instance['show_date'];
+		$instance['width'] = $new_instance['width'];
 		return $instance;
 	}
 
@@ -84,12 +87,13 @@ class randomTestimonialWidget extends WP_Widget
 		$category = empty($instance['category']) ? '' : $instance['category'];
 		$show_rating = empty($instance['show_rating']) ? false : $instance['show_rating'];
 		$show_date = empty($instance['show_date']) ? false : $instance['show_date'];
+		$width = empty($instance['width']) ? false : $instance['width'];
 
 		if (!empty($title)){
 			echo $before_title . $title . $after_title;;
 		}
 		
-		echo outputRandomTestimonial(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'category' => $category, 'use_excerpt' => $use_excerpt, 'show_rating' => $show_rating, 'show_date' => $show_date));
+		echo outputRandomTestimonial(array('testimonials_link' => get_option('testimonials_link'), 'count' => $count, 'show_title' => $show_title, 'category' => $category, 'use_excerpt' => $use_excerpt, 'show_rating' => $show_rating, 'show_date' => $show_date, 'width' => $width));
 
 		echo $after_widget;
 	} 

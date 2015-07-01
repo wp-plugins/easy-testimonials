@@ -151,6 +151,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-display-settings-group', 'meta_data_position' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_mystery_man' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_image_size' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_width' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_cache_buster', array($this, 'easy_t_bust_options_cache') );
 		
 	}
@@ -542,6 +543,17 @@ class easyTestimonialOptions
 					<th scope="row"><label for="meta_data_position">Show Testimonial Info Above Testimonial</label></th>
 					<td><input type="checkbox" name="meta_data_position" id="meta_data_position" value="1" <?php if(get_option('meta_data_position', false)){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, the Testimonial Custom Fields will be displayed Above the Testimonial.  Defaults to Displaying Below the Testimonial.  Note: the Testimonial Image will be displayed to the left of this information.  NOTE: Checking this may have adverse affects on certain Styles.</p>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend>Default Testimonials Width</legend>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_width">Default Testimonials Width</label></th>
+					<td><input type="text" name="easy_t_width" id="easy_t_width" value="<?php echo get_option('easy_t_width', ''); ?>"  style="width: 250px" />
+					<p class="description">If you want, you can set a global width for Testimonials.  This can be left blank and it can also be overrode directly, via the shortcode.</p>
 					</td>
 				</tr>
 			</table>

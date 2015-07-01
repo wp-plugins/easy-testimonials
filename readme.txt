@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.2.2
-Stable tag: 1.28.2
+Stable tag: 1.29
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,10 @@ You have a few things to pay attention to:
      [testimonials_cycle random='true']
 -   To show a sliding Testimonial Cycle, with 10 seconds between each transition, use the following shortcode: 
      [testimonials_cycle timer='10000' transition='scrollHorz']
+-	To show a sliding Testimonial Cycle, with Previous and Next buttons, use the following shortcode:
+	 [testimonials_cycle prev_next='1']
+-	To show a sliding Testimonial Cycle, that only transitions when Prev or Next is clicked, use the following shortcode:
+	 [testimonials_cycle paused='1' prev_next='1']
 
     To pick from our full list of available transitions, we recommend using the Shortcode Generator.
 
@@ -168,7 +172,9 @@ You have a few things to pay attention to:
     Acceptable attributes for `'orderby'` are `'none'`,`'ID'`,`'author'`,`'title'`,`'name'`,`'date'`,`'modified'`,`'parent'`, and `'rand'`
 
 -   To show a Testimonial Cycle that automatically changes height to match the Testimonial body, use the following shortcode: 
-     [testimonials_cycle container='1']
+     [testimonials_cycle auto_height='container']
+-	To show a Testimonial Cycle that sets the slideshow height to the height of tallest Testimonial, use the following shortcode:
+	 [testimonials_cycle auto_height='calc']
 -   To show a Testimonial Cycle with 3 Testimonials per Slide and Pager Icons below the Slider, use the following shortcode: 
      [testimoanials_cycle pager='1' testimonials_per_slide='3']
 
@@ -287,6 +293,10 @@ As a security precaution, our plugin only allows users to upload images of the f
 
 Sometimes, your theme or other plugins have shortcodes in the same namespace as ours.  In case you suspect this is happening, use the Shortcode Options on the Basic Settings screen to change our shortcodes -- typically adding easy_ to our shortcodes will fix the problem!
 
+= Hey! How do I change the Width of my Testimonials?! =
+
+Easy!  Just add the attribute width=500px or width=33% (be sure to use the full value, ie 500px, or 33% - otherwise it won't work!)  If not set, Testimonials will size to their container.
+
 == Screenshots ==
 
 1. This is the Add New Testimonial Page.
@@ -298,6 +308,12 @@ Sometimes, your theme or other plugins have shortcodes in the same namespace as 
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.29 =
+* Adds new slideshow options, including previous and next buttons and option to disable auto transition.
+* Updates many Pro themes to be responsive.
+* Adds shortcode option to control width of output.
+
 
 = 1.28.2 =
 * Reorder Cycle Fix includes.
@@ -642,4 +658,4 @@ Sometimes, your theme or other plugins have shortcodes in the same namespace as 
 
 == Upgrade Notice ==
 
-* 1.28.2: Avada compatibility update.
+* 1.29: Adds new slideshow options; responsive updates; width options; bug fixes.

@@ -13,3 +13,11 @@ span.stars span {
 span.stars span.empty {
 	color: #CCCCCC;
 }
+div.easy-t-cycle-prev{
+	cursor: pointer;
+	float: left;	
+}
+div.easy-t-cycle-next{
+	cursor: pointer;
+	float: right;
+}

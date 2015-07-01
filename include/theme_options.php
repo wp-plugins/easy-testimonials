@@ -5,25 +5,25 @@
 			<tr valign="top">
 				<td>
 					<h4>Card Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
+					<p class="ezt_theme_description">This responsive theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
 					<!-- card style with avatar on the left -->
 					<?php foreach($pro_theme_array['card_style'] as $slug => $name): ?>
 					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="<?php echo $slug; ?>" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="<?php echo $slug; ?>" <?php if(get_option('testimonials_style') == $slug): echo 'checked="CHECKED"'; endif; ?>><label for="<?php echo $slug; ?>"><?php echo $name; ?><?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-'.str_replace('_','-',str_replace('_style','',$slug)).'.png', __FILE__); ?>"/></label></p>
 					<?php endforeach; ?>
 					<h4>Elegant Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
+					<p class="ezt_theme_description">This responsive theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
 					<?php foreach($pro_theme_array['elegant_style'] as $slug => $name): ?>
 					<!-- elegant style with avatar in the center -->
 					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="<?php echo $slug; ?>" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="<?php echo $slug; ?>" <?php if(get_option('testimonials_style') == $slug): echo 'checked="CHECKED"'; endif; ?>><label for="<?php echo $slug; ?>"><?php echo $name; ?><?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-'.str_replace('_','-',str_replace('_style','',$slug)).'.png', __FILE__); ?>"/></label></p>
 					<?php endforeach; ?>
 					<h4>Notepad Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed after the Testimonial.  For example, <code>[random_testimonial show_thumbs='1' show_rating='after' show_date='1']</code>.</p>
+					<p class="ezt_theme_description">This responsive theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed after the Testimonial.  For example, <code>[random_testimonial show_thumbs='1' show_rating='after' show_date='1']</code>.</p>
 					<?php foreach($pro_theme_array['notepad_style'] as $slug => $name): ?>
 					<!-- notepad style with avatar on the left, partially rotated -->
 					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="<?php echo $slug; ?>" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="<?php echo $slug; ?>" <?php if(get_option('testimonials_style') == $slug): echo 'checked="CHECKED"'; endif; ?>><label for="<?php echo $slug; ?>"><?php echo $name; ?><?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-'.str_replace('_','-',str_replace('_style','',$slug)).'.png', __FILE__); ?>"/></label></p>
 					<?php endforeach; ?>
 					<h4>Business Theme</h4>
-					<p class="ezt_theme_description">This theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
+					<p class="ezt_theme_description">This responsive theme is designed to look best with Testimonial Image Size set to 150x150, Use Mystery Man enabled, Publication Date being shown, and Ratings displayed as Stars.  For example, <code>[random_testimonial show_thumbs='1' show_rating='stars' show_date='1']</code>.</p>
 					<?php foreach($pro_theme_array['business_style'] as $slug => $name): ?>
 					<!-- business style with avatar on the left -->
 					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="<?php echo $slug; ?>" <?php if(!isValidKey()): ?>disabled=DISABLED <?php endif; ?>	value="<?php echo $slug; ?>" <?php if(get_option('testimonials_style') == $slug): echo 'checked="CHECKED"'; endif; ?>><label for="<?php echo $slug; ?>"><?php echo $name; ?><?php if(!isValidKey()): ?><br/><em>Requires PRO - Upgrade to Enable!</em><?php endif; ?><br/><img src="<?php echo plugins_url('img/easy-t-'.str_replace('_','-',str_replace('_style','',$slug)).'.png', __FILE__); ?>"/></label></p>

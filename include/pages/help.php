@@ -174,11 +174,20 @@
 				<p class="description">Acceptable attributes for <code>'orderby'</code> are <code>'none'</code>,<code>'ID'</code>,<code>'author'</code>,<code>'title'</code>,<code>'name'</code>,<code>'date'</code>,<code>'modified'</code>,<code>'parent'</code>, and <code>'rand'</code></p>
 			</li>
 			<li>To show a Testimonial Cycle that automatically changes height to match the Testimonial body, use the following shortcode: <br/>
-				<textarea>[testimonials_cycle container='1']</textarea>
+				<textarea>[testimonials_cycle auto_height='container']</textarea>
+			</li>
+			<li>To show a Testimonial Cycle that sets the slideshow height to the height of tallest Testimonial, use the following shortcode: <br/>
+				<textarea>[testimonials_cycle auto_height='calc']</textarea>
 			</li>
 			<li>To show a Testimonial Cycle with 3 Testimonials per Slide and Pager Icons below the Slider, use the following shortcode: <br/>
 				<textarea>[testimoanials_cycle pager='1' testimonials_per_slide='3']</textarea>
 			</li>
+			<li>To show a sliding Testimonial Cycle, with Previous and Next buttons, use the following shortcode: <br/>
+				<textarea>[testimonials_cycle prev_next='1']</textarea>
+			</li>
+			<li>To show a sliding Testimonial Cycle, that only transitions when Prev or Next is clicked, use the following shortcode: <br/>
+				<textarea>[testimonials_cycle paused='1' prev_next='1']</textarea>
+			</li>	 
 		</ul>
 	</div>
 	<div id="outputting_a_testimonial_slider_in_the_sidebar">

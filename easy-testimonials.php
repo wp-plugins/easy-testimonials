@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.28.2
+Version: 1.29
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -669,7 +669,8 @@ function outputRandomTestimonial($atts){
 		'show_rating' => false,
 		'theme' => '',
 		'show_date' => false,
-		'show_other' => false
+		'show_other' => false,
+		'width' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -751,7 +752,7 @@ function outputRandomTestimonial($atts){
 		if(isset($testimonials[$rand])){
 			$this_testimonial = $testimonials[$rand];
 			if(!$short_version){
-				echo build_single_testimonial($this_testimonial,$show_thumbs,$show_title,$this_testimonial['postid'],$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other);
+				echo build_single_testimonial($this_testimonial,$show_thumbs,$show_title,$this_testimonial['postid'],$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other,$width);
 			} else {
 				echo $this_testimonial['content'];
 			}
@@ -780,7 +781,8 @@ function outputSingleTestimonial($atts){
 		'show_rating' => false,
 		'theme' => '',
 		'show_date' => false,
-		'show_other' => false
+		'show_other' => false,
+		'width' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -851,7 +853,7 @@ function outputSingleTestimonial($atts){
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 
 	
-		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other);
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other,$width);
 			
 	endwhile;	
 	wp_reset_query();
@@ -884,7 +886,8 @@ function outputTestimonials($atts){
 		'testimonials_per_page' => 10,
 		'theme' => '',
 		'show_date' => false,
-		'show_other' => false
+		'show_other' => false,
+		'width' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -961,7 +964,7 @@ function outputTestimonials($atts){
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 	
 	
-		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other);
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other,$width);
 			
 	endwhile;	
 	
@@ -1010,7 +1013,8 @@ function outputAllThemes($atts){
 		'theme' => '',
 		'show_date' => false,
 		'show_other' => false,
-		'show_free_themes' => false
+		'show_free_themes' => false,
+		'width' => false
 	), $atts ) );
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -1094,14 +1098,14 @@ function outputAllThemes($atts){
 	if($show_free_themes){
 		foreach($free_theme_array as $theme_slug => $theme_name){
 			echo "<h4>$theme_name</h4>";
-			echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme_slug,$show_date,$show_rating,$show_other);
+			echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme_slug,$show_date,$show_rating,$show_other,$width);
 		}
 	}
 	
 	foreach($pro_theme_array as $theme_set => $theme_set_array){
 		foreach($theme_set_array as $theme_slug => $theme_name){
 			echo "<h4>$theme_name</h4>";
-			echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme_slug,$show_date,$show_rating,$show_other);
+			echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme_slug,$show_date,$show_rating,$show_other,$width);
 		}
 	}
 	
@@ -1121,8 +1125,9 @@ function outputTestimonialsCycle($atts){
 		'transition' => 'scrollHorz',
 		'show_thumbs' => '',
 		'timer' => '2000',
-		'container' => false,
+		'container' => false,//deprecated, use auto_height instead
 		'use_excerpt' => false,
+		'auto_height' => false,
 		'category' => '',
 		'body_class' => 'testimonial_body',
 		'author_class' => 'testimonial_author',
@@ -1136,7 +1141,10 @@ function outputTestimonialsCycle($atts){
 		'theme' => '',
 		'show_date' => false,
 		'show_other' => false,
-		'pause_on_hover' => false
+		'pause_on_hover' => false,
+		'prev_next' => false,
+		'width' => false,
+		'paused' => false
 	), $atts ) );	
 	
 	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
@@ -1159,15 +1167,28 @@ function outputTestimonialsCycle($atts){
 		$orderby = "rand";
 	}
 
+	//determine if autoheight is set to container or to calculate
+	//not sure why i did this so backwards to begin with!  oh well...
+	if($container){
+		$container = "container";
+	}
+	if($auto_height == "calc"){
+		$container = "calc";
+	} else if($auto_height == "container"){
+		$container = "container";
+	}
+	
 	?>
 	
 	<div class="cycle-slideshow" 
 		data-cycle-fx="<?php echo $transition; ?>" 
 		data-cycle-timeout="<?php echo $timer; ?>"
 		data-cycle-slides="> div.testimonial_slide"
-		<?php if($container): ?> data-cycle-auto-height="container" <?php endif; ?>
+		<?php if($container): ?> data-cycle-auto-height="<?php echo $container; ?>" <?php endif; ?>
 		<?php if($random): ?> data-cycle-random="true" <?php endif; ?>
 		<?php if($pause_on_hover): ?> data-cycle-pause-on-hover="true" <?php endif; ?>
+		<?php if($paused): ?> data-cycle-paused="true" <?php endif; ?>
+		<?php if($prev_next): ?> data-cycle-prev=".easy-t-cycle-prev"  data-cycle-next=".easy-t-cycle-next" <?php endif; ?>
 	>
 	<?php
 	
@@ -1247,7 +1268,7 @@ function outputTestimonialsCycle($atts){
 		$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
 		$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 
 		
-		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other);
+		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other,$width);
 		
 		if($counter%$testimonials_per_slide == 0){
 			?></div><?php
@@ -1264,6 +1285,13 @@ function outputTestimonialsCycle($atts){
 	?>
 	</div>
 	<?php
+	
+	//display previous and next buttons
+	//do it after the closing div so it is outside of the slideshow container
+	if($prev_next){
+		?><div class="cycle-prev easy-t-cycle-prev">&lt;&lt; Prev </div>
+		<div class="cycle-next easy-t-cycle-next">Next &gt;&gt;</div><?php
+	}
 	
 	$content = ob_get_contents();
 	ob_end_clean();	
@@ -1287,7 +1315,7 @@ function easy_t_build_classes_from_atts($atts = array()){
 //given a full set of data for a testimonial
 //assemble the html for that testimonial
 //taking into account current options
-function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=false,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date=false,$show_rating=false,$show_other=false){
+function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=false,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date=false,$show_rating=false,$show_other=false,$width=false){
 /* scheme.org example
  <div itemprop="review" itemscope itemtype="http://schema.org/Review">
     <span itemprop="name">Not a happy camper</span> -
@@ -1313,8 +1341,10 @@ function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=fa
  
 	$output_theme = easy_t_get_theme_class($theme);
 	$testimonial_body_css = easy_testimonials_build_typography_css('easy_t_body_');	
+	$width = $width ? 'style="width: ' . $width . '"' : get_option('easy_t_width','');
+	
 ?>
-	<div class="<?php echo $output_theme; ?> <?php echo $attribute_classes; ?> easy_t_single_testimonial">
+	<div class="<?php echo $output_theme; ?> <?php echo $attribute_classes; ?> easy_t_single_testimonial" <?php echo $width; ?>>
 		<blockquote itemprop="review" itemscope itemtype="http://schema.org/Review" class="easy_testimonial" style="<?php echo $testimonial_body_css; ?>">
 			<?php if ($show_thumbs) {
 				echo $testimonial['image'];
