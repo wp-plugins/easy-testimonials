@@ -141,17 +141,34 @@ function ezt_add_attribute($key, $val, $orderby, $use_slider, $use_pagination, $
 			return '';
 		}	
 	}
+	else if ($key == 'prev_next') {
+		return ($use_slider && $val == 1) ? " prev_next='1'" : '';
+	}
+	else if ($key == 'paused') {
+		if ($use_slider && $val == 1) {
+			return " paused='1'";
+		} else {
+			return '';
+		}	
+	}
 	else if ($key == 'show_title') {
 		return ($val == 1) ? " show_title='1'" : '';
 	}
 	else if ($key == 'auto_fit_container') {
-		return ($use_slider && $val == 1) ? " container='1'" : '';
+		if($use_slider){
+			return ($val == 1) ? " container='1'" : " container='calc'";
+		} else {
+			return '';
+		}
 	}
 	else if ($key == 'show_thumbs') {
 		return ($val == 1) ? " show_thumbs='1'" : '';
 	}
 	else if ($key == 'count') {
 		return ($val > 1) ? " count='" + $val + "'" : '';
+	}
+	else if ($key == 'width') {
+		return ($val) ? " width='" + $val + "'" : '';
 	}
 	else if ($key == 'testimonials_per_slide') {
 		return ($use_slider && $val > 1) ? " testimonials_per_slide='" + $val + "'" : '';
@@ -164,6 +181,9 @@ function ezt_add_attribute($key, $val, $orderby, $use_slider, $use_pagination, $
 	}
 	else if ($key == 'show_date') {
 		return ($val == 1) ? " show_date='1'" : '';
+	}
+	else if ($key == 'show_other') {
+		return ($val == 1) ? " show_other='1'" : '';
 	}
 	else if ($key == 'orderby') {
 		//don't add orderby attribute to the random_testimonial shortcode or testimonial_cycle random=true
@@ -226,6 +246,7 @@ function ezt_build_shortcode()
 	var $atts = [];
 	var $str = '';
 	$atts['count'] = ezt_get_value_from_input('#sc_gen_count', 10, 'int');
+	$atts['width'] = ezt_get_value_from_input('#sc_gen_width', '100%');
 	$atts['orderby'] = ezt_get_value_from_input('#sc_gen_order_by', 'id');
 	$atts['order'] = ezt_get_value_from_input('#sc_gen_order_dir', 'ASC');
 	$atts['category'] = ezt_get_value_from_input('#sc_gen_category', 'all');
@@ -235,6 +256,7 @@ function ezt_build_shortcode()
 	$atts['show_thumbs'] = ezt_get_value_from_input('#sc_gen_show_thumbs', 0, 'yes_or_no_to_0_or_1');
 	$atts['show_rating'] = ezt_get_value_from_input("input[name='sc_gen_show_ratings']:checked", 'hide');
 	$atts['show_date'] = ezt_get_value_from_input('#sc_gen_show_date', 0, 'yes_or_no_to_0_or_1');
+	$atts['show_other'] = ezt_get_value_from_input('#sc_gen_show_other', 0, 'yes_or_no_to_0_or_1');
 	$atts['use_slider'] = ezt_get_value_from_input('#sc_gen_use_slider', 0, 'yes_or_no_to_0_or_1');
 	$atts['transition'] = ezt_get_value_from_input('#sc_gen_transition', 'fade');
 	$atts['paginate'] = ezt_get_value_from_input('#sc_gen_paginate', 0, 'yes_or_no_to_0_or_1');
@@ -242,7 +264,9 @@ function ezt_build_shortcode()
 	$atts['timer'] = ezt_get_value_from_input('#sc_gen_slider_timer', 4000, 'convert_to_milliseconds');
 	$atts['testimonials_per_slide'] = ezt_get_value_from_input('#sc_gen_slider_testimonials_per_slide', 1, 'int');
 	$atts['pager'] = ezt_get_value_from_input('#sc_gen_show_pager', 0, 'yes_or_no_to_0_or_1');
-	$atts['auto_fit_container'] = ezt_get_value_from_input('#sc_gen_auto_fit_container', 0, 'yes_or_no_to_0_or_1');
+	$atts['prev_next'] = ezt_get_value_from_input('#sc_gen_show_prev_next', 0, 'yes_or_no_to_0_or_1');
+	$atts['paused'] = ezt_get_value_from_input('#sc_gen_paused', 0, 'yes_or_no_to_0_or_1');
+	$atts['auto_fit_container'] = ezt_get_value_from_input("input[name='sc_gen_auto_fit']:checked", 1, 'yes_or_no_to_0_or_1');
 	
 	// begin with either "[testimonials", "[random_testimonial", or "[testimonial_cycle"
 	$str = '[';

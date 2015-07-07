@@ -44,22 +44,25 @@ if (!class_exists('Easy_Testimonials_GoldPlugins_BikeShed'))
 			}		
 		}
 
-		function admin_enqueue_scripts()
-		{
-			wp_enqueue_script( 'wp-color-picker' );
-			wp_enqueue_style( 'wp-color-picker' );
-			
-			$chosen_js = plugins_url('chosen/chosen.jquery.min.js', __FILE__);
-			$chosen_css = plugins_url('chosen/chosen.min.css', __FILE__);
+		function admin_enqueue_scripts($hook)
+		{			
+			//RWG: only enqueue scripts and styles on Easy T pages
+			if(strpos($hook,'easy-testimonials')!==false){				
+				wp_enqueue_script( 'wp-color-picker' );
+				wp_enqueue_style( 'wp-color-picker' );
+				
+				$chosen_js = plugins_url('chosen/chosen.jquery.min.js', __FILE__);
+				$chosen_css = plugins_url('chosen/chosen.min.css', __FILE__);
 
-			$bikeshed_js = plugins_url('js/bikeshed.js', __FILE__);
-			$bikeshed_css = plugins_url('css/bikeshed.css', __FILE__);
+				$bikeshed_js = plugins_url('js/bikeshed.js', __FILE__);
+				$bikeshed_css = plugins_url('css/bikeshed.css', __FILE__);
 
-			wp_enqueue_script( 'chosen', $chosen_js, array( 'jquery' ), '1.0' );
-			wp_enqueue_style( 'chosen', $chosen_css );
+				wp_enqueue_script( 'chosen', $chosen_js, array( 'jquery' ), '1.0' );
+				wp_enqueue_style( 'chosen', $chosen_css );
 
-			wp_enqueue_script( 'bikeshed_js', $bikeshed_js, array( 'jquery', 'chosen' ), '1.0' );
-			wp_enqueue_style( 'bikeshed_css', $bikeshed_css );			
+				wp_enqueue_script( 'bikeshed_js', $bikeshed_js, array( 'jquery', 'chosen' ), '1.0' );
+				wp_enqueue_style( 'bikeshed_css', $bikeshed_css );			
+			}
 		}	
 
 		function start_row($label = '', $label_for = '', $plain_label = false)

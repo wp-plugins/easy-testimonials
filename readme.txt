@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.2.2
-Stable tag: 1.29
+Stable tag: 1.29.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,6 +25,7 @@ The GoldPlugins team does not provide direct support for the Easy Testimonials p
 * Outputting a Fading or Sliding Testimonial Widget
 * Able To Use Multiple Testimonial Themes on the Same Page!
 * Developers love our Filters!
+* Responsive Themes!
 * Displaying an Image with a Testimonial
 * Displaying a Testimonial with a Rating
 * Displaying Testimonials using Schema.org compliant markup
@@ -308,6 +309,13 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 7. This is the Testimonial Cycle Widget.
 
 == Changelog ==
+
+= 1.29.1 =
+* Update default text for third custom field.
+* Update schema.org markup to properly identify the itemReviewed, if set.
+* Update star ratings to output schema.org rating markup.
+* Update admin script includes to be compatible with Sonec themes.
+* Shortcode Generator Updates.
 
 = 1.29 =
 * Adds new slideshow options, including previous and next buttons and option to disable auto transition.
@@ -658,4 +666,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-* 1.29: Adds new slideshow options; responsive updates; width options; bug fixes.
+* 1.29.1: Fixes, schema.org updates, compatibility updates.

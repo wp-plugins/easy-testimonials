@@ -651,6 +651,18 @@ class easyTestimonialOptions
 								</label>
 							</div>
 						</td>
+					</tr>	
+					
+					<tr>
+						<th scope="row">
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_width">Testimonial Width</label>
+							</div>
+						</th>
+						<td>
+							<input type="text" id="sc_gen_width" value="<?php echo get_option('easy_t_width',''); ?>" />
+							<p class="description">Set the desired width of the testimonial, here.  If none is set, Testimonials will attempt to size to the width of their container.  For example: 500px</p>
+						</td>
 					</tr>
 					
 					<tr>
@@ -867,18 +879,46 @@ class easyTestimonialOptions
 							<input type="text" class="valid_int" id="sc_gen_slider_testimonials_per_slide" value="1" />
 							<p class="description">The number of Testimonials to show on each slide</p>
 						</td>
-					</tr>			
+					</tr>		
 					
 
 					<tr class="slider_option">
 						<th scope="row">
-							Show Pager
+							Disable Auto Transition
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_paused">
+									<input type="checkbox" class="checkbox" id="sc_gen_paused" value="yes" />
+									Disable Automatic Transitions (requires Pager Icons or Previous and Next Buttons to advance slides.)
+								</label>
+							</div>
+						</td>
+					</tr>						
+
+					<tr class="slider_option">
+						<th scope="row">
+							Show Pager Icons
 						</th>
 						<td>							
 							<div class="sc_gen_control_group">
 								<label for="sc_gen_show_pager">
 									<input type="checkbox" class="checkbox" id="sc_gen_show_pager" value="yes" />
-									Show A Pager Below My Testimonials
+									Show Pager Icons Below My Testimonials
+								</label>
+							</div>
+						</td>
+					</tr>					
+
+					<tr class="slider_option">
+						<th scope="row">
+							Show Previous and Next Buttons
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_show_prev_next">
+									<input type="checkbox" class="checkbox" id="sc_gen_show_prev_next" value="yes" />
+									Show Previous and Next Buttons Below My Slideshow
 								</label>
 							</div>
 						</td>
@@ -886,13 +926,17 @@ class easyTestimonialOptions
 					
 					<tr class="slider_option">
 						<th scope="row">
-							Auto Fit Container
+							Auto Height Options
 						</th>
-						<td>							
-							<div class="sc_gen_control_group">
-								<label for="sc_gen_auto_fit_container">
-									<input type="checkbox" class="checkbox" id="sc_gen_auto_fit_container" value="yes" />
-									Automatically adjust the height of the slider to fit each testimonial
+						<td>
+							<div class="sc_gen_control_group sc_gen_control_group_radio">
+								<label title="Auto Adjust Height">
+									<input type="radio" value="yes" id="sc_gen_auto_fit_container" name="sc_gen_auto_fit" checked="checked">
+									<span>Automatically adjust the height of the slider to fit each testimonial</span>
+								</label>
+								<label title="Calculate Tallest Height">
+									<input type="radio" value="no" id="sc_gen_auto_fit_calc" name="sc_gen_auto_fit">
+									<span>Automatically set the height of the slider to fit the tallest testimonial</span>
 								</label>
 							</div>
 						</td>

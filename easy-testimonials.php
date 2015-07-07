@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.29
+Version: 1.29.1
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -394,7 +394,7 @@ function submitTestimonialForm($atts){
 							<div class="easy_t_field_wrap">
 								<label for="the-other-other"><?php echo get_option('easy_t_other_other_field_label','Location / Product Reviewed / Other'); ?></label><br />
 								<input type="text" id="the-other-other" value="" tabindex="3" size="20" name="the-other-other" />
-								<p class="easy_t_description"><?php echo get_option('easy_t_other_other_field_description','Please enter your Job Title or Website address.'); ?></p>
+								<p class="easy_t_description"><?php echo get_option('easy_t_other_other_field_description','Please enter your the name of the item you are Reviewing.');?>
 							</div>
 							<?php endif; ?>
 							<?php if(!get_option('easy_t_hide_category_field',false)): ?>
@@ -548,7 +548,7 @@ function easy_testimonials_setup_testimonials(){
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
 	$fields[] = array('name' => 'other', 'title' => 'Location / Product Reviewed / Other', 'description' => "The information that appears below the second custom field, Postion / Location / Other.", 'type' => 'text');  
 	$fields[] = array('name' => 'rating', 'title' => 'Rating', 'description' => "The client's rating, if submitted along with their testimonial.  This can be displayed below the client's position, or name if the position is hidden, or it can be displayed above the testimonial text.", 'type' => 'text');  
-	$fields[] = array('name' => 'htid', 'title' => 'HTID', 'description' => "Please leave this alone -- this field should never be publicly displayed.");  
+	//$fields[] = array('name' => 'htid', 'title' => 'HTID', 'description' => "Please leave this alone -- this field should never be publicly displayed.");  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
 	register_taxonomy( 'easy-testimonial-category', 'testimonial', array( 'hierarchical' => true, 'label' => __('Testimonial Category'), 'rewrite' => array('slug' => 'testimonial-category', 'with_front' => true) ) ); 
 	
@@ -1315,7 +1315,7 @@ function easy_t_build_classes_from_atts($atts = array()){
 //given a full set of data for a testimonial
 //assemble the html for that testimonial
 //taking into account current options
-function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=false,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date=false,$show_rating=false,$show_other=false,$width=false){
+function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=false,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date=false,$show_rating=false,$show_other=true,$width=false){
 /* scheme.org example
  <div itemprop="review" itemscope itemtype="http://schema.org/Review">
     <span itemprop="name">Not a happy camper</span> -
@@ -1386,14 +1386,19 @@ function easy_testimonials_build_metadata_html($testimonial, $author_class, $sho
 		<cite>
 			<span class="testimonial-client" itemprop="author" style="<?php echo $client_css; ?>"><?php echo $testimonial['client'];?>&nbsp;</span>
 			<span class="testimonial-position" style="<?php echo $position_css; ?>"><?php echo $testimonial['position'];?>&nbsp;</span>
-			<?php if(strlen($testimonial['other'])>1): ?><span class="testimonial-other"><?php echo $testimonial['other'];?>&nbsp;</span><?php endif; ?>
+			<?php if($show_other && strlen($testimonial['other'])>1): ?>
+					<span class="testimonial-other" itemprop="itemReviewed"><?php echo $testimonial['other'];?>&nbsp;</span>
+			<?php endif; ?>
 			<?php if($show_date): ?>
 				<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>" style="<?php echo $date_css; ?>"><?php echo $testimonial['date'];?>&nbsp;</span>
 			<?php endif; ?>
 			<?php if($show_rating == "stars"): ?>
 				<?php if(strlen($testimonial['num_stars'])>0): ?>
-				<span class="stars">
-				<?php 
+				<span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" class="stars">
+				<meta itemprop="worstRating" content="1"/>
+				<meta itemprop="ratingValue" content="<?php echo $testimonial['num_stars']; ?>"/>
+				<meta itemprop="bestRating" content="5"/>
+				<?php			
 					$x = 5; //total available stars
 					//output dark stars for the filled in ones
 					for($i = 0; $i < $testimonial['num_stars']; $i ++){
@@ -1456,24 +1461,27 @@ function easy_testimonials_register_widgets() {
 	register_widget( 'cycledTestimonialWidget' );
 }
 
-function easy_testimonials_admin_init()
-{
-	wp_register_style( 'easy_testimonials_admin_stylesheet', plugins_url('include/css/admin_style.css', __FILE__) );
-	wp_enqueue_style( 'easy_testimonials_admin_stylesheet' );
-	wp_enqueue_script(
-		'easy-testimonials-admin',
-		plugins_url('include/js/easy-testimonials-admin.js', __FILE__),
-		array( 'jquery' ),
-		false,
-		true
-	); 
-	wp_enqueue_script(
-		'gp-admin_v2',
-		plugins_url('include/js/gp-admin_v2.js', __FILE__),
-		array( 'jquery' ),
-		false,
-		true
-	);	
+function easy_testimonials_admin_init($hook)
+{	
+	//RWG: only enqueue scripts and styles on Easy T admin pages
+	if(strpos($hook,'easy-testimonials')!==false){			
+		wp_register_style( 'easy_testimonials_admin_stylesheet', plugins_url('include/css/admin_style.css', __FILE__) );
+		wp_enqueue_style( 'easy_testimonials_admin_stylesheet' );
+		wp_enqueue_script(
+			'easy-testimonials-admin',
+			plugins_url('include/js/easy-testimonials-admin.js', __FILE__),
+			array( 'jquery' ),
+			false,
+			true
+		); 
+		wp_enqueue_script(
+			'gp-admin_v2',
+			plugins_url('include/js/gp-admin_v2.js', __FILE__),
+			array( 'jquery' ),
+			false,
+			true
+		);	
+	}
 }
 
 //check for installed plugins with known conflicts
@@ -1985,7 +1993,7 @@ add_action( 'widgets_init', 'easy_testimonials_register_widgets' );
 
 //do stuff
 add_action( 'init', 'easy_testimonials_setup_testimonials' );
-add_action( 'admin_init', 'easy_testimonials_admin_init' );
+add_action( 'admin_enqueue_scripts', 'easy_testimonials_admin_init' );
 add_action( 'admin_enqueue_scripts', 'easy_testimonials_conflict_check' );
 
 add_filter('manage_testimonial_posts_columns', 'easy_t_column_head', 10);  
