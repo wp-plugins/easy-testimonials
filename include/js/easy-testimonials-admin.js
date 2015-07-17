@@ -156,7 +156,7 @@ function ezt_add_attribute($key, $val, $orderby, $use_slider, $use_pagination, $
 	}
 	else if ($key == 'auto_fit_container') {
 		if($use_slider){
-			return ($val == 1) ? " container='1'" : " container='calc'";
+			return ($val == 1) ? " auto_height='container'" : " auto_height='calc'";
 		} else {
 			return '';
 		}

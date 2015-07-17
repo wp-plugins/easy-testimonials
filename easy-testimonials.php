@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.29.1
+Version: 1.30
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -274,7 +274,7 @@ function submitTestimonialForm($atts){
         // process form submissions
         $inserted = false;
        
-        if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] )) {
+        if( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POST['action'] == "post_testimonial" ) {
 			if(isValidKey()){  
 				$do_not_insert = false;
 				
@@ -306,6 +306,7 @@ function submitTestimonialForm($atts){
 					$the_other_other = isset($_POST['the-other-other']) ? $_POST['the-other-other'] : '';
 					$the_name = isset($_POST['the-name']) ? $_POST['the-name'] : '';
 					$the_rating = isset($_POST['the-rating']) ? $_POST['the-rating'] : '';
+					$the_email = isset($_POST['the-email']) ? $_POST['the-email'] : '';
 					$the_category = isset($_POST['the-category']) ? $_POST['the-category'] : "";
 					
 					$tags = array();
@@ -330,6 +331,7 @@ function submitTestimonialForm($atts){
 					update_post_meta( $new_id, '_ikcf_position', $the_other );
 					update_post_meta( $new_id, '_ikcf_other', $the_other_other );
 					update_post_meta( $new_id, '_ikcf_rating', $the_rating );
+					update_post_meta( $new_id, '_ikcf_email', $the_email );
 				   
 				   //collect info for notification e-mail
 				   $submitted_testimonial = array(
@@ -337,7 +339,8 @@ function submitTestimonialForm($atts){
 						'the_name' => $the_name,
 						'the_other' => $the_other,
 						'the_other_other' => $the_other_other,
-						'the_rating' => $the_rating
+						'the_rating' => $the_rating,
+						'the_email' => $the_email
 				   );
 				   
 					$inserted = true;
@@ -381,6 +384,13 @@ function submitTestimonialForm($atts){
 								<label for="the-name"><?php echo get_option('easy_t_name_field_label','Name'); ?></label><br />
 								<input type="text" id="the-name" value="" tabindex="2" size="20" name="the-name" />
 								<p class="easy_t_description"><?php echo get_option('easy_t_name_field_description','Please enter your Full Name.'); ?></p>
+							</div>
+							<?php endif; ?>
+							<?php if(!get_option('easy_t_hide_email_field',false)): ?>
+							<div class="easy_t_field_wrap">
+								<label for="the-email"><?php echo get_option('easy_t_email_field_label','Your E-Mail Address'); ?></label><br />
+								<input type="text" id="the-email" value="" tabindex="2" size="20" name="the-email" />
+								<p class="easy_t_description"><?php echo get_option('easy_t_email_field_description','Please enter your e-mail address.  This information will not be publicly displayed.'); ?></p>
 							</div>
 							<?php endif; ?>
 							<?php if(!get_option('easy_t_hide_position_web_other_field',false)): ?>
@@ -439,7 +449,7 @@ function submitTestimonialForm($atts){
 							<?php if(class_exists('ReallySimpleCaptcha') && get_option('easy_t_use_captcha',0)){ easy_t_outputCaptcha(); } ?>
 							
 							<div class="easy_t_field_wrap"><input type="submit" value="<?php echo get_option('easy_t_submit_button_label','Submit Testimonial'); ?>" tabindex="7" id="submit" name="submit" /></div>
-							<input type="hidden" name="action" value="post" />
+							<input type="hidden" name="action" value="post_testimonial" />
 							<?php wp_nonce_field( 'new-post' ); ?>
 					</form>
 			</div>
@@ -544,7 +554,8 @@ function easy_testimonials_setup_testimonials(){
 	//setup post type for testimonials
 	$postType = array('name' => 'Testimonial', 'plural' =>'Testimonials', 'slug' => 'testimonial', 'exclude_from_search' => !get_option('easy_t_show_in_search', true));
 	$fields = array(); 
-	$fields[] = array('name' => 'client', 'title' => 'Client Name', 'description' => "Name of the Client giving the testimonial.  Appears below the Testimonial.", 'type' => 'text'); 
+	$fields[] = array('name' => 'client', 'title' => 'Client Name', 'description' => "Name of the Client giving the testimonial.  Appears below the Testimonial.", 'type' => 'text');
+	$fields[] = array('name' => 'email', 'title' => 'E-Mail Address', 'description' => "The client's e-mail address.  This field is used to check for a Gravatar, if that option is enabled in your settings.", 'type' => 'text'); 
 	$fields[] = array('name' => 'position', 'title' => 'Position / Location / Other', 'description' => "The information that appears below the client's name.", 'type' => 'text');  
 	$fields[] = array('name' => 'other', 'title' => 'Location / Product Reviewed / Other', 'description' => "The information that appears below the second custom field, Postion / Location / Other.", 'type' => 'text');  
 	$fields[] = array('name' => 'rating', 'title' => 'Rating', 'description' => "The client's rating, if submitted along with their testimonial.  This can be displayed below the client's position, or name if the position is hidden, or it can be displayed above the testimonial text.", 'type' => 'text');  
@@ -723,15 +734,7 @@ function outputRandomTestimonial($atts){
 		}
 		
 		if ($show_thumbs) {
-			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
-			if(strlen($testimonial_image_size) < 2){
-				$testimonial_image_size = "easy_testimonial_thumb";
-			}
-			
-			$testimonials[$i]['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
-			if (strlen($testimonials[$i]['image']) < 2 && get_option('easy_t_mystery_man')){
-				$testimonials[$i]['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_mystery_man" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
-			}
+			$testimonials[$i]['image'] = build_testimonial_image($postid);
 		}
 		
 		$testimonials[$i]['title'] = get_the_title($postid);	
@@ -838,15 +841,7 @@ function outputSingleTestimonial($atts){
 		}
 		
 		if ($show_thumbs) {		
-			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
-			if(strlen($testimonial_image_size) < 2){
-				$testimonial_image_size = "easy_testimonial_thumb";
-			}
-			
-			$testimonial['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
-			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
-				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_mystery_man" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
-			}
+			$testimonial['image'] = build_testimonial_image($postid);
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
@@ -949,15 +944,7 @@ function outputTestimonials($atts){
 		}
 		
 		if ($show_thumbs) {		
-			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
-			if(strlen($testimonial_image_size) < 2){
-				$testimonial_image_size = "easy_testimonial_thumb";
-			}
-		
-			$testimonial['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
-			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
-				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_mystery_man" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
-			}
+			$testimonial['image'] = build_testimonial_image($postid);
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
@@ -1076,15 +1063,7 @@ function outputAllThemes($atts){
 		}
 		
 		if ($show_thumbs) {		
-			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
-			if(strlen($testimonial_image_size) < 2){
-				$testimonial_image_size = "easy_testimonial_thumb";
-			}
-		
-			$testimonial['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
-			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
-				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_mystery_man" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
-			}
+			$testimonial['image'] = build_testimonial_image($postid);
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
@@ -1253,15 +1232,7 @@ function outputTestimonialsCycle($atts){
 		}
 		
 		if ($show_thumbs) {		
-			$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
-			if(strlen($testimonial_image_size) < 2){
-				$testimonial_image_size = "easy_testimonial_thumb";
-			}
-		
-			$testimonial['image'] = get_the_post_thumbnail($postid, $testimonial_image_size);
-			if (strlen($testimonial['image']) < 2 && get_option('easy_t_mystery_man')){
-				$testimonial['image'] = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_mystery_man" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
-			}
+			$testimonial['image'] = build_testimonial_image($postid);
 		}
 		
 		$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
@@ -1372,6 +1343,69 @@ function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=fa
 }
 
 /*
+ * Assemble the HTML for the Testimonial Image taking into account current options
+ */		
+function build_testimonial_image($postid){
+	//load image size settings
+	$testimonial_image_size = isValidKey() ? get_option('easy_t_image_size') : "easy_testimonial_thumb";
+	if(strlen($testimonial_image_size) < 2){
+		$testimonial_image_size = "easy_testimonial_thumb";		
+		$width = 50;
+        $height = 50;
+	} else {		
+		//one of the default sizes, load using get_option
+		if( in_array( $testimonial_image_size, array( 'thumbnail', 'medium', 'large' ) ) ){
+			$width = get_option( $testimonial_image_size . '_size_w' );
+			$height = get_option( $testimonial_image_size . '_size_h' );
+		//size added by theme, user, or plugin
+		//load using additional image sizes global
+		}else{
+			global $_wp_additional_image_sizes;
+			
+			if( isset( $_wp_additional_image_sizes ) && isset( $_wp_additional_image_sizes[ $testimonial_image_size ] ) ){
+				$width = $_wp_additional_image_sizes[ $testimonial_image_size ]['width'];
+				$height = $_wp_additional_image_sizes[ $testimonial_image_size ]['height'];
+			}
+		}
+	}
+	
+	//use whichever of the two dimensions is larger
+	$size = ($width > $height) ? $width : $height;
+
+	//load testimonial's featured image
+	$image = get_the_post_thumbnail($postid, $testimonial_image_size);
+	
+	//if no featured image is set
+	if (strlen($image) < 2){ 
+		//if use mystery man is set
+		if (get_option('easy_t_mystery_man', 1)){
+			//check and see if gravatars are enabled
+			if(get_option('easy_t_gravatar', 1)){
+				//if so, set image path to match desired gravatar with the mystery man as a fallback
+				$client_email = get_post_meta($postid, '_ikcf_email', true); 
+				$gravatar = md5(strtolower(trim($client_email)));
+				$mystery_man = urlencode(plugins_url('include/css/mystery_man.png', __FILE__));
+				
+				$image = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_gravatar" src="//www.gravatar.com/avatar/' . $gravatar . '?d=' . $mystery_man . '&s=' . $size . '" />';
+			} else {
+				//if not, just use the mystery man
+				$image = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_mystery_man" src="' . plugins_url('include/css/mystery_man.png', __FILE__) . '" />';
+			}
+		//else if gravatar is set
+		} else if(get_option('easy_t_gravatar', 1)){
+			//if set, set image path to match gravatar without using the mystery man as a fallback
+			$client_email = get_post_meta($postid, '_ikcf_email', true); 
+			$gravatar = md5(strtolower(trim($client_email)));
+			$mystery_man = urlencode(plugins_url('include/css/mystery_man.png', __FILE__));
+			
+			$image = '<img class="attachment-easy_testimonial_thumb wp-post-image easy_testimonial_gravatar" src="//www.gravatar.com/avatar/' . $gravatar . '?s=' . $size . '" />';
+		}
+	}
+	
+	return $image;
+}
+ 
+/*
  *  Assemble the html for the testimonials metadata taking into account current options
  */
 function easy_testimonials_build_metadata_html($testimonial, $author_class, $show_date, $show_rating, $show_other)
@@ -1455,10 +1489,16 @@ function easy_testimonials_rewrite_flush() {
 //register any widgets here
 function easy_testimonials_register_widgets() {
 	include('include/widgets/random_testimonial_widget.php');
+	include('include/widgets/single_testimonial_widget.php');
 	include('include/widgets/testimonial_cycle_widget.php');
+	include('include/widgets/testimonial_list_widget.php');
+	include('include/widgets/submit_testimonial_widget.php');
 
 	register_widget( 'randomTestimonialWidget' );
 	register_widget( 'cycledTestimonialWidget' );
+	register_widget( 'listTestimonialsWidget' );
+	register_widget( 'singleTestimonialWidget' );
+	register_widget( 'submitTestimonialWidget' );
 }
 
 function easy_testimonials_admin_init($hook)

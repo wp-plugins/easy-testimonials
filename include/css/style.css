@@ -21,3 +21,7 @@ div.easy-t-cycle-next{
 	cursor: pointer;
 	float: right;
 }
+.easy_t_single_testimonial blockquote p span.testimonial-client,
+.easy_t_single_testimonial blockquote p span.testimonial-position{
+	width: auto !important;
+}

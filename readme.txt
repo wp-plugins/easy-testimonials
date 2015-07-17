@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.2.2
-Stable tag: 1.29.1
+Stable tag: 1.30
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -307,8 +307,14 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 5. This is the Submission Form Settings Page.
 6. This is the Random Testimonial Widget.
 7. This is the Testimonial Cycle Widget.
+8. This is the Testimonial List Widget.
 
 == Changelog ==
+
+= 1.30 =
+* Shortcode Generator Updates, Fixes
+* Adds Gravatar Support
+* Adds Widgets: List Testimonials, Single Testimonial, Submit Testimonial
 
 = 1.29.1 =
 * Update default text for third custom field.
@@ -666,4 +672,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-* 1.29.1: Fixes, schema.org updates, compatibility updates.
+* 1.30: Shortcode Generator Updates, Fixes, Gravatar Support, Adds Widgets

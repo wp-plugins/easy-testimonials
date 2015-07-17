@@ -98,7 +98,10 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_position_web_other_field' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_other_other_field' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_category_field' );
-		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_name_field' );		
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_name_field' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_email_field' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_email_field_label' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_email_field_description' );		
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_captcha' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_image_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_image_field_description' );	
@@ -150,6 +153,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-display-settings-group', 'testimonials_image' );
 		register_setting( 'easy-testimonials-display-settings-group', 'meta_data_position' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_mystery_man' );
+		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_gravatar' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_image_size' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_width' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_cache_buster', array($this, 'easy_t_bust_options_cache') );
@@ -512,9 +516,15 @@ class easyTestimonialOptions
 					</td>
 				</tr>
 				<tr valign="top">
+					<th scope="row"><label for="easy_t_gravatar">Use Gravatar</label></th>
+					<td><input type="checkbox" name="easy_t_gravatar" id="easy_t_gravatar" value="1" <?php if(get_option('easy_t_gravatar', true)){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, and you are displaying Testimonial Images, we will use a Gravatar if one is found matching the E-Mail Address on the Testimonial.</p>
+					</td>
+				</tr>
+				<tr valign="top">
 					<th scope="row"><label for="easy_t_mystery_man">Use Mystery Man</label></th>
 					<td><input type="checkbox" name="easy_t_mystery_man" id="easy_t_mystery_man" value="1" <?php if(get_option('easy_t_mystery_man', true)){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, we and you are displaying Testimonial Images, the Mystery Man avatar will be used for any missing images.</p>
+					<p class="description">If checked, and you are displaying Testimonial Images, the Mystery Man avatar will be used for any missing images.</p>
 					</td>
 				</tr>
 			</table>
@@ -1018,6 +1028,36 @@ class easyTestimonialOptions
 					<th scope="row"><label for="easy_t_hide_name_field">Disable "Name" Field Display</label></th>
 					<td><input type="checkbox" name="easy_t_hide_name_field" id="easy_t_hide_name_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_name_field', 0)){ ?> checked="CHECKED" <?php } ?>/>
 					<p class="description">If checked, the name field will not be displayed in the form .</p>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		
+		<fieldset>
+			<legend>E-Mail Field:</legend>		
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_email_field_label">"E-Mail" Field Label</label></th>
+					<td><input type="text" name="easy_t_email_field_label" id="easy_t_email_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_email_field_label', 'Your E-Mail Address'); ?>"  style="width: 250px" />
+					<p class="description">This is the label of the client email field in the form, shown after the "Name" field, which defaults to "E-Mail."  Contents of this field will be passed through to the E-Mail Address field inside WordPress.</p>
+					</td>
+				</tr>
+			</table>
+						
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_email_field_description">"E-Mail" Field Description</label></th>
+					<td><textarea name="easy_t_email_field_description" id="easy_t_email_field_description" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?>><?php echo get_option('easy_t_email_field_description', 'Please enter your e-mail address.  This information will not be publicly displayed.'); ?></textarea>
+					<p class="description">This is the description below the E-Mail field.</p>
+					</td>
+				</tr>
+			</table>
+			
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_hide_email_field">Disable "E-Mail" Field Display</label></th>
+					<td><input type="checkbox" name="easy_t_hide_email_field" id="easy_t_hide_email_field" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_hide_email_field', 0)){ ?> checked="CHECKED" <?php } ?>/>
+					<p class="description">If checked, the E-Mail Address field will not be displayed in the form .</p>
 					</td>
 				</tr>
 			</table>

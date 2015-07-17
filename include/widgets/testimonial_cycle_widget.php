@@ -22,7 +22,7 @@ class cycledTestimonialWidget extends WP_Widget
 {
 	function cycledTestimonialWidget(){
 		$widget_ops = array('classname' => 'cycledTestimonialWidget', 'description' => 'Displays a Testimonial cycle.' );
-		$this->WP_Widget('cycledTestimonialWidget', 'Easy Testimonial Cycle', $widget_ops);
+		$this->WP_Widget('cycledTestimonialWidget', 'Easy Testimonials Cycle', $widget_ops);
 	}
 
 	function form($instance){
