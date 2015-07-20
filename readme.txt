@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.2.2
-Stable tag: 1.30
+Stable tag: 1.30.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -310,6 +310,9 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 8. This is the Testimonial List Widget.
 
 == Changelog ==
+
+= 1.30.1 =
+* Quick Fix for CSS positioning issue with Client Name and Client Position.
 
 = 1.30 =
 * Shortcode Generator Updates, Fixes
@@ -672,4 +675,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-* 1.30: Shortcode Generator Updates, Fixes, Gravatar Support, Adds Widgets
+* 1.30.1: Quick Fix for CSS positioning issue with Client Name and Client Position.
