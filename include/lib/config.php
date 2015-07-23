@@ -25,39 +25,40 @@
 			'bubble_style-red-grey' => 'Bubble Style - Red Grey',
 			'bubble_style-purple-green' => 'Bubble Style - Purple Green'
 		),
-		'avatar-left-style' => array(
-			'avatar-left-style' => 'Avatar Left Style',
-			'avatar-left-style-blue-orange' => 'Avatar Left Style - Blue Orange',
-			'avatar-left-style-pink' => 'Avatar Left Style - Pink',
-			'avatar-left-style-brown' => 'Avatar Left Style - Brown',
-			'avatar-left-style-red-grey' => 'Avatar Left Style - Red Grey',
-			'avatar-left-style-purple-green' => 'Avatar Left Style - Purple Green'
-		),
 		'avatar-left-style-50x50' => array(
-			'avatar-left-style-50x50' => 'Avatar Left 50x50 Style',
-			'avatar-left-style-50x50-blue-orange' => 'Avatar Left 50x50 Style - Blue Orange',
-			'avatar-left-style-50x50-brown' => 'Avatar Left 50x50 Style - Brown',
-			'avatar-left-style-50x50-pink' => 'Avatar Left 50x50 Style - Pink',
-			'avatar-left-style-50x50-purple-green' => 'Avatar Left 50x50 Style - Purple Green',
-			'avatar-left-style-50x50-red-grey' => 'Avatar Left 50x50 Style - Red Grey'
+			'avatar-left-style-50x50' => 'Left Avatar - 50x50',
+			'avatar-left-style-50x50-blue-orange' => 'Left Avatar - 50x50 - Blue Orange',
+			'avatar-left-style-50x50-brown' => 'Left Avatar - 50x50 - Brown',
+			'avatar-left-style-50x50-pink' => 'Left Avatar - 50x50 - Pink',
+			'avatar-left-style-50x50-purple-green' => 'Left Avatar - 50x50 - Purple Green',
+			'avatar-left-style-50x50-red-grey' => 'Left Avatar - 50x50 - Red Grey'
 		),
-		'avatar-right-style' => array(
-			'avatar-right-style' => 'Avatar Right Style',
-			'avatar-right-style-blue-orange' => 'Avatar Right Style - Blue Orange',
-			'avatar-right-style-pink' => 'Avatar Right Style - Pink',
-			'avatar-right-style-brown' => 'Avatar Right Style - Brown',
-			'avatar-right-style-red-grey' => 'Avatar Right Style - Red Grey',
-			'avatar-right-style-purple-green' => 'Avatar Right Style - Purple Green'
+		'avatar-left-style' => array(
+			'avatar-left-style' => 'Left Avatar - 150x150',
+			'avatar-left-style-blue-orange' => 'Left Avatar - 150x150 - Blue Orange',
+			'avatar-left-style-pink' => 'Left Avatar - 150x150 - Pink',
+			'avatar-left-style-brown' => 'Left Avatar - 150x150 - Brown',
+			'avatar-left-style-red-grey' => 'Left Avatar - 150x150 - Red Grey',
+			'avatar-left-style-purple-green' => 'Left Avatar - 150x150 - Purple Green'
 		),
 		'avatar-right-style-50x50' => array(
-			'avatar-right-style-50x50' => 'Avatar Right 50x50 Style',
-			'avatar-right-style-50x50-blue-orange' => 'Avatar Right 50x50 Style - Blue Orange',
-			'avatar-right-style-50x50-brown' => 'Avatar Right 50x50 Style - Brown',
-			'avatar-right-style-50x50-pink' => 'Avatar Right 50x50 Style - Pink',
-			'avatar-right-style-50x50-purple-green' => 'Avatar Right 50x50 Style - Purple Green',
-			'avatar-right-style-50x50-red-grey' => 'Avatar Right 50x50 Style - Red Grey'
+			'avatar-right-style-50x50' => 'Right Avatar - 50x50',
+			'avatar-right-style-50x50-blue-orange' => 'Right Avatar - 50x50 - Blue Orange',
+			'avatar-right-style-50x50-brown' => 'Right Avatar - 50x50 - Brown',
+			'avatar-right-style-50x50-pink' => 'Right Avatar - 50x50 - Pink',
+			'avatar-right-style-50x50-purple-green' => 'Right Avatar - 50x50 - Purple Green',
+			'avatar-right-style-50x50-red-grey' => 'Right Avatar - 50x50 - Red Grey'
+		),
+		'avatar-right-style' => array(
+			'avatar-right-style' => 'Right Avatar - 150x150',
+			'avatar-right-style-blue-orange' => 'Right Avatar - 150x150 - Blue Orange',
+			'avatar-right-style-pink' => 'Right Avatar - 150x150 - Pink',
+			'avatar-right-style-brown' => 'Right Avatar - 150x150 - Brown',
+			'avatar-right-style-red-grey' => 'Right Avatar - 150x150 - Red Grey',
+			'avatar-right-style-purple-green' => 'Right Avatar - 150x150 - Purple Green'
 		),
 		'card_style' => array(
+			'card_style' => 'Card Style - Light Gray',
 			'card_style-tan' => 'Card Style - Tan',
 			'card_style-navy_blue' => 'Card Style - Navy Blue',
 			'card_style-plum' => 'Card Style - Plum',
@@ -65,7 +66,6 @@
 			'card_style-teal' => 'Card Style - Teal',
 			'card_style-forest_green' => 'Card Style - Forest Green',
 			'card_style-lavender' => 'Card Style - Lavender',
-			'card_style' => 'Card Style',
 			'card_style-salmon' => 'Card Style - Salmon',
 			'card_style-orange' => 'Card Style - Orange',
 			'card_style-purple' => 'Card Style - Purple',

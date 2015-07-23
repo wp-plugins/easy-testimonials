@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.30.1
+Version: 1.30.2
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -1503,8 +1503,10 @@ function easy_testimonials_register_widgets() {
 
 function easy_testimonials_admin_init($hook)
 {	
-	//RWG: only enqueue scripts and styles on Easy T admin pages
-	if(strpos($hook,'easy-testimonials')!==false){			
+	//RWG: only enqueue scripts and styles on Easy T admin pages or widgets page
+	$screen = get_current_screen();
+	
+	if ( strpos($hook,'easy-testimonials')!==false || $screen->id === "widgets" || is_customize_preview() ){
 		wp_register_style( 'easy_testimonials_admin_stylesheet', plugins_url('include/css/admin_style.css', __FILE__) );
 		wp_enqueue_style( 'easy_testimonials_admin_stylesheet' );
 		wp_enqueue_script(
