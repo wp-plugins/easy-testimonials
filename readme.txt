@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.2.3
-Stable tag: 1.30.2
+Stable tag: 1.30.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -310,6 +310,9 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 8. This is the Testimonial List Widget.
 
 == Changelog ==
+
+= 1.30.3 =
+* Fix: output correct labels for theme groups
 
 = 1.30.2 =
 * Add Theme Selection to Testimonials List Widget.
@@ -678,4 +681,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-* 1.30.2: Add Theme Selection to Testimonials List Widget.
+* 1.30.3: Fix: output correct labels for theme groups

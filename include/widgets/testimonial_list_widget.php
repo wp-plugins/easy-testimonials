@@ -258,7 +258,7 @@ class listTestimonialsWidget extends WP_Widget
 		echo $after_widget;
 	}
 	
-	function get_theme_group_label()
+	function get_theme_group_label($theme_group)
 	{
 		reset($theme_group);
 		$first_key = key($theme_group);
