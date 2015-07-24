@@ -26,51 +26,152 @@ class singleTestimonialWidget extends WP_Widget
 	}
 
 	function form($instance){
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'testimonial_id' => '', 'use_excerpt' => 0, 'show_title' => 0, 'show_rating' => false, 'show_date' => false, 'width' => false, 'show_other' => 0, 'show_testimonial_image' => 1 ) );
-		$title = $instance['title'];
+		
+		// load config
+		$curr_dir = dirname(dirname(__FILE__));
+		$config_path = $curr_dir . "/lib/config.php";
+		include ( $config_path );
+		$defaults = array(
+			'testimonial_id' => '',
+			'title' => '',
+			'count' => 5,
+			'show_title' => 0,
+			'category' => '',
+			'use_excerpt' => 0,
+			'show_rating' => false,
+			'show_date' => false,
+			'width' => false,
+			'show_testimonial_image' => 0,
+			'order' => 'ASC',
+			'order_by' => 'date',
+			'show_other' => 0,
+			'theme' => ''
+		);
+		$instance = wp_parse_args( (array) $instance, $defaults );
 		$testimonial_id = $instance['testimonial_id'];
+		$title = $instance['title'];
+		$count = $instance['count'];
 		$show_title = $instance['show_title'];
 		$show_rating = $instance['show_rating'];
-		$show_date = $instance['show_date'];
-		$show_other = $instance['show_other'];
 		$use_excerpt = $instance['use_excerpt'];
-		$show_testimonial_image = $instance['show_testimonial_image'];
+		$category = $instance['category'];
+		$show_date = $instance['show_date'];
 		$width = $instance['width'];
-				
+		$show_testimonial_image = $instance['show_testimonial_image'];
+		$order = $instance['order'];
+		$order_by = $instance['order_by'];
+		$show_other = $instance['show_other'];
+		$theme = $instance['theme'];
+		$testimonial_categories = get_terms( 'easy-testimonial-category', 'orderby=title&hide_empty=0' );				
+		$ip = isValidKey();
 		?>
-			<p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></label></p>
+		<div class="gp_widget_form_wrapper">
+			<p>
+				<label for="<?php echo $this->get_field_id('title'); ?>">Widget Title:</label>
+				<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
+			</p>			
+		
+			<?php 
+				$testimonials = get_posts('post_type=testimonial&posts_per_page=-1&nopaging=true');
+				
+			?>
+			<p>
+				<label for="<?php echo $this->get_field_id('testimonial_id'); ?>">Testimonial to Display</label>
+				<select id="<?php echo $this->get_field_id('testimonial_id'); ?>" name="<?php echo $this->get_field_name('testimonial_id'); ?>">
+				<?php if($testimonials): ?>
+					<?php foreach ( $testimonials as $testimonial  ) : ?>
+					<option value="<?php echo $testimonial->ID; ?>"  <?php if($testimonial_id == $testimonial->ID): ?> selected="SELECTED" <?php endif; ?>><?php echo $testimonial->post_title; ?></option>
+					<?php endforeach; ?>
+				<?php endif;?>
+				</select>
+			</p>
+
+			<p>
+				<label for="<?php echo $this->get_field_id('theme'); ?>">Theme:</label><br/>
+				<select name="<?php echo $this->get_field_name('theme'); ?>" id="<?php echo $this->get_field_id('theme'); ?>">	
+					<optgroup label="Free Themes">
+					<?php foreach($free_theme_array as $key => $theme_name): ?>
+						<option value="<?php echo $key ?>" <?php if($theme == $key): echo 'selected="SELECTED"'; endif; ?>><?php echo htmlentities($theme_name); ?></option>					
+					<?php endforeach; ?>
+					</optgroup>
+					<?php foreach($pro_theme_array as $group_key => $theme_group): ?>
+						<?php $group_label = $this->get_theme_group_label($theme_group); ?>
+							<?php if (!$ip): ?>
+							<optgroup  disabled="disabled" label="<?php echo htmlentities($group_label);?> (Pro)">
+							<?php else: ?>
+							<optgroup  label="<?php echo htmlentities($group_label);?>">
+							<?php endif; ?>
+							<?php foreach($theme_group as $key => $theme_name): ?>
+								<?php if (!$ip): ?>
+								<option disabled="disabled" value="<?php echo $key ?>" <?php if($theme == $key): echo 'selected="SELECTED"'; endif; ?>><?php echo htmlentities($theme_name); ?></option>
+								<?php else: ?>
+								<option value="<?php echo $key ?>" <?php if($theme == $key): echo 'selected="SELECTED"'; endif; ?>><?php echo htmlentities($theme_name); ?></option>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						</optgroup>
+					<?php endforeach; ?>
+				</select>
+				<?php if (!$ip): ?>
+				<br />
+				<em><a target="_blank" href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=wp_widgets&utm_campaign=widget_themes">Upgrade To Unlock All 75+ Pro Themes!</a></em>
+				<?php endif; ?>
+			</p>
 			
-			<?php $testimonials = get_posts('post_type=testimonial&posts_per_page=-1&nopaging=true'); ?>
-			<label for="<?php echo $this->get_field_id('testimonial_id'); ?>">Testimonial to Display</label>
-			<select id="<?php echo $this->get_field_id('testimonial_id'); ?>" name="<?php echo $this->get_field_name('testimonial_id'); ?>">
-			<?php if($testimonials) : foreach ( $testimonials as $testimonial  ) : ?>
-				<option value="<?php echo $testimonial->ID; ?>"  <?php if($testimonial_id == $testimonial->ID): ?> selected="SELECTED" <?php endif; ?>><?php echo $testimonial->post_title; ?></option>
-			<?php endforeach; endif;?>
-			 </select>
-			
-			<p><label for="<?php echo $this->get_field_id('show_title'); ?>">Show Testimonial Title: </label><input class="widefat" id="<?php echo $this->get_field_id('show_title'); ?>" name="<?php echo $this->get_field_name('show_title'); ?>" type="checkbox" value="1" <?php if($show_title){ ?>checked="CHECKED"<?php } ?>/></p>
-			
-			<p><label for="<?php echo $this->get_field_id('width'); ?>">Width: <input class="widefat" id="<?php echo $this->get_field_id('width'); ?>" name="<?php echo $this->get_field_name('width'); ?>" type="text" value="<?php echo esc_attr($width); ?>" /></label><br/><em>(e.g. 100px or 25%)</em></p>
-			
-			<p><label for="<?php echo $this->get_field_id('use_excerpt'); ?>">Use Testimonial Excerpt: </label><input class="widefat" id="<?php echo $this->get_field_id('use_excerpt'); ?>" name="<?php echo $this->get_field_name('use_excerpt'); ?>" type="checkbox" value="1" <?php if($use_excerpt){ ?>checked="CHECKED"<?php } ?>/></p>	
-			
-			<p><label for="<?php echo $this->get_field_id('show_testimonial_image'); ?>">Show Featured Image: </label><input class="widefat" id="<?php echo $this->get_field_id('show_testimonial_image'); ?>" name="<?php echo $this->get_field_name('show_testimonial_image'); ?>" type="checkbox" value="1" <?php if($show_testimonial_image){ ?>checked="CHECKED"<?php } ?>/></p>
-			
-			<p><label for="<?php echo $this->get_field_id('show_date'); ?>">Show Testimonial Date: </label><input class="widefat" id="<?php echo $this->get_field_id('show_date'); ?>" name="<?php echo $this->get_field_name('show_date'); ?>" type="checkbox" value="1" <?php if($show_date){ ?>checked="CHECKED"<?php } ?>/></p
-			
-			<p><label for="<?php echo $this->get_field_id('show_other'); ?>">Show Location / Product Reviewed / Other" Field: </label><input class="widefat" id="<?php echo $this->get_field_id('show_other'); ?>" name="<?php echo $this->get_field_name('show_other'); ?>" type="checkbox" value="1" <?php if($show_other){ ?>checked="CHECKED"<?php } ?>/></p>
-									
-			<p><label for="<?php echo $this->get_field_id('show_rating'); ?>">Show Rating: </label></p>
-			<p><select name="<?php echo $this->get_field_name('show_rating'); ?>" id="<?php echo $this->get_field_id('show_rating'); ?>">	
-				<option value="before" <?php if(esc_attr($show_rating) == "before"): echo 'selected="SELECTED"'; endif; ?>>Before Testimonial</option>
-				<option value="after" <?php if(esc_attr($show_rating) == "after"): echo 'selected="SELECTED"'; endif; ?>>After Testimonial</option>
-				<option value="stars" <?php if(esc_attr($show_rating) == "stars"): echo 'selected="SELECTED"'; endif; ?>>As Stars</option>
-				<option value="" <?php if(esc_attr($show_rating) == ""): echo 'selected="SELECTED"'; endif; ?>>Do Not Show</option>
-			<p><span class="description">Whether to show Ratings, and How.  If you are using a custom theme, make sure you follow the recommended settings here.</span></label></p>
-			</select></p>
+			<p>
+				<label for="<?php echo $this->get_field_id('width'); ?>">Width: </label><br />
+				<input class="widefat" id="<?php echo $this->get_field_id('width'); ?>" name="<?php echo $this->get_field_name('width'); ?>" type="text" value="<?php echo esc_attr($width); ?>" /></label>
+				<br/>
+				<em>(e.g. 100px or 25%)</em>
+			</p>
+		
+			<fieldset class="radio_text_input">
+				<legend>Fields To Display:</legend> &nbsp;
+				<div class="bikeshed_radio">
+					<p>
+						<input class="widefat" id="<?php echo $this->get_field_id('show_title'); ?>" name="<?php echo $this->get_field_name('show_title'); ?>" type="checkbox" value="1" <?php if($show_title){ ?>checked="CHECKED"<?php } ?>/>
+						<label for="<?php echo $this->get_field_id('show_title'); ?>">Show Testimonial Title</label>
+					</p>
+					
+					<p>
+						<input class="widefat" id="<?php echo $this->get_field_id('use_excerpt'); ?>" name="<?php echo $this->get_field_name('use_excerpt'); ?>" type="checkbox" value="1" <?php if($use_excerpt){ ?>checked="CHECKED"<?php } ?>/>
+						<label for="<?php echo $this->get_field_id('use_excerpt'); ?>">Use Testimonial Excerpt</label>
+					</p>	
+					
+					<p>
+						<input class="widefat" id="<?php echo $this->get_field_id('show_testimonial_image'); ?>" name="<?php echo $this->get_field_name('show_testimonial_image'); ?>" type="checkbox" value="1" <?php if($show_testimonial_image){ ?>checked="CHECKED"<?php } ?>/>
+						<label for="<?php echo $this->get_field_id('show_testimonial_image'); ?>">Show Featured Image</label>
+					</p>
+					
+					<p>
+						<input class="widefat" id="<?php echo $this->get_field_id('show_date'); ?>" name="<?php echo $this->get_field_name('show_date'); ?>" type="checkbox" value="1" <?php if($show_date){ ?>checked="CHECKED"<?php } ?>/>
+						<label for="<?php echo $this->get_field_id('show_date'); ?>">Show Testimonial Date</label>
+					</p>
+					
+					<p>
+						<input class="widefat" id="<?php echo $this->get_field_id('show_other'); ?>" name="<?php echo $this->get_field_name('show_other'); ?>" type="checkbox" value="1" <?php if($show_other){ ?>checked="CHECKED"<?php } ?>/>
+						<label for="<?php echo $this->get_field_id('show_other'); ?>">Show "Location / Product Reviewed / Other" Field</label>
+					</p>
+				</div>
+			</fieldset>
+
+			<fieldset class="radio_text_input">
+					<legend>Show Rating:</legend> &nbsp;
+						<div class="bikeshed bikeshed_radio">
+							<div class="radio_wrapper">
+								<p class="radio_option"><label><input class="tog" name="<?php echo $this->get_field_name('show_rating'); ?>" type="radio" value="before" <?php if($show_rating=='before'){ ?>checked="checked"<?php } ?> > Before Testimonial</label></p>
+								<p class="radio_option"><label><input class="tog" name="<?php echo $this->get_field_name('show_rating'); ?>" type="radio" value="after" <?php if($show_rating=='after'){ ?>checked="checked"<?php } ?> > After Testimonial</label></p>
+								<p class="radio_option"><label><input class="tog" name="<?php echo $this->get_field_name('show_rating'); ?>" type="radio" value="stars" <?php if($show_rating=='stars'){ ?>checked="checked"<?php } ?> > As Stars</label></p>
+								<p class="radio_option"><label><input class="tog" name="<?php echo $this->get_field_name('show_rating'); ?>" type="radio" value="" <?php if($show_rating==''){ ?>checked="checked"<?php } ?> > Do Not Show</label></p>
+							</div>
+						</div>						
+						<br />
+						<span style="padding-left:0px" class="description">Whether to show Ratings, and How.  If you are using a custom theme, make sure you follow the recommended settings here.</span>
+					</p>
+			</fieldset>
+		</div>
 		<?php
 	}
-
+	
 	function update($new_instance, $old_instance){
 		$instance = $old_instance;
 		$instance['title'] = $new_instance['title'];
@@ -82,6 +183,8 @@ class singleTestimonialWidget extends WP_Widget
 		$instance['width'] = $new_instance['width'];
 		$instance['show_testimonial_image'] = $new_instance['show_testimonial_image'];
 		$instance['show_other'] = $new_instance['show_other'];
+		$instance['theme'] = $new_instance['theme'];
+				
 		return $instance;
 	}
 
@@ -99,14 +202,40 @@ class singleTestimonialWidget extends WP_Widget
 		$show_other = empty($instance['show_other']) ? 0 : $instance['show_other'];
 		$testimonials_link = empty($instance['testimonials_link']) ? get_option('testimonials_link') : $instance['testimonials_link'];
 		$testimonial_id = $instance['testimonial_id'];
+		$theme = $instance['theme'];
 
 		if (!empty($title)){
 			echo $before_title . $title . $after_title;;
 		}
 		
-		echo outputSingleTestimonial(array('testimonials_link' => $testimonials_link, 'show_title' => $show_title, 'use_excerpt' => $use_excerpt, 'show_rating' => $show_rating, 'show_date' => $show_date, 'width' => $width, 'show_thumbs' => $show_testimonial_image, 'show_other' => $show_other, 'id' => $testimonial_id));
+		$args = array(
+			'testimonials_link' => $testimonials_link, 
+			'show_title' => $show_title,
+			'use_excerpt' => $use_excerpt,
+			'show_rating' => $show_rating,
+			'show_date' => $show_date,
+			'width' => $width,
+			'show_thumbs' => $show_testimonial_image,
+			'show_other' => $show_other,
+			'theme' => $theme,
+			'id' => $testimonial_id
+		);
+		
+		
+		echo outputSingleTestimonial( $args );
 
 		echo $after_widget;
 	} 
+	
+	function get_theme_group_label($theme_group)
+	{
+		reset($theme_group);
+		$first_key = key($theme_group);
+		$group_label = $theme_group[$first_key];
+		if ( ($dash_pos = strpos($group_label, ' -')) !== FALSE && ($avatar_pos = strpos($group_label, 'Avatar')) === FALSE ) {
+			$group_label = substr($group_label, 0, $dash_pos);
+		}
+		return $group_label;
+	}
 }
 ?>

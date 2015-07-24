@@ -614,7 +614,7 @@ a.trash_testimonial{
 
 .widget-content .gp_widget_form_wrapper fieldset.radio_text_input {
     border: 1px solid lightgray;
-    margin: 10px 3px;
+    margin: 10px 3px 20px;
     padding: 10px;
 }
 .widget-content .gp_widget_form_wrapper fieldset.radio_text_input .bikeshed_radio {
@@ -657,4 +657,9 @@ a.trash_testimonial{
 .customize-control .widget-content .gp_widget_form_wrapper select.multi_left,
 .customize-control .widget-content .gp_widget_form_wrapper select.multi_right {
 	min-width: 35%;
+}
+
+.widgets-holder-wrap .gp_widget_form_wrapper .description.after_checkbox {
+	margin-top: -7px !important;
+	padding-left: 24px !important;
 }

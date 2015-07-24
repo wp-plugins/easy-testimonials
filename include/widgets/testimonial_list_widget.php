@@ -67,44 +67,8 @@ class listTestimonialsWidget extends WP_Widget
 			<p>
 				<label for="<?php echo $this->get_field_id('title'); ?>">Widget Title:</label>
 				<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
-			</p>
-			
-			<p>
-				<label for="<?php echo $this->get_field_id('count'); ?>">Count:</label>
-				<input class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="text" value="<?php echo esc_attr($count); ?>" /></label>
-				<br />
-				<em>The number of Testimonials to display.  Set to -1 to display All Testimonials.</em>
-			</p>
-			
-			<p>
-				<label for="<?php echo $this->get_field_id('order'); ?>">Order:</label><br/>
-				<select id="<?php echo $this->get_field_id('order_by'); ?>" name="<?php echo $this->get_field_name('order_by'); ?>" class="multi_left">
-					<option value="title" <?php if($order_by == "title"): ?>selected="SELECTED"<?php endif; ?>>Title</option>
-					<option value="rand" <?php if($order_by == "rand"): ?>selected="SELECTED"<?php endif; ?>>Random</option>
-					<option value="id" <?php if($order_by == "id"): ?>selected="SELECTED"<?php endif; ?>>ID</option>
-					<option value="author" <?php if($order_by == "author"): ?>selected="SELECTED"<?php endif; ?>>Author</option>
-					<option value="name" <?php if($order_by == "name"): ?>selected="SELECTED"<?php endif; ?>>Name</option>
-					<option value="date" <?php if($order_by == "date"): ?>selected="SELECTED"<?php endif; ?>>Date</option>
-					<option value="last_modified" <?php if($order_by == "last_modified"): ?>selected="SELECTED"<?php endif; ?>>Last Modified</option>
-					<option value="parent_id" <?php if($order_by == "parent_id"): ?>selected="SELECTED"<?php endif; ?>>Parent ID</option>
-				</select>
-				<select id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>" class="multi_right">
-					<option value="ASC" <?php if($order == "ASC"): ?>selected="SELECTED"<?php endif; ?>>Ascending (ASC)</option>
-					<option value="DESC" <?php if($order == "DESC"): ?>selected="SELECTED"<?php endif; ?>>Descending (DESC)</option>
-				</select>
-			</p>
-
-			<p>
-				<label for="<?php echo $this->get_field_id('category'); ?>">Category:</label><br/>			
-				<select id="<?php echo $this->get_field_id('category'); ?>">
-					<option value="all">All Categories</option>
-					<?php foreach($testimonial_categories as $cat):?>
-					<option value="<?php echo $cat->slug; ?>" <?php if($category == $cat->slug):?>selected="SELECTED"<?php endif; ?>><?php echo htmlentities($cat->name); ?></option>
-					<?php endforeach; ?>
-				</select>
-				<br/>
-				<em><a href="<?php echo admin_url('edit-tags.php?taxonomy=easy-testimonial-category&post_type=testimonial'); ?>">Manage Categories</a></em>
-			</p>
+			</p>			
+		
 			<p>
 				<label for="<?php echo $this->get_field_id('theme'); ?>">Theme:</label><br/>
 				<select name="<?php echo $this->get_field_name('theme'); ?>" id="<?php echo $this->get_field_id('theme'); ?>">	
@@ -135,13 +99,57 @@ class listTestimonialsWidget extends WP_Widget
 				<em><a target="_blank" href="http://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=wp_widgets&utm_campaign=widget_themes">Upgrade To Unlock All 75+ Pro Themes!</a></em>
 				<?php endif; ?>
 			</p>
+			
 			<p>
 				<label for="<?php echo $this->get_field_id('width'); ?>">Width: </label><br />
 				<input class="widefat" id="<?php echo $this->get_field_id('width'); ?>" name="<?php echo $this->get_field_name('width'); ?>" type="text" value="<?php echo esc_attr($width); ?>" /></label>
 				<br/>
 				<em>(e.g. 100px or 25%)</em>
 			</p>
-			<br />
+
+			<fieldset class="radio_text_input">
+				<legend>Filter Testimonials:</legend> &nbsp;
+				<div class="bikeshed bikeshed_radio">
+					<p>
+						<label for="<?php echo $this->get_field_id('category'); ?>">Category:</label><br/>			
+						<select name="<?php echo $this->get_field_name('category'); ?>" id="<?php echo $this->get_field_id('category'); ?>">
+							<option value="">All Categories</option>
+							<?php foreach($testimonial_categories as $cat):?>
+							<option value="<?php echo $cat->slug; ?>" <?php if($category == $cat->slug):?>selected="SELECTED"<?php endif; ?>><?php echo htmlentities($cat->name); ?></option>
+							<?php endforeach; ?>
+						</select>
+						<br/>
+						<em><a href="<?php echo admin_url('edit-tags.php?taxonomy=easy-testimonial-category&post_type=testimonial'); ?>">Manage Categories</a></em>
+					</p>
+					
+					<p>
+						<label for="<?php echo $this->get_field_id('count'); ?>">Count:</label>
+						<input class="widefat" id="<?php echo $this->get_field_id('count'); ?>" name="<?php echo $this->get_field_name('count'); ?>" type="text" value="<?php echo esc_attr($count); ?>" /></label>
+						<br />
+						<em>The number of Testimonials to display.  Set to -1 to display All Testimonials.</em>
+					</p>
+					
+					<p>
+						<label for="<?php echo $this->get_field_id('order'); ?>">Order:</label><br/>
+						<select id="<?php echo $this->get_field_id('order_by'); ?>" name="<?php echo $this->get_field_name('order_by'); ?>" class="multi_left">
+							<option value="title" <?php if($order_by == "title"): ?>selected="SELECTED"<?php endif; ?>>Title</option>
+							<option value="rand" <?php if($order_by == "rand"): ?>selected="SELECTED"<?php endif; ?>>Random</option>
+							<option value="id" <?php if($order_by == "id"): ?>selected="SELECTED"<?php endif; ?>>ID</option>
+							<option value="author" <?php if($order_by == "author"): ?>selected="SELECTED"<?php endif; ?>>Author</option>
+							<option value="name" <?php if($order_by == "name"): ?>selected="SELECTED"<?php endif; ?>>Name</option>
+							<option value="date" <?php if($order_by == "date"): ?>selected="SELECTED"<?php endif; ?>>Date</option>
+							<option value="last_modified" <?php if($order_by == "last_modified"): ?>selected="SELECTED"<?php endif; ?>>Last Modified</option>
+							<option value="parent_id" <?php if($order_by == "parent_id"): ?>selected="SELECTED"<?php endif; ?>>Parent ID</option>
+						</select>
+						<select id="<?php echo $this->get_field_id('order'); ?>" name="<?php echo $this->get_field_name('order'); ?>" class="multi_right">
+							<option value="ASC" <?php if($order == "ASC"): ?>selected="SELECTED"<?php endif; ?>>Ascending (ASC)</option>
+							<option value="DESC" <?php if($order == "DESC"): ?>selected="SELECTED"<?php endif; ?>>Descending (DESC)</option>
+						</select>
+					</p>
+				</div>
+			</fieldset>
+
+		
 			<fieldset class="radio_text_input">
 				<legend>Fields To Display:</legend> &nbsp;
 				<div class="bikeshed_radio">
@@ -171,7 +179,7 @@ class listTestimonialsWidget extends WP_Widget
 					</p>
 				</div>
 			</fieldset>
-			<br />						
+
 			<fieldset class="radio_text_input">
 					<legend>Show Rating:</legend> &nbsp;
 						<div class="bikeshed bikeshed_radio">
@@ -186,7 +194,6 @@ class listTestimonialsWidget extends WP_Widget
 						<span style="padding-left:0px" class="description">Whether to show Ratings, and How.  If you are using a custom theme, make sure you follow the recommended settings here.</span>
 					</p>
 			</fieldset>
-			<br />
 		</div>
 		<?php
 	}

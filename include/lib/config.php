@@ -120,3 +120,46 @@
 			'modern_style-sleek' => 'Modern Style - Sleek'
 		)
 	);
+	
+	$cycle_transitions = array(
+		'scrollHorz' => 
+			array(
+				'label' => 	'Horizontal Scroll',
+				'pro'	=>	false
+			),
+		'scrollVert' => 
+			array(
+				'label' => 	'Vertical Scroll',
+				'pro'	=>	true
+			),
+		'fade' => 
+			array(
+				'label' => 	'Fade',
+				'pro'	=>	false
+			),
+		'fadeout' => 
+			array(
+				'label' => 	'Fade Out',
+				'pro'	=>	true
+			),
+		'carousel' => 
+			array(
+				'label' => 	'Carousel',
+				'pro'	=>	true
+			),
+		'flipHorz' => 
+			array(
+				'label' => 	'Horizontal Flip',
+				'pro'	=>	true
+			),
+		'flipVert' => 
+			array(
+				'label' => 	'Vertical Flip',
+				'pro'	=>	true
+			),
+		'tileslide' => 
+			array(
+				'label' => 	'Tile Slide',
+				'pro'	=>	true
+			)
+	);			
