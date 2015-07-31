@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.2.3
-Stable tag: 1.31
+Stable tag: 1.31.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -310,6 +310,9 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 8. This is the Testimonial List Widget.
 
 == Changelog ==
+
+= 1.31.1 =
+* Compatibility update for older versions of WP.  Minor updates.
 
 = 1.31 =
 * New and Improved Testimonial List Widget, Testimonial Cycle Widget, Single Testimonial Widget, and Random Testimonial Widget
@@ -684,4 +687,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-* 1.31: New and Improved Testimonial List Widget, Testimonial Cycle Widget, Single Testimonial Widget, and Random Testimonial Widget
+* 1.31.1: Compatibility update for older versions of WP.  Minor updates.

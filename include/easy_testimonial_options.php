@@ -284,7 +284,7 @@ class easyTestimonialOptions
 						“Tried and is great. This is light and has all the features I need and more! Awesome!”
 						<p class="author">&mdash; davidwalt  <a href="https://wordpress.org/support/topic/excellent-plugin-941" target="_blank">via WordPress.org</a></p>
 				</div>
-				<input type="hidden" id="gold_plugins_already_subscribed" name="gold_plugins_already_subscribed" value="<?php echo get_user_setting ('_gp_ml_has_subscribed', '0'); ?>" />
+				<input type="hidden" id="gold_plugins_already_subscribed" name="gold_plugins_already_subscribed" value="0" />
 			</form>
 		</div>			
 		<?php			
