@@ -198,7 +198,7 @@ class singleTestimonialWidget extends WP_Widget
 		$use_excerpt = empty($instance['use_excerpt']) ? 0 : $instance['use_excerpt'];
 		$show_date = empty($instance['show_date']) ? false : $instance['show_date'];
 		$width = empty($instance['width']) ? false : $instance['width'];
-		$show_testimonial_image = $instance['show_testimonial_image'];
+		$show_testimonial_image = empty($instance['show_testimonial_image']) ? 0 : $instance['show_testimonial_image'];
 		$show_other = empty($instance['show_other']) ? 0 : $instance['show_other'];
 		$testimonials_link = empty($instance['testimonials_link']) ? get_option('testimonials_link') : $instance['testimonials_link'];
 		$testimonial_id = $instance['testimonial_id'];
@@ -220,7 +220,6 @@ class singleTestimonialWidget extends WP_Widget
 			'theme' => $theme,
 			'id' => $testimonial_id
 		);
-		
 		
 		echo outputSingleTestimonial( $args );
 

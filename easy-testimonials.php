@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.31.1
+Version: 1.31.2
 Author URI: https://goldplugins.com
 
 This file is part of Easy Testimonials.
@@ -676,7 +676,7 @@ function outputRandomTestimonial($atts){
 		'short_version' => false,
 		'use_excerpt' => false,
 		'category' => '',
-		'show_thumbs' => '',
+		'show_thumbs' => NULL,
 		'show_rating' => false,
 		'theme' => '',
 		'show_date' => false,
@@ -684,7 +684,7 @@ function outputRandomTestimonial($atts){
 		'width' => false
 	), $atts ) );
 	
-	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
+	$show_thumbs = ($show_thumbs === NULL) ? get_option('testimonials_image') : $show_thumbs;
 	
 	//load testimonials into an array
 	$i = 0;
@@ -778,7 +778,7 @@ function outputSingleTestimonial($atts){
 		'author_class' => 'testimonial_author',
 		'id' => '',
 		'use_excerpt' => false,
-		'show_thumbs' => '',
+		'show_thumbs' => NULL,
 		'short_version' => false,
 		'word_limit' => false,
 		'show_rating' => false,
@@ -788,7 +788,7 @@ function outputSingleTestimonial($atts){
 		'width' => false
 	), $atts ) );
 	
-	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
+	$show_thumbs = ($show_thumbs === NULL) ? get_option('testimonials_image') : $show_thumbs;
 	
 	ob_start();
 	
@@ -872,7 +872,7 @@ function outputTestimonials($atts){
 		'id' => '',
 		'use_excerpt' => false,
 		'category' => '',
-		'show_thumbs' => '',
+		'show_thumbs' => NULL,
 		'short_version' => false,
 		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
 		'order' => 'ASC',//'DESC'
@@ -885,7 +885,7 @@ function outputTestimonials($atts){
 		'width' => false
 	), $atts ) );
 	
-	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
+	$show_thumbs = ($show_thumbs === NULL) ? get_option('testimonials_image') : $show_thumbs;
 			
 	if(!is_numeric($count)){
 		$count = -1;
@@ -990,7 +990,7 @@ function outputAllThemes($atts){
 		'id' => '',
 		'use_excerpt' => false,
 		'category' => '',
-		'show_thumbs' => '',
+		'show_thumbs' => NULL,
 		'short_version' => false,
 		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
 		'order' => 'ASC',//'DESC'
@@ -1004,7 +1004,7 @@ function outputAllThemes($atts){
 		'width' => false
 	), $atts ) );
 	
-	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
+	$show_thumbs = ($show_thumbs === NULL) ? get_option('testimonials_image') : $show_thumbs;
 			
 	if(!is_numeric($count)){
 		$count = -1;
@@ -1102,7 +1102,7 @@ function outputTestimonialsCycle($atts){
 		'show_title' => 0,
 		'count' => -1,
 		'transition' => 'scrollHorz',
-		'show_thumbs' => '',
+		'show_thumbs' => NULL,
 		'timer' => '2000',
 		'container' => false,//deprecated, use auto_height instead
 		'use_excerpt' => false,
@@ -1126,7 +1126,7 @@ function outputTestimonialsCycle($atts){
 		'paused' => false
 	), $atts ) );	
 	
-	$show_thumbs = ($show_thumbs == '') ? get_option('testimonials_image') : $show_thumbs;
+	$show_thumbs = ($show_thumbs === NULL) ? get_option('testimonials_image') : $show_thumbs;
 			
 	if(!is_numeric($count)){
 		$count = -1;

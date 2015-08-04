@@ -889,8 +889,22 @@ class easyTestimonialOptions
 							<input type="text" class="valid_int" id="sc_gen_slider_testimonials_per_slide" value="1" />
 							<p class="description">The number of Testimonials to show on each slide</p>
 						</td>
-					</tr>		
+					</tr>				
 					
+
+					<tr class="slider_option">
+						<th scope="row">
+							Pause On Hover
+						</th>
+						<td>							
+							<div class="sc_gen_control_group">
+								<label for="sc_gen_pause_on_hover">
+									<input type="checkbox" class="checkbox" id="sc_gen_pause_on_hover" value="yes" />
+									Pause On Hover
+								</label>
+							</div>
+						</td>
+					</tr>
 
 					<tr class="slider_option">
 						<th scope="row">

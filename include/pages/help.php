@@ -37,7 +37,7 @@
 		<li><a href="#outputting_random_testimonials">Outputting Random Testimonials</a></li>
 		<li><a href="#output_a_list_of_testimonials">Output a List of Testimonials</a></li>
 		<li><a href="#output_a_testimonial_in_the_sidebar">Output a Testimonial in the Sidebar</a></li>
-		<li><a href="#outputting_testimonial_slider">Outputting a Testimonial Slider</a></li>
+		<li><a href="#outputting_a_testimonial_slider">Outputting a Testimonial Slider</a></li>
 		<li><a href="#outputting_a_testimonial_slider_in_the_sidebar">Outputting a Testimonial Slider in the Sidebar</a></li>
 		<li><a href="#testimonial_submission">Front End Testimonial Submission</a></li>
 		<li><a href="#testimonial_filters">Testimonial Filters</a></li>
@@ -188,6 +188,9 @@
 			<li>To show a sliding Testimonial Cycle, that only transitions when Prev or Next is clicked, use the following shortcode: <br/>
 				<textarea>[testimonials_cycle paused='1' prev_next='1']</textarea>
 			</li>	 
+			<li>To show a sliding Testimonial Cycle, that pauses transitions when the mouse is hovering over the slideshow, use the following shortcode: <br/>
+				<textarea>[testimonials_cycle pause_on_hover='1']</textarea>
+			</li>
 		</ul>
 	</div>
 	<div id="outputting_a_testimonial_slider_in_the_sidebar">

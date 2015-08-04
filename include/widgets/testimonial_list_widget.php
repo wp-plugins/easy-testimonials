@@ -229,7 +229,7 @@ class listTestimonialsWidget extends WP_Widget
 		$category = empty($instance['category']) ? '' : $instance['category'];
 		$show_date = empty($instance['show_date']) ? false : $instance['show_date'];
 		$width = empty($instance['width']) ? false : $instance['width'];
-		$show_testimonial_image = $instance['show_testimonial_image'];
+		$show_testimonial_image = empty($instance['show_testimonial_image']) ? 0 : $instance['show_testimonial_image'];
 		$order = empty($instance['order']) ? 'ASC' : $instance['order'];
 		$order_by = empty($instance['order_by']) ? 'date' : $instance['order_by'];
 		$show_other = empty($instance['show_other']) ? 0 : $instance['show_other'];

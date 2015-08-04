@@ -3,8 +3,8 @@ Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
-Tested up to: 4.2.3
-Stable tag: 1.31.1
+Tested up to: 4.2.4
+Stable tag: 1.31.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -162,6 +162,8 @@ You have a few things to pay attention to:
 	 [testimonials_cycle prev_next='1']
 -	To show a sliding Testimonial Cycle, that only transitions when Prev or Next is clicked, use the following shortcode:
 	 [testimonials_cycle paused='1' prev_next='1']
+-	To show a sliding Testimonial Cycle, that pauses transitions when the mouse is hovering over the slideshow, use the following shortcode:
+	 [testimonials_cycle pause_on_hover='1']
 
     To pick from our full list of available transitions, we recommend using the Shortcode Generator.
 
@@ -302,14 +304,23 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 1. This is the Add New Testimonial Page.
 2. This is the List of Testimonials - from here you can Edit or Delete a Testimonial.
-3. This is the Easy Testimonials Settings Page.
-4. This is the Style & Themes Selection Page.
-5. This is the Submission Form Settings Page.
-6. This is the Random Testimonial Widget.
-7. This is the Testimonial Cycle Widget.
-8. This is the Testimonial List Widget.
+3. This is the Basic Settings Page.
+4. This is the Display Options Settings Page.
+5. This is the Themes Selection Page.
+6. This is the Submission Form Settings Page.
+7. This is the Shortcode Generator.
+8. This is the Import & Export Testimonials Page.
+9. This is the Help & Instructions Page.
+10. This is the Random Testimonial Widget.
+11. This is the Testimonial Cycle Widget.
+12. This is the Testimonial List Widget.
+13. This is the Single Testimonial Widget.
 
 == Changelog ==
+
+= 1.31.2 =
+* Compatible with WordPress 4.2.4
+* Fix issue with Featured Image setting in Widgets.
 
 = 1.31.1 =
 * Compatibility update for older versions of WP.  Minor updates.
@@ -687,4 +698,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-* 1.31.1: Compatibility update for older versions of WP.  Minor updates.
+* 1.31.2: Featured Image fix for Widgets, Help Docs update, Shortcode Generator update.

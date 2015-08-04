@@ -144,6 +144,13 @@ function ezt_add_attribute($key, $val, $orderby, $use_slider, $use_pagination, $
 	else if ($key == 'prev_next') {
 		return ($use_slider && $val == 1) ? " prev_next='1'" : '';
 	}
+	else if ($key == 'pause_on_hover') {
+		if ($use_slider && $val == 1) {
+			return " pause_on_hover='1'";
+		} else {
+			return '';
+		}	
+	}
 	else if ($key == 'paused') {
 		if ($use_slider && $val == 1) {
 			return " paused='1'";
@@ -266,6 +273,7 @@ function ezt_build_shortcode()
 	$atts['pager'] = ezt_get_value_from_input('#sc_gen_show_pager', 0, 'yes_or_no_to_0_or_1');
 	$atts['prev_next'] = ezt_get_value_from_input('#sc_gen_show_prev_next', 0, 'yes_or_no_to_0_or_1');
 	$atts['paused'] = ezt_get_value_from_input('#sc_gen_paused', 0, 'yes_or_no_to_0_or_1');
+	$atts['pause_on_hover'] = ezt_get_value_from_input('#sc_gen_pause_on_hover', 0, 'yes_or_no_to_0_or_1');
 	$atts['auto_fit_container'] = ezt_get_value_from_input("input[name='sc_gen_auto_fit']:checked", 1, 'yes_or_no_to_0_or_1');
 	
 	// begin with either "[testimonials", "[random_testimonial", or "[testimonial_cycle"

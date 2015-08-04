@@ -43,7 +43,7 @@ class cycledTestimonialWidget extends WP_Widget
 			'show_rating' => false,
 			'show_date' => false,
 			'width' => false,
-			'show_testimonial_image' => 1,
+			'show_testimonial_image' => 0,
 			'order' => 'ASC',
 			'order_by' => 'date',
 			'show_other' => 0,
@@ -332,7 +332,7 @@ class cycledTestimonialWidget extends WP_Widget
 		$paused = empty($instance['paused']) ? false : $instance['paused'];
 
 		
-		$show_testimonial_image = empty($instance['show_testimonial_image']) ? 1 : $instance['show_testimonial_image'];
+		$show_testimonial_image = empty($instance['show_testimonial_image']) ? 0 : $instance['show_testimonial_image'];
 		$order = empty($instance['order']) ? 'ASC' : $instance['order'];
 		$order_by = empty($instance['order_by']) ? 'date' : $instance['order_by'];
 		$show_other = empty($instance['show_other']) ? 0 : $instance['show_other'];

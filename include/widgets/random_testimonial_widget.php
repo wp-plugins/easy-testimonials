@@ -40,7 +40,7 @@ class randomTestimonialWidget extends WP_Widget
 			'show_rating' => false,
 			'show_date' => false,
 			'width' => false,
-			'show_testimonial_image' => 1,
+			'show_testimonial_image' => 0,
 			'order' => 'ASC',
 			'order_by' => 'date',
 			'show_other' => 0,
@@ -210,7 +210,7 @@ class randomTestimonialWidget extends WP_Widget
 		$show_rating = empty($instance['show_rating']) ? false : $instance['show_rating'];
 		$show_date = empty($instance['show_date']) ? false : $instance['show_date'];
 		$width = empty($instance['width']) ? false : $instance['width'];
-		$show_testimonial_image = empty($instance['show_testimonial_image']) ? 1 : $instance['show_testimonial_image'];
+		$show_testimonial_image = empty($instance['show_testimonial_image']) ? 0 : $instance['show_testimonial_image'];
 		$show_other = empty($instance['show_other']) ? 0 : $instance['show_other'];
 		$theme = empty($instance['theme']) ? '' : $instance['theme'];
 
