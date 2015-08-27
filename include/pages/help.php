@@ -217,7 +217,7 @@
 				<textarea>[submit_testimonial]</textarea>
 			</li>
 			<li>Any submissions will be added to your Testimonials list, on the back end, as pending Testimonials.  Only Testimonials that you choose to publish will be displayed publicly.</li>
-			<li>Captcha support is enabled with the installation of the <a href="https://wordpress.org/plugins/really-simple-captcha/" title="Really Simple Captcha">Really Simple Captcha plugin</a>.</li>
+			<li>Captcha support is enabled by aqcuiring and inputting your <a href="https://www.google.com/recaptcha/admin" target="_blank">Google reCAPTCHA API information</a>, or by installation of the <a href="https://wordpress.org/plugins/really-simple-captcha/" title="Really Simple Captcha">Really Simple Captcha plugin</a>.</li>
 			<li>Front End Image Submission is enabled via a checkbox on the Submission Form Options tab.</li>
 			<li>Labels, descriptions, and visibility of fields can be controlled via the <a href="<?php echo get_admin_url() . "admin.php?page=easy-testimonials-submission-settings"; ?>">Submission Form Options</a> screen.</li>
 		</ul>

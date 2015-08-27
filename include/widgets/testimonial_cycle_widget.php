@@ -20,12 +20,17 @@ Shout out to http://www.makeuseof.com/tag/how-to-create-wordpress-widgets/ for t
 
 class cycledTestimonialWidget extends WP_Widget
 {
-	function cycledTestimonialWidget(){
+	function __construct(){
 		$widget_ops = array(
 			'classname' => 'cycledTestimonialWidget',
 			'description' => 'Displays a rotating slideshow of your Testimonials.' 
 		);
-		$this->WP_Widget('cycledTestimonialWidget', 'Easy Testimonials Cycle', $widget_ops);
+		parent::__construct('cycledTestimonialWidget', 'Easy Testimonials Cycle', $widget_ops);		
+	}
+		
+	function cycledTestimonialWidget()
+	{
+		$this->__construct();
 	}
 
 	function form($instance){

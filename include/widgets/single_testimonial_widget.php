@@ -20,9 +20,14 @@ Shout out to http://www.makeuseof.com/tag/how-to-create-wordpress-widgets/ for t
 
 class singleTestimonialWidget extends WP_Widget
 {
-	function singleTestimonialWidget(){
+	function __construct(){
 		$widget_ops = array('classname' => 'singleTestimonialWidget', 'description' => 'Displays a Single Testimonial.' );
-		$this->WP_Widget('singleTestimonialWidget', 'Easy Testimonials Single Testimonial', $widget_ops);
+		parent::__construct('singleTestimonialWidget', 'Easy Testimonials Single Testimonial', $widget_ops);		
+	}
+		
+	function singleTestimonialWidget()
+	{
+		$this->__construct();
 	}
 
 	function form($instance){

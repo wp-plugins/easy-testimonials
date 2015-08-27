@@ -25,3 +25,11 @@ div.easy-t-cycle-next{
 .easy_t_single_testimonial blockquote p span.testimonial-position{
 	width: 100% !important;
 }
+.easy_t_error{
+	color: red;
+}
+.easy_t_field_wrap_error {
+    border: 1px solid red;
+    padding: 10px 10px 0;
+	margin-bottom: 10px;
+}

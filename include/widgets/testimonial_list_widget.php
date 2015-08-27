@@ -20,9 +20,14 @@ Shout out to http://www.makeuseof.com/tag/how-to-create-wordpress-widgets/ for t
 
 class listTestimonialsWidget extends WP_Widget
 {
-	function listTestimonialsWidget(){
+	function __construct(){
 		$widget_ops = array('classname' => 'listTestimonialsWidget', 'description' => 'Displays a List of Testimonials.' );
-		$this->WP_Widget('listTestimonialsWidget', 'Easy Testimonials List', $widget_ops);
+		parent::__construct('listTestimonialsWidget', 'Easy Testimonials List', $widget_ops);		
+	}
+		
+	function listTestimonialsWidget()
+	{
+		$this->__construct();
 	}
 
 	function form($instance){

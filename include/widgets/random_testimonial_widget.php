@@ -20,9 +20,14 @@ Shout out to http://www.makeuseof.com/tag/how-to-create-wordpress-widgets/ for t
 
 class randomTestimonialWidget extends WP_Widget
 {
-	function randomTestimonialWidget(){
+	function __construct(){
 		$widget_ops = array('classname' => 'randomTestimonialWidget', 'description' => 'Displays a Random Testimonial.' );
-		$this->WP_Widget('randomTestimonialWidget', 'Easy Testimonials Random Testimonial', $widget_ops);
+		parent::__construct('randomTestimonialWidget', 'Easy Testimonials Random Testimonial', $widget_ops);		
+	}
+		
+	function randomTestimonialWidget()
+	{
+		$this->__construct();
 	}
 
 	function form($instance){

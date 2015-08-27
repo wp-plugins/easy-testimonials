@@ -663,3 +663,9 @@ a.trash_testimonial{
 	margin-top: -7px !important;
 	padding-left: 24px !important;
 }
+
+/* Submission form settings page */
+.ezt_submission_form_settings input[type="text"],
+.ezt_submission_form_settings textarea {
+	min-width: 400px;
+}

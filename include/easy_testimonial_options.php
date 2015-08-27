@@ -102,12 +102,15 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_hide_email_field' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_email_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_email_field_description' );		
-		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_captcha' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_captcha', array($this, 'enable_captcha_callback')  );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_image_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_image_field_description' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_image_field' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_captcha_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_captcha_field_description' );	
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_recaptcha_api_key' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_recaptcha_secret_key' );
+		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_recaptcha_lang' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_label' );
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_rating_field_description' );	
 		register_setting( 'easy-testimonials-submission_form_options-settings-group', 'easy_t_use_rating_field' );	
@@ -158,6 +161,20 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_width' );
 		register_setting( 'easy-testimonials-display-settings-group', 'easy_t_cache_buster', array($this, 'easy_t_bust_options_cache') );
 		
+	}
+	
+	// don't allow captchas to be enabled unless reCAPTCHA settings are present
+	// or Really Simply Captcha is installed
+	function enable_captcha_callback($val)
+	{
+		$can_use_recaptcha = !empty($_POST['easy_t_recaptcha_api_key'])
+							 && !empty($_POST['easy_t_recaptcha_secret_key']);
+						
+		if ( !class_exists('ReallySimpleCaptcha') && !$can_use_recaptcha ) {
+			return 0;
+		} else {
+			return $val;
+		}
 	}
 	
 	//function to produce tabs on admin screen
@@ -994,6 +1011,8 @@ class easyTestimonialOptions
 		
 		<h3>Submission Form Options</h3>
 		
+		<div class="ezt_submission_form_settings">
+		
 		<p>Use the below options to control the look and feel of the testimonial submission form.</p>
 		
 		<fieldset>
@@ -1001,7 +1020,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_title_field_label">"Title" Field Label</label></th>
-					<td><input type="text" name="easy_t_title_field_label" id="easy_t_title_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_title_field_label', 'Title'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_title_field_label" id="easy_t_title_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_title_field_label', 'Title'); ?>" />
 					<p class="description">This is the label of the first field in the form, which defaults to "Title".  Contents of this field will be passed through to the Title field inside WordPress.</p>
 					</td>
 				</tr>
@@ -1022,7 +1041,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_name_field_label">"Name" Field Label</label></th>
-					<td><input type="text" name="easy_t_name_field_label" id="easy_t_name_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_name_field_label', 'Name'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_name_field_label" id="easy_t_name_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_name_field_label', 'Name'); ?>" />
 					<p class="description">This is the label of the second field in the form, which defaults to "Name."  Contents of this field will be passed through to the Name field inside WordPress.</p>
 					</td>
 				</tr>
@@ -1052,7 +1071,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_email_field_label">"E-Mail" Field Label</label></th>
-					<td><input type="text" name="easy_t_email_field_label" id="easy_t_email_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_email_field_label', 'Your E-Mail Address'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_email_field_label" id="easy_t_email_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_email_field_label', 'Your E-Mail Address'); ?>" />
 					<p class="description">This is the label of the client email field in the form, shown after the "Name" field, which defaults to "E-Mail."  Contents of this field will be passed through to the E-Mail Address field inside WordPress.</p>
 					</td>
 				</tr>
@@ -1082,7 +1101,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_position_web_other_field_label">"Position / Web Address / Other" Field Label</label></th>
-					<td><input type="text" name="easy_t_position_web_other_field_label" id="easy_t_position_web_other_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_position_web_other_field_label', 'Position / Web Address / Other'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_position_web_other_field_label" id="easy_t_position_web_other_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_position_web_other_field_label', 'Position / Web Address / Other'); ?>" />
 					<p class="description">This is the label of the third field in the form, which defaults to "Position / Web Address / Other."  Contents of this field will be passed through to the Position / Web Address / Other field inside WordPress.</p>
 					</td>
 				</tr>
@@ -1112,7 +1131,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_other_other_field_label">"Location / Product Reviewed / Other" Field Label</label></th>
-					<td><input type="text" name="easy_t_other_other_field_label" id="easy_t_other_other_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_other_other_field_label', 'Location / Product Reviewed / Other'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_other_other_field_label" id="easy_t_other_other_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_other_other_field_label', 'Location / Product Reviewed / Other'); ?>" />
 					<p class="description">This is the label of the fourth field in the form, which defaults to "Location / Product Reviewed / Other."  Contents of this field will be passed through to the Location / Product Reviewed / Other field inside WordPress.</p>
 					</td>
 				</tr>
@@ -1142,7 +1161,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_category_field_label">"Category" Field Label</label></th>
-					<td><input type="text" name="easy_t_category_field_label" id="easy_t_category_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_category_field_label', 'Location / Product Reviewed / Other'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_category_field_label" id="easy_t_category_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_category_field_label', 'Location / Product Reviewed / Other'); ?>" />
 					<p class="description">This is the label of the fifth field in the form, which defaults to "Category."  This field matches the Testimonial Categories inside WordPress.</p>
 					</td>
 				</tr>
@@ -1172,7 +1191,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_body_content_field_label">"Body Content" Field Label</label></th>
-					<td><input type="text" name="easy_t_body_content_field_label" id="easy_t_body_content_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_label', 'Your Testimonial'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_body_content_field_label" id="easy_t_body_content_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_body_content_field_label', 'Your Testimonial'); ?>" />
 					<p class="description">This is the label of the sixth field in the form, a textarea, which defaults to "Your Testimonial."  Contents of this field will be passed through to the Body field inside WordPress.</p>
 					</td>
 				</tr>
@@ -1194,7 +1213,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_submit_button_label">Submit Button Label</label></th>
-					<td><input type="text" name="easy_t_submit_button_label" id="easy_t_submit_button_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_button_label', 'Submit Testimonial'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_submit_button_label" id="easy_t_submit_button_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_button_label', 'Submit Testimonial'); ?>" />
 					<p class="description">This is the label of the submit button at the bottom of the form.</p>
 					</td>
 				</tr>
@@ -1212,7 +1231,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_submit_success_redirect_url">Submission Success Redirect URL</label></th>
-					<td><input type="text" name="easy_t_submit_success_redirect_url" id="easy_t_submit_success_redirect_url" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_success_redirect_url', ''); ?>" style="width: 250px" />
+					<td><input type="text" name="easy_t_submit_success_redirect_url" id="easy_t_submit_success_redirect_url" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_success_redirect_url', ''); ?>"/>
 					<p class="description">If you want the user to be taken to a specific URL on your site after submitting their Testimonial, enter it into this field.  If the field is empty, they will stay on the same page and see the Success Message, instead.</p>
 					</td>
 				</tr>
@@ -1221,7 +1240,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_submit_notification_address">Submission Success Notification E-Mail Address</label></th>
-					<td><input type="text" name="easy_t_submit_notification_address" id="easy_t_submit_notification_address" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_notification_address'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_submit_notification_address" id="easy_t_submit_notification_address" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_submit_notification_address'); ?>" />
 					<p class="description">If set, we will attempt to send an e-mail notification to this address upon a succesfull submission.  If not set, submission notifications will be sent to the site's Admin E-mail address.  You can include multiple, comma-separated e-mail addresses here.</p>
 					</td>
 				</tr>
@@ -1243,7 +1262,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_image_field_label">Testimonial Image Field Label</label></th>
-					<td><input type="text" name="easy_t_image_field_label" id="easy_t_image_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_image_field_label', 'Your Image'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_image_field_label" id="easy_t_image_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_image_field_label', 'Your Image'); ?>" />
 					<p class="description">This is the label of the Testimonial Image Field in the form, which defaults to "Your Image".</p>
 					</td>
 				</tr>
@@ -1273,7 +1292,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_rating_field_label">Testimonial Ratings Field Label</label></th>
-					<td><input type="text" name="easy_t_rating_field_label" id="easy_t_rating_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_rating_field_label', 'Your Rating'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_rating_field_label" id="easy_t_rating_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_rating_field_label', 'Your Rating'); ?>" />
 					<p class="description">This is the label of the Testimonial Rating Field in the form, which defaults to "Your Rating".</p>
 					</td>
 				</tr>
@@ -1304,7 +1323,7 @@ class easyTestimonialOptions
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_captcha_field_label">"Captcha" Field Label</label></th>
-					<td><input type="text" name="easy_t_captcha_field_label" id="easy_t_captcha_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_label', 'Captcha'); ?>"  style="width: 250px" />
+					<td><input type="text" name="easy_t_captcha_field_label" id="easy_t_captcha_field_label" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_captcha_field_label', 'Captcha'); ?>" />
 					<p class="description">This is the label of the Capthca field in the form, which defaults to "Captcha".  Contents of this field will be passed through to the Captcha function inside WordPress.</p>
 					</td>
 				</tr>
@@ -1318,12 +1337,56 @@ class easyTestimonialOptions
 					</td>
 				</tr>
 			</table>
+
+			<?php
+				$recaptcha_portal_link = sprintf('(<a href="%s">%s</a>)', 'https://www.google.com/recaptcha/admin', 'Get Yours Here');
+			?>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_recaptcha_api_key">reCAPTCHA API Key</label></th>
+					<td>
+						<input type="text" name="easy_t_recaptcha_api_key" id="easy_t_recaptcha_api_key" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_recaptcha_api_key', ''); ?>" />
+						<p class="description">To use Google's reCAPTCHA service, please enter your <strong>reCAPTCHA API Key</strong> here. <?php echo $recaptcha_portal_link; ?></p>
+					</td>
+				</tr>
+			</table>
+
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_recaptcha_secret_key">reCAPTCHA Secret Key</label></th>
+					<td>
+						<input type="text" name="easy_t_recaptcha_secret_key" id="easy_t_recaptcha_secret_key" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="<?php echo get_option('easy_t_recaptcha_secret_key', ''); ?>" />
+						<p class="description">To use Google's reCAPTCHA service, please enter your <strong>reCAPTCHA Secret Key</strong> here. <?php echo $recaptcha_portal_link; ?></p>
+					</td>
+				</tr>
+			</table>
+	
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="easy_t_recaptcha_lang">reCAPTCHA Language</label></th>
+					<td>
+						<select name="easy_t_recaptcha_lang" id="easy_t_recaptcha_lang" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?>>
+							<option value="">(Not Specified)</option>
+							<?php
+							$current_lang = get_option('easy_t_recaptcha_lang', '');
+							foreach ($this->get_recaptcha_languages() as $label => $val) {
+								$sel_attr = (strcmp($current_lang, $val) == 0 ? 'selected="selected"' : '');
+								printf( '<option value="%s" %s>%s</option>', htmlentities($val), $sel_attr, htmlentities($label) );
+							} ?>
+						</select>						
+					</td>
+				</tr>
+			</table>
 						
 			<table class="form-table">
 				<tr valign="top">
 					<th scope="row"><label for="easy_t_use_captcha">Enable Captcha on Submission Form</label></th>
-					<td><input type="checkbox" name="easy_t_use_captcha" id="easy_t_use_captcha" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_captcha')){ ?> checked="CHECKED" <?php } ?>/>
-					<p class="description">If checked, and a compatible plugin is installed (such as <a href="https://wordpress.org/plugins/really-simple-captcha/" target="_blank">Really Simple Captcha</a>) then we will output a Captcha on the Submission Form.  This is useful if you are having SPAM problems.</p>
+					<td>
+						<label>
+							<input type="checkbox" name="easy_t_use_captcha" id="easy_t_use_captcha" <?php if(!isValidKey()): ?>disabled="disabled"<?php endif; ?> value="1" <?php if(get_option('easy_t_use_captcha')){ ?> checked="CHECKED" <?php } ?>/>
+							Require visitors to complete a CAPTCHA before submitting their testimonials
+						</label>
+						<p class="description">This is useful if you are having SPAM problems. Requires a valid reCAPTCHA API Key and Secret Key to be entered above, or a compatible Captcha plugin to be installed (such as <a href="https://wordpress.org/plugins/really-simple-captcha/" target="_blank">Really Simple Captcha</a>). </p>
 					</td>
 				</tr>
 			</table>
@@ -1331,8 +1394,73 @@ class easyTestimonialOptions
 		<p class="submit">
 			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
 		</p>
+		</div><!-- end div.ezt_submission_form_settings -->
 	</form>
 	</div><?php 
+	}
+	
+	function get_recaptcha_languages()	
+	{
+		// from: https://developers.google.com/recaptcha/docs/language
+		return array(
+			'Arabic' => 'ar',
+			'Bengali' => 'bn',
+			'Bulgarian' => 'bg',
+			'Catalan' => 'ca',
+			'Chinese (Simplified)' => 'zh-CN',
+			'Chinese (Traditional)' => 'zh-TW',
+			'Croatian' => 'hr',
+			'Czech' => 'cs',
+			'Danish' => 'da',
+			'Dutch' => 'nl',
+			'English (UK)' => 'en-GB',
+			'English (US)' => 'en',
+			'Estonian' => 'et',
+			'Filipino' => 'fil',
+			'Finnish' => 'fi',
+			'French' => 'fr',
+			'French (Canadian)' => 'fr-CA',
+			'German' => 'de',
+			'Gujarati' => 'gu',
+			'German (Austria)' => 'de-AT',
+			'German (Switzerland)' => 'de-CH',
+			'Greek' => 'el',
+			'Hebrew' => 'iw',
+			'Hindi' => 'hi',
+			'Hungarain' => 'hu',
+			'Indonesian' => 'id',
+			'Italian' => 'it',
+			'Japanese' => 'ja',
+			'Kannada' => 'kn',
+			'Korean' => 'ko',
+			'Latvian' => 'lv',
+			'Lithuanian' => 'lt',
+			'Malay' => 'ms',
+			'Malayalam' => 'ml',
+			'Marathi' => 'mr',
+			'Norwegian' => 'no',
+			'Persian' => 'fa',
+			'Polish' => 'pl',
+			'Portuguese' => 'pt',
+			'Portuguese (Brazil)' => 'pt-BR',
+			'Portuguese (Portugal)' => 'pt-PT',
+			'Romanian' => 'ro',
+			'Russian' => 'ru',
+			'Serbian' => 'sr',
+			'Slovak' => 'sk',
+			'Slovenian' => 'sl',
+			'Spanish' => 'es',
+			'Spanish (Latin America)' => 'es-419',
+			'Swedish' => 'sv',
+			'Tamil' => 'ta',
+			'Telugu' => 'te',
+			'Thai' => 'th',
+			'Turkish' => 'tr',
+			'Ukrainian' => 'uk',
+			'Urdu' => 'ur',
+			'Vietnamese' => 'vi',
+		);
+
 	}
 	
 	function help_settings_page(){

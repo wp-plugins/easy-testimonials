@@ -3,8 +3,8 @@ Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
-Tested up to: 4.2.4
-Stable tag: 1.31.2
+Tested up to: 4.3
+Stable tag: 1.31.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -317,6 +317,12 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 13. This is the Single Testimonial Widget.
 
 == Changelog ==
+
+= 1.31.4 = 
+* Adds reCAPTCHA as an option for the submission form
+
+= 1.31.3 = 
+* Updates Widgets to be compatible with WordPress 4.3
 
 = 1.31.2 =
 * Compatible with WordPress 4.2.4
@@ -698,4 +704,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-* 1.31.2: Featured Image fix for Widgets, Help Docs update, Shortcode Generator update.
+* 1.31.4: Adds reCAPTCHA as an option for the submission form.
