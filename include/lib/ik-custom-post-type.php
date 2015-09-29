@@ -25,11 +25,13 @@ class ikTestimonialsCustomPostType
 	
 	function setupCustomPostType($postType)
 	{
-		$singular = ucwords($postType['name']);
-		$plural = isset($postType['plural']) ? ucwords($postType['plural']) : $singular . 's';
+		//RWG: make the singular and plural versions of "Testimonials" translatable
+		$singular = __("Testimonial",'easy-testimonials');//ucwords($postType['name']);
+		$plural = __("Testimonials",'easy-testimonials');//isset($postType['plural']) ? ucwords($postType['plural']) : $singular . 's';
+		
 		$exclude_from_search = isset($postType['exclude_from_search']) ? $postType['exclude_from_search'] : false;
 		
-		$this->customPostTypeName = strtolower($singular);
+		$this->customPostTypeName = 'testimonial';//RWG: DO NOT TRANLSATE THIS STRING, ELSE YOU RISK THE PREVIOUSLY ENTERED TESTIMONIALS DISAPPEARING!
 		$this->customPostTypeSingular = $singular;
 		$this->customPostTypePlural = $plural;
 
@@ -37,16 +39,16 @@ class ikTestimonialsCustomPostType
 		{		
 			$labels = array
 			(
-				'name' => _x($plural, 'post type general name'),
-				'singular_name' => _x($singular, 'post type singular name'),
-				'add_new' => _x('Add New ' . $singular, strtolower($singular)),
-				'add_new_item' => __('Add New ' . $singular),
-				'edit_item' => __('Edit ' . $singular),
-				'new_item' => __('New ' . $singular),
-				'view_item' => __('View ' . $singular),
-				'search_items' => __('Search ' . $plural),
-				'not_found' =>  __('No ' . strtolower($plural) . ' found'),
-				'not_found_in_trash' => __('No ' . strtolower($plural) . ' found in Trash'), 
+				'name' => __($plural, 'easy-testimonials'),
+				'singular_name' => __($singular, 'easy-testimonials'),
+				'add_new' => __('Add New Testimonial', 'easy-testimonials'),
+				'add_new_item' => __('Add New Testimonial', 'easy-testimonials'),
+				'edit_item' => __('Edit Testimonial', 'easy-testimonials'),
+				'new_item' => __('New Testimonial', 'easy-testimonials'),
+				'view_item' => __('View Testimonial', 'easy-testimonials'),
+				'search_items' => __('Search Testimonial', 'easy-testimonials'),
+				'not_found' =>  __('No testimonials found', 'easy-testimonials'),
+				'not_found_in_trash' => __('No testimonials found in Trash', 'easy-testimonials'), 
 				'parent_item_colon' => ''
 			);
 			

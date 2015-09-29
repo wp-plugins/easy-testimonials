@@ -17,9 +17,7 @@ along with The Easy Testimonials.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 class easyTestimonialOptions
-{
-	var $textdomain = '';
-	
+{	
 	function __construct(){
 		//may be running in non WP mode (for example from a notification)
 		if(function_exists('add_action')){
@@ -68,6 +66,7 @@ class easyTestimonialOptions
 		register_setting( 'easy-testimonials-settings-group', 'ezt_cycle_testimonial_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_random_testimonial_shortcode' );
 		register_setting( 'easy-testimonials-settings-group', 'ezt_testimonials_count_shortcode' );
+		register_setting( 'easy-testimonials-settings-group', 'ezt_testimonials_grid_shortcode' );
 		
 		/* Pro registration */
 		register_setting( 'easy-testimonials-settings-group', 'easy_t_registered_name' );
@@ -180,13 +179,13 @@ class easyTestimonialOptions
 	//function to produce tabs on admin screen
 	function easy_t_admin_tabs($current = 'homepage' ) {
 	
-		$tabs = array( 	'easy-testimonials-settings' => __('Basic Options', $this->textdomain), 
-						'easy-testimonials-display-settings' => __('Display Options', $this->textdomain),
-						'easy-testimonials-style-settings' => __('Themes', $this->textdomain),
-						'easy-testimonials-submission-settings' => __('Submission Form Options', $this->textdomain),
-						'easy-testimonials-shortcode-generator' => __('Shortcode Generator', $this->textdomain),
-						'easy-testimonials-import-export' => __('Import & Export', $this->textdomain),
-						'easy-testimonials-help' => __('Help & Instructions', $this->textdomain)
+		$tabs = array( 	'easy-testimonials-settings' => __('Basic Options', 'easy-testimonials'), 
+						'easy-testimonials-display-settings' => __('Display Options', 'easy-testimonials'),
+						'easy-testimonials-style-settings' => __('Themes', 'easy-testimonials'),
+						'easy-testimonials-submission-settings' => __('Submission Form Options', 'easy-testimonials'),
+						'easy-testimonials-shortcode-generator' => __('Shortcode Generator', 'easy-testimonials'),
+						'easy-testimonials-import-export' => __('Import & Export', 'easy-testimonials'),
+						'easy-testimonials-help' => __('Help & Instructions', 'easy-testimonials')
 					);
 		echo '<div id="icon-themes" class="icon32"><br></div>';
 		echo '<h2 class="nav-tab-wrapper">';
@@ -437,11 +436,19 @@ class easyTestimonialOptions
 					</td>
 				</tr>
 			</table>
+			<table class="form-table">
+				<tr valign="top">
+					<th scope="row"><label for="ezt_testimonials_grid_shortcode">Testimonials Grid Shortcode</label></th>
+					<td><input type="text" name="ezt_testimonials_grid_shortcode" id="ezt_testimonials_grid_shortcode" value="<?php echo get_option('ezt_testimonials_grid_shortcode', 'testimonials_grid'); ?>"  style="width: 250px" />
+					<p class="description">This is the shortcode for displaying the grid of Testimonials.  If you suspect you are having compatibility issues with shortcodes already registered by your theme or other plugins, try changing this value and any corresponding shortcodes you are using on your site.</p>
+					</td>
+				</tr>
+			</table>
 			
 			<?php include('registration_options.php'); ?>
 			
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'easy-testimonials') ?>" />
 			</p>
 		</form>
 		</div><?php 
@@ -452,7 +459,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php"><?php
 		
 		if(!isValidKey()): ?>
-			<p class="plugin_is_not_registered"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('to unlock all 75+ themes!');?> </p>
+			<p class="plugin_is_not_registered"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now', 'easy-testimonials');?></a> <?php _e('to unlock all 75+ themes!', 'easy-testimonials');?> </p>
 		<?php endif; ?>
 				
 		<?php settings_fields( 'easy-testimonials-style-settings-group' ); ?>	
@@ -475,7 +482,7 @@ class easyTestimonialOptions
 		</table>
 		
 		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'easy-testimonials') ?>" />
 		</p>
 		
 		<h3>Pro Themes</h3>		
@@ -483,7 +490,7 @@ class easyTestimonialOptions
 		<?php include('theme_options.php'); ?>
 				
 		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'easy-testimonials') ?>" />
 		</p>
 	</form>
 	</div><?php 
@@ -494,7 +501,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php"><?php
 		
 		if(!isValidKey()): ?>
-			<!--<p><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>-->
+			<!--<p><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now', 'easy-testimonials');?></a> <?php _e('and get access to new features and settings.', 'easy-testimonials');?> </p>-->
 		<?php endif; ?>
 				
 		<?php settings_fields( 'easy-testimonials-display-settings-group' ); ?>	
@@ -586,7 +593,7 @@ class easyTestimonialOptions
 			</table>
 		</fieldset>
 		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'easy-testimonials') ?>" />
 		</p>
 	</form>
 	</div><?php 
@@ -1004,7 +1011,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php">
 		
 		<?php if(!isValidKey()): ?>
-			<p><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now');?></a> <?php _e('and get access to new features and settings.');?> </p>
+			<p><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now', 'easy-testimonials');?></a> <?php _e('and get access to new features and settings.', 'easy-testimonials');?> </p>
 		<?php endif; ?>
 		
 		<?php settings_fields( 'easy-testimonials-submission_form_options-settings-group' ); ?>		
@@ -1392,7 +1399,7 @@ class easyTestimonialOptions
 			</table>
 		</fieldset>
 		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+			<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'easy-testimonials') ?>" />
 		</p>
 		</div><!-- end div.ezt_submission_form_settings -->
 	</form>
@@ -1500,10 +1507,10 @@ class easyTestimonialOptions
 			</fieldset>
 			
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+				<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'easy-testimonials') ?>" />
 			</p>	
 			<p class="submit" style="margin-top:0;">
-				<a href="?page=easy-testimonials-import-export&run-cron-now=true" class="button-primary" title="<?php _e('Import From Hello Testimonials Now') ?>"><?php _e('Import From Hello Testimonials Now') ?></a>
+				<a href="?page=easy-testimonials-import-export&run-cron-now=true" class="button-primary" title="<?php _e('Import From Hello Testimonials Now', 'easy-testimonials') ?>"><?php _e('Import From Hello Testimonials Now', 'easy-testimonials') ?></a>
 			</p>	
 		</form>	
 		

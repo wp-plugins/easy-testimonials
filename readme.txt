@@ -3,8 +3,8 @@ Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
-Tested up to: 4.3
-Stable tag: 1.31.4
+Tested up to: 4.3.1
+Stable tag: 1.31.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -137,6 +137,39 @@ You have a few things to pay attention to:
     Possible values for show_rating are `show_rating=before`, for the rating to appear before the testimonial content, `show_rating=after`, for the rating to appear after the testimonial content, and `show_rating=stars`, to show the rating in stars format.
 
 -   To paginate the list of Testimonials, use the following shortcode: [testimonials paginate='1' testimonials_per_page='5']
+
+### Output a Grid of Testimonials
+
+-	To output a grid of all the Testimonials, place the following shortcode in the desired area of the Page or Post Content:
+	[testimonials_grid]
+-	To output a grid of the 5 most recent Testimonials, use the following shortcode:
+	[testimonials_grid count='5' order='DESC' orderby='date']
+	
+	Acceptable attributes for `order` are `ASC` and `DESC`.
+	Acceptable attributes for `orderby` are `none`,`ID`,`author`,`title`,`name`,`date`,`modified`,`parent`, and `rand`
+
+-	To display the title above the grid of Testimonials and use excerpts (short versions of the Testimonial), use the following shortcode: 
+	[testimonials_grid show_title='1' use_excerpt='1']
+
+-	To output Testimonials from a specific Category, with images, use the following shortcode: 
+	[testimonials_grid category='the_category_slug' show_thumbs='1']
+
+-	To display the rating along with the testimonials, use the following shortcode:
+	[testimonials_grid show_rating='stars']
+
+	Possible values for show_rating are `show_rating=before`, for the rating to appear before the testimonial content, `show_rating=after`, for the rating to appear after the testimonial content, and `show_rating=stars`, to show the rating in stars format.
+
+-	To paginate the grid of Testimonials, use the following shortcode:
+	[testimonials_grid paginate='1' testimonials_per_page='5']
+	
+-	To ouput a grid of 4 specific testimonials by ID, use the following shortcode (update the values for ID to match the IDs of the desired testimonials.):
+	[testimonials_grid ids=5,7,3,4]
+
+-	To output a grid of Testimonials with 3 columns, spaced 3% apart, and each cell of the grid 25% wide, use the following shortcode:
+	[testimonials_grid cols='3' grid_spacing="3%" cell_width="25%"]
+
+-	To output a grid of Testimonials with 3 columns, spaced 3% apart, and each cell of the grid with the same height as others in it's row:
+	[testimonials_grid cols='3' grid_spacing="3%" equal_height_rows="true"]
 
 ### Output a Random Testimonial in the Sidebar
 
@@ -318,6 +351,23 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Changelog ==
 
+= 1.31.9 =
+* Update: adds text-domain, sets up plugin to be translatable.
+
+= 1.31.8 =
+* Fix: Properly reset post data to prevent double testimonials.
+
+= 1.31.7 = 
+* CSS fixes for testimonial grid.
+* Fix: unclosed row divs in some cases using grid shortcode.
+
+= 1.31.6 =
+* Fix: address issue with endless loop on some Divi theme based sites.
+* Update: add ability to pass a list of IDs to [testimonials_grid] shortcode.
+
+= 1.31.5 = 
+* Adds [testimonials_grid] shortcode for outputting testimonials in a horizontal grid.
+
 = 1.31.4 = 
 * Adds reCAPTCHA as an option for the submission form
 
@@ -377,7 +427,7 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 = 1.26 =
 * Adds Recently Submitted Testimonials Dashboard Widget
-* Replace <code> tags around shortcode examples with easier to use inputs
+* Replace ` tags around shortcode examples with easier to use inputs
 * Updates Help Docs for clarity, ease of use
 * Swaps out pushpin menu icon for testimonial menu icon
 
@@ -704,4 +754,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-* 1.31.4: Adds reCAPTCHA as an option for the submission form.
+= 1.31.9: adds text-domain, sets up plugin to be translatable.

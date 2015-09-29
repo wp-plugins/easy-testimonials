@@ -36,6 +36,7 @@
 		<li><a href="#testimonial_theme_via_shortcode">Selecting Testimonial Theme via Shortcode</a></li>
 		<li><a href="#outputting_random_testimonials">Outputting Random Testimonials</a></li>
 		<li><a href="#output_a_list_of_testimonials">Output a List of Testimonials</a></li>
+		<li><a href="#output_a_grid_of_testimonials">Output a Grid of Testimonials</a></li>
 		<li><a href="#output_a_testimonial_in_the_sidebar">Output a Testimonial in the Sidebar</a></li>
 		<li><a href="#outputting_a_testimonial_slider">Outputting a Testimonial Slider</a></li>
 		<li><a href="#outputting_a_testimonial_slider_in_the_sidebar">Outputting a Testimonial Slider in the Sidebar</a></li>
@@ -137,6 +138,41 @@
 			</li>
 			<li>To paginate the list of Testimonials, use the following shortcode:
 				<textarea>[testimonials paginate='1' testimonials_per_page='5']</textarea>
+			</li>
+		</ul>
+	</div>
+	<div id="output_a_grid_of_testimonials">
+		<h3 id="output-a-grid-of-testimonials">Output a Grid of Testimonials</h3>
+		<ul>
+			<li>To output a grid of all the Testimonials, place the following shortcode in the desired area of the Page or Post Content:<br/>
+				<textarea>[testimonials_grid]</textarea>
+			</li>
+			<li>To output a grid of the 5 most recent Testimonials, use the following shortcode: <br/>
+				<textarea>[testimonials_grid count='5' order='DESC' orderby='date']</textarea>
+				<p class="description">Acceptable attributes for <code>'order'</code> are <code>'ASC'</code> and <code>'DESC'</code>.</p>
+				<p class="description">Acceptable attributes for <code>'orderby'</code> are <code>'none'</code>,<code>'ID'</code>,<code>'author'</code>,<code>'title'</code>,<code>'name'</code>,<code>'date'</code>,<code>'modified'</code>,<code>'parent'</code>, and <code>'rand'</code></p>
+			</li>
+			<li>To display the title above the grid of Testimonials and use excerpts (short versions of the Testimonial), use the following shortcode: <br/>
+				<textarea>[testimonials_grid show_title='1' use_excerpt='1']</textarea>
+			</li>
+			<li>To output Testimonials from a specific Category, with images, use the following shortcode: <br/>
+				<textarea>[testimonials_grid category='the_category_slug' show_thumbs='1']</textarea>
+			</li>
+			<li>To display the rating along with the testimonials, use the following shortcode:<br/>
+				<textarea>[testimonials_grid show_rating='stars']</textarea><br/>
+				<p class="description">Possible values for show_rating are <code>show_rating=before</code>, for the rating to appear before the testimonial content, <code>show_rating=after</code>, for the rating to appear after the testimonial content, and <code>show_rating=stars</code>, to show the rating in stars format.</p>
+			</li>
+			<li>To paginate the grid of Testimonials, use the following shortcode:
+				<textarea>[testimonials_grid paginate='1' testimonials_per_page='5']</textarea>
+			</li>
+			<li>To ouput a grid of 4 specific testimonials by ID, use the following shortcode (update the values for ID to match the IDs of the desired testimonials.):
+				<textarea>[testimonials_grid ids=5,7,3,4]</textarea>
+			</li>	
+			<li>To output a grid of Testimonials with 3 columns, spaced 3% apart, and each cell of the grid 25% wide, use the following shortcode:
+				<textarea>[testimonials_grid cols='3' grid_spacing="3%" cell_width="25%"]</textarea>
+			</li>
+			<li>To output a grid of Testimonials with 3 columns, spaced 3% apart, and each cell of the grid with the same height as others in it's row:
+				<textarea>[testimonials_grid cols='3' grid_spacing="3%" equal_height_rows="true"]</textarea>
 			</li>
 		</ul>
 	</div>

@@ -4,8 +4,9 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.31.4
+Version: 1.31.9
 Author URI: https://goldplugins.com
+Text Domain: easy-testimonials
 
 This file is part of Easy Testimonials.
 
@@ -41,6 +42,15 @@ function easy_testimonials_setup_js() {
 	wp_register_script(
 			'g-recaptcha',
 			$recaptcha_js_url
+	);
+
+	// register the grid-height script, but only enqueue it later, when/if we see the testimonials_grid shortcode with the auto_height option on
+	$recaptcha_lang = get_option('easy_t_recaptcha_lang', '');
+	$recaptcha_js_url = 'https://www.google.com/recaptcha/api.js' . ( !empty($recaptcha_lang) ? '?hl='.urlencode($recaptcha_lang) : '' );
+	wp_register_script(
+			'easy-testimonials-grid',
+			plugins_url('include/js/easy-testimonials-grid.js', __FILE__),
+			array( 'jquery' )
 	);
 	
 	if(!$disable_cycle2){
@@ -623,6 +633,12 @@ if(!function_exists('word_trim')):
 	}
 endif;
 
+//load proper language pack based on current language
+function easy_t_load_textdomain() {
+	$plugin_dir = basename(dirname(__FILE__));
+	load_plugin_textdomain( 'easy-testimonials', false, $plugin_dir . '/languages' );
+}
+
 //setup custom post type for testimonials
 function easy_testimonials_setup_testimonials(){
 	//include custom post type code
@@ -641,7 +657,7 @@ function easy_testimonials_setup_testimonials(){
 	$fields[] = array('name' => 'rating', 'title' => 'Rating', 'description' => "The client's rating, if submitted along with their testimonial.  This can be displayed below the client's position, or name if the position is hidden, or it can be displayed above the testimonial text.", 'type' => 'text');  
 	//$fields[] = array('name' => 'htid', 'title' => 'HTID', 'description' => "Please leave this alone -- this field should never be publicly displayed.");  
 	$myCustomType = new ikTestimonialsCustomPostType($postType, $fields);
-	register_taxonomy( 'easy-testimonial-category', 'testimonial', array( 'hierarchical' => true, 'label' => __('Testimonial Category'), 'rewrite' => array('slug' => 'testimonial-category', 'with_front' => true) ) ); 
+	register_taxonomy( 'easy-testimonial-category', 'testimonial', array( 'hierarchical' => true, 'label' => __('Testimonial Category', 'easy-testimonials'), 'rewrite' => array('slug' => 'testimonial-category', 'with_front' => true) ) ); 
 	
 	//load list of current posts that have featured images	
 	$supportedTypes = get_theme_support( 'post-thumbnails' );
@@ -825,7 +841,7 @@ function outputRandomTestimonial($atts){
 		
 		$i++;
 	endwhile;
-	wp_reset_query();
+	wp_reset_postdata();
 	
 	$randArray = UniqueRandomNumbersWithinRange(0,$i-1,$count);
 	
@@ -931,7 +947,7 @@ function outputSingleTestimonial($atts){
 		echo build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other,$width);
 			
 	endwhile;	
-	wp_reset_query();
+	wp_reset_postdata();
 	
 	$content = ob_get_contents();
 	ob_end_clean();	
@@ -1039,17 +1055,192 @@ function outputTestimonials($atts){
 	//TBD: make all labels controllable via settings
 	if($paginate){
 		echo '<div class="easy_t_pagination">';
-			echo '<div style="float:left;">' . get_previous_posts_link( 'Previous Testimonials' ) . '</div>';
-			echo '<div style="float:right;">' . get_next_posts_link( 'Next Testimonials', $loop->max_num_pages ) . '</div>';
+			echo '<div style="float:left;">' . get_previous_posts_link( __('Previous Testimonials', 'easy-testimonials') ) . '</div>';
+			echo '<div style="float:right;">' . get_next_posts_link( __('Next Testimonials', 'easy-testimonials'), $loop->max_num_pages ) . '</div>';
 		echo '</div>';
 	}
 	
-	wp_reset_query();
+	wp_reset_postdata();
 	
 	$content = ob_get_contents();
 	ob_end_clean();	
 	
 	return apply_filters('easy_t_testimonials_html', $content);
+}
+
+/*
+ * Displays a grid of testimonials, with the requested number of columns
+ *
+ * @param array $atts Shortcode options. These include the [testimonial]
+					  shortcode attributes, which are passed through.
+ *
+ * @return string HTML representing the grid of testimonials.
+ */
+function easy_t_testimonials_grid_shortcode($atts)
+{
+	// load shortcode attributes into an array
+	// note: these are mostly the same attributes as [testimonials] shortcode
+	$atts = shortcode_atts( array(
+		'testimonials_link' => '',//get_option('testimonials_link'),
+		'show_title' => 0,
+		'count' => -1,
+		'body_class' => 'testimonial_body',
+		'author_class' => 'testimonial_author',
+		'id' => '',
+		'ids' => '', // i've heard it both ways
+		'use_excerpt' => false,
+		'category' => '',
+		'show_thumbs' => NULL,
+		'short_version' => false,
+		'orderby' => 'date',//'none','ID','author','title','name','date','modified','parent','rand','menu_order'
+		'order' => 'ASC',//'DESC'
+		'show_rating' => false,
+		'paginate' => false,
+		'testimonials_per_page' => 10,
+		'theme' => '',
+		'show_date' => false,
+		'show_other' => false,
+		'width' => false,
+		'cols' => 3, // 1-10
+		'grid_width' => false,
+		'grid_spacing' => false,
+		'grid_class' => '',
+		'cell_width' => false,
+		'responsive' => true,
+		'equal_height_rows' => false
+	), $atts );
+	
+	extract( $atts );
+	
+	// allow ids or id to be passed in
+	if ( empty($id) && !empty($ids) ) {
+		$id = $ids;
+	}
+	
+	$testimonials_output = '';
+	$col_counter = 1;
+	$row_counter = 0;
+	
+	if ($equal_height_rows) {
+		wp_enqueue_script('easy-testimonials-grid');
+	}
+	
+	if ( empty($rows) ) {
+		$rows  = -1;
+	}
+	
+	// make sure $cols is between 1 and 10
+	$cols = max( 1, min( 10, intval($cols) ) );
+	
+	// create CSS for cells (will be same on each cell)
+	$cell_style_attr = '';
+	$cell_css_rules = array();
+
+	if ( !empty($grid_spacing) && intval($grid_spacing) > 0 ) {
+		$coefficient = intval($grid_spacing) / 2;
+		$unit = ( strpos($grid_spacing, '%') !== false ) ? '%' : 'px';
+		$cell_margin = $coefficient . $unit;			
+		$cell_css_rules[] = sprintf('margin-left: %s', $cell_margin);
+		$cell_css_rules[] = sprintf('margin-right: %s', $cell_margin);			
+	}
+
+	if ( !empty($cell_width) && intval($cell_width) > 0 ) {
+		$cell_css_rules[] = sprintf('width: %s', $cell_width);
+	}
+
+	$cell_style_attr = !empty($cell_css_rules) ? sprintf('style="%s"', implode(';', $cell_css_rules) ) : '';
+	
+	// combine the rules into a re-useable opening <div> tag to be used for each cell
+	$cell_div_start = sprintf('<div class="easy_testimonials_grid_cell" %s>', $cell_style_attr);
+	
+	// grab all requested testimonials and build one cell (in HTML) for each
+	// note: using WP_Query instead of get_posts in order to respect pagination
+	//    	 more info: http://wordpress.stackexchange.com/a/191934
+	$args = array(
+		'post_type' => 'testimonial',
+		'posts_per_page' => $count,
+		'easy-testimonial-category' => $category,
+		'orderby' => $orderby,
+		'order' => $order,
+		'paged' => get_query_var( 'paged' )
+	);
+	
+	// restrict to specific posts if requested
+	if ( !empty($id) ) {
+		$args['post__in'] = array_map('intval', explode(',', $id));
+	}
+	
+	$loop = new WP_Query($args);
+	$in_row = false;
+	while( $loop->have_posts() ) {
+		$loop->the_post();
+
+		if ($col_counter == 1) {
+			$in_row = true;
+			$row_counter++;
+			$testimonials_output .= sprintf('<div class="easy_testimonials_grid_row easy_testimonials_grid_row_%d">', $row_counter);
+		}
+				
+		$testimonials_output .= $cell_div_start;
+	
+		$postid = get_the_ID();
+		$testimonials_output .= easy_t_get_single_testimonial_html($postid, $atts);
+		
+		$testimonials_output .= '</div>';
+
+		if ($col_counter == $cols) {
+			$in_row = false;
+			$testimonials_output .= '</div><!--easy_testimonials_grid_row-->';
+			$col_counter = 1;
+		} else {
+			$col_counter++;
+		}
+	} // endwhile;
+	
+	// close any half finished rows
+	if ($in_row) {
+		$testimonials_output .= '</div><!--easy_testimonials_grid_row-->';
+	}
+	
+	// restore globals to their original values (i.e, $post and friends)
+	wp_reset_postdata();
+		
+	// setup the grid's CSS, insert the grid of testimonials (the cells) 
+	// into the grid, add a clearing div, and return the whole thing
+	$grid_classes = array(
+		'easy_testimonials_grid',
+		'easy_testimonials_grid_' . $cols
+	);
+	
+	if ($responsive) {
+		$grid_classes[] = 'easy_testimonials_grid_responsive';
+	}
+	
+	if ($equal_height_rows) {
+		$grid_classes[] = 'easy_testimonials_grid_equal_height_rows';
+	}	
+
+	// add any grid classes specified by the user
+	if ( !empty($grid_class) ) {
+		$grid_classes = array_merge( $grid_classes, explode(' ', $grid_class) );
+	}
+	
+	// combine all classes into an class attribute
+	$grid_class_attr = sprintf( 'class="%s"', implode(' ', $grid_classes) );
+	
+	// add all style rules for the grid (currently, only specifies width)
+	$grid_css_rules = array();
+	if ( !empty($grid_width) && intval($grid_width) > 0 ) {
+		$grid_css_rules[] = sprintf('width: %s', $grid_width);
+	}
+	
+	// combine all CSS rules into an HTML style attribute
+	$grid_style_attr = sprintf( 'style="%s"', implode(';', $grid_css_rules) );
+		
+	// add classes and CSS rules to the grid, insert cells, return result
+	$grid_template = '<div %s %s>%s</div>';
+	$grid_html = sprintf($grid_template, $grid_class_attr, $grid_style_attr, $testimonials_output);
+	return $grid_html;
 }
 
 //output a single testimonial for each theme_array
@@ -1152,7 +1343,7 @@ function outputAllThemes($atts){
 			
 	endwhile;	
 	
-	wp_reset_query();
+	wp_reset_postdata();
 	
 	if($show_free_themes){
 		foreach($free_theme_array as $theme_slug => $theme_name){
@@ -1326,7 +1517,7 @@ function outputTestimonialsCycle($atts){
 		}
 		
 	endwhile;	
-	wp_reset_query();
+	wp_reset_postdata();
 	
 	//display pager icons
 	if($pager || $show_pager_icons ){
@@ -1340,8 +1531,8 @@ function outputTestimonialsCycle($atts){
 	//display previous and next buttons
 	//do it after the closing div so it is outside of the slideshow container
 	if($prev_next){
-		?><div class="cycle-prev easy-t-cycle-prev">&lt;&lt; Prev </div>
-		<div class="cycle-next easy-t-cycle-next">Next &gt;&gt;</div><?php
+		?><div class="cycle-prev easy-t-cycle-prev"><?php _e('&lt;&lt; Prev', 'easy-testimonials'); ?> </div>
+		<div class="cycle-next easy-t-cycle-next"><?php _e('Next &gt;&gt;', 'easy-testimonials'); ?></div><?php
 	}
 	
 	$content = ob_get_contents();
@@ -1361,6 +1552,80 @@ function easy_t_build_classes_from_atts($atts = array()){
 	}
 	
 	return $class_string;
+}
+
+/*
+ * Generates and returns the HTML for a given testimonial, 
+ * considering the shortcode attributess provided.
+ *
+ * @param integer $postid The post ID of the testimonial
+ * @param array $atts The shortcode attributes to use for build this testimonial
+ *
+ * @return string The HTML output for this testimonial
+ */
+function easy_t_get_single_testimonial_html($postid, $atts)
+{
+	global $post; 
+	$post = get_post( $postid, OBJECT );
+	setup_postdata( $post );
+
+	extract($atts);
+	
+	ob_start();
+	
+	$testimonial['date'] = get_the_date('M. j, Y');
+	if($use_excerpt){
+		$testimonial['content'] = get_the_excerpt();
+	} else {				
+		$testimonial['content'] = get_the_content();
+	}
+
+	//load rating
+	//if set, append english text to it
+	$testimonial['rating'] = get_post_meta($postid, '_ikcf_rating', true); 
+	$testimonial['num_stars'] = ''; //reset num stars (Thanks Steve@IntegrityConsultants!)
+	if(strlen($testimonial['rating'])>0){	
+		$testimonial['num_stars'] = $testimonial['rating'];
+		$testimonial['rating'] = '<p class="easy_t_ratings" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating"><meta itemprop="worstRating" content = "1"/><span itemprop="ratingValue">' . $testimonial['rating'] . '</span>/<span itemprop="bestRating">5</span> Stars.</p>';
+		//$testimonial['rating'] = '<span class="easy_t_ratings">' . $testimonial['rating'] . '/5 Stars.</span>';		
+	}	
+	
+	//if nothing is set for the short content, use the long content
+	if(strlen($testimonial['content']) < 2){
+		//$temp_post_content = get_post($postid); 			
+		$testimonial['content'] = $post->post_excerpt;
+		if($use_excerpt){
+			if($testimonial['content'] == ''){
+				$testimonial['content'] = wp_trim_excerpt($post->post_content);
+			}
+		} else {				
+			$testimonial['content'] = $post->post_content;
+		}
+	}
+		
+	if(strlen($show_rating)>2){
+		if($show_rating == "before"){
+			$testimonial['content'] = $testimonial['rating'] . ' ' . $testimonial['content'];
+		}
+		if($show_rating == "after"){
+			$testimonial['content'] =  $testimonial['content'] . ' ' . $testimonial['rating'];
+		}
+	}
+	
+	if ($show_thumbs) {		
+		$testimonial['image'] = build_testimonial_image($postid);
+	}
+	
+	$testimonial['client'] = get_post_meta($postid, '_ikcf_client', true); 	
+	$testimonial['position'] = get_post_meta($postid, '_ikcf_position', true); 
+	$testimonial['other'] = get_post_meta($postid, '_ikcf_other', true); 	
+
+	build_single_testimonial($testimonial,$show_thumbs,$show_title,$postid,$author_class,$body_class,$testimonials_link,$theme,$show_date,$show_rating,$show_other,$width);
+	
+	wp_reset_postdata();	
+	$content = ob_get_contents();
+	ob_end_clean();	
+	return $content;
 }
 
 //given a full set of data for a testimonial
@@ -2079,6 +2344,7 @@ $testimonials_shortcode = get_option('ezt_testimonials_shortcode', 'testimonials
 $submit_testimonial_shortcode = get_option('ezt_submit_testimonial_shortcode', 'submit_testimonial');
 $testimonials_cycle_shortcode = get_option('ezt_cycle_testimonial_shortcode', 'testimonials_cycle');
 $testimonials_count_shortcode = get_option('ezt_testimonials_count_shortcode', 'testimonials_count');
+$testimonials_grid_shortcode = get_option('ezt_testimonials_grid_shortcode', 'testimonials_grid');
 
 //check for shortcode conflicts
 $shortcodes = array();
@@ -2093,6 +2359,7 @@ add_shortcode($testimonials_cycle_shortcode , 'outputTestimonialsCycle');
 add_shortcode($testimonials_count_shortcode , 'outputTestimonialsCount');
 add_shortcode('output_all_themes', 'outputAllThemes');
 add_shortcode('easy_t_search_testimonials', 'easy_t_search_form_shortcode');
+add_shortcode($testimonials_grid_shortcode, 'easy_t_testimonials_grid_shortcode');
 
 //dashboard widget ajax functionality 
 add_action('admin_head', 'easy_t_action_javascript');
@@ -2120,6 +2387,7 @@ add_action( 'widgets_init', 'easy_testimonials_register_widgets' );
 add_action( 'init', 'easy_testimonials_setup_testimonials' );
 add_action( 'admin_enqueue_scripts', 'easy_testimonials_admin_init' );
 add_action( 'admin_enqueue_scripts', 'easy_testimonials_conflict_check' );
+add_action('plugins_loaded', 'easy_t_load_textdomain');
 
 add_filter('manage_testimonial_posts_columns', 'easy_t_column_head', 10);  
 add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 10, 2); 
