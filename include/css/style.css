@@ -41,12 +41,14 @@ div.easy-t-cycle-next{
 
 .easy_testimonials_grid .easy_testimonials_grid_row {
 	display: inline-block;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
+	width: 100%;
 }
  
 .easy_testimonials_grid .easy_testimonials_grid_row .easy_testimonials_grid_cell 
 {
 	float: left;
+	margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 500px)
@@ -54,6 +56,8 @@ div.easy-t-cycle-next{
 	.easy_testimonials_grid_responsive .easy_testimonials_grid_row .easy_testimonials_grid_cell 
 	{
 		min-width: 320px;
+		margin-left: 0px !important;
+		margin-right: 0px !important;
 	}
 }
 

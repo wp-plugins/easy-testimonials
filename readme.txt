@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.3.1
-Stable tag: 1.31.9
+Stable tag: 1.31.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -348,8 +348,12 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 11. This is the Testimonial Cycle Widget.
 12. This is the Testimonial List Widget.
 13. This is the Single Testimonial Widget.
+14. This is the Testimonial Grid Widget.
 
 == Changelog ==
+
+= 1.31.10 =
+* Update: adds new Testimonials Grid widget
 
 = 1.31.9 =
 * Update: adds text-domain, sets up plugin to be translatable.
@@ -754,4 +758,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-= 1.31.9: adds text-domain, sets up plugin to be translatable.
+= 1.31.10: adds new Testimonials Grid widget
