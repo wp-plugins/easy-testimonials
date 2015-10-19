@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.31.10
+Version: 1.31.11
 Author URI: https://goldplugins.com
 Text Domain: easy-testimonials
 
@@ -1657,7 +1657,7 @@ function build_single_testimonial($testimonial,$show_thumbs=false,$show_title=fa
  
 	$output_theme = easy_t_get_theme_class($theme);
 	$testimonial_body_css = easy_testimonials_build_typography_css('easy_t_body_');	
-	$width = $width ? 'style="width: ' . $width . '"' : get_option('easy_t_width','');
+	$width = $width ? 'style="width: ' . $width . '"' : 'style="width: ' . get_option('easy_t_width','') . '"';
 	
 ?>
 	<div class="<?php echo $output_theme; ?> <?php echo $attribute_classes; ?> easy_t_single_testimonial" <?php echo $width; ?>>
@@ -1765,8 +1765,8 @@ function easy_testimonials_build_metadata_html($testimonial, $author_class, $sho
 		<cite>
 			<span class="testimonial-client" itemprop="author" style="<?php echo $client_css; ?>"><?php echo $testimonial['client'];?>&nbsp;</span>
 			<span class="testimonial-position" style="<?php echo $position_css; ?>"><?php echo $testimonial['position'];?>&nbsp;</span>
-			<?php if($show_other && strlen($testimonial['other'])>1): ?>
-					<span class="testimonial-other" itemprop="itemReviewed"><?php echo $testimonial['other'];?>&nbsp;</span>
+			<?php if($show_other): ?>
+				<span class="testimonial-other" itemprop="itemReviewed"><?php echo $testimonial['other'];?>&nbsp;</span>
 			<?php endif; ?>
 			<?php if($show_date): ?>
 				<span class="date" itemprop="datePublished" content="<?php echo $testimonial['date'];?>" style="<?php echo $date_css; ?>"><?php echo $testimonial['date'];?>&nbsp;</span>
@@ -1873,6 +1873,17 @@ function easy_testimonials_admin_init($hook)
 			false,
 			true
 		);	
+	}
+	
+	//RWG: include pro styles on Theme Selection screen, for preview purposes
+	if(strpos($hook,'easy-testimonials-style-settings')!==false){
+		//basic styling
+		wp_register_style( 'easy_testimonial_style', plugins_url('include/css/style.css', __FILE__) );
+		wp_enqueue_style( 'easy_testimonial_style' );
+		
+		//pro themes
+		wp_register_style( 'easy_testimonials_pro_styles', plugins_url('include/css/easy_testimonials_pro.css', __FILE__) );
+		wp_enqueue_style( 'easy_testimonials_pro_styles' );
 	}
 	
 	// also include some styles on *all* admin pages

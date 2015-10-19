@@ -323,3 +323,31 @@ function ezt_build_shortcode()
 	ezt_highlight_shortcode();
 	
 }
+
+jQuery(document).ready(function() {
+  ezt_theme_preview_swap();
+});
+function ezt_theme_preview_swap()
+{
+	jQuery('#testimonials_style').change(function(){
+		var new_theme = jQuery(this).val();
+		var pro_required = 0;
+		
+		if (new_theme.indexOf("-disabled") >= 0){
+			new_theme = new_theme.replace("-disabled", "");
+			pro_required = 1;
+		}
+		
+		new_theme = new_theme.replace("-style","");
+		
+		jQuery('#easy_t_preview > div').removeClass().addClass('style-' + new_theme + ' easy_t_single_testimonial');
+		
+		if(pro_required){
+			jQuery('#easy_t_preview .plugin_is_not_registered').show();
+			jQuery('#easy_t_save_options').prop('disabled', true);
+		} else {
+			jQuery('#easy_t_preview .plugin_is_not_registered').hide();
+			jQuery('#easy_t_save_options').prop('disabled', false);
+		}
+	});
+}

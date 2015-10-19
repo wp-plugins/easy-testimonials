@@ -6,6 +6,10 @@ div[class^="style-dark_style"] .wp-post-image,div[class^="style-light_style"] .w
 div[class^="style-dark_style"] .testimonial_author cite span,div[class^="style-light_style"] .testimonial_author cite span,div[class^="style-default_style"] .testimonial_author cite span,div[class^="style-clean_style"] .testimonial_author cite span {
     display: block;
 }
+span.stars{
+	display: block;
+	height: 18px;
+}
 span.stars span {
 	color: #666666;
 	float: left;
@@ -133,4 +137,7 @@ div.easy-t-cycle-next{
 .easy_testimonials_grid .easy_testimonials_grid_row .easy_testimonials_grid_cell:last-child {
 	margin-right: 0 !important;
 }
-
+/*other rwg*/
+.easy_t_single_testimonial .easy_testimonial_title{
+	font-weight: bold;
+}

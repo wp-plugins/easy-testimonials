@@ -456,44 +456,11 @@ class easyTestimonialOptions
 		
 	function style_settings_page(){
 		$this->settings_page_top();
-		?><form method="post" action="options.php"><?php
-		
-		if(!isValidKey()): ?>
-			<p class="plugin_is_not_registered"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now', 'easy-testimonials');?></a> <?php _e('to unlock all 75+ themes!', 'easy-testimonials');?> </p>
-		<?php endif; ?>
-				
-		<?php settings_fields( 'easy-testimonials-style-settings-group' ); ?>	
-		
-		<h3>Style &amp; Theme Options</h3>
-		
-		<p class="description">Select which style you want to use.  If 'No Style' is selected, only your Theme's CSS, and any Custom CSS you've added, will be used.</p>
-				
-		<table class="form-table easy_t_options">
-			<tr valign="top">
-				<td>
-					<h4>Standard Themes</h4>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="default_style" value="default_style" <?php if(get_option('testimonials_style', 'default_style') == "default_style"): echo 'checked="CHECKED"'; endif; ?>><label for="default_style">Default Style<br/><img src="<?php echo plugins_url('img/easy-t-default-style.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="dark_style" value="dark_style" <?php if(get_option('testimonials_style') == "dark_style"): echo 'checked="CHECKED"'; endif; ?>><label for="dark_style">Dark Style<br/><img src="<?php echo plugins_url('img/easy-t-dark-style.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="light_style" value="light_style" <?php if(get_option('testimonials_style') == "light_style"): echo 'checked="CHECKED"'; endif; ?>><label for="light_style">Light Style<br/><img src="<?php echo plugins_url('img/easy-t-light-style.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="clean_style" value="clean_style" <?php if(get_option('testimonials_style') == "clean_style"): echo 'checked="CHECKED"'; endif; ?>><label for="clean_style">Clean Style<br/><img src="<?php echo plugins_url('img/easy-t-clean-style.png', __FILE__); ?>"/></label></p>
-					<p class="easy-t-radio-button"><input type="radio" name="testimonials_style" id="no_style" value="no_style" <?php if(get_option('testimonials_style') == "no_style"): echo 'checked="CHECKED"'; endif; ?>><label for="no_style">No Style<br/><img src="<?php echo plugins_url('img/easy-t-no-style.png', __FILE__); ?>"/></label></p>
-				</td>
-			</tr>
-		</table>
-		
-		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'easy-testimonials') ?>" />
-		</p>
-		
-		<h3>Pro Themes</h3>		
+		?>			
 			
 		<?php include('theme_options.php'); ?>
-				
-		<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'easy-testimonials') ?>" />
-		</p>
-	</form>
-	</div><?php 
+	
+		<?php 
 	}
 
 	function display_settings_page(){
@@ -1011,7 +978,7 @@ class easyTestimonialOptions
 		?><form method="post" action="options.php">
 		
 		<?php if(!isValidKey()): ?>
-			<p><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now', 'easy-testimonials');?></a> <?php _e('and get access to new features and settings.', 'easy-testimonials');?> </p>
+			<p class="plugin_is_not_registered"><a href="https://goldplugins.com/our-plugins/easy-testimonials-details/upgrade-to-easy-testimonials-pro/?utm_source=themes"><?php _e('Upgrade to Easy Testimonials Pro now', 'easy-testimonials');?></a> <?php _e('and get access to new features and settings.', 'easy-testimonials');?> </p>
 		<?php endif; ?>
 		
 		<?php settings_fields( 'easy-testimonials-submission_form_options-settings-group' ); ?>		

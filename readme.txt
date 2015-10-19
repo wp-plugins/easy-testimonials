@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
 Tested up to: 4.3.1
-Stable tag: 1.31.10
+Stable tag: 1.31.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -351,6 +351,11 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 14. This is the Testimonial Grid Widget.
 
 == Changelog ==
+
+= 1.31.11=
+* Updates Theme Selection interface
+* Fixes issue with custom fields not displaying in some themes.
+* Fixes issue with Product Reviewed field not displaying in Widget.
 
 = 1.31.10 =
 * Update: adds new Testimonials Grid widget
@@ -758,4 +763,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-= 1.31.10: adds new Testimonials Grid widget
+= 1.31.11: Updates Theme Selection interface, various bug fixes.

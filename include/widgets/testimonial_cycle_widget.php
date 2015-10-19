@@ -381,7 +381,8 @@ class cycledTestimonialWidget extends WP_Widget
 			'order' => $order,
 			'orderby' => $order_by,
 			'show_thumbs' => $show_testimonial_image,
-			'theme' => $theme,			
+			'theme' => $theme,
+			'show_other' => $show_other
 		);
 		
 		echo outputTestimonialsCycle( $args );

@@ -207,11 +207,13 @@
 }
 
 .easy_testimonials_admin_wrap  .form-table.easy_t_options img {
+/*
 	background-color: #fff;
     display: block;
     margin: 10px 0 20px;
     max-width: 95%;
     padding: 10px;
+*/
 }
 
 .easy_testimonials_admin_wrap  .easy-t-radio-button {
@@ -612,4 +614,15 @@ a.trash_testimonial{
 .ezt_submission_form_settings input[type="text"],
 .ezt_submission_form_settings textarea {
 	min-width: 400px;
+}
+
+/* Theme Selection / Preview */
+.easy_t_preview {
+    background-color: white;
+    border: 1px solid #ccc;
+    margin: 25px 0;
+    padding: 50px;
+}
+.easy_t_options fieldset {
+    padding: 20px !important;
 }
