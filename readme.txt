@@ -352,7 +352,7 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Changelog ==
 
-= 1.31.11=
+= 1.31.11 =
 * Updates Theme Selection interface
 * Fixes issue with custom fields not displaying in some themes.
 * Fixes issue with Product Reviewed field not displaying in Widget.
