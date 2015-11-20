@@ -3,8 +3,8 @@ Contributors: richardgabriel, ghuger
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V7HR8DP4EJSYN
 Tags: testimonials, testimonial widget, testimonial feed, random testimonials
 Requires at least: 3.1
-Tested up to: 4.3.1
-Stable tag: 1.31.12
+Tested up to: 4.4
+Stable tag: 1.32
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -351,6 +351,11 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 14. This is the Testimonial Grid Widget.
 
 == Changelog ==
+
+= 1.32 =
+* Adds Insert Testimonial buttons to the Visual and Text Editors, including all available methods such as Cycled Testimonials, Grid, List, Random, and Single.
+* Updates Modern Theme to allow different background colors.
+* Updates Widgets to allow collapsable fieldsets, preventing super long widgets interfaces.
 
 = 1.31.12 =
 * Various theme fixes.
@@ -766,4 +771,4 @@ Easy!  Just add the attribute width=500px or width=33% (be sure to use the full 
 
 == Upgrade Notice ==
 
-= 1.31.12: Various theme fixes.
+= 1.32: Adds Insert Testimonial buttons to the Visual and Text Editors, Theme Updates, Widget Updates

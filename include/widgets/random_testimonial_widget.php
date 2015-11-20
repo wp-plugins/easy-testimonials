@@ -69,9 +69,9 @@ class randomTestimonialWidget extends WP_Widget
 		$ip = isValidKey();
 		?>
 		<div class="gp_widget_form_wrapper">
-			<p>
+			<p class="hide_in_popup">
 				<label for="<?php echo $this->get_field_id('title'); ?>">Widget Title:</label>
-				<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" data-shortcode-hidden="1" />
 			</p>			
 		
 			<p>

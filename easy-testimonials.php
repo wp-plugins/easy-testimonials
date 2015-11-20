@@ -4,7 +4,7 @@ Plugin Name: Easy Testimonials
 Plugin URI: https://goldplugins.com/our-plugins/easy-testimonials-details/
 Description: Easy Testimonials - Provides custom post type, shortcode, sidebar widget, and other functionality for testimonials.
 Author: Gold Plugins
-Version: 1.31.12
+Version: 1.32
 Author URI: https://goldplugins.com
 Text Domain: easy-testimonials
 
@@ -30,6 +30,8 @@ require_once('include/lib/lib.php');
 require_once('include/lib/BikeShed/bikeshed.php');
 require_once("include/lib/testimonials_importer.php");
 require_once("include/lib/testimonials_exporter.php");
+require_once("include/lib/GP_Media_Button/gold-plugins-media-button.class.php");
+require_once("include/lib/GP_Janus/gp-janus.class.php");
 
 //setup JS
 function easy_testimonials_setup_js() {
@@ -1889,6 +1891,8 @@ function easy_testimonials_admin_init($hook)
 	// also include some styles on *all* admin pages
 	wp_register_style( 'easy_testimonials_admin_stylesheet_global', plugins_url('include/css/admin_style_global.css', __FILE__) );
 	wp_enqueue_style( 'easy_testimonials_admin_stylesheet_global' );
+
+	
 }
 
 //check for installed plugins with known conflicts
@@ -2411,6 +2415,25 @@ add_action('manage_testimonial_posts_custom_column', 'easy_t_columns_content', 1
 
 add_filter('manage_edit-easy-testimonial-category_columns', 'easy_t_cat_column_head', 10);  
 add_action('manage_easy-testimonial-category_custom_column', 'easy_t_cat_columns_content', 10, 3); 
+
+
+// add media buttons to admin
+$cur_post_type = ( isset($_GET['post']) ? get_post_type(intval($_GET['post'])) : '' );
+if( is_admin() && ( empty($_REQUEST['post_type']) || $_REQUEST['post_type'] !== 'testimonial' ) && ($cur_post_type !== 'testimonial') )
+{
+	global $EasyT_MediaButton;
+	$EasyT_MediaButton = new Gold_Plugins_Media_Button('Testimonials', 'testimonial');
+	$EasyT_MediaButton->add_button('Single Testimonial', $single_testimonial_shortcode, 'singletestimonialwidget', 'testimonial');
+	$EasyT_MediaButton->add_button('Random Testimonial', $random_testimonial_shortcode, 'randomtestimonialwidget', 'testimonial');
+	$EasyT_MediaButton->add_button('List of Testimonials',  $testimonials_shortcode, 'listtestimonialswidget', 'testimonial');
+	$EasyT_MediaButton->add_button('Grid of Testimonials',  $testimonials_grid_shortcode, 'testimonialsgridwidget', 'testimonial');
+	$EasyT_MediaButton->add_button('Testimonial Cycle',  $testimonials_cycle_shortcode, 'cycledtestimonialwidget', 'testimonial');
+}
+
+// load Janus
+if (class_exists('GP_Janus')) {
+	$easy_t_Janus = new GP_Janus();
+}
 
 //add our custom links for Settings and Support to various places on the Plugins page
 $plugin = plugin_basename(__FILE__);

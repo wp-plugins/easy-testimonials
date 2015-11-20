@@ -69,9 +69,9 @@ class listTestimonialsWidget extends WP_Widget
 		$ip = isValidKey();
 		?>
 		<div class="gp_widget_form_wrapper">
-			<p>
+			<p class="hide_in_popup">
 				<label for="<?php echo $this->get_field_id('title'); ?>">Widget Title:</label>
-				<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" data-shortcode-hidden="1" />
 			</p>			
 		
 			<p>
@@ -136,7 +136,7 @@ class listTestimonialsWidget extends WP_Widget
 					
 					<p>
 						<label for="<?php echo $this->get_field_id('order'); ?>">Order:</label><br/>
-						<select id="<?php echo $this->get_field_id('order_by'); ?>" name="<?php echo $this->get_field_name('order_by'); ?>" class="multi_left">
+						<select id="<?php echo $this->get_field_id('order_by'); ?>" name="<?php echo $this->get_field_name('order_by'); ?>" class="multi_left" data-shortcode-key="orderby">
 							<option value="title" <?php if($order_by == "title"): ?>selected="SELECTED"<?php endif; ?>>Title</option>
 							<option value="rand" <?php if($order_by == "rand"): ?>selected="SELECTED"<?php endif; ?>>Random</option>
 							<option value="id" <?php if($order_by == "id"): ?>selected="SELECTED"<?php endif; ?>>ID</option>
@@ -169,7 +169,7 @@ class listTestimonialsWidget extends WP_Widget
 					</p>	
 					
 					<p>
-						<input class="widefat" id="<?php echo $this->get_field_id('show_testimonial_image'); ?>" name="<?php echo $this->get_field_name('show_testimonial_image'); ?>" type="checkbox" value="1" <?php if($show_testimonial_image){ ?>checked="CHECKED"<?php } ?>/>
+						<input class="widefat" id="<?php echo $this->get_field_id('show_testimonial_image'); ?>" name="<?php echo $this->get_field_name('show_testimonial_image'); ?>" type="checkbox" value="1" <?php if($show_testimonial_image){ ?>checked="CHECKED"<?php } ?> data-shortcode-key="show_thumbs" />
 						<label for="<?php echo $this->get_field_id('show_testimonial_image'); ?>">Show Featured Image</label>
 					</p>
 					
